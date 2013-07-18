@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export GTK2_RC_FILES="/usr/share/themes/Clearlooks/gtk-2.0/gtkrc"
+/home/sarumont/tizen-sdk/ide/startup.sh "$@"

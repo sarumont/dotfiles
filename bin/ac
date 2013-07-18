@@ -1,0 +1,10 @@
+#!/bin/sh
+
+plugged=`cat /sys/class/power_supply/ADP0/online`
+
+export DISPLAY=":0.0"
+if test $plugged -eq 0; then
+	xbacklight =25
+else
+	xbacklight =100
+fi

@@ -1,0 +1,16 @@
+#!/usr/bin/env tclsh
+
+if { [llength $argv] != 1 } {
+    puts "Usage: timepoint <TimePoint.getValue()>"
+    exit 1
+}
+
+set tp [string trim [lindex $argv 0]]
+if { ! [string is double $tp] } {
+    puts "TimePoint must be a number."
+    exit 1
+}
+
+set tcl_tp [string range $tp 0 [expr [string length $tp] - 4 ] ]
+
+puts [clock format $tcl_tp]
