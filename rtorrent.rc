@@ -1,0 +1,10 @@
+download_rate=1000
+upload_rate=35
+port_range=10000-11000
+directory=/tank/torrents
+schedule = watch_directory,0,5,load_start=/tank/torrents/*.torrent
+
+#schedule = tied_directory,0,60,start_tied=
+#schedule = untied_directory,0,60,close_untied=
+
+system.method.set_key = event.download.finished,move_complete,"execute=/home/sarumont/code/tcl/process_torrent.tcl,$d.get_base_path="

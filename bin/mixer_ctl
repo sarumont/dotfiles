@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if test $# -ne 2; then
+	echo "Usage: mixer_ctl (up|down) <increment>"
+	exit 1
+fi
+
+mixer=`which amixer`
+cur=`$mixer get Master | grep Mono | cut -d " " -f 6 | sed 's/[^0-9]//g'`
+case $1 in 
+	up)
+		$mixer -q set Master ${2}+
+		;;
+	down)
+		$mixer -q set Master ${2}-
+		;;
+	*)
+		echo "Unknown command: $1"
+		exit 1
+		;;
+esac
