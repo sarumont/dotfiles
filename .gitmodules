@@ -1,0 +1,6 @@
+[submodule "vimfiles"]
+	path = vimfiles
+	url = git@github.com:sarumont/vimfiles.git
+[submodule "zsh-git"]
+	path = zsh-git
+	url = git@github.com:sarumont/zsh-git.git
