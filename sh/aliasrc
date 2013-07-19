@@ -1,0 +1,67 @@
+UNAME=`uname`
+if [[ $UNAME == "Linux" ]]; then
+    alias ls='ls -alh --color=auto --ignore .\*.un~'
+elif [[ $UNAME == "FreeBSD" ]]; then
+    alias ls='ls -alhG'
+else
+    alias ls='ls -alh'
+fi
+if [[ -r ~/.local/sh/aliasrc ]]; then
+    . ~/.local/sh/aliasrc
+fi
+
+# job management
+alias j='jobs'
+alias 1='fg %1'
+alias 2='fg %2'
+alias 3='fg %3'
+alias 4='fg %4'
+alias 5='fg %5'
+alias 6='fg %6'
+alias 7='fg %7'
+alias 8='fg %8'
+alias 9='fg %9'
+
+# coding
+alias api='grep public '
+
+# build aliases
+alias cl='ant clean -s; ant -s'
+alias b='ant -s'
+alias ba="cd ~/dev/nuvos && ant clean && ant && cd ~/dev/thinktank && ant clean && ant"
+alias ua="cd ~/dev/nuvos && git svn rebase && cd ~/dev/thinktank && git svn rebase"
+alias bf="ua && ba"
+
+# log tailing
+alias stail="tail -n500 -f ~/dev/gs/thinktank/server/log/master.log.0"
+alias slog="vim ~/dev/gs/thinktank/server/log/master.log.0"
+alias dtail="tail -n500 -f ~/deploy/tt/log/master.log.0"
+alias doctail="tail -n500 -f ~/dev/gs/thinktank/docserver/run/log/master.log.0"
+alias nttail="tail -n500 -f ~/dev/im/nuvos/test/log/master.log.0"
+alias mtail="tail -n500 -f ~/dev/gs/thinktank/manager/log/master.log.0"
+
+# svn aliases
+alias add_new='for x in `svn st | grep \^\? | cut -d\  -f8`; do svn add $x; done'
+alias st='scm_st'
+alias up='svn up'
+alias sst='svn st | grep -v \^\?'
+alias srvt='svn merge -rHEAD:'
+
+# general aliases
+alias grep='grep --color'
+alias ugrep='ps aux | grep $USER | grep '
+alias med='tt++ -r .ttrc -t med'
+alias bc='bc ~/.bcrc'
+alias tmux="tmux -2"
+alias _git_full_log="git log --graph --oneline --decorate"
+
+# make dev startup easy
+alias dev0='tmux -q has-session -t dev0 && tmux -2 attach-session -t dev0 || cd ~/dev/ && tmux -2 new-session -s dev0 "vim --servername dev0"'
+alias dev1='tmux -q has-session -t dev1 && tmux -2 attach-session -t dev1 || cd ~/dev/ && tmux -2 new-session -s dev1 "vim --servername dev1"'
+alias sk0='tmux -q has-session -t sk0 && tmux -2 attach-session -t sk0 || cd ~/dev/ && tmux -2 new-session -s sk0 "vim --servername sk0"'
+alias sk1='tmux -q has-session -t sk1 && tmux -2 attach-session -t sk1 || cd ~/dev/ && tmux -2 new-session -s sk1 "vim --servername sk1"'
+alias gs0='tmux -q has-session -t gs0 && tmux -2 attach-session -t gs0 || cd ~/dev/ && tmux -2 new-session -s gs0 "vim --servername gs0"'
+alias gs1='tmux -q has-session -t gs1 && tmux -2 attach-session -t gs1 || cd ~/dev/ && tmux -2 new-session -s gs1 "vim --servername gs1"'
+
+alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
+# vim: set ft=zsh:
