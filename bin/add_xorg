@@ -1,0 +1,11 @@
+#!/bin/sh
+
+git submodule add git@github.com:sarumont/xfiles.git .xfiles
+ln -s .xfiles/Xdefaults .Xdefaults
+ln -s .xfiles/gtk-bookmarks .gtk-bookmarks
+ln -s .xfiles/gtkrc-1.2-gnome2 .gtkrc-1.2-gnome2
+ln -s .xfiles/gtkrc-2.0 .gtkrc-2.0
+ln -s .xfiles/icons .icons
+
+git add .
+git commit -m"add xorg"
