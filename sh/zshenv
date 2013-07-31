@@ -1,0 +1,8 @@
+export EDITOR=`which vim`
+export LS_COLORS='mi=37;41:'
+export PATH=~/.local/bin:~/.dotfiles/bin:/opt/bin:${PATH}:/sbin:/usr/sbin
+
+# source machine-specific code
+if [[ -r ~/.local/sh/zshenv ]]; then
+    . ~/.local/sh/zshenv
+fi
