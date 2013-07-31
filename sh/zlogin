@@ -1,16 +1,3 @@
-# Source aliases
-if [[ -r ~/.aliasrc ]]; then
-    . ~/.aliasrc
-fi
-
-# functions
-if [[ -r ~/.dotfiles/sh/functionrc ]]; then
-	. ~/.dotfiles/sh/functionrc
-fi
-
-export EDITOR=`which vim`
-export LS_COLORS='mi=37;41:'
-
 # Set up my keychain
 KEYCHAIN=`which keychain`
 if [[ $? == 0 ]]; then 
@@ -23,8 +10,6 @@ if [[ $? == 0 ]]; then
     [ -f ~/.keychain/`hostname`-sh ] && . ~/.keychain/`hostname`-sh
     [ -f ~/.keychain/`hostname`-sh-gpg ] && . ~/.keychain/`hostname`-sh-gpg
 fi
-
-export PATH=~/.local/bin:~/.dotfiles/bin:/opt/bin:${PATH}:/sbin:/usr/sbin
 
 # source machine-specific code
 if [[ -r ~/.local/sh/zlogin ]]; then

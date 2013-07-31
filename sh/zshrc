@@ -29,6 +29,17 @@ if [[ -r ~/.local/sh/zshrc ]]; then
 	~/.local/sh/zshrc
 fi
 
+# Source aliases
+if [[ -r ~/.dotfiles/sh/aliasrc ]]; then
+    . ~/.dotfiles/sh/aliasrc
+fi
+
+# functions
+if [[ -r ~/.dotfiles/sh/functionrc ]]; then
+	. ~/.dotfiles/sh/functionrc
+fi
+
+
 # source local functions
 fpath=($fpath $HOME/.dotfiles/zsh-git/functions)
 typeset -U fpath
