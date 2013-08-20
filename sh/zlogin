@@ -4,8 +4,8 @@ if [[ $? == 0 ]]; then
 	if [[ -r ~/.ssh/id_dsa ]]; then
 		$KEYCHAIN -q ~/.ssh/id_dsa
 	fi
-	if [[ -r ~/.ssh/id_rsa-rk-sigrun ]]; then
-		$KEYCHAIN -q ~/.ssh/id_rsa-rk-sigrun
+	if [[ -r ~/.gnupg/secring.gpg ]]; then
+		$KEYCHAIN -q 9E54EF59
 	fi
     [ -f ~/.keychain/`hostname`-sh ] && . ~/.keychain/`hostname`-sh
     [ -f ~/.keychain/`hostname`-sh-gpg ] && . ~/.keychain/`hostname`-sh-gpg
