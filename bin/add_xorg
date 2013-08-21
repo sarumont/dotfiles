@@ -9,7 +9,10 @@ ln -s .xfiles/icons .icons
 ln -s .xfiles/fonts .fonts
 ln -s .xfiles/themes .themes
 ln -s .xfiles/xinitrc .xinitrc
+ln -s .xfiles/xprofile .xinitrc
 ln -s .xfiles/xscreensaver .xscreensaver
+
+echo ".xsession-errors*" >> .gitignore
 
 git add .
 git commit -m"add xorg"
