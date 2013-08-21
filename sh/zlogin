@@ -1,15 +1,3 @@
-# Set up my keychain
-KEYCHAIN=`which keychain`
-if [[ $? == 0 ]]; then 
-	if [[ -r ~/.ssh/id_dsa ]]; then
-		$KEYCHAIN -q ~/.ssh/id_dsa
-	fi
-	if [[ -r ~/.gnupg/secring.gpg ]]; then
-		$KEYCHAIN -q 9E54EF59
-	fi
-    [ -f ~/.keychain/`hostname`-sh ] && . ~/.keychain/`hostname`-sh
-    [ -f ~/.keychain/`hostname`-sh-gpg ] && . ~/.keychain/`hostname`-sh-gpg
-fi
 
 # source machine-specific code
 if [[ -r ~/.local/sh/zlogin ]]; then
