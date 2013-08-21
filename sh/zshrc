@@ -24,6 +24,19 @@ setopt extendedhistory incappendhistory histverify histignoredups histnostore hi
 unsetopt beep nomatch
 bindkey -v
 # End of lines configured by zsh-newuser-install
+#
+# Set up my keychain
+KEYCHAIN=`which keychain`
+if [[ $? == 0 ]]; then 
+	if [[ -r ~/.ssh/id_dsa ]]; then
+		$KEYCHAIN -q ~/.ssh/id_dsa
+	fi
+	if [[ -r ~/.gnupg/secring.gpg ]]; then
+		$KEYCHAIN -q 9E54EF59
+	fi
+    [ -f ~/.keychain/`hostname`-sh ] && . ~/.keychain/`hostname`-sh
+    [ -f ~/.keychain/`hostname`-sh-gpg ] && . ~/.keychain/`hostname`-sh-gpg
+fi
 
 if [[ -r ~/.local/sh/zshrc ]]; then
 	~/.local/sh/zshrc
