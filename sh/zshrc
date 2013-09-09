@@ -7,25 +7,16 @@ zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle :compinstall filename '$HOME/.zshrc'
 
-case $TERM in
-	URxvt-256color)
-		export TERM=rxvt-unicode
-		;;
-esac
-
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
+
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
 setopt extendedhistory incappendhistory histverify histignoredups histnostore histignorespace histreduceblanks autocd extendedglob notify dvorak promptsubst
 unsetopt beep nomatch
 bindkey -v
-# End of lines configured by zsh-newuser-install
-#
-# Set up my keychain
+
 KEYCHAIN=`which keychain`
 if [[ $? == 0 ]]; then 
 	if [[ -r ~/.ssh/id_dsa ]]; then
@@ -52,6 +43,7 @@ if [[ -r ~/.dotfiles/sh/functionrc ]]; then
 	. ~/.dotfiles/sh/functionrc
 fi
 
+#. $HOME/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # source local functions
 fpath=($fpath $HOME/.dotfiles/zsh-git/functions)
