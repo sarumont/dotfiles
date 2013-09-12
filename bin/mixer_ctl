@@ -6,13 +6,13 @@ if test $# -ne 2; then
 fi
 
 mixer=`which amixer`
-cur=`$mixer get Master | grep Mono | cut -d " " -f 6 | sed 's/[^0-9]//g'`
+#cur=`$mixer get Master | grep Mono | cut -d " " -f 6 | sed 's/[^0-9]//g'`
 case $1 in 
 	up)
-		$mixer -q set Master ${2}+
+		$mixer -q set both_volume ${2}+
 		;;
 	down)
-		$mixer -q set Master ${2}-
+		$mixer -q set both_volume ${2}-
 		;;
 	*)
 		echo "Unknown command: $1"
