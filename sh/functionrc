@@ -35,91 +35,6 @@ track_lengths() {
 	done
 }
 
-
-# Ease the switching between trunk/branches in svn codebases following the standard layout of:
-#	<repo>
-#		/trunk
-#		/branches
-#		/tags
-sw() {
-
-	if [[ "--help" == $1 ]]; then
-		echo "Usage: sw <branchname>"
-		echo "\nIf no branch is provided, sw will switch to trunk"
-		return 1
-	fi
-
-	switch_to=$1
-	current=`svn info | grep URL | sed -e 's/URL: //'`
-	repo=""
-	if [[ "" == $1 ]]; then
-
-		switch_to="trunk"
-		repo=`echo $current | sed -e 's%\(.*\)branches/.*%\1%'`
-		repo+="trunk/"
-
-		tail=`echo $current | sed -e 's%.*branches/\(.*\)%\1%'`
-		IFS="/"
-		valid=0
-		svn ls ${repo} 2&>1 >/dev/null
-		if [[ $? == 1 ]]; then
-			valid=0
-		else
-			valid=1
-		fi
-
-		if [[ $valid == 0 ]]; then
-			echo "Not a valid branch: $1 ($repo)"
-			return
-		fi
-
-	else
-
-		if [[ $current == *trunk* ]]; then
-
-			cmd="svn info | grep URL | sed -e 's/URL: //' | sed -e 's%trunk%branches/$1%'"
-			repo=`eval $cmd`
-			svn ls ${repo} 2&>1 >/dev/null
-			if [[ $? == 1 ]]; then
-				echo "Not a valid branch: $1 ($repo)"
-				return
-			fi
-
-		else
-
-			repo=`echo $current | sed -e 's%\(.*branches/\).*%\1%'`
-			repo+="$1/"
-
-			tail=`echo $current | sed -e 's%.*branches/\(.*\)%\1%'`
-			IFS="/"
-			valid=0
-			for x in `echo $tail`; do
-
-				svn ls ${repo}${x} 2&>1 >/dev/null
-				if [[ $? == 1 ]]; then
-					valid=0
-					continue
-				fi
-				repo+="${x}/"
-				valid=1
-
-			done
-
-			if [[ $valid == 0 ]]; then
-				echo "Not a valid branch: $1 ($repo)"
-				return
-			fi
-
-		fi
-
-	fi
-
-	echo "*** Switching to:   $repo"
-	svn switch $repo
-	echo "*** Switched to $switch_to"
-
-}
-
 # run git status or svn status as apropriate
 scm_st() {
 	if [[ -d .svn ]]; then
@@ -143,4 +58,33 @@ git_svn_version() {
 		echo $base$mod
 	fi
 }
+
+build() {
+	dir=`pwd`
+	cmd='echo "Could not find buildfile"'
+	until test -z $dir; do
+		if test -f ${dir}/build.xml; then
+			cmd="ant -f ${dir}/build.xml $ANT_BUILD_ARGS"
+			break
+		fi
+		if test -f ${dir}/pom.xml; then
+			cmd="mvn -f ${dir}/pom.xml $MAVEN_BUILD_ARGS"
+			break
+		fi
+		dir=${dir%/*}
+	done
+	eval $cmd
+}
+
+b() {
+	ANT_BUILD_ARGS="build"
+	MAVEN_BUILD_ARGS="compile"
+	build
+}
+cl() {
+	ANT_BUILD_ARGS="clean build"
+	MAVEN_BUILD_ARGS="clean compile"
+	build
+}
+
 # vim: set ft=zsh:
