@@ -25,13 +25,6 @@ alias 9='fg %9'
 # coding
 alias api='grep public '
 
-# build aliases
-alias cl='ant clean -s; ant -s'
-alias b='ant -s'
-alias ba="cd ~/dev/nuvos && ant clean && ant && cd ~/dev/thinktank && ant clean && ant"
-alias ua="cd ~/dev/nuvos && git svn rebase && cd ~/dev/thinktank && git svn rebase"
-alias bf="ua && ba"
-
 # log tailing
 alias stail="tail -n500 -f ~/dev/gs/thinktank/server/log/master.log.0"
 alias slog="vim ~/dev/gs/thinktank/server/log/master.log.0"
