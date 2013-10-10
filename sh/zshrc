@@ -19,6 +19,9 @@ bindkey -v
 
 KEYCHAIN=`which keychain`
 if [[ $? == 0 ]]; then 
+	if [[ -r ~/.ssh/id_rsa ]]; then
+		$KEYCHAIN -q ~/.ssh/id_rsa
+	fi
 	if [[ -r ~/.ssh/id_dsa ]]; then
 		$KEYCHAIN -q ~/.ssh/id_dsa
 	fi
