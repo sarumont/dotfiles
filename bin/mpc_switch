@@ -5,7 +5,7 @@ if test "on" -eq $1; then
 	mpc enable 2
 	mpc disable 1
 else
-	mpc enable 2
-	mpc disable 1
+	mpc enable 1
+	mpc disable 2
 fi
 mpc play
