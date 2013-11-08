@@ -1,7 +1,7 @@
 #!/bin/sh
 
 mpc pause
-if test "on" -eq $1; then
+if test "on" = $1; then
 	mpc enable 2
 	mpc disable 1
 else
