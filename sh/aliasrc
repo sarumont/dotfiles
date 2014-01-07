@@ -58,7 +58,5 @@ alias gs1='tmux -q has-session -t gs1 && tmux -2 attach-session -t gs1 || cd ~/d
 
 alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
 
-alias scrub="vim -o note:todo -c 'split note:`date +%Y-%m-%d`'"
-alias todo='vim note:`date +%Y-%m-%d`'
 
 # vim: set ft=zsh:
