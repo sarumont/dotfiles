@@ -86,5 +86,11 @@ cl() {
 	MAVEN_BUILD_ARGS="clean compile"
 	build
 }
+scrub() {
+	vim -o note:todo -c 'split note:`date +%Y-%m-%d`'"
+}
+todo() {
+	vim note:`date +%Y-%m-%d`'
+}
 
 # vim: set ft=zsh:
