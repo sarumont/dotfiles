@@ -1,0 +1,61 @@
+######################################################################
+# colors definitions                                                 #
+######################################################################
+
+# color <where> <foreground> <background> [regexp]
+
+# normal : default color - white on black
+color normal		white		default
+color attachment	yellow	default
+color tilde			blue		default
+color markers		red	default
+color tree			red		default
+
+# some in-mail colors : quotes, signature
+color quoted		cyan		default
+color quoted1		green		default
+color quoted2		red		default
+color quoted3		yellow		default
+color quoted4		green		default
+
+color signature		cyan		default
+
+# various smilies and text formatting
+color body			green	default " [;:,][-=][\])>(<|]"
+color body			blue	default "(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$)" # *Bold* text.
+color body			blue	default "(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)"     # _Underlined_ text.
+color body			blue	default "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"     # /Italic/ text.
+color body	     	red 	default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color body	     	blue 	default (https?|ftp|news|telnet|finger|e2dk)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+
+# status bar
+color status		blue	default
+
+# headers colors
+color hdrdefault	cyan		default
+color header     	blue	default ^From:
+color header	  	cyan	default ^To:
+color header	  	cyan		default ^Reply-To:
+color header		magenta		default ^Date:
+color header	  	cyan	default ^Cc:
+color header	  	green	default ^Subject:
+color header		black 		default ^X-Mailer:
+color header		black		default ^User-Agent:
+
+
+# indicator colors
+color indicator  	green 		black
+color index			brightwhite	default "~N !~T !~F"			# regular new
+color index			red	default "~F"				# flagged
+color index			cyan	default "~T"				# tagged
+color index			black 		default "~D"				# deleted
+color index			cyan		default "~P"				# from me
+
+color sidebar_new	magenta		default
+
+# PGP Colors
+color body brightblack cyan "^gpg: Signature made.*"
+color body brightblack green "^gpg: Good signature from.*"
+color body brightblack yellow "^gpg: Can't check signature.*"
+color body brightblack yellow "^gpg: WARNING: .*"
+color body brightwhite red "^gpg: BAD signature from.*"
