@@ -1,0 +1,72 @@
+source "~/.dotfiles/mail/colors.rc"
+
+#set crypto_use_gpgme = yes
+
+set mbox_type = Maildir  # mailbox type
+set timeout = 3          # idle time before scanning
+set mail_check = 0       # minimum time between scans
+set pipe_decode          # strip headers and eval mimes when piping
+set thorough_search      # strip headers and eval mimes before searching
+set ascii_chars=yes
+set delete = yes
+set fast_reply
+
+# bindings and macros
+bind compose p postpone-message
+
+bind index p recall-message
+bind index gg first-entry
+bind index G last-entry
+bind index <tab> sync-mailbox
+bind index <space> collapse-thread
+
+bind pager gg top
+bind pager G bottom
+
+bind index,pager R group-reply
+
+
+macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index,pager M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+set sendmail_wait = 0
+
+folder-hook . my_hdr X-OS: `uname -mnrs`
+folder-hook . my_hdr X-Mailer: `mutt -version | head -1`
+folder-hook . my_hdr X-Composed-With: vim
+folder-hook . my_hdr X-PGP-Key: http://sarumont.sigil.org/pubkey.asc
+
+# headers
+ignore *
+unignore From To Cc Subject Date Reply-To Organization X-Mailer User-Agent
+
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+# sidebar
+set sidebar_delim   = '  │'
+set sidebar_visible=yes
+set sidebar_shortpath = yes
+set sidebar_width=28
+bind index,pager \CO sidebar-open
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+macro index,pager B '<enter-command>toggle sidebar_visible<enter>^L'
+
+#pager
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+set pager_stop             # don't go to next message automatically
+set menu_scroll            # scroll in menus
+set tilde                  # show tildes like in vim
+unset markers              # no ugly plus signs
+
+# general
+set sort=threads
+set sort_aux=reverse-date
+set sort_re
+set confirmappend=no
+set index_format="%?M?¬& ?%2M %Z %{%m/%d/%y %H:%M}  %-15.15L  (%?l?%4l&%4c?) %s"
+
+set mailcap_path="~/.dotfiles/mail/mailcap"
+auto_view text/html
+# :vim set ft=muttrc:
