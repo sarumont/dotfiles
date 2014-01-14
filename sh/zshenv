@@ -1,6 +1,8 @@
 export EDITOR=`which vim`
 export LS_COLORS='mi=37;41:'
-export PATH=~/.local/bin:~/.dotfiles/bin:/opt/bin:${PATH}:/sbin:/usr/sbin
+export PATH=~/.local/bin:~/.dotfiles/bin:/opt/bin:${PATH}:/sbin:/usr/sbin:$HOME/.rvm/bin
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # source machine-specific code
 if [[ -r ~/.local/sh/zshenv ]]; then
