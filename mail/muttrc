@@ -1,0 +1,27 @@
+set folder = "~/.mail"
+
+source "~/.dotfiles/mail/base.rc"
+source "~/.mutt/sigil.rc"
+
+mailboxes	+sigil/INBOX \
+			+sigil/ebay \
+			+sigil/finances \
+			+sigil/orders \
+			+sigil/paypal \
+			+sigil/mailing-lists \
+			+sigil/mailing-lists.awesome-users \
+			+sigil/mailing-lists.tangent \
+			+sigil/Archives \
+			+sigil/Archives.2014 \
+			+sigil/Archives.2013 \
+			+sigil/Drafts \
+			+sigil/Sent \
+			+sigil/utilities \
+			+nuvos/INBOX \
+			+nuvos/archive \
+			+nuvos/drafts \
+			+nuvos/sent
+
+folder-hook sigil/* source ~/.mutt/sigil.rc
+folder-hook nuvos/* source ~/.mutt/nuvos.rc
+
