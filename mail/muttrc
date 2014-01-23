@@ -3,6 +3,8 @@ set folder = "~/.mail"
 source "~/.dotfiles/mail/base.rc"
 source "~/.mutt/sigil.rc"
 
+alternates "(richard@sigil\.org)|(sarumont@sigil\.org)|(richard@42bottles\.com)|(richard@tripnix\.com)|(richard@nuvos\.com)|(richard@intrameta\.com)"
+
 mailboxes	+sigil/INBOX \
 			+sigil/ebay \
 			+sigil/finances \
