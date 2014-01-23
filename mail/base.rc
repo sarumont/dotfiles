@@ -69,4 +69,10 @@ set index_format="%?M?¬& ?%2M %Z %{%m/%d/%y %H:%M}  %-15.15L  (%?l?%4l&%4c?) %s
 
 set mailcap_path="~/.dotfiles/mail/mailcap"
 auto_view text/html
+
+# contacts
+bind editor <Tab> complete-query
+bind editor ^T complete
+set query_command = "echo ; mutt-eds-query '%s'"
+
 # :vim set ft=muttrc:
