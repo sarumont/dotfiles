@@ -22,7 +22,8 @@ mailboxes	+sigil/INBOX \
 			+nuvos/INBOX \
 			+nuvos/archive \
 			+nuvos/drafts \
-			+nuvos/sent
+			+nuvos/sent \
+			+../.cache/mutt_results
 
 folder-hook sigil/* source ~/.mutt/sigil.rc
 folder-hook nuvos/* source ~/.mutt/nuvos.rc
