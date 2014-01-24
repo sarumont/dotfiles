@@ -11,7 +11,7 @@ set ascii_chars=yes
 set delete = yes
 set fast_reply
 
-# bindings and macros
+# bindings 
 bind compose p postpone-message
 
 bind index p recall-message
@@ -24,8 +24,10 @@ bind pager gg top
 bind pager G bottom
 
 bind index,pager R group-reply
+bind index,pager N search-opposite
 
-
+# macros
+macro index a "<limit>all\n" "show all messages (undo limit)"
 macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index,pager M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
@@ -75,4 +77,8 @@ bind editor <Tab> complete-query
 bind editor ^T complete
 set query_command = "echo ; mutt-eds-query '%s'"
 
-# :vim set ft=muttrc:
+# full text search with notmuch
+# mutt-notmuch-py from https://github.com/honza/mutt-notmuch-py
+macro index S "<enter-command>unset wait_key<enter><shell-escape>$HOME/.dotfiles/mail/mutt-notmuch.py -G<enter><change-folder-readonly>~/.cache/mutt_results<enter>" "search mail (using notmuch)"
+
+# vim: set ft=muttrc:
