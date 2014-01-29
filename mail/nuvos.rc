@@ -10,7 +10,7 @@ color status magenta default
 unset record
 subscribe
 
-macro index O "<shell-escape>offlineimap -a nuvos -qf INBOX,archive,sent,drafts<enter>"
+macro index O "<shell-escape>offlineimap -a nuvos -qf INBOX,archive,sent,drafts,spam<enter>"
 macro index,pager ! '<enter-command>unset resolve<enter><clear-flag>N<enter-command>set resolve<enter><save-message>+nuvos/archive<enter>'
 macro index,pager @ '<enter-command>unset resolve<enter><clear-flag>N<enter-command>set resolve<enter><save-message>+nuvos/spam<enter>'
 
