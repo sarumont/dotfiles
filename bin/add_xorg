@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git submodule add git@github.com:sarumont/xfiles.git .xfiles
+git submodule add git@github.com:sarumont/xfiles.git .xfiles || exit 1
 ln -s .xfiles/Xdefaults .Xdefaults
 ln -s .xfiles/gtk-bookmarks .gtk-bookmarks
 ln -s .xfiles/gtkrc-1.2-gnome2 .gtkrc-1.2-gnome2
@@ -10,7 +10,7 @@ ln -s .xfiles/fonts .fonts
 ln -s .xfiles/themes .themes
 ln -s .xfiles/xinitrc .xinitrc
 ln -s .xfiles/xinitrc .xsession
-ln -s .xfiles/xprofile .xinitrc
+ln -s .xfiles/xprofile .xprofile
 ln -s .xfiles/xscreensaver .xscreensaver
 
 echo ".xsession-errors*" >> .gitignore
