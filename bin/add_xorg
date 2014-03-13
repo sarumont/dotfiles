@@ -12,6 +12,9 @@ ln -s .xfiles/xinitrc .xinitrc
 ln -s .xfiles/xinitrc .xsession
 ln -s .xfiles/xprofile .xprofile
 ln -s .xfiles/xscreensaver .xscreensaver
+mkdir .config
+ln -s .xfiles/awesome .config/
+ln -s .xfiles/redshift.conf .config/
 
 echo ".xsession-errors*" >> .gitignore
 
