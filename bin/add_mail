@@ -13,7 +13,7 @@ ln -s .privfiles/mail/msmtprc .msmtprc
 
 ln -s .dotfiles/mail/notmuch-config .notmuch-config
 
-sudo apt-get install msmtp mutt-patched offlineimap syncevolution notmuch python-keyring w3m dillo
+sudo apt-get install msmtp mutt-patched offlineimap syncevolution notmuch python-keyring w3m dillo libebook1.2-dev
 
 echo "Set up your python keyring passwords using the python shell"
 # python

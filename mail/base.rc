@@ -77,7 +77,7 @@ auto_view text/html
 # contacts
 bind editor <Tab> complete-query
 bind editor ^T complete
-set query_command = "echo ; mutt-eds-query '%s'"
+set query_command = "echo ; eds-query.py '%s'"
 
 # full text search with notmuch
 # mutt-notmuch-py from https://github.com/honza/mutt-notmuch-py
