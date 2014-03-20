@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if test 3 -ne $#; then
+	echo "Usage: $0 r g b"
+	exit 1
+fi
+printf "#%02x%02x%02x\n" $1 $2 $3
