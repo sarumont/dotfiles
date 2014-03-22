@@ -1,14 +1,15 @@
 #!/bin/sh
 
-connected=`cat /sys/class/drm/card0-DP-3/status`
+source ~/.local/machine
+connected=`cat /sys/class/drm/$EXTERNAL_DEVICE/status`
 
 export DISPLAY=":0.0"
 if test $connected = "connected"; then
-	xrandr --output LVDS1 --off
-	xrandr --output DP3 --auto
-	amixer set Speaker mute
+	xrandr --output $LAPTOP_SCREEN --off
+	xrandr --output $EXTERNAL_SCREEN --auto
+	amixer -D onboard set Speaker mute
 else
-	xrandr --output LVDS1 --auto
-	xrandr --output DP3 --off
-	amixer set Speaker unmute
+	xrandr --output $EXTERNAL_SCREEN --off
+	xrandr --output $LAPTOP_SCREEN --auto
+	amixer -D onboard set Speaker unmute
 fi
