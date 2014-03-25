@@ -8,7 +8,7 @@
 
 import cStringIO
 import sqlite3
-import sys, os
+import sys, os, traceback
 
 def die(msg):
     print >> sys.stderr, msg
@@ -43,9 +43,13 @@ try:
     while vc is not None:
         try:
             vcard = vobject.readOne(vc[0])
-            for email in vcard.contents['email']:
-                matches.append((email.value, vcard.fn.value))
+            if 'email' in vcard.contents:
+                for email in vcard.contents['email']:
+                    matches.append((email.value, vcard.fn.value))
         except TypeError, KeyError:
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            traceback.print_exception(exc_type, exc_value, exc_traceback,
+                    limit=2, file=sys.stdout)
             pass
         contact_count += 1
         vc = cursor.fetchone();
