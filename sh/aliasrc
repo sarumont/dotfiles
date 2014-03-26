@@ -58,5 +58,6 @@ alias gs1='tmux -q has-session -t gs1 && tmux -2 attach-session -t gs1 || cd ~/d
 
 alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
 
+alias ag="ag --smart-case"
 
 # vim: set ft=zsh:
