@@ -3,3 +3,6 @@
 *.un~
 libpeerconnection.log
 *DS_Store
+*.class
+*.jar
+target/*
