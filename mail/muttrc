@@ -19,6 +19,11 @@ mailboxes	+sigil/INBOX \
 			+sigil/Drafts \
 			+sigil/Sent \
 			+sigil/utilities \
+			+sigil-consulting/INBOX \
+			+sigil-consulting/Archives \
+			+sigil-consulting/Archives.2014 \
+			+sigil-consulting/Drafts \
+			+sigil-consulting/Sent \
 			+nuvos/INBOX \
 			+nuvos/archive \
 			+nuvos/drafts \
@@ -26,5 +31,6 @@ mailboxes	+sigil/INBOX \
 			+../.cache/mutt_results
 
 folder-hook sigil/* source ~/.mutt/sigil.rc
+folder-hook sigil-consulting/* source ~/.mutt/sigil-consulting.rc
 folder-hook nuvos/* source ~/.mutt/nuvos.rc
 

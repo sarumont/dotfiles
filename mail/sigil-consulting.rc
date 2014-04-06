@@ -1,0 +1,16 @@
+set from = "richard@sigilconsultingltd.com"
+set sendmail = "/usr/bin/msmtp -a sigil-consulting"
+set spoolfile = "+sigil-consulting/INBOX"
+set postponed = "+sigil-consulting/Drafts"
+set record = "+sigil-consulting/Sent"
+set trash = "+sigil-consulting/Trash"
+set signature="~/.mutt/sigil-consulting.signature"
+
+color status blue default
+
+macro index O "<shell-escape>offlineimap -a SigilConsulting -qf INBOX,Archives.2014,Sent,finances,Spam,Drafts<enter>"
+macro index,pager ! '<enter-command>unset resolve<enter><clear-flag>N<enter-command>set resolve<enter><save-message>+sigil-consulting/Archives.2014<enter>'
+macro index,pager @ '<enter-command>unset resolve<enter><clear-flag>N<enter-command>set resolve<enter><save-message>+sigil-consulting/Spam<enter>'
+
+
+# :vim set ft=muttrc:
