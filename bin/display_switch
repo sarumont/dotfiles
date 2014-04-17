@@ -5,10 +5,12 @@ connected=`cat /sys/class/drm/$EXTERNAL_DEVICE/status`
 
 export DISPLAY=":0.0"
 if test $connected = "connected"; then
+	xrandr --dpi $DESK_DPI
 	xrandr --output $LAPTOP_SCREEN --off
 	xrandr --output $EXTERNAL_SCREEN --auto
 	pactl set-sink-mute $PULSE_ONBOARD_NAME 1
 else
+	xrandr --dpi $LAPTOP_DPI
 	xrandr --output $EXTERNAL_SCREEN --off
 	xrandr --output $LAPTOP_SCREEN --auto
 	pactl set-sink-mute $PULSE_ONBOARD_NAME 0

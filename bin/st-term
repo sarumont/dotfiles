@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. ~/.local/sh/machine
+connected=`cat /sys/class/drm/$EXTERNAL_DEVICE/status`
+if test $connected = "connected"; then
+	/usr/local/bin/st $@
+else
+	/usr/local/bin/st-highres $@
+fi

@@ -1,6 +1,7 @@
 #!/bin/sh
 
-plugged=`cat /sys/class/power_supply/ADP0/online`
+. ~/.local/sh/machine
+plugged=`cat /sys/class/power_supply/$AC_ADAPTER/online`
 
 export DISPLAY=":0.0"
 if test $plugged -eq 0; then
