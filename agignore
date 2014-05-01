@@ -1,8 +1,20 @@
+# vim artifacts
 *.sw?
-*.pyc
 *.un~
 libpeerconnection.log
+
+# OS X shit
 *DS_Store
+
+# build artifacts
+*.pyc
 *.class
 *.jar
 target/*
+build/*
+
+# images
+*.png
+*.gif
+*.jpg
+*.jpeg
