@@ -1,0 +1,40 @@
+#!/bin/sh
+
+print_usage() {
+	echo "usage: $0 [-m] [-u github_user] [-r github_repo] -s start_tag -e end_tag"
+	echo "  -m: use markdown"
+	echo "  -s: starting tag"
+	echo "  -e: ending tag"
+	echo "  -u: Github user (for generating links)"
+	echo "  -r: Github repository (for generating links)"
+	exit 1
+}
+
+while getopts ms:e:u:r: o
+do
+	case "$o" in
+		s) start=$OPTARG ;;
+		e) end=$OPTARG ;;
+		u) user=$OPTARG ;;
+		r) repo=$OPTARG ;;
+		m) markdown=1 ;;
+		[?]) print_usage
+	esac
+done
+
+if test -z $start; then
+	print_usage
+fi
+if test -z $end; then
+	print_usage
+fi
+
+format="%s"
+if test $markdown; then
+	if test $user; then
+		if test $repo; then
+			format="[view](https://github.com/$user/$repo/commit/%H) &bull; %s"
+		fi
+	fi
+fi
+git log $start...$end --reverse --pretty=format:"$format"
