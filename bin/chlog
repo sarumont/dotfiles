@@ -29,12 +29,15 @@ if test -z $end; then
 	print_usage
 fi
 
+header="\n$end\n"
 format="%s"
 if test $markdown; then
 	if test $user; then
 		if test $repo; then
-			format="[view](https://github.com/$user/$repo/commit/%H) &bull; %s"
+			header="\n\n**$end**\n\n"
+			format="[view](https://github.com/$user/$repo/commit/%H) &bull; %s  "
 		fi
 	fi
 fi
+echo $header
 git log $start...$end --reverse --pretty=format:"$format"
