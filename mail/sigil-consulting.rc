@@ -1,4 +1,4 @@
-set from = "richard@sigilconsultingltd.com"
+set from = "richard@sigilltd.com"
 set sendmail = "/usr/bin/msmtp -a sigil-consulting"
 set spoolfile = "+sigil-consulting/INBOX"
 set postponed = "+sigil-consulting/Drafts"
