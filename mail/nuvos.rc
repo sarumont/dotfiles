@@ -4,6 +4,7 @@ set spoolfile = "+nuvos/INBOX"
 set postponed = "+nuvos/drafts"
 set trash = "+nuvos/trash"
 set signature="~/.mutt/nuvos.signature"
+set pgp_autosign = no
 
 color status magenta default
 
