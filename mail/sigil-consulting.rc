@@ -5,6 +5,7 @@ set postponed = "+sigil-consulting/Drafts"
 set record = "+sigil-consulting/Sent"
 set trash = "+sigil-consulting/Trash"
 set signature="~/.mutt/sigil-consulting.signature"
+set pgp_autosign = no
 
 color status blue default
 
