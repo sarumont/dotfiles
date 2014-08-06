@@ -9,6 +9,8 @@ if test $connected = "connected"; then
 	xrandr --output $LAPTOP_SCREEN --off
 	xrandr --output $EXTERNAL_SCREEN --auto
 	pactl set-sink-mute $PULSE_ONBOARD_NAME 1
+	xset r rate 250 100
+	setxkbmap -option ctrl:nocaps
 else
 	xrandr --dpi $LAPTOP_DPI
 	xrandr --output $EXTERNAL_SCREEN --off
