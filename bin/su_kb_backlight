@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [ -f ~/.local/sh/machine ]; then
+	. ~/.local/sh/machine
+fi
+
+if [ ! -d $KBD_BACKLIGHT ]; then
+	exit 0
+fi
+
+cur=`cat $KBD_BACKLIGHT/brightness`
+max=`cat $KBD_BACKLIGHT/max_brightness`
+val=$cur
+
+case "$1" in
+	'up')
+		if [ $cur -eq $max ]; then 
+			val=0
+		else
+			val=$(( $cur + 1 ))
+		fi
+		;;
+	'down')
+		if [ $cur -eq 0 ]; then 
+			val=0
+		else
+			val=$(( $cur - 1 ))
+		fi
+		;;
+esac
+echo $val > $KBD_BACKLIGHT/brightness
