@@ -14,16 +14,12 @@ val=$cur
 
 case "$1" in
 	'up')
-		if [ $cur -eq $max ]; then 
-			val=0
-		else
+		if [ $cur -lt $max ]; then 
 			val=$(( $cur + 1 ))
 		fi
 		;;
 	'down')
-		if [ $cur -eq 0 ]; then 
-			val=0
-		else
+		if [ $cur -gt 0 ]; then 
 			val=$(( $cur - 1 ))
 		fi
 		;;
