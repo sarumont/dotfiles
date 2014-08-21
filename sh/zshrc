@@ -27,8 +27,8 @@ if [[ $? == 0 ]]; then
 	fi
     [ -f ~/.keychain/`hostname`-sh ] && . ~/.keychain/`hostname`-sh
 
-	$KEYCHAIN -q 0x061B0A3844767B61
-    [ -f ~/.keychain/`hostname`-sh-gpg ] && . ~/.keychain/`hostname`-sh-gpg
+	#$KEYCHAIN -q 0x061B0A3844767B61
+    #[ -f ~/.keychain/`hostname`-sh-gpg ] && . ~/.keychain/`hostname`-sh-gpg
 fi
 
 if [[ -r ~/.local/sh/zshrc ]]; then
