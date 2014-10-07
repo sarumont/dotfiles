@@ -12,6 +12,7 @@ libpeerconnection.log
 *.jar
 target/*
 build/*
+WEB-INF/*
 
 # images
 *.png
