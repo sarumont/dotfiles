@@ -63,6 +63,14 @@ build() {
 	dir=`pwd`
 	cmd='echo "Could not find buildfile"'
 	until test -z $dir; do
+		if test -f ${dir}/build.gradle; then
+			cmd="gradle -b ${dir}/build.gradle -p ${dir} $GRADLE_BUILD_ARGS"
+			break
+		fi
+		if test -f ${dir}/settings.gradle; then
+			cmd="gradle -c ${dir}/settings.gradle -p ${dir} $GRADLE_BUILD_ARGS"
+			break
+		fi
 		if test -f ${dir}/build.xml; then
 			cmd="ant -f ${dir}/build.xml $ANT_BUILD_ARGS"
 			break
@@ -78,11 +86,13 @@ build() {
 
 b() {
 	ANT_BUILD_ARGS="build"
+	GRADLE_BUILD_ARGS="build"
 	MAVEN_BUILD_ARGS="compile"
 	build
 }
 cl() {
 	ANT_BUILD_ARGS="clean build"
+	GRADLE_BUILD_ARGS="clean build"
 	MAVEN_BUILD_ARGS="clean compile"
 	build
 }
