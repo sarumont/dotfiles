@@ -103,4 +103,7 @@ todo() {
 	vim note:`date +%Y-%m-%d`
 }
 
+if [[ -r ~/.local/sh/functionrc ]]; then
+	. ~/.local/sh/functionrc
+fi
 # vim: set ft=zsh:
