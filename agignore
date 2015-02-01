@@ -1,4 +1,5 @@
-# vim artifacts
+# editor artifacts
+*.iml
 *.sw?
 *.un~
 libpeerconnection.log
