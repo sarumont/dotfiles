@@ -15,6 +15,7 @@ mailboxes	+sigil/INBOX \
 			+sigil/mailing-lists.awesome-users \
 			+sigil/mailing-lists.tangent \
 			+sigil/Archives \
+			+sigil/Archives.2015 \
 			+sigil/Archives.2014 \
 			+sigil/Archives.2013 \
 			+sigil/Drafts \
@@ -22,6 +23,7 @@ mailboxes	+sigil/INBOX \
 			+sigil/utilities \
 			+sigil-consulting/INBOX \
 			+sigil-consulting/Archives \
+			+sigil-consulting/Archives.2015 \
 			+sigil-consulting/Archives.2014 \
 			+sigil-consulting/Drafts \
 			+sigil-consulting/Sent \
