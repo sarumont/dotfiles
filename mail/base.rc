@@ -50,7 +50,6 @@ set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)
 # sidebar
 set sidebar_delim   = '  │'
 set sidebar_visible=yes
-set sidebar_shortpath = yes
 set sidebar_width=28
 bind index,pager \CO sidebar-open
 bind index,pager \CP sidebar-prev
