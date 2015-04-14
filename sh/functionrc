@@ -112,6 +112,10 @@ todo() {
 	vim note:`date +%Y-%m-%d`
 }
 
+is_highres() {
+	return 0
+}
+
 if [[ -r ~/.local/sh/functionrc ]]; then
 	. ~/.local/sh/functionrc
 fi
