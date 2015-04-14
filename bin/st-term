@@ -1,9 +1,11 @@
 #!/bin/sh
 
 . ~/.local/sh/machine
-connected=`cat /sys/class/drm/$EXTERNAL_DEVICE/status`
-if test $connected = "connected"; then
-	/usr/local/bin/st $@
-else
+is_highres
+if test $? -eq 0; then
+	echo "high"
 	/usr/local/bin/st-highres $@
+else
+	echo "low"
+	/usr/local/bin/st $@
 fi

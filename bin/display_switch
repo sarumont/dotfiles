@@ -1,19 +1,26 @@
 #!/bin/sh
 
-. ~/.local/sh/machine
-connected=`cat /sys/class/drm/$EXTERNAL_DEVICE/status`
+#sleep 1
+echo "===========" >> /tmp/foo
 
+. ~/.local/sh/machine
 export DISPLAY=":0.0"
-if test $connected = "connected"; then
-	xrandr --dpi $DESK_DPI
+
+add_modes
+export_modeset
+export_dpi
+echo "DPI: $DPI MODE: $MODE" >> /tmp/foo
+
+xrandr --dpi $DPI
+is_connected
+if test $? -eq 0; then
 	xrandr --output $LAPTOP_SCREEN --off
-	xrandr --output $EXTERNAL_SCREEN --auto
+	xrandr --output $EXTERNAL_SCREEN $MODE
 	pactl set-sink-mute $PULSE_ONBOARD_NAME 1
 	xset r rate 250 100
 	setxkbmap -option ctrl:nocaps
 else
-	xrandr --dpi $LAPTOP_DPI
 	xrandr --output $EXTERNAL_SCREEN --off
-	xrandr --output $LAPTOP_SCREEN --auto
+	xrandr --output $LAPTOP_SCREEN $MODE
 	pactl set-sink-mute $PULSE_ONBOARD_NAME 0
 fi
