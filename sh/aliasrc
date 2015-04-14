@@ -25,14 +25,6 @@ alias 9='fg %9'
 # coding
 alias api='grep public '
 
-# log tailing
-alias stail="tail -n500 -f ~/dev/gs/thinktank/server/log/master.log.0"
-alias slog="vim ~/dev/gs/thinktank/server/log/master.log.0"
-alias dtail="tail -n500 -f ~/deploy/tt/log/master.log.0"
-alias doctail="tail -n500 -f ~/dev/gs/thinktank/docserver/run/log/master.log.0"
-alias nttail="tail -n500 -f ~/dev/im/nuvos/test/log/master.log.0"
-alias mtail="tail -n500 -f ~/dev/gs/thinktank/manager/log/master.log.0"
-
 # svn aliases
 alias add_new='for x in `svn st | grep \^\? | cut -d\  -f8`; do svn add $x; done'
 alias st='scm_st'
@@ -47,14 +39,6 @@ alias med='tt++ -r .ttrc -t med'
 alias bc='bc ~/.dotfiles/bcrc'
 alias tmux="tmux -2 -u"
 alias _git_full_log="git log --graph --oneline --decorate"
-
-# make dev startup easy
-alias dev0='tmux -q has-session -t dev0 && tmux -2 attach-session -t dev0 || cd ~/dev/ && tmux -2 new-session -s dev0 "vim --servername dev0"'
-alias dev1='tmux -q has-session -t dev1 && tmux -2 attach-session -t dev1 || cd ~/dev/ && tmux -2 new-session -s dev1 "vim --servername dev1"'
-alias sk0='tmux -q has-session -t sk0 && tmux -2 attach-session -t sk0 || cd ~/dev/ && tmux -2 new-session -s sk0 "vim --servername sk0"'
-alias sk1='tmux -q has-session -t sk1 && tmux -2 attach-session -t sk1 || cd ~/dev/ && tmux -2 new-session -s sk1 "vim --servername sk1"'
-alias gs0='tmux -q has-session -t gs0 && tmux -2 attach-session -t gs0 || cd ~/dev/ && tmux -2 new-session -s gs0 "vim --servername gs0"'
-alias gs1='tmux -q has-session -t gs1 && tmux -2 attach-session -t gs1 || cd ~/dev/ && tmux -2 new-session -s gs1 "vim --servername gs1"'
 
 alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
 
