@@ -94,16 +94,17 @@ build() {
 }
 
 b() {
-	ANT_BUILD_ARGS="build"
-	GRADLE_BUILD_ARGS="build"
-	MAVEN_BUILD_ARGS="compile"
+	ANT_BUILD_ARGS=""
+	GRADLE_BUILD_ARGS=""
+	MAVEN_BUILD_ARGS=""
 	build
 }
 cl() {
-	ANT_BUILD_ARGS="clean build"
-	GRADLE_BUILD_ARGS="clean build"
-	MAVEN_BUILD_ARGS="clean compile"
+	ANT_BUILD_ARGS="clean"
+	GRADLE_BUILD_ARGS="clean"
+	MAVEN_BUILD_ARGS="clean"
 	build
+	b
 }
 scrub() {
 	vim -o note:todo -c "vsplit note:`date +%Y-%m-%d`"
