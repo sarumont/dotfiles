@@ -44,4 +44,6 @@ alias update_submodules='git pull --recurse-submodules && git submodule update -
 
 alias ag="ag --smart-case"
 
+alias sub_st='for x in `find . -maxdepth 1 -mindepth 1 -type d`; do cd $x; echo $x:; git status -s; cd ..; done'
+
 # vim: set ft=zsh:
