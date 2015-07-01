@@ -40,4 +40,4 @@ if test $markdown; then
 	fi
 fi
 echo $header
-git log $start...$end --reverse --pretty=format:"$format"
+git log $start...$end --no-merges --reverse --pretty=format:"$format"
