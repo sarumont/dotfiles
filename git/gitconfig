@@ -8,6 +8,7 @@
 	interactive = auto
 [core]
 	excludesfile = ~/gitignore
+	autocrlf = input
 [alias]
 	st = status
 	co = checkout
