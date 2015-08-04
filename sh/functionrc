@@ -9,6 +9,10 @@ f() {
 	find . -iname \*$1\* | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\)
 }
 
+fjf() {
+	find . -iname \*$1\*.java | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\)
+}
+
 fex() {
 	find . | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\) | xargs grep $1
 }
