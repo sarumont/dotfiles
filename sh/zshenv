@@ -23,5 +23,6 @@ path+=(
     $ANT_HOME/bin
     $ANDROID_HOME/platform-tools
     $ANDROID_HOME/tools
-    $HEROKU_HOME/bin .)
+    $HEROKU_HOME/bin
+    .)
 path=($^path(N))
