@@ -77,19 +77,19 @@ build() {
 	cmd='echo "Could not find buildfile"'
 	until test -z $dir; do
 		if test -f ${dir}/build.gradle; then
-			cmd="gradle -b ${dir}/build.gradle -p ${dir} $GRADLE_BUILD_ARGS"
+			cmd="gradle -b ${dir}/build.gradle -p ${dir} $GRADLE_ARGS $GRADLE_BUILD_ARGS"
 			break
 		fi
 		if test -f ${dir}/settings.gradle; then
-			cmd="gradle -c ${dir}/settings.gradle -p ${dir} $GRADLE_BUILD_ARGS"
+			cmd="gradle -c ${dir}/settings.gradle -p ${dir} $GRADLE_ARGS $GRADLE_BUILD_ARGS"
 			break
 		fi
 		if test -f ${dir}/build.xml; then
-			cmd="ant -f ${dir}/build.xml $ANT_BUILD_ARGS"
+			cmd="ant -f ${dir}/build.xml $ANT_ARGS $ANT_BUILD_ARGS"
 			break
 		fi
 		if test -f ${dir}/pom.xml; then
-			cmd="mvn -f ${dir}/pom.xml $MAVEN_BUILD_ARGS"
+			cmd="mvn -f ${dir}/pom.xml $MAVEN_ARGS $MAVEN_BUILD_ARGS"
 			break
 		fi
 		dir=${dir%/*}
