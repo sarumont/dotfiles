@@ -98,9 +98,13 @@ build() {
 }
 
 b() {
-	ANT_BUILD_ARGS=""
-	GRADLE_BUILD_ARGS=""
-	MAVEN_BUILD_ARGS=""
+    target=''
+    if [[ $# -gt 0 ]]; then
+        target=$1
+    fi
+	ANT_BUILD_ARGS="$target"
+	GRADLE_BUILD_ARGS="$target"
+	MAVEN_BUILD_ARGS="$target"
 	build
 }
 cl() {
@@ -108,7 +112,7 @@ cl() {
 	GRADLE_BUILD_ARGS="clean"
 	MAVEN_BUILD_ARGS="clean"
 	build
-	b
+	b $@
 }
 scrub() {
 	vim -o note:todo -c "vsplit note:`date +%Y-%m-%d`"
