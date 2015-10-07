@@ -24,5 +24,6 @@ path+=(
     $ANDROID_HOME/platform-tools
     $ANDROID_HOME/tools
     $HEROKU_HOME/bin
+    $HOME/.rvm/bin
     .)
 path=($^path(N))
