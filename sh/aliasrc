@@ -39,6 +39,7 @@ alias med='tt++ -r .ttrc -t med'
 alias bc='bc ~/.dotfiles/bcrc'
 alias tmux="tmux -2 -u"
 alias _git_full_log="git log --graph --oneline --decorate"
+alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(master|develop)"'
 
 alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
 
