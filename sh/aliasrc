@@ -53,5 +53,6 @@ alias gcm='git commit -m'
 alias ga='git add'
 alias gd='git diff'
 alias gdc='git diff --cached'
+alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop)"`'
 
 # vim: set ft=zsh:
