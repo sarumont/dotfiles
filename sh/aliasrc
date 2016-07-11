@@ -47,4 +47,11 @@ alias ag="ag --smart-case"
 
 alias sub_st='for x in `find . -maxdepth 1 -mindepth 1 -type d`; do cd $x; echo $x:; git status -s; cd ..; done'
 
+alias gup='git up'
+alias gpsh='git push'
+alias gcm='git commit -m'
+alias ga='git add'
+alias gd='git diff'
+alias gdc='git diff --cached'
+
 # vim: set ft=zsh:
