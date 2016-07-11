@@ -12,7 +12,7 @@
 [alias]
 	st = status
 	co = checkout
-	up = pull origin
+	up = !git fetch && git rebase --autostash FETCH_HEAD
 	ci = commit
 	pr = pull --rebase
 [github]
