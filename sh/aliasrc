@@ -49,10 +49,13 @@ alias sub_st='for x in `find . -maxdepth 1 -mindepth 1 -type d`; do cd $x; echo 
 
 alias gup='git up'
 alias gpsh='git push'
+alias gco='git checkout'
 alias gcm='git commit -m'
+alias gca='git commit -am'
 alias ga='git add'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop)"`'
+alias amend='git commit --amend'
 
 # vim: set ft=zsh:
