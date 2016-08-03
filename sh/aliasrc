@@ -1,12 +1,3 @@
-UNAME=`uname`
-if [[ $UNAME == "Linux" ]]; then
-    alias ls='ls -alh --color=auto --ignore .\*.un~'
-elif [[ $UNAME == "FreeBSD" || $UNAME == "Darwin" ]]; then
-    alias ls='ls -alhG'
-else
-    alias ls='ls -alh'
-fi
-
 # job management
 alias j='jobs'
 alias 1='fg %1'
