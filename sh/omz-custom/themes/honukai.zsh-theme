@@ -38,12 +38,20 @@ ys_hg_prompt_info() {
 	fi
 }
 
+[[ -z $box_color ]] && box_color="green"
+
+# hide username if it's standard
+if [[ ${DEFAULT_USER[(r)$USER]} == $USER ]]; then
+    user_part=""
+else 
+    user_part='%{$fg[cyan]%}%n %{$fg[white]%}at '
+fi
+
 # Prompt format: \n # USER at MACHINE in DIRECTORY on git:BRANCH STATE [TIME] \n $
 PROMPT="
 %{$terminfo[bold]$fg[blue]%}#%{$reset_color%} \
-%{$fg[cyan]%}%n \
-%{$fg[white]%}at \
-%{$fg[green]%}$(box_name) \
+${user_part}\
+%{$fg[${box_color}]%}$(box_name) \
 %{$fg[white]%}in \
 %{$terminfo[bold]$fg[yellow]%}${current_dir}%{$reset_color%}\
 ${hg_info}\
