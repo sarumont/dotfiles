@@ -1,4 +1,3 @@
-
 UNAME=`uname`
 if [[ $UNAME == "Linux" ]]; then
     alias ls='ls -alh --color=auto --ignore .\*.un~'
@@ -34,9 +33,10 @@ alias ag="ag --smart-case"
 alias sub_st='for x in `find . -maxdepth 1 -mindepth 1 -type d`; do cd $x; echo $x:; git status -s; cd ..; done'
 
 # SCM
+alias gcm='git commit -m' # override gcm - git checkout master is useless
+alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop)"`'
 alias gup='git up' # defer this to ~/gitconfig
 alias st='scm_st'
-alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop)"`'
 
 if [[ -r ~/.local/sh/aliasrc ]]; then
     . ~/.local/sh/aliasrc
