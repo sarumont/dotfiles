@@ -9,7 +9,24 @@ path[1,0]=($HOME/.local/bin $HOME/.dotfiles/bin /opt/bin)
 # path append
 path+=(/sbin /usr/sbin $HOME/.rvm/bin)
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+rvm() {
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && unfunction rvm && . "$HOME/.rvm/scripts/rvm" && rvm $@ || echo "rvm not installed"
+}
+
+nvm() {
+    [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh" && nvm $@ || echo "nvm not installed"
+}
+
+jenv() {
+    if which jenv > /dev/null; then 
+        unfunction jenv
+        eval "$(jenv init -)"
+        jenv $@
+    else 
+        echo "jenv not installed"
+    fi
+}
+
 
 # source machine-specific code
 if [[ -r ~/.local/sh/zshenv ]]; then
