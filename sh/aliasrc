@@ -6,9 +6,6 @@ elif [[ $UNAME == "FreeBSD" || $UNAME == "Darwin" ]]; then
 else
     alias ls='ls -alh'
 fi
-if [[ -r ~/.local/sh/aliasrc ]]; then
-    . ~/.local/sh/aliasrc
-fi
 
 # job management
 alias j='jobs'
@@ -59,4 +56,7 @@ alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(mas
 alias amend='git commit --amend'
 alias grh='git reset HEAD'
 
+if [[ -r ~/.local/sh/aliasrc ]]; then
+    . ~/.local/sh/aliasrc
+fi
 # vim: set ft=zsh:
