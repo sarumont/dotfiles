@@ -19,42 +19,21 @@ alias 7='fg %7'
 alias 8='fg %8'
 alias 9='fg %9'
 
-# coding
-alias api='grep public '
-
-# svn aliases
-alias add_new='for x in `svn st | grep \^\? | cut -d\  -f8`; do svn add $x; done'
-alias st='scm_st'
-alias up='svn up'
-alias sst='svn st | grep -v \^\?'
-alias srvt='svn merge -rHEAD:'
-
 # general aliases
 alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
-alias med='tt++ -r .ttrc -t med'
 alias bc='bc ~/.dotfiles/bcrc'
 alias tmux="tmux -2 -u"
 alias _git_full_log="git log --graph --oneline --decorate"
 alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(master|develop)"'
 
 alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
-
 alias ag="ag --smart-case"
 
 alias sub_st='for x in `find . -maxdepth 1 -mindepth 1 -type d`; do cd $x; echo $x:; git status -s; cd ..; done'
 
-alias gup='git up'
-alias gpsh='git push'
-alias gco='git checkout'
-alias gcm='git commit -m'
-alias gca='git commit -am'
-alias ga='git add'
-alias gd='git diff'
-alias gdc='git diff --cached'
+alias st='scm_st'
 alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop)"`'
-alias amend='git commit --amend'
-alias grh='git reset HEAD'
 
 if [[ -r ~/.local/sh/aliasrc ]]; then
     . ~/.local/sh/aliasrc
