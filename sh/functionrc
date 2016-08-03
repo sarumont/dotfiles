@@ -57,11 +57,6 @@ scm_st() {
 	eval $cmd
 }
 
-# Local functions
-if [[ -r ~/.local/functionrc ]]; then
-    . ~/.local/functionrc
-fi
-
 git_svn_version() {
 	if [[ -d .svn ]]; then
 		echo `command svnversion`
