@@ -1,5 +1,7 @@
 typeset -U path
 
+DEFAULT_USER=(sarumont richard)
+export $DEFAULT_USER
 export EDITOR=`which vim`
 export LS_COLORS='mi=37;41:'
 
@@ -7,7 +9,7 @@ export LS_COLORS='mi=37;41:'
 path[1,0]=($HOME/.local/bin $HOME/.dotfiles/bin /opt/bin)
 
 # path append
-path+=(/sbin /usr/sbin $HOME/.rvm/bin)
+path+=(/sbin /usr/sbin)
 
 rvm() {
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && unfunction rvm && . "$HOME/.rvm/scripts/rvm" && rvm $@ || echo "rvm not installed"
