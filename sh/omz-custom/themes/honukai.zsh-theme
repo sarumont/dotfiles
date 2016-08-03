@@ -38,7 +38,7 @@ ys_hg_prompt_info() {
 	fi
 }
 
-[[ -z $box_color ]] && box_color="green"
+[[ -z $BOX_COLOR ]] && BOX_COLOR="$fg[green]"
 
 # hide username if it's standard
 if [[ ${DEFAULT_USER[(r)$USER]} == $USER ]]; then
@@ -51,7 +51,7 @@ fi
 PROMPT="
 %{$terminfo[bold]$fg[blue]%}#%{$reset_color%} \
 ${user_part}\
-%{$fg[${box_color}]%}$(box_name) \
+%{${BOX_COLOR}%}$(box_name) \
 %{$fg[white]%}in \
 %{$terminfo[bold]$fg[yellow]%}${current_dir}%{$reset_color%}\
 ${hg_info}\
