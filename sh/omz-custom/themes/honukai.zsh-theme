@@ -34,8 +34,8 @@ ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%} ➜"
 
 ZSH_THEME_GIT_COMMITS_AHEAD_PREFIX="%{$fg[magenta]%}↑"
 ZSH_THEME_GIT_COMMITS_BEHIND_PREFIX="%{$fg[magenta]%}↓"
-ZSH_THEME_GIT_COMMITS_AHEAD_SUFFIX=" "
-ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX=" "
+ZSH_THEME_GIT_COMMITS_AHEAD_SUFFIX=""
+ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX=""
 
 # display exitcode on the right when >0
 return_code="%{$fg[red]%}%(?..%? ↵)%{$reset_color%}"
@@ -74,7 +74,7 @@ ${user_part}\
 %{$fg[white]%}in \
 %{$terminfo[bold]$fg[yellow]%}${current_dir}%{$reset_color%}\
 ${hg_info}\
-${git_info}\
+${git_info} \
 %{$fg[white]%}[%*]
 %{$terminfo[bold]$fg[red]%}→ %{$reset_color%}"
 
