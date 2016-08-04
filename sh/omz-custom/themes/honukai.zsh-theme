@@ -11,8 +11,8 @@ local current_dir='${PWD/#$HOME/~}'
 # VCS
 YS_VCS_PROMPT_PREFIX=" %{$fg[white]%}on %{$fg[cyan]%}"
 YS_VCS_PROMPT_SUFFIX="%{$reset_color%}"
-YS_VCS_PROMPT_DIRTY=" %{$fg[red]%}± "
-YS_VCS_PROMPT_CLEAN=" %{$fg[green]%}✔ "
+YS_VCS_PROMPT_DIRTY="%{$fg[red]%} ±"
+YS_VCS_PROMPT_CLEAN="%{$fg[green]%} ✔"
 
 # Git info.
 local git_info='$(git_prompt_info)$(git_remote_prompt)'
@@ -32,8 +32,8 @@ ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%} ✖"
 ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%} ✚"
 ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%} ➜"
 
-ZSH_THEME_GIT_COMMITS_AHEAD_PREFIX="%{$fg[magenta]%}↑"
-ZSH_THEME_GIT_COMMITS_BEHIND_PREFIX="%{$fg[magenta]%}↓"
+ZSH_THEME_GIT_COMMITS_AHEAD_PREFIX="%{$fg[magenta]%} ↑"
+ZSH_THEME_GIT_COMMITS_BEHIND_PREFIX="%{$fg[magenta]%} ↓"
 ZSH_THEME_GIT_COMMITS_AHEAD_SUFFIX=""
 ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX=""
 
