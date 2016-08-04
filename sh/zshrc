@@ -67,11 +67,33 @@ bindkey -v
 
 # bind lazy loaders for version managers
 rvm() {
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && unfunction rvm && . "$HOME/.rvm/scripts/rvm" && rvm $@ || echo "rvm not installed"
+    if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+        unfunction rvm 
+        . "$HOME/.rvm/scripts/rvm" && rvm $@ 
+    else
+        echo "rvm not installed"
+    fi
 }
 
+# TODO: combine these two
 nvm() {
-    [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh" && nvm $@ || echo "nvm not installed"
+    if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
+        unfunction nvm
+        unfunction npm
+        . "$HOME/.nvm/nvm.sh" && nvm $@ 
+    else 
+        echo "nvm not installed"
+    fi
+}
+
+npm() {
+    if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
+        unfunction nvm
+        unfunction npm
+        . "$HOME/.nvm/nvm.sh" && npm $@ 
+    else 
+        echo "npm not installed"
+    fi
 }
 
 jenv() {
