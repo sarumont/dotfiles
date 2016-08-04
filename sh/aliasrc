@@ -1,3 +1,6 @@
+unalias rm
+unalias mv
+
 # job management
 alias j='jobs'
 alias 1='fg %1'
