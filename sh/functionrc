@@ -2,33 +2,16 @@
 # Functions for wrapping up find(1)
 #
 fe() {
-	find . -iname $1 | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\)
+    find . -regex '.*(\.svn|\.sw.|\.git.*)' -prune -o -iname $1 -print
 }
 
 f() {
-	find . -iname \*$1\* | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\)
+    find . -regex '.*(\.svn|\.sw.|\.git.*)' -prune -o -regex ".*$1.*" -print
 }
 
 fjf() {
-	find . -iname \*$1\*.java | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\)
+    find . -regex '.*(\.svn|\.sw.|\.git.*)' -prune -o -regex ".*$1.*\.java" -print
 }
-
-fex() {
-	find . | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\) | xargs grep $1
-}
-
-fx() {
-	find . | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\) | xargs grep -i $1
-}
-
-fexj() {
-	find . -name \*.java | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\) | xargs grep $1
-}
-
-fj() {
-	find . -name \*.java | grep -v \\(\\.svn\\|\\.sw[a-z]\\|\\.git\\) | xargs grep -i $1
-}
-
 
 track_lengths() {
 	for x in *.flac; do 
