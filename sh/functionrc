@@ -96,6 +96,9 @@ bi() {
 cli() {
     cl install $@
 }
+clp() {
+    cl package $@
+}
 
 scrub() {
 	vim -o note:todo -c "vsplit note:`date +%Y-%m-%d`"
