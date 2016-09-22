@@ -1,16 +1,22 @@
 #
 # Functions for wrapping up find(1)
 #
-fe() {
-    find . -regex '.*(\.svn|\.sw.|\.git.*)' -prune -o -iname $1 -print
-}
 
+export FIND_IGNORE_REGEX=".*\.(svn|sw.|git.*|un.)"
+
+# Find the given text in a filename
 f() {
-    find . -regex '.*(\.svn|\.sw.|\.git.*)' -prune -o -regex ".*$1.*" -print
+    find -E . ! -regex "$FIND_IGNORE_REGEX" -regex ".*$1.*" -print
 }
 
+# Find the given text in a Java source file
 fjf() {
-    find . -regex '.*(\.svn|\.sw.|\.git.*)' -prune -o -regex ".*$1.*\.java" -print
+    find -E . ! -regex "$FIND_IGNORE_REGEX" -regex ".*$1.*\.java" -print
+}
+
+# Find a file with the given case-insensitive name
+fe() {
+    find -E . ! -regex "$FIND_IGNORE_REGEX" -iname $1 -print
 }
 
 track_lengths() {
