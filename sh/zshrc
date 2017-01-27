@@ -96,16 +96,6 @@ npm() {
     fi
 }
 
-jenv() {
-    if which jenv > /dev/null; then 
-        unfunction jenv
-        eval "$(jenv init -)"
-        jenv $@
-    else 
-        echo "jenv not installed"
-    fi
-}
-
 if [[ -r ~/.local/sh/zshrc ]]; then
     . ~/.local/sh/zshrc
 fi
@@ -120,3 +110,6 @@ if [[ -r ~/.dotfiles/sh/functionrc ]]; then
     . ~/.dotfiles/sh/functionrc
 fi
 typeset -U fpath
+
+export SDKMAN_DIR="${HOME}/.sdkman"
+[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
