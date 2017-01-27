@@ -17,9 +17,6 @@ fi
 
 # these will always be set in the local if they exist - and '.' is always at the end
 path+=(
-    $MAVEN_HOME/bin
-    $GRADLE_HOME/bin
-    $ANT_HOME/bin
     $ANDROID_HOME/platform-tools
     $ANDROID_HOME/tools
     $HEROKU_HOME/bin
