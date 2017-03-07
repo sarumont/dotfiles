@@ -5,12 +5,13 @@ print_usage() {
 	echo "  -m: use markdown"
 	echo "  -s: starting tag"
 	echo "  -e: ending tag"
+    echo "  -R: reverse order (oldest commits first)"
 	echo "  -u: Github user (for generating links)"
 	echo "  -r: Github repository (for generating links)"
 	exit 1
 }
 
-while getopts ms:e:u:r: o
+while getopts Rms:e:u:r: o
 do
 	case "$o" in
 		s) start=$OPTARG ;;
@@ -18,6 +19,7 @@ do
 		u) user=$OPTARG ;;
 		r) repo=$OPTARG ;;
 		m) markdown=1 ;;
+        R) reverse="--reverse" ;;
 		[?]) print_usage
 	esac
 done
@@ -40,4 +42,4 @@ if test $markdown; then
 	fi
 fi
 echo $header
-git log $start...$end --no-merges --reverse --pretty=format:"$format"
+git log $start...$end --no-merges $reverse --pretty=format:"$format"
