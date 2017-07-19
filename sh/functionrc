@@ -113,6 +113,10 @@ todo() {
 	vim note:`date +%Y-%m-%d`
 }
 
+set_version() {
+    mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$1
+}
+
 is_highres() {
 	return 0
 }
