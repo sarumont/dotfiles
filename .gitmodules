@@ -4,3 +4,6 @@
 [submodule "zsh-git"]
 	path = zsh-git
 	url = git@github.com:sarumont/zsh-git.git
+[submodule "sh/omz-custom/plugins/zsh-nvm"]
+	path = sh/omz-custom/plugins/zsh-nvm
+	url = https://github.com/lukechilds/zsh-nvm

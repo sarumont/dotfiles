@@ -45,11 +45,14 @@ HIST_STAMPS="yyyy-mm-dd"
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$HOME/.dotfiles/sh/omz-custom
 
+NVM_LAZY_LOAD=true
+NVM_AUTO_USE=true
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git common-aliases ssh-agent) 
+plugins=(git common-aliases ssh-agent zsh-nvm) 
 
 source $ZSH/oh-my-zsh.sh
 
@@ -72,27 +75,6 @@ rvm() {
         . "$HOME/.rvm/scripts/rvm" && rvm $@ 
     else
         echo "rvm not installed"
-    fi
-}
-
-# TODO: combine these two
-nvm() {
-    if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
-        unfunction nvm
-        unfunction npm
-        . "$HOME/.nvm/nvm.sh" && nvm $@ 
-    else 
-        echo "nvm not installed"
-    fi
-}
-
-npm() {
-    if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
-        unfunction nvm
-        unfunction npm
-        . "$HOME/.nvm/nvm.sh" && npm $@ 
-    else 
-        echo "npm not installed"
     fi
 }
 
