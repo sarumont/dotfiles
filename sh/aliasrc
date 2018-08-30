@@ -30,6 +30,8 @@ alias sub_st='for x in `find . -maxdepth 1 -mindepth 1 -type d`; do cd $x; echo 
 alias gcm='git commit -m' # override gcm - git checkout master is useless
 alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
 alias gup='git up' # defer this to ~/gitconfig
+alias full_pull='git pull --rebase && git fetch --all --prune && git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
+
 alias st='scm_st'
 alias gtt='git log -1 --format=%ai '
 
