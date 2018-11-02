@@ -31,3 +31,4 @@
 .zcompdump*
 .zsh-update
 .zsh_history
+[a-zA-Z]*
