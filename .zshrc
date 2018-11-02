@@ -45,7 +45,7 @@ ZSH_THEME=""
 HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.dotfiles/sh/omz-custom
+ZSH_CUSTOM=$HOME/.omz-custom
 
 NVM_LAZY_LOAD=true
 NVM_AUTO_USE=true
