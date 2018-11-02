@@ -19,8 +19,6 @@ for development work.
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
 
-    git checkout ng
-
     # optional: git submodule add git@github.com:sarumont/privfiles.git .privfiles
 
     git submodule update --init --recursive
