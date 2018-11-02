@@ -28,7 +28,13 @@
 .vimtags
 .wget-hsts
 .yankring_history_v2.txt
+.yarnrc
 .zcompdump*
 .zsh-update
 .zsh_history
+
+# ignore non-dotfiles
 [a-zA-Z]*
+
+# ignore logfiles, even if they are dotted
+*.log
