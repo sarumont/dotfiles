@@ -121,7 +121,6 @@ is_highres() {
 	return 0
 }
 
-if [[ -r ~/.local/sh/functionrc ]]; then
-	. ~/.local/sh/functionrc
+if [[ -r ~/.local/sh/functions.zsh ]]; then
+	. ~/.local/sh/functions.zsh
 fi
-# vim: set ft=zsh:

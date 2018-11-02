@@ -85,13 +85,13 @@ if [[ -r ~/.local/sh/zshrc ]]; then
 fi
 
 # Source aliases
-if [[ -r ~/.dotfiles/sh/aliasrc ]]; then
-    . ~/.dotfiles/sh/aliasrc
+if [[ -r ~/.aliases.zsh ]]; then
+    . ~/.aliases.zsh
 fi
 
 # functions
-if [[ -r ~/.dotfiles/sh/functionrc ]]; then
-    . ~/.dotfiles/sh/functionrc
+if [[ -r ~/.functions.zsh ]]; then
+    . ~/.functions.zsh
 fi
 typeset -U fpath
 
