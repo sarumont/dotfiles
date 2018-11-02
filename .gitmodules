@@ -1,11 +1,11 @@
 [submodule "sh/omz-custom/plugins/zsh-nvm"]
-	path = .local/sh/omz-custom/plugins/zsh-nvm
+	path = .omz-custom/plugins/zsh-nvm
 	url = https://github.com/lukechilds/zsh-nvm
 [submodule "sh/pure"]
 	path = .local/sh/pure
 	url = https://github.com/sindresorhus/pure.git
 [submodule "sh/omz-custom/plugins/zsh-syntax-highlighting"]
-	path = .local/sh/omz-custom/plugins/zsh-syntax-highlighting
+	path = .omz-custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule ".tmux"]
 	path = .tmux
