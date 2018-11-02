@@ -1,0 +1,33 @@
+import:
+    copy: no
+    move: yes
+    incremental: yes
+
+threaded: yes
+clutter: [ "Thumbs.DB", ".DS_Store", "*.m3u", "*.txt" ]
+
+plugins: lastgenre inline info fetchart web bpd copyartifacts
+format_item: $artist - $album - $title [$genre] [$format]
+
+copyartifacts:
+    extensions: .pdf .png .jpg
+    print_ignored: yes
+
+lastgenre:
+    canonical: ''
+    source: artist
+
+per_disc_numbering: true
+
+item_fields:
+    multidisk: 1 if disctotal > 1 else 0
+
+paths:
+    albumtype:soundtrack: %asciify{Soundtracks/$album/$track $title}
+    singleton: %asciify{Singletons/$artist - $title}
+    comp: %asciify{$genre/$album/$track $title}
+    default: %asciify{$genre/$albumartist/$album%aunique{}/%if{$multidisk,CD${disc}/}$track $title}
+
+bpd:
+    host: 127.0.0.1
+    port: 6600
