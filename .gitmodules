@@ -1,15 +1,9 @@
-[submodule "vimfiles"]
-	path = vimfiles
-	url = git@github.com:sarumont/vimfiles.git
-[submodule "zsh-git"]
-	path = zsh-git
-	url = git@github.com:sarumont/zsh-git.git
 [submodule "sh/omz-custom/plugins/zsh-nvm"]
-	path = sh/omz-custom/plugins/zsh-nvm
+	path = .local/sh/omz-custom/plugins/zsh-nvm
 	url = https://github.com/lukechilds/zsh-nvm
 [submodule "sh/pure"]
-	path = sh/pure
+	path = .local/sh/pure
 	url = https://github.com/sindresorhus/pure.git
 [submodule "sh/omz-custom/plugins/zsh-syntax-highlighting"]
-	path = sh/omz-custom/plugins/zsh-syntax-highlighting
+	path = .local/sh/omz-custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
