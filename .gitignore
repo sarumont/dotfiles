@@ -34,7 +34,7 @@
 .zsh_history
 
 # ignore non-dotfiles
-[a-zA-Z]*
+/[^.]*
 
-# ignore logfiles, even if they are dotted
+# ignore all log files
 *.log
