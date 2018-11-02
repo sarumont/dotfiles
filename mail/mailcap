@@ -1,5 +1,0 @@
-text/html; dillo %s
-text/html; w3m -T text/html -dump %s; copiousoutput
-image/png; feh %s; copiousoutput
-image/jpeg; feh %s; copiousoutput
-image/tiff; feh %s; copiousoutput
