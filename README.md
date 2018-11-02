@@ -31,3 +31,18 @@ for development work.
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     nvim -c ":PlugInstall"
+
+# Local overrides
+
+## shell
+
+Local zsh overrides are supported:
+ - `.aliases.zsh` -> `.local/sh/aliases.zsh`
+ - `.functions.zsh` -> `.local/sh/functions.zsh`
+ - `.zlogin` -> `.local/sh/zlogin`
+ - `.zshenv` -> `.local/sh/zshenv`
+ - `.zshrc` -> `.local/sh/zshrc`
+
+## vim-notes
+
+The directory for `[vim-notes](https://github.com/xolox/vim-notes)` is `~/.local/share/vim/notes`. This can be a symlink to e.g. `~/Dropbox/notes` to allow syncing of notes between machines.
