@@ -93,6 +93,9 @@ fi
 if [[ -r ~/.functions.zsh ]]; then
     . ~/.functions.zsh
 fi
+
+[[ -s "${HOME}/.local/sh/iterm2_shell_integration.zsh" ]] && source "${HOME}/.local/sh/iterm2_shell_integration.zsh"
+
 typeset -U fpath
 
 export SDKMAN_DIR="${HOME}/.sdkman"
