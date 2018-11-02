@@ -19,12 +19,15 @@ for development work.
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
 
-    # <may have some funkiness w/ known_hosts>
-
     git checkout ng
 
     # optional: git submodule add git@github.com:sarumont/privfiles.git .privfiles
+
     git submodule update --init --recursive
     mv /tmp/id_rsa* ~/.ssh/
 
     # clean up default shit in $HOME
+
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    nvim -c ":PlugInstall"
