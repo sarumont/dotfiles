@@ -84,15 +84,9 @@ if [[ -r ~/.local/sh/zshrc ]]; then
     . ~/.local/sh/zshrc
 fi
 
-# Source aliases
-if [[ -r ~/.aliases.zsh ]]; then
-    . ~/.aliases.zsh
-fi
-
-# functions
-if [[ -r ~/.functions.zsh ]]; then
-    . ~/.functions.zsh
-fi
+# Source aliases and functions
+. ~/.aliases.zsh
+. ~/.functions.zsh
 
 [[ -s "${HOME}/.local/sh/iterm2_shell_integration.zsh" ]] && source "${HOME}/.local/sh/iterm2_shell_integration.zsh"
 
