@@ -1,14 +1,12 @@
 typeset -U path
 
-DEFAULT_USER=(sarumont richard)
-export $DEFAULT_USER
 export EDITOR=`which vim`
 export PG_PAGER="vim -R -c 'set ft=dbout' -"
 export MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 export MAVEN_ARGS="-T 1C"
 
 # path prepend
-path[1,0]=($HOME/.local/bin $HOME/.dotfiles/bin /opt/bin)
+path[1,0]=($HOME/.local/bin $HOME/.my/bin /opt/bin)
 
 # path append
 path+=(/sbin /usr/sbin)
