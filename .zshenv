@@ -1,7 +1,11 @@
 typeset -U path
 
-export EDITOR=`which vim`
-export PG_PAGER="vim -R -c 'set ft=dbout' -"
+vim=`which nvim`
+if [[ $? -ne 0 ]]; then
+    vim=`which vim`
+fi
+export EDITOR=$vim
+export PG_PAGER="$vim -R -c 'set ft=dbout' -"
 export MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 export MAVEN_ARGS="-T 1C"
 

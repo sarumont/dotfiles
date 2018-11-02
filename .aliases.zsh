@@ -1,6 +1,9 @@
 unalias rm
 unalias mv
 
+alias vi=$EDITOR
+alias vim=$EDITOR
+
 # job management
 alias j='jobs'
 alias 1='fg %1'
