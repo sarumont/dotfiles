@@ -13,3 +13,6 @@
 [submodule ".pure"]
 	path = .pure
 	url = https://github.com/sindresorhus/pure.git
+[submodule ".privfiles"]
+	path = .privfiles
+	url = git@github.com:sarumont/privfiles.git
