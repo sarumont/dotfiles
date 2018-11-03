@@ -9,6 +9,12 @@ for development work.
 
 # Usage
 
+## Prerequisites
+- `git`
+- `zsh`
+
+## Setup
+
     ssh-keygen -t rsa -b 4096 -f /tmp/id_rsa
     ssh-agent
 
