@@ -17,6 +17,8 @@
 .config/letsencrypt/
 .config/nvim/.netrwhist
 .config/nvim/.plugins/
+.config/pgcli/history
+.config/pgcli/log
 .cordova/
 .cups/
 .docker/
