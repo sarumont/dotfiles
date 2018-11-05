@@ -15,6 +15,11 @@ Plug 'numkil/ag.nvim'
 Plug 'scrooloose/nerdcommenter' 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'tpope/vim-fugitive'
+Plug 'terryma/vim-expand-region'
+Plug 'airblade/vim-gitgutter'
+Plug 'majutsushi/tagbar'
+Plug 'neomake/neomake'
 
 call plug#end()
 "}}}
@@ -36,8 +41,21 @@ colorscheme onedark
 set laststatus=2
 set noshowmode
 let g:lightline = {
-  \ 'colorscheme': 'onedark',
-  \ }
+			\ 'colorscheme': 'onedark',
+			\ 'active': {
+			\   'left': [ [ 'mode', 'paste' ],
+			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+			\   'right': [ [ 'lineinfo' ],
+			\              [ 'percent' ],
+			\              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
+			\ },
+			\ 'component': {
+			\   'charvaluehex': '0x%B'
+			\ },
+			\ 'component_function': {
+			\   'gitbranch': 'fugitive#head'
+			\ },
+			\ }
 "}}}
 
 " misc {{{
@@ -98,6 +116,28 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 :map <Leader>h :set hlsearch!<cr>
 
+" git
+nnoremap <silent> <Leader>mc I:twisted_rightwards_arrows: <esc>
+
+nnoremap <silent> <Leader>gd :Gdiff<cr>
+nnoremap <silent> <Leader>gl :Glog<cr>
+nnoremap <silent> <Leader>gs :Gstatus<cr>
+nnoremap <silent> <Leader>gb :Gblame<cr>
+nnoremap <silent> <Leader>gc :Gcommit<cr>
+nnoremap <silent> <Leader>GC :Git svn dcommit<cr>
+nnoremap <silent> <Leader>GR :Git svn rebase<cr>:CommandTFlush<cr>
+nnoremap <silent> <Leader>amend :Git commit --amend<cr>
+nnoremap <silent> <Leader>stash :Git stash<cr>
+nnoremap <silent> <Leader>pop :Git stash pop<cr>
+
+nnoremap <silent> <Leader>o :TagbarToggle<cr>
+
+"}}}
+
+"{{{ Neomake
+" let g:neomake_serialize = 1
+" let g:neomake_serialize_abort_on_error = 1
+" call neomake#configure#automake('nw', 750)
 "}}}
 
 " CtrlP {{{
