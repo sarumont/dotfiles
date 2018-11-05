@@ -3,7 +3,7 @@
 TMUX=$( which tmux )
 $( $TMUX has-session -t $1 )
 if test $? -eq 0; then
-	TERM=xterm-256color $TMUX -u attach-session -t $1
+	TERM=xterm-256color $TMUX -u attach-session -d -t $1
 else
 	TERM=xterm-256color $TMUX -u new-session -s $1
 fi
