@@ -19,7 +19,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'terryma/vim-expand-region'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 
 call plug#end()
 "}}}
@@ -132,12 +132,6 @@ nnoremap <silent> <Leader>pop :Git stash pop<cr>
 
 nnoremap <silent> <Leader>o :TagbarToggle<cr>
 
-"}}}
-
-"{{{ Neomake
-" let g:neomake_serialize = 1
-" let g:neomake_serialize_abort_on_error = 1
-" call neomake#configure#automake('nw', 750)
 "}}}
 
 " CtrlP {{{
