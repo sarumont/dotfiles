@@ -36,6 +36,10 @@ for development work.
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     nvim -c ":PlugInstall"
 
+Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
+ - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
+ - `.ssh/config` -> `.privfiles/ssh/config`
+
 # Local overrides
 
 ## shell
