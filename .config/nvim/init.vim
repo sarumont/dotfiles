@@ -41,21 +41,21 @@ colorscheme onedark
 set laststatus=2
 set noshowmode
 let g:lightline = {
-			\ 'colorscheme': 'onedark',
-			\ 'active': {
-			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-			\   'right': [ [ 'lineinfo' ],
-			\              [ 'percent' ],
-			\              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
-			\ },
-			\ 'component': {
-			\   'charvaluehex': '0x%B'
-			\ },
-			\ 'component_function': {
-			\   'gitbranch': 'fugitive#head'
-			\ },
-			\ }
+            \ 'colorscheme': 'onedark',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+            \   'right': [ [ 'lineinfo' ],
+            \              [ 'percent' ],
+            \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
+            \ },
+            \ 'component': {
+            \   'charvaluehex': '0x%B'
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'fugitive#head'
+            \ },
+            \ }
 "}}}
 
 " misc {{{
@@ -66,10 +66,45 @@ let g:agprg="ag --nocolor --nogroup --column --smart-case"
 set wildignore=*/generated/*,.git,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.png,*.jpg,*.ttf,*.woff,*/javadoc/*,*.gif,*.ogg,*.mp3,*.mp4,*/node_modules/*
 set smartcase
 set nohlsearch
+set clipboard=unnamed
+set title
+
+if exists('$TMUX')
+    autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
+    autocmd VimLeave * call system("tmux setw automatic-rename")
+endif
+
+if has("unix")
+    let s:uname = system("echo -n \"$(uname)\"")
+    if s:uname == "Darwin"
+        nnoremap <silent> <Leader>pp :set paste<cr>$:r ! pbpaste <cr>:set nopaste<cr>$
+    else
+        nnoremap <silent> <Leader>pp :set paste<cr>$:r ! xclip -o<cr>:set nopaste<cr>$
+        nnoremap <silent> <Leader>pv :set paste<cr>$:r ! xclip -selection clipboard -o<cr>:set nopaste<cr>$
+    endif
+endif
+
+" When editing a file, always jump to the last cursor position
+au BufReadPost *
+			\ if &ft == 'gitcommit' || &ft == 'mail' |
+			\   exe "normal! gg" |
+			\   exe "startinsert" |
+			\ elseif line("'\"") > 1 && line ("'\"") <= line("$") |
+			\   exe "normal! g`\"" |
+			\ endif
 "}}}
 
+" Indentation {{{
+set copyindent
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+" }}}
+
 " Tags {{{
-let g:gutentags_ctags_tagile = '.tags'
+let g:gutentags_ctags_tagfile = '.tags'
+" let g:gutentags_modules = ['ctags', 'cscope']
 " }}}
 
 "{{{ Keymaps 
@@ -78,9 +113,9 @@ let g:mapleader = ","
 
 " coc / omni
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
@@ -108,6 +143,7 @@ map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
 " NERDTree
 :map <C-I> :NERDTreeToggle<cr>
 
@@ -131,6 +167,9 @@ nnoremap <silent> <Leader>stash :Git stash<cr>
 nnoremap <silent> <Leader>pop :Git stash pop<cr>
 
 nnoremap <silent> <Leader>o :TagbarToggle<cr>
+
+" Code miscellany
+nnoremap <silent> <Leader>jpp :%!python -m json.tool<cr>
 
 "}}}
 
