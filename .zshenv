@@ -26,5 +26,6 @@ path+=(
     $ANDROID_HOME/tools
     $HEROKU_HOME/bin
     $HOME/.rvm/bin
+    $HOME/.dasht/bin
     .)
 path=($^path(N))
