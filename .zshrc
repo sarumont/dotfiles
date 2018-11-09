@@ -95,7 +95,9 @@ typeset -U fpath
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
-fpath+=("$HOME/.zfunctions")
+fpath+=(
+    "$HOME/.zfunctions" 
+    "$HOME/.dasht/etc/zsh/completions")
 autoload -U promptinit; promptinit
 prompt pure
 #zprof

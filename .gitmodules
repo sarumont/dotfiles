@@ -13,3 +13,6 @@
 [submodule ".pure"]
 	path = .pure
 	url = https://github.com/sindresorhus/pure.git
+[submodule ".dasht"]
+	path = .dasht
+	url = https://github.com/sunaku/dasht.git
