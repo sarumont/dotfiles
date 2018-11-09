@@ -1,27 +1,38 @@
 " vim-plug {{{
 call plug#begin('~/.config/nvim/.plugins')
 
-" VSCode LSP completion
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-
-Plug 'easymotion/vim-easymotion'
-
+" Visual
 Plug 'joshdick/onedark.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
+
+" Misc
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
-Plug 'itchyny/lightline.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'numkil/ag.nvim'
-Plug 'scrooloose/nerdcommenter' 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
 Plug 'terryma/vim-expand-region'
-Plug 'airblade/vim-gitgutter'
-Plug 'majutsushi/tagbar'
-Plug 'w0rp/ale'
 Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
+
+" Code 
+Plug 'w0rp/ale'
+Plug 'scrooloose/nerdcommenter' 
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+
+" Navigation
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'easymotion/vim-easymotion'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+
+" Filetype
 Plug 'PProvost/vim-ps1'
+Plug 'othree/jsdoc-syntax.vim'
+Plug 'mustache/vim-mustache-handlebars'
 
 call plug#end()
 "}}}
@@ -81,9 +92,11 @@ if has("unix")
     let s:uname = system("echo -n \"$(uname)\"")
     if s:uname == "Darwin"
         nnoremap <silent> <Leader>pp :set paste<cr>$:r ! pbpaste <cr>:set nopaste<cr>$
+        let g:gist_clip_command = 'pbcopy'
     else
         nnoremap <silent> <Leader>pp :set paste<cr>$:r ! xclip -o<cr>:set nopaste<cr>$
         nnoremap <silent> <Leader>pv :set paste<cr>$:r ! xclip -selection clipboard -o<cr>:set nopaste<cr>$
+        let g:gist_clip_command = 'xclip -selection clipboard'
     endif
 endif
 
@@ -187,6 +200,8 @@ nnoremap <silent> <Leader><Leader>K :call Dasht([expand('<cword>'), expand('<cWO
 vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
 vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
 
+nnoremap <silent> <Leader>yr :YRShow<cr>
+
 "}}}
 
 " CtrlP {{{
@@ -200,6 +215,12 @@ let g:ctrlp_by_filename = 1
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDTrimTrailingWhitespace = 1
+" }}}
+
+" Gist {{{
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+let g:gist_update_on_write = 2
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

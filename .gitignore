@@ -30,6 +30,7 @@
 .fontconfig/
 .freac/
 .gem/
+.gist-vim
 .gitkraken/
 .gnupg/
 .gradle/
