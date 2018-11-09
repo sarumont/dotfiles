@@ -70,6 +70,7 @@
 .viminfo
 .vimtags
 .vscode/
+.w3m/
 .wget-hsts
 .wireshark-etc/
 .wireshark/
