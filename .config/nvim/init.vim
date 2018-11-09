@@ -160,13 +160,12 @@ nnoremap <silent> <Leader>gl :Glog<cr>
 nnoremap <silent> <Leader>gs :Gstatus<cr>
 nnoremap <silent> <Leader>gb :Gblame<cr>
 nnoremap <silent> <Leader>gc :Gcommit<cr>
-nnoremap <silent> <Leader>GC :Git svn dcommit<cr>
-nnoremap <silent> <Leader>GR :Git svn rebase<cr>:CommandTFlush<cr>
+nnoremap <silent> <Leader>gp :Gpush<cr>
 nnoremap <silent> <Leader>amend :Git commit --amend<cr>
 nnoremap <silent> <Leader>stash :Git stash<cr>
 nnoremap <silent> <Leader>pop :Git stash pop<cr>
 
-nnoremap <silent> <Leader>o :TagbarToggle<cr>
+nnoremap <silent> <Leader>o :TagbarOpen fjc<cr>
 
 " Code miscellany
 nnoremap <silent> <Leader>jpp :%!python -m json.tool<cr>
