@@ -20,6 +20,8 @@ Plug 'terryma/vim-expand-region'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'w0rp/ale'
+Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
+Plug 'PProvost/vim-ps1'
 
 call plug#end()
 "}}}
@@ -64,6 +66,7 @@ let g:yankring_history_file='.yankring_history'
 let g:notes_directories = [$HOME . "/.local/share/vim/notes"]
 let g:agprg="ag --nocolor --nogroup --column --smart-case"
 set wildignore=*/generated/*,.git,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.png,*.jpg,*.ttf,*.woff,*/javadoc/*,*.gif,*.ogg,*.mp3,*.mp4,*/node_modules/*
+set ignorecase
 set smartcase
 set nohlsearch
 set clipboard=unnamed
@@ -168,7 +171,21 @@ nnoremap <silent> <Leader>pop :Git stash pop<cr>
 nnoremap <silent> <Leader>o :TagbarOpen fjc<cr>
 
 " Code miscellany
-nnoremap <silent> <Leader>jpp :%!python -m json.tool<cr>
+nnoremap <silent> <Leader>pj :%!python -m json.tool<cr>
+
+" Dasht
+
+" search related docsets
+nnoremap <Leader>k :Dasht<Space>
+nnoremap <Leader><Leader>k :Dasht!<Space>
+
+" Search docsets for words under cursor:
+nnoremap <silent> <Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')])<Return>
+nnoremap <silent> <Leader><Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')], '!')<Return>
+
+" Search docsets for your selected text:
+vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
+vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
 
 "}}}
 
