@@ -100,4 +100,16 @@ fpath+=(
     "$HOME/.dasht/etc/zsh/completions")
 autoload -U promptinit; promptinit
 prompt pure
+
+# Editor setup
+EDITOR=`which nvim`
+if [[ $? -ne 0 ]]; then
+    EDITOR=`which vim`
+fi
+export EDITOR
+alias vim=$EDITOR
+alias vi=$EDITOR
+
+export PG_PAGER="$EDITOR -R -c 'set ft=dbout' -"
+
 #zprof
