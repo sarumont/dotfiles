@@ -181,7 +181,7 @@ nnoremap <silent> <Leader>amend :Git commit --amend<cr>
 nnoremap <silent> <Leader>stash :Git stash<cr>
 nnoremap <silent> <Leader>pop :Git stash pop<cr>
 
-nnoremap <silent> <Leader>o :TagbarOpen fjc<cr>
+nnoremap <silent> <F12> :TagbarOpen fjc<cr>
 
 " Code miscellany
 nnoremap <silent> <Leader>pj :%!python -m json.tool<cr>
