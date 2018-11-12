@@ -37,41 +37,9 @@ Plug 'mustache/vim-mustache-handlebars'
 call plug#end()
 "}}}
 
-" Visuals {{{
-
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-if (has("termguicolors"))
-    set termguicolors
-endif
-
-colorscheme onedark
-
-" Lightline
-set laststatus=2
-set noshowmode
-let g:lightline = {
-            \ 'colorscheme': 'onedark',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-            \   'right': [ [ 'lineinfo' ],
-            \              [ 'percent' ],
-            \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
-            \ },
-            \ 'component': {
-            \   'charvaluehex': '0x%B'
-            \ },
-            \ 'component_function': {
-            \   'gitbranch': 'fugitive#head'
-            \ },
-            \ }
-"}}}
-
 " misc {{{
+let mapleader = ","
+let g:mapleader = ","
 filetype plugin indent on
 let g:yankring_history_file='.yankring_history'
 let g:notes_directories = [$HOME . "/.local/share/vim/notes"]
@@ -110,6 +78,40 @@ au BufReadPost *
 			\ endif
 "}}}
 
+" Visuals {{{
+
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+colorscheme onedark
+
+" Lightline
+set laststatus=2
+set noshowmode
+let g:lightline = {
+            \ 'colorscheme': 'onedark',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+            \   'right': [ [ 'lineinfo' ],
+            \              [ 'percent' ],
+            \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
+            \ },
+            \ 'component': {
+            \   'charvaluehex': '0x%B'
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'fugitive#head'
+            \ },
+            \ }
+"}}}
+
 " Indentation {{{
 set copyindent
 set expandtab
@@ -124,8 +126,6 @@ let g:gutentags_ctags_tagfile = '.tags'
 " }}}
 
 "{{{ Keymaps 
-let mapleader = ","
-let g:mapleader = ","
 
 " coc / omni
 inoremap <silent><expr> <TAB>
@@ -189,16 +189,16 @@ nnoremap <silent> <Leader>pj :%!python -m json.tool<cr>
 " Dasht
 
 " search related docsets
-nnoremap <Leader>k :Dasht<Space>
-nnoremap <Leader><Leader>k :Dasht!<Space>
+" nnoremap <Leader>k :Dasht<Space>
+" nnoremap <Leader><Leader>k :Dasht!<Space>
 
 " Search docsets for words under cursor:
-nnoremap <silent> <Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')])<Return>
-nnoremap <silent> <Leader><Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')], '!')<Return>
+" nnoremap <silent> <Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')])<Return>
+" nnoremap <silent> <Leader><Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')], '!')<Return>
 
 " Search docsets for your selected text:
-vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
-vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
+" vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
+" vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
 
 nnoremap <silent> <Leader>yr :YRShow<cr>
 
