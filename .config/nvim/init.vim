@@ -21,6 +21,8 @@ Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter' 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'adelarsq/vim-matchit'
+Plug 'jiangmiao/auto-pairs'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
