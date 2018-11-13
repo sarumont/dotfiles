@@ -12,6 +12,7 @@
 .config/.mono/
 .config/coc/db.json
 .config/configstore
+.config/doctl/
 .config/git/
 .config/gtk-2.0/
 .config/heroku/
