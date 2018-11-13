@@ -27,6 +27,8 @@ for development work.
 
     # optional: git submodule add git@github.com:sarumont/privfiles.git .privfiles
 
+    git checkout master
+    git pull
     git submodule update --init --recursive
     mv /tmp/id_rsa* ~/.ssh/
 
@@ -39,6 +41,16 @@ for development work.
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
  - `.ssh/config` -> `.privfiles/ssh/config`
+
+## Optional components
+
+### SDKMan
+
+    curl -s "https://get.sdkman.io" | zsh
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    sdk install maven
+    sdk install java 8.0.191-oracle
+    # sdk install java 8.0.181-zulu
 
 # Local overrides
 
@@ -53,4 +65,4 @@ Local zsh overrides are supported:
 
 ## vim-notes
 
-The directory for `[vim-notes](https://github.com/xolox/vim-notes)` is `~/.local/share/vim/notes`. This can be a symlink to e.g. `~/Dropbox/notes` to allow syncing of notes between machines.
+The directory for [vim-notes](https://github.com/xolox/vim-notes) is `~/.local/share/vim/notes`. This can be a symlink to e.g. `~/Dropbox/notes` to allow syncing of notes between machines.
