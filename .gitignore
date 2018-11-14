@@ -48,6 +48,7 @@
 .keycloak/
 .lesshst
 .local/
+.localvimrc_persistent
 .m2/
 .mvnGoLang/
 .ngrok2/
