@@ -15,6 +15,8 @@ for development work.
 
 ## Setup
 
+TODO: make this a script
+
     ssh-keygen -t rsa -b 4096 -f /tmp/id_rsa
     ssh-agent
 
@@ -26,6 +28,8 @@ for development work.
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
 
     # optional: git submodule add git@github.com:sarumont/privfiles.git .privfiles
+    # or mkdir -p ~/.privfiles/ssh
+    # TODO: add auto-fetch of authorized keys
 
     git checkout master
     git pull
