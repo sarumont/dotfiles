@@ -16,6 +16,7 @@ Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
+Plug 'embear/vim-localvimrc'
 
 " Code 
 Plug 'w0rp/ale'
@@ -78,6 +79,9 @@ au BufReadPost *
 			\ elseif line("'\"") > 1 && line ("'\"") <= line("$") |
 			\   exe "normal! g`\"" |
 			\ endif
+
+let g:localvimrc_sandbox=0
+let g:localvimrc_persistent=2
 "}}}
 
 " Visuals {{{
@@ -130,11 +134,11 @@ let g:gutentags_ctags_tagfile = '.tags'
 "{{{ Keymaps 
 
 " coc / omni
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+            " \ pumvisible() ? "\<C-n>" :
+            " \ <SID>check_back_space() ? "\<TAB>" :
+            " \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
