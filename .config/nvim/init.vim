@@ -24,6 +24,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'adelarsq/vim-matchit'
 Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -53,6 +54,7 @@ set smartcase
 set nohlsearch
 set clipboard=unnamed
 set title
+set formatoptions=croqlj
 
 if exists('$TMUX')
     autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
