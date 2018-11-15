@@ -52,15 +52,21 @@ set wildignore=*/generated/*,.git,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.p
 set ignorecase
 set smartcase
 set nohlsearch
-set clipboard=unnamed
 set title
 set formatoptions=croqlj
+set number
 
+" watch for file changes
+au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
+
+" TMUX renaming
 if exists('$TMUX')
     autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
     autocmd VimLeave * call system("tmux setw automatic-rename")
 endif
 
+" system clipboard integration
+set clipboard=unnamed
 if has("unix")
     let s:uname = system("echo -n \"$(uname)\"")
     if s:uname == "Darwin"
