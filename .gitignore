@@ -17,6 +17,7 @@
 .config/gtk-2.0/
 .config/heroku/
 .config/letsencrypt/
+.config/neverfail/
 .config/nvim/.netrwhist
 .config/nvim/.plugins/
 .config/pgcli/history
