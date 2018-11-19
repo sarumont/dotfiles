@@ -40,6 +40,8 @@ alias bump='git commit -m ":arrow_up:"'
 alias st='scm_st'
 alias gtt='git log -1 --format=%ai '
 
+alias ltr="ls -altr"
+
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh
 fi
