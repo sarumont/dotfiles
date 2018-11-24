@@ -16,6 +16,11 @@ map <leader>k :action AceLineAction<CR>
 map <C-h> :action PrevSplitter<CR>
 map <C-l> :action NextSplitter<CR>
 
+map <leader>v :action Vcs.QuickListPopupAction<cr>
+
+" run configs
+map <leader><leader>d :action Debug<CR>
+
 " }}}
 
 " Searching {{{
