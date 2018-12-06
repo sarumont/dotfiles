@@ -6,17 +6,21 @@ set surround
 map <leader>cc :action CommentByLineComment<cr>
 
 " Press `f` to activate AceJump
-map f :action AceAction<CR>
+nnoremap f :action AceAction<CR>
 " Press `F` to activate Target Mode
-map F :action AceTargetAction<CR>
+"map F :action AceTargetAction<CR>
 " Press `g` to activate Line Mode
 map <leader>j :action AceLineAction<CR>
 map <leader>k :action AceLineAction<CR>
+map / :action AceAction<CR>
+" map <leader>f :action AceAction<CR>
 
 map <C-h> :action PrevSplitter<CR>
 map <C-l> :action NextSplitter<CR>
 
 map <leader>v :action Vcs.QuickListPopupAction<cr>
+
+map gJ :action EditorJoinLines<cr>
 
 " run configs
 map <leader><leader>d :action Debug<CR>
