@@ -31,14 +31,14 @@ alias ag="ag --smart-case"
 alias sub_st='for x in `find . -maxdepth 1 -mindepth 1 -type d`; do cd $x; echo $x:; git status -s; cd ..; done'
 
 # SCM
+alias bump='git commit -m ":arrow_up:"'
+alias full_pull='git pull --rebase && git fetch --all --prune && git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
 alias gcm='git commit -m' # override gcm - git checkout master is useless
 alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
-alias gup='git up' # defer this to ~/gitconfig
-alias full_pull='git pull --rebase && git fetch --all --prune && git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
-alias bump='git commit -m ":arrow_up:"'
-
-alias st='scm_st'
+alias gstl='git stash list --date=relative' # overrides OMZ default
 alias gtt='git log -1 --format=%ai '
+alias gup='git up' # defer this to ~/gitconfig
+alias st='scm_st'
 
 alias ltr="ls -altr"
 
