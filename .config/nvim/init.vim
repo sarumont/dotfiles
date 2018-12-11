@@ -217,6 +217,9 @@ nnoremap <silent> <Leader>pj :%!python -m json.tool<cr>
 
 nnoremap <silent> <Leader>yr :YRShow<cr>
 
+" vim-notes
+nnoremap <silent> <Leader>d ^wiDONE <esc> :r! date +" [\%H:\%M]"<ENTER>kJA<Esc>$
+
 "}}}
 
 " CtrlP {{{
