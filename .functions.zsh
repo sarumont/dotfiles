@@ -112,6 +112,9 @@ scrub() {
 todo() {
 	vim note:`date +%Y-%m-%d`
 }
+daily() {
+    $EDITOR note:`date +%Y-%m-%d`
+}
 
 set_version() {
     mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$1
