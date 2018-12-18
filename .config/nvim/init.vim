@@ -162,8 +162,6 @@ nmap <silent> <C-l> :wincmd l<CR>
 " easymotion
 let g:EasyMotion_smartcase = 1
 nmap f <Plug>(easymotion-overwin-f2)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
 map <Leader> <Plug>(easymotion-prefix)
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
