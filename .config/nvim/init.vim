@@ -133,6 +133,14 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
+
+fu! CodeInit(tabLength)
+	set expandtab
+	execute "set shiftwidth=".a:tabLength
+	execute "set tabstop=".a:tabLength
+	execute "set softtabstop=".a:tabLength
+endfu
+au BufWinEnter,BufRead,BufNewFile *.js,*.json,*.yaml :call CodeInit(2)
 " }}}
 
 " Tags {{{
