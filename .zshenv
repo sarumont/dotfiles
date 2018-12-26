@@ -1,7 +1,7 @@
 typeset -U path
 
 export MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
-# export MAVEN_ARGS="-T 1C"
+export MAVEN_ARGS=""
 
 # path prepend
 path[1,0]=($HOME/.local/bin $HOME/.my/bin /opt/bin)
