@@ -140,7 +140,7 @@ fu! CodeInit(tabLength)
 	execute "set tabstop=".a:tabLength
 	execute "set softtabstop=".a:tabLength
 endfu
-au BufWinEnter,BufRead,BufNewFile *.js,*.json,*.yaml :call CodeInit(2)
+au FileType javascript,json,yaml :call CodeInit(2)
 " }}}
 
 " Tags {{{
