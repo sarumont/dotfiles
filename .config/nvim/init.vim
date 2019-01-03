@@ -38,6 +38,8 @@ Plug 'majutsushi/tagbar'
 Plug 'PProvost/vim-ps1'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'udalov/kotlin-vim'
+Plug 'modille/groovy.vim'
 
 call plug#end()
 "}}}
