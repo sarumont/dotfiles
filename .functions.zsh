@@ -106,22 +106,8 @@ clp() {
     cl package $@
 }
 
-scrub() {
-	vim -o note:todo -c "vsplit note:`date +%Y-%m-%d`"
-}
-todo() {
-	vim note:`date +%Y-%m-%d`
-}
-daily() {
-    $EDITOR note:`date +%Y-%m-%d`
-}
-
 set_version() {
     mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$1
-}
-
-is_highres() {
-	return 0
 }
 
 if [[ -r ~/.local/sh/functions.zsh ]]; then
