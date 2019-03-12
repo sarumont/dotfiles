@@ -45,6 +45,8 @@ alias ltr="ls -altr"
 alias jdk8="sdk use java 8.0.191-oracle"
 alias jdk11="sdk use java 11.0.1-open"
 
+alias certbot='certbot --config-dir ~/.config/letsencrypt --logs-dir ~/tmp --work-dir ~/tmp'
+
 # notes
 alias daily='$EDITOR note:`date +%Y-%m-%d`'
 alias yesterday='$EDITOR note:`date -v-1d +%Y-%m-%d`'
