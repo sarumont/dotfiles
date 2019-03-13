@@ -1,3 +1,4 @@
 {
-    "coc.preferences.autoTrigger": "always"
+    "coc.preferences.autoTrigger": "always",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
