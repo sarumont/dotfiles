@@ -204,6 +204,9 @@ nnoremap <silent> <Leader>amend :Git commit --amend<cr>
 nnoremap <silent> <Leader>stash :Git stash<cr>
 nnoremap <silent> <Leader>pop :Git stash pop<cr>
 
+" IntelliJ IDEA-like keymaps
+nnoremap <silent> <F2> :w<cr>:cNext<cr>
+nnoremap <silent> <S-F2> :w<cr>:cPrev<cr>
 nnoremap <silent> <F12> :TagbarOpen fjc<cr>
 
 " Code miscellany
