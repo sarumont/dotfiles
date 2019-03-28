@@ -12,6 +12,7 @@
 .compiz
 .config/.mono/
 .config/coc/db.json
+.config/coc/extensions/coc-java-data/
 .config/configstore
 .config/doctl/
 .config/git/
