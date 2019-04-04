@@ -26,6 +26,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'adelarsq/vim-matchit'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
+Plug 'roryokane/detectindent'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -131,18 +132,15 @@ let g:lightline = {
 
 " Indentation {{{
 set copyindent
-set expandtab
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set noexpandtab     " default to hard tabs
+set shiftwidth=4    " shift operation == tabstob
+set tabstop=4       " show tabs as 4 spaces
+set softtabstop=0   " no softtab when using hard tabs
 
-fu! CodeInit(tabLength)
-	set expandtab
-	execute "set shiftwidth=".a:tabLength
-	execute "set tabstop=".a:tabLength
-	execute "set softtabstop=".a:tabLength
-endfu
-au FileType javascript,json,yaml :call CodeInit(2)
+augroup DetectIndent
+    autocmd!
+    autocmd BufReadPost *  DetectIndent
+augroup END
 " }}}
 
 " Tags {{{
