@@ -2,7 +2,7 @@
   "dependencies": {
     "coc-css": "^1.0.7",
     "coc-html": "^1.0.7",
-    "coc-java": "^1.2.5",
-    "coc-json": "^1.0.12"
+    "coc-java": "^1.2.6",
+    "coc-json": "^1.0.14"
   }
 }
