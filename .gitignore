@@ -14,6 +14,7 @@
 .config/coc/db.json
 .config/coc/memos.json
 .config/coc/extensions/coc-java-data/
+.config/coc/extensions/db.json
 .config/configstore
 .config/doctl/
 .config/git/
@@ -40,6 +41,7 @@
 .gist-vim
 .gitkraken/
 .gnupg/
+.gnuplot_history
 .gradle/
 .groovy/
 .gstreamer-0.10/
@@ -76,6 +78,7 @@
 .ssh/known_hosts
 .subversion/
 .sudo_as_admin_successful
+.terminfo/
 .tooling/
 .viminfo
 .vimtags
