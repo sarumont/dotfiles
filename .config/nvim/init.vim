@@ -5,6 +5,7 @@ call plug#begin('~/.config/nvim/.plugins')
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'rakr/vim-one'
 
 " Misc
 Plug 'xolox/vim-misc'
@@ -107,13 +108,16 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-colorscheme onedark
+colorscheme one
+let g:one_allow_italics = 1 
+let g:onedark_terminal_italics=1
+set background=dark
 
 " Lightline
 set laststatus=2
 set noshowmode
 let g:lightline = {
-            \ 'colorscheme': 'onedark',
+            \ 'colorscheme': 'one',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
             \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
