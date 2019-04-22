@@ -70,3 +70,12 @@ Local zsh overrides are supported:
 ## vim-notes
 
 The directory for [vim-notes](https://github.com/xolox/vim-notes) is `~/.local/share/vim/notes`. This can be a symlink to e.g. `~/Dropbox/notes` to allow syncing of notes between machines.
+
+# Niceties
+
+## Italics
+
+To get Italics working in both vim and tmux (on macOS):
+
+ - https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
+ - https://apple.stackexchange.com/questions/249307/tic-doesnt-read-from-stdin-and-segfaults-when-adding-terminfo-to-support-italic/249385
