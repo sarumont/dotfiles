@@ -47,6 +47,7 @@
 .gstreamer-0.10/
 .heroku/
 .histfile
+.httpie/sessions/
 .ionic/
 .jalopy/
 .java
