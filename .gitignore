@@ -78,7 +78,6 @@
 .ssh/known_hosts
 .subversion/
 .sudo_as_admin_successful
-.terminfo/
 .tooling/
 .viminfo
 .vimtags
