@@ -3,7 +3,7 @@ unalias mv
 
 alias vi=$EDITOR
 alias vim=$EDITOR
-alias viup='vim -c ":PlugUpgrade | :PlugUpdate | :PlugInstall | :quitall"'
+alias viup='vim -c ":PlugUpgrade | :PlugUpdate | :PlugInstall | :PlugClean | :quitall"'
 
 # job management
 alias j='jobs'
