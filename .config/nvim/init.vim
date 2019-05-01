@@ -37,11 +37,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 
 " Filetype
-Plug 'PProvost/vim-ps1'
-Plug 'othree/jsdoc-syntax.vim'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'udalov/kotlin-vim'
-Plug 'modille/groovy.vim'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 "}}}
