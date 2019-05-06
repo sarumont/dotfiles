@@ -56,6 +56,7 @@ set nohlsearch
 set title
 set formatoptions=croqlj
 set number
+set lazyredraw
 
 " watch for file changes
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
@@ -108,6 +109,7 @@ colorscheme one
 let g:one_allow_italics = 1 
 let g:onedark_terminal_italics=1
 set background=dark
+set cursorline
 
 " Lightline
 set laststatus=2
@@ -161,6 +163,9 @@ imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
 nnoremap <silent> <Leader>a :Ag! 
 
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
+
 " Windows 
 nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-j> :wincmd j<CR>
@@ -187,7 +192,9 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 :map <C-Tab> :tabnext<cr>
 :map <C-S-Tab> :tabprev<cr>
 
-:map <Leader>h :set hlsearch!<cr>
+:map <Leader><Leader>h :set hlsearch!<cr>
+:map <Leader><Leader>l :set background=light<cr>
+:map <Leader><Leader>d :set background=dark<cr>
 
 " git
 nnoremap <silent> <Leader>mc I:twisted_rightwards_arrows: <esc>
