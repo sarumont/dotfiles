@@ -32,6 +32,7 @@ TODO: make this a script
     # TODO: add auto-fetch of authorized keys
 
     git checkout master
+    git branch --set-upstream-to=origin/master master
     git pull
     git submodule update --init --recursive
     mv /tmp/id_rsa* ~/.ssh/
