@@ -31,17 +31,21 @@ TODO: make this a script
     # or mkdir -p ~/.privfiles/ssh
     # TODO: add auto-fetch of authorized keys
 
+    mv ~/.ssh/authorized_keys /tmp/
     git checkout master
     git branch --set-upstream-to=origin/master master
     git pull
     git submodule update --init --recursive
     mv /tmp/id_rsa* ~/.ssh/
-
-    # clean up default shit in $HOME
+    cat /tmp/authorized_keys >> ~/.ssh/authorized_keys
 
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    nvim -c ":PlugInstall"
+
+    rm ~/.bash*
+    rm ~/.profile
+
+    echo "Please log out, log back in, and run 'viup' to initialize your neovim setup."
 
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
