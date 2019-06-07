@@ -55,11 +55,13 @@
 .jrebel
 .keychain
 .keycloak/
+.kube/
 .lesshst
 .local/
 .localvimrc_persistent
 .lsp4xml/
 .m2/
+.minikube/
 .mvnGoLang/
 .ngrok2/
 .node-gyp/
@@ -79,6 +81,7 @@
 .ssh/known_hosts
 .subversion/
 .sudo_as_admin_successful
+.terraform.d/
 .tooling/
 .viminfo
 .vimtags
