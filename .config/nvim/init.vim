@@ -197,7 +197,7 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 :map <Leader><Leader>d :set background=dark<cr>
 
 " git
-nnoremap <silent> <Leader>mc I:twisted_rightwards_arrows: <esc>
+nnoremap <silent> <Leader>mc I🔀 <esc>
 
 nnoremap <silent> <Leader>gd :Gdiff<cr>
 nnoremap <silent> <Leader>gl :Glog<cr>
