@@ -19,6 +19,7 @@ Plug 'mattn/webapi-vim'
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-surround'
+Plug 'mtth/scratch.vim'
 
 " Code 
 Plug 'w0rp/ale'
