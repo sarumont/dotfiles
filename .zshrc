@@ -32,7 +32,7 @@ ZSH_THEME=""
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -80,6 +80,25 @@ rvm() {
     fi
 }
 
+# lazily load k8s completions
+kubectl() {
+    unfunction kubectl
+    KUBECTL=$(which kubectl)
+    [[ -x $KUBECTL ]] && source <($KUBECTL completion zsh)
+    $KUBECTL $@
+}
+
+# lazy Terraform completion
+terraform() {
+    unfunction terraform
+    TF=$(which terraform)
+    if [[ -x $TF ]]; then
+        autoload -U +X bashcompinit && bashcompinit
+        complete -o nospace -C $TF terraform
+    fi
+    $TF $@
+}
+
 if [[ -r ~/.local/sh/zshrc ]]; then
     . ~/.local/sh/zshrc
 fi
@@ -113,3 +132,4 @@ alias vi=$EDITOR
 export PG_PAGER="$EDITOR -R -c 'set ft=dbout' -"
 
 #zprof
+
