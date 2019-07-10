@@ -1,0 +1,15 @@
+k9s:
+  refreshRate: 2
+  logBufferSize: 1000
+  logRequestSize: 200
+  currentContext: minikube
+  currentCluster: minikube
+  clusters:
+    minikube:
+      namespace:
+        active: default
+        favorites:
+        - all
+        - default
+      view:
+        active: po
