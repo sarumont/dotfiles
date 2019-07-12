@@ -40,6 +40,12 @@ alias gtt='git log -1 --format=%ai '
 alias gup='git up' # defer this to ~/gitconfig
 alias st='scm_st'
 
+# Kubectl
+alias ka='kubectl apply'
+alias kd='kubectl delete'
+alias kg='kubectl get'
+alias kl='kubectl logs'
+
 alias ltr="ls -altr"
 
 alias jdk8="sdk use java 8.0.201-oracle"
