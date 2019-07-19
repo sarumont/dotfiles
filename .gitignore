@@ -9,6 +9,7 @@
 .azure/
 .bundle/
 .cache
+.circleci/
 .compiz
 .config/.mono/
 .config/asciinema/
