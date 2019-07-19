@@ -99,6 +99,16 @@ terraform() {
     $TF $@
 }
 
+vault() {
+    unfunction vault
+    VAULT=$(which vault)
+    if [[ -x $VAULT ]]; then
+        autoload -U +X bashcompinit && bashcompinit
+        complete -o nospace -C $VAULT vault
+    fi
+    $VAULT $@
+}
+
 if [[ -r ~/.local/sh/zshrc ]]; then
     . ~/.local/sh/zshrc
 fi
