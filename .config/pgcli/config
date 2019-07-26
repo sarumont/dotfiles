@@ -95,13 +95,13 @@ table_format = psql
 # Syntax Style. Possible values: manni, igor, xcode, vim, autumn, vs, rrt,
 # native, perldoc, borland, tango, emacs, friendly, monokai, paraiso-dark,
 # colorful, murphy, bw, pastie, paraiso-light, trac, default, fruity
-syntax_style = default
+syntax_style = vim
 
 # Keybindings:
 # When Vi mode is enabled you can use modal editing features offered by Vi in the REPL.
 # When Vi mode is disabled emacs keybindings such as Ctrl-A for home and Ctrl-E
 # for end are available in the REPL.
-vi = False
+vi = True
 
 # Error handling
 # When one of multiple SQL statements causes an error, choose to either
@@ -126,7 +126,7 @@ less_chatty = False
 # \# - "@" sign if logged in as superuser, '>' in other case
 # \n - Newline
 # \dsn_alias - name of dsn alias if -D option is used (empty otherwise)
-prompt = '\u@\h:\d> '
+prompt = '\u@\h/\d> '
 
 # Number of lines to reserve for the suggestion menu
 min_num_menu_lines = 4
