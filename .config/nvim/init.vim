@@ -135,10 +135,10 @@ let g:lightline = {
 
 " Indentation {{{
 set copyindent
-set noexpandtab     " default to hard tabs
+set expandtab       " default to hard tabs
 set shiftwidth=4    " shift operation == tabstob
 set tabstop=4       " show tabs as 4 spaces
-set softtabstop=0   " no softtab when using hard tabs
+set softtabstop=4   " soft tab == 4 spaces
 
 augroup DetectIndent
     autocmd!
