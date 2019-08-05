@@ -13,6 +13,7 @@
 .compiz
 .config/.mono/
 .config/asciinema/
+.config/coc/commands
 .config/coc/db.json
 .config/coc/memos.json
 .config/coc/extensions/coc-java-data/
