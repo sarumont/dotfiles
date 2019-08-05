@@ -21,6 +21,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mtth/scratch.vim'
+Plug 'junegunn/goyo.vim'
 
 " Code 
 Plug 'w0rp/ale'
@@ -94,6 +95,10 @@ au BufReadPost *
 
 let g:localvimrc_sandbox=0
 let g:localvimrc_persistent=2
+
+:command Writemode setlocal spell | Goyo 100
+:command Codemode set nospell | Goyo!
+
 "}}}
 
 " Visuals {{{
