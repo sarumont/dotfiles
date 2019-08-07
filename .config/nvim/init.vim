@@ -6,6 +6,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'rakr/vim-one'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " Misc
 Plug 'xolox/vim-misc'
@@ -42,6 +43,11 @@ Plug 'majutsushi/tagbar'
 " Filetype
 Plug 'sheerun/vim-polyglot'
 
+" Utility
+Plug 'benmills/vimux'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 call plug#end()
 "}}}
 
@@ -49,7 +55,7 @@ call plug#end()
 let mapleader = ","
 let g:mapleader = ","
 filetype plugin indent on
-let g:yankring_history_file='.yankring_history'
+let g:yankring_history_file = $HOME . '/.yankring_history'
 let g:notes_directories = [$HOME . "/.local/share/vim/notes"]
 let g:agprg="ag --nocolor --nogroup --column --smart-case"
 set wildignore=*/generated/*,.git,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.png,*.jpg,*.ttf,*.woff,*/javadoc/*,*.gif,*.ogg,*.mp3,*.mp4,*/node_modules/*
@@ -137,6 +143,10 @@ let g:lightline = {
             \   'gitbranch': 'fugitive#head'
             \ },
             \ }
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+
 "}}}
 
 " Indentation {{{
@@ -243,6 +253,9 @@ nnoremap <silent> <Leader>yr :YRShow<cr>
 " vim-notes
 nnoremap <silent> <Leader>d ^wiDONE <esc> :r! date +" [\%H:\%M]"<ENTER>kJA<Esc>$
 
+" Vimux
+nnoremap <silent> <Leader>rl :VimuxRunLastCommand<cr>
+
 "}}}
 
 " CtrlP {{{
@@ -262,6 +275,10 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:gist_show_privates = 1
 let g:gist_post_private = 1
 let g:gist_update_on_write = 2
+" }}}
+
+" Snippets {{{
+let g:UltiSnipsEditSplit="vertical"
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
