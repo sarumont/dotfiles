@@ -86,6 +86,7 @@
 .sudo_as_admin_successful
 .terraform.d/
 .tooling/
+.vaadin/
 .vault-token
 .viminfo
 .vimtags
