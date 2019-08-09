@@ -255,6 +255,7 @@ nnoremap <silent> <Leader>d ^wiDONE <esc> :r! date +" [\%H:\%M]"<ENTER>kJA<Esc>$
 
 " Vimux
 nnoremap <silent> <Leader>rl :VimuxRunLastCommand<cr>
+nnoremap <Leader>vp :VimuxPromptCommand<CR>
 
 "}}}
 
