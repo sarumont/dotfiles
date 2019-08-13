@@ -71,6 +71,7 @@
 .npm/
 .nvm/
 .oracle_jre_usage/
+.p2/
 .pgpass
 .plugman/
 .privfiles/
