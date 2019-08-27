@@ -55,8 +55,8 @@ alias jdk11="sdk use java 11.0.2-open"
 alias certbot='certbot --config-dir ~/.config/letsencrypt --logs-dir ~/tmp --work-dir ~/tmp'
 
 # notes
-alias daily='$EDITOR note:`date +%Y-%m-%d`'
-alias yesterday='$EDITOR note:`date -v-1d +%Y-%m-%d`'
+alias daily='$EDITOR note:`date +%Y-%m-%d` -c ":Writemode"'
+alias yesterday='$EDITOR note:`date -v-1d +%Y-%m-%d` -c ":Writemode"'
 
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh
