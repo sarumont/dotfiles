@@ -10,8 +10,20 @@ for development work.
 # Usage
 
 ## Prerequisites
+
 - `git`
 - `zsh`
+
+### Ubuntu
+
+    # basic utilities
+    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags
+
+    # If it's a desktop environment
+    sudo apt install fonts-firacode
+
+    # set shell to zsh
+    chsh 
 
 ## Setup
 
@@ -27,17 +39,14 @@ TODO: make this a script
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
 
-    # optional: git submodule add git@github.com:sarumont/privfiles.git .privfiles
-    # or mkdir -p ~/.privfiles/ssh
-    # TODO: add auto-fetch of authorized keys
-
-    mv ~/.ssh/authorized_keys /tmp/
     git checkout master
     git branch --set-upstream-to=origin/master master
     git pull
     git submodule update --init --recursive
     mv /tmp/id_rsa* ~/.ssh/
-    cat /tmp/authorized_keys >> ~/.ssh/authorized_keys
+
+    # optional: git clone git@github.com:sarumont/privfiles.git .privfiles
+    # or mkdir -p ~/.privfiles/ssh
 
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -57,9 +66,9 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
 
     curl -s "https://get.sdkman.io" | zsh
     source "$HOME/.sdkman/bin/sdkman-init.sh"
-    sdk install maven
-    sdk install java 8.0.191-oracle
-    # sdk install java 8.0.181-zulu
+    sdk i maven
+    sdk i java 11.0.2-open
+    sdk i java 8.0.222-zulu
 
 # Local overrides
 
