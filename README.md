@@ -17,10 +17,13 @@ for development work.
 ### Ubuntu
 
     # basic utilities
-    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags
+    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree
 
     # If it's a desktop environment
-    sudo apt install fonts-firacode
+    sudo apt install fonts-firacode htop scrot slock
+
+    # If it's a laptop
+    sudo apt install powertop
 
     # set shell to zsh
     chsh 
@@ -93,3 +96,7 @@ To get Italics working in both vim and tmux (on macOS):
 
  - https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
  - https://apple.stackexchange.com/questions/249307/tic-doesnt-read-from-stdin-and-segfaults-when-adding-terminfo-to-support-italic/249385
+
+## Undervolting
+
+[intel-undervolt](https://github.com/kitsunyan/intel-undervolt)
