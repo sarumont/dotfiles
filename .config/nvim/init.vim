@@ -55,7 +55,7 @@ call plug#end()
 let mapleader = ","
 let g:mapleader = ","
 filetype plugin indent on
-let g:yankring_history_file = $HOME . '/.yankring_history'
+let g:yankring_history_file = '.yankring_history'
 let g:notes_directories = [$HOME . "/.local/share/vim/notes"]
 let g:agprg="ag --nocolor --nogroup --column --smart-case"
 set wildignore=*/generated/*,.git,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.png,*.jpg,*.ttf,*.woff,*/javadoc/*,*.gif,*.ogg,*.mp3,*.mp4,*/node_modules/*
