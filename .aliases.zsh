@@ -58,6 +58,9 @@ alias certbot='certbot --config-dir ~/.config/letsencrypt --logs-dir ~/tmp --wor
 alias daily='$EDITOR note:`date +%Y-%m-%d` -c ":Writemode"'
 alias yesterday='$EDITOR note:`date -v-1d +%Y-%m-%d` -c ":Writemode"'
 
+# music
+alias beet='beet --config ~/.local/beets/config.yaml'
+
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh
 fi

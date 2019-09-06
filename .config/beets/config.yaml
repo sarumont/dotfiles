@@ -6,7 +6,7 @@ import:
 threaded: yes
 clutter: [ "Thumbs.DB", ".DS_Store", "*.m3u", "*.txt" ]
 
-plugins: lastgenre inline info fetchart web bpd copyartifacts
+plugins: lastgenre inline info fetchart web bpd 
 format_item: $artist - $album - $title [$genre] [$format]
 
 copyartifacts:
