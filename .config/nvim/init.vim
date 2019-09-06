@@ -7,6 +7,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'rakr/vim-one'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'ryanoasis/vim-devicons'
 
 " Misc
 Plug 'xolox/vim-misc'
