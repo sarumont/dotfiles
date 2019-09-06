@@ -8,6 +8,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rakr/vim-one'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ryanoasis/vim-devicons'
+Plug 'machakann/vim-highlightedyank'
 
 " Misc
 Plug 'xolox/vim-misc'
