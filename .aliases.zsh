@@ -20,7 +20,7 @@ alias 9='fg %9'
 # general aliases
 alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
-alias bc='bc ~/.dotfiles/bcrc'
+alias bc='bc ~/.bcrc'
 #alias tmux="tmux -2 -u"
 alias _git_full_log="git log --graph --oneline --decorate"
 alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(master|develop)"'
