@@ -20,10 +20,10 @@ for development work.
     sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree
 
     # If it's a desktop environment
-    sudo apt install fonts-firacode htop scrot slock
+    sudo apt install fonts-firacode htop scrot slock lightdm awesome
 
     # If it's a laptop
-    sudo apt install powertop
+    sudo apt install powertop tpm
 
     # set shell to zsh
     chsh 
@@ -70,8 +70,8 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
     curl -s "https://get.sdkman.io" | zsh
     source "$HOME/.sdkman/bin/sdkman-init.sh"
     sdk i maven
+    sdk i gradle
     sdk i java 11.0.2-open
-    sdk i java 8.0.222-zulu
 
 # Local overrides
 
