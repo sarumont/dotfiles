@@ -1,4 +1,0 @@
-#!/bin/sh
-
-. ~/.local/sh/machine
-pactl set-sink-mute $PULSE_ONBOARD_NAME toggle

@@ -1,6 +1,0 @@
-#!/bin/sh
-
-#export GTK2_RC_FILES="~/.themes/Atolm/gtk-2.0/gtkrc"
-#export GTK2_RC_FILES="~/.themes/Khali/gtk-2.0/gtkrc"
-export GTK2_RC_FILES="/usr/share/themes/Clearlooks/gtk-2.0/gtkrc"
-/opt/eclipse/eclipse "$@"

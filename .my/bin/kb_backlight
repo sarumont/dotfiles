@@ -1,2 +1,0 @@
-#!/bin/sh
-sudo /usr/local/bin/su_kb_backlight $@
