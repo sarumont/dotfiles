@@ -712,11 +712,20 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 
-    c.shape = gears.shape.rounded_rect
+    -- c.shape = gears.shape.rounded_rect
+end)
+
+client.connect_signal("property::floating", function(c)
+    if c.floating then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
+
     -- Custom
     if beautiful.titlebar_fun then
         beautiful.titlebar_fun(c)
