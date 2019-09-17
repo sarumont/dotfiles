@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=devmon
+Comment=Automount USB devices
+Exec=devmon
+Terminal=false
+Type=Application
+StartupNotify=false
