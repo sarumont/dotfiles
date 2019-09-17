@@ -17,10 +17,10 @@ for development work.
 ### Ubuntu
 
     # basic utilities
-    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree
+    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree docker
 
     # If it's a desktop environment
-    sudo apt install fonts-firacode htop scrot slock lightdm awesome
+    sudo apt install fonts-firacode htop scrot slock lightdm awesome udevil redshift lightdm slick-greeter lightdm-settings libgtk-3-dev gtk-doc-tools
 
     # If it's a laptop
     sudo apt install powertop tpm
