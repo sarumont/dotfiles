@@ -61,6 +61,9 @@ alias yesterday='$EDITOR note:`date -v-1d +%Y-%m-%d` -c ":Writemode"'
 # music
 alias beet='beet --config ~/.local/beets/config.yaml'
 
+# mounts
+alias mymounts="tree -L 1 /media/$USER"
+
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh
 fi
