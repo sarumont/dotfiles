@@ -1,0 +1,65 @@
+{
+    "java.home": "/home/sarumont/.sdkman/candidates/java/current",
+    "workbench.colorTheme": "One Dark Pro",
+    "terminal.integrated.fontFamily": "Fira Code Retina",
+    "editor.rulers": [120],
+    "editor.minimap.enabled": false,
+    "workbench.editor.showTabs": false,
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "vim.foldfix": true,
+    "vim.leader": ",",
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.editor.enablePreview": false,
+
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "vim.useSystemClipboard": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [ "<leader>", "c", "c" ],
+            "after": ["g", "c", "c"]
+        },
+        {
+            "before": [ "<leader>", "c", "u" ],
+            "after": ["g", "c", "c"]
+        },
+        {
+            "before": [ "<leader>", "j" ],
+            "after": [ "<leader>", "<leader>", "j" ]
+        },
+        {
+            "before": [ "<leader>", "k" ],
+            "after": [ "<leader>", "<leader>", "k" ]
+        },
+        {
+            "before": [ "<leader>", "l" ],
+            "after": [ "<leader>", "<leader>", "l" ]
+        },
+        {
+            "before": [ "<leader>", "h" ],
+            "after": [ "<leader>", "<leader>", "h" ]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [ "<leader>", "c", "c" ],
+            "after": [ "g", "c", "c" ]
+        },
+        {
+            "before": [ "<leader>", "c", "u" ],
+            "after": [ "g", "c", "c" ]
+        }
+    ],
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "window.zoomLevel": 0,
+    "editor.fontFamily": "'Fira Code Retina', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontLigatures": true
+
+}
