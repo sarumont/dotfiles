@@ -5,14 +5,14 @@
 .android/
 .aptitude
 .arquillian/
-.aws/
 .awesome-client_history
+.aws/
 .azure/
 .bundle/
 .cache
+.cert/
 .circleci/
 .compiz
-.cert/
 .config/.mono/
 .config/Signal/
 .config/Unknown Organization/
@@ -26,6 +26,7 @@
 .config/configstore
 .config/dconf/
 .config/doctl/
+.config/enchant/
 .config/evolution/
 .config/git/
 .config/gnome-initial-setup-done
@@ -39,12 +40,14 @@
 .config/letsencrypt/
 .config/mimeapps.list
 .config/nautilus/
+.config/neofetch/
 .config/neverfail/
 .config/nvim/.netrwhist
 .config/nvim/.plugins/
 .config/pgcli/history
 .config/pgcli/log
 .config/pulse/
+.config/spacefm/
 .config/terminology/
 .config/user-dirs.dirs
 .config/user-dirs.locale
@@ -55,8 +58,8 @@
 .cups/
 .dbus/
 .docker/
-.dropbox/
 .dropbox-dist/
+.dropbox/
 .dvdcss/
 .eclipse/
 .electron/
@@ -71,6 +74,7 @@
 .gradle/
 .groovy/
 .gstreamer-0.10/
+.gtkrc-2.0
 .heroku/
 .histfile
 .httpie/sessions/
@@ -140,6 +144,7 @@
 .zoomus/
 .zsh-update
 .zsh_history
+
 # ignore non-dotfiles
 /[^.]*
 
