@@ -49,7 +49,7 @@ alias kl='kubectl logs'
 alias ltr="ls -altr"
 alias tree='tree -C'
 
-alias jdk8="sdk use java 8.0.201-oracle"
+alias jdk8="sdk use java 8.0.222-zulu"
 alias jdk11="sdk use java 11.0.2-open"
 
 alias certbot='certbot --config-dir ~/.config/letsencrypt --logs-dir ~/tmp --work-dir ~/tmp'
