@@ -22,7 +22,10 @@
 .config/coc/db.json
 .config/coc/extensions/coc-java-data/
 .config/coc/extensions/db.json
+.config/coc/history.json
+.config/coc/lists
 .config/coc/memos.json
+.config/coc/mru
 .config/configstore
 .config/dconf/
 .config/doctl/
