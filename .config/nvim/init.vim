@@ -100,6 +100,11 @@ au BufReadPost *
 			\   exe "normal! g`\"" |
 			\ endif
 
+au BufWritePre *
+			\ if &ft == 'java' |
+			\   :CocCommand java.action.organizeImports |
+			\ endif
+
 let g:localvimrc_sandbox=0
 let g:localvimrc_persistent=2
 
