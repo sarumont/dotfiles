@@ -153,6 +153,8 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 
+let g:VimuxHeight = "30"
+
 "}}}
 
 " Indentation {{{
@@ -260,8 +262,11 @@ nnoremap <silent> <Leader>yr :YRShow<cr>
 nnoremap <silent> <Leader>d ^wiDONE <esc> :r! date +" [\%H:\%M]"<ENTER>kJA<Esc>$
 
 " Vimux
-nnoremap <silent> <Leader>rl :wa<cr>:VimuxRunLastCommand<cr>
+nnoremap <silent> <Leader>rl :CocCommand java.action.organizeImports<cr>:wa<cr>:VimuxRunLastCommand<cr>
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
+nnoremap <Leader>vg :VimuxPromptCommand("gradlew ")<CR>
+nnoremap <Leader>vq :VimuxCloseRunner<CR>
+nnoremap <Leader>vz :VimuxZoomRunner<CR>
 
 "}}}
 
