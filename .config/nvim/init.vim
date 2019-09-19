@@ -79,15 +79,14 @@ if exists('$TMUX')
 endif
 
 " system clipboard integration
-set clipboard=unnamed
+set clipboard=unnamedplus
 if has("unix")
     let s:uname = system("echo -n \"$(uname)\"")
     if s:uname == "Darwin"
         nnoremap <silent> <Leader>pp :set paste<cr>$:r ! pbpaste <cr>:set nopaste<cr>$
         let g:gist_clip_command = 'pbcopy'
     else
-        nnoremap <silent> <Leader>pp :set paste<cr>$:r ! xclip -o<cr>:set nopaste<cr>$
-        nnoremap <silent> <Leader>pv :set paste<cr>$:r ! xclip -selection clipboard -o<cr>:set nopaste<cr>$
+        nnoremap <silent> <Leader>pp :set paste<cr>$:r ! xclip -o -selection clipboard<cr>:set nopaste<cr>$
         let g:gist_clip_command = 'xclip -selection clipboard'
     endif
 endif
