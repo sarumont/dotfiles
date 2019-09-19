@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Parcellite
+Comment=Clipboard management
+Exec=parcellite
+Terminal=false
+Type=Application
+StartupNotify=false
