@@ -64,6 +64,10 @@ alias beet='beet --config ~/.local/beets/config.yaml'
 # mounts
 alias mymounts="tree -L 1 /media/$USER"
 
+# termite
+alias darktermite="cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config"
+alias lighttermite="cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config"
+
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh
 fi
