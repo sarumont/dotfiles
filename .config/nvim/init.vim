@@ -100,11 +100,6 @@ au BufReadPost *
 			\   exe "normal! g`\"" |
 			\ endif
 
-au BufWritePre *
-			\ if &ft == 'java' |
-			\   :CocCommand java.action.organizeImports |
-			\ endif
-
 let g:localvimrc_sandbox=0
 let g:localvimrc_persistent=2
 
@@ -242,6 +237,7 @@ nnoremap <silent> <F12> :TagbarOpen fjc<cr>
 
 " Code miscellany
 nnoremap <silent> <Leader>pj :%!python -m json.tool<cr>
+nnoremap <silent> <Leader>fi :CocCommand java.action.organizeImports<cr>
 
 " Dasht
 
@@ -263,7 +259,7 @@ nnoremap <silent> <Leader>yr :YRShow<cr>
 nnoremap <silent> <Leader>d ^wiDONE <esc> :r! date +" [\%H:\%M]"<ENTER>kJA<Esc>$
 
 " Vimux
-nnoremap <silent> <Leader>rl :CocCommand java.action.organizeImports<cr>:wa<cr>:VimuxRunLastCommand<cr>
+nnoremap <silent> <Leader>rl :wa<cr>:VimuxRunLastCommand<cr>
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
 nnoremap <Leader>vg :VimuxPromptCommand("gradlew ")<CR>
 nnoremap <Leader>vq :VimuxCloseRunner<CR>
