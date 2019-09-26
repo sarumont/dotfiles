@@ -531,7 +531,7 @@ globalkeys = my_table.join(
               {description = "lua execute prompt", group = "awesome"}),
     --]]
 
-    awful.key({ "Control", altkey }, 'space', function () awful.spawn("emoji-keyboard -s") end,
+    awful.key({ "Control", altkey }, 'space', function () awful.spawn("/home/sarumont/.local/bin/emoji-keyboard -s") end,
         {description = "emoji keyboard", group = "launcher"}),
 
     awful.key({ modkey }, 'g', function ()
