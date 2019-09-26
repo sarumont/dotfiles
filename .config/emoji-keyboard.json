@@ -1,0 +1,26 @@
+{
+	"tone": "1f3fc",
+	"emoji_size": 32,
+	"keyboard_use_compact": false,
+	"keyboard_pos": [
+		0,
+		0
+	],
+	"keyboard_size_full": [
+		820,
+		300
+	],
+	"keyboard_columns_full": 16,
+	"keyboard_size_compact": [
+		375,
+		250
+	],
+	"keyboard_columns_compact": 7,
+	"search_pos": [
+		1,
+		1
+	],
+	"emoji_set": "noto-emoji",
+	"use_indicator": true,
+	"type_on_select": false
+}
