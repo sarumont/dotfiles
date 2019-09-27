@@ -1,0 +1,61 @@
+#!/bin/sh
+
+##
+## Script designed to fetch javadocs and add docsets to dasht. Note this script depends on the following:
+## 
+##   - [javadocset](https://github.com/william8th/javadocset)
+##   - maven (used to fetch Javadoc JARs)
+##   - [dasht](https://github.com/sunaku/dasht) to use the docsets generated herein
+## 
+## Usage: add_javadoc_docset <groupId> <artifactId> <version>
+##
+## Copyright 2019 Richard Kolkovich <https://github.com/sarumont>
+##
+## Licensed under the GPLv3 <https://www.gnu.org/licenses/gpl-3.0.en.html>
+##
+
+if test -z $GOPATH; then
+    GOPATH=$HOME/go
+fi
+JAVADOCSET="$GOPATH/bin/javadocset"
+
+if ! test -x $JAVADOCSET; then
+    echo "Cannot find 'javadocset' in $JAVADOCSET"
+    exit 1
+fi
+
+if test $# -ne 3; then
+    echo "Usage: $0 <groupId> <artifactId> <version>"
+    exit 1
+fi
+
+NAME=$2-$3
+
+if test -z $XDG_DATA_HOME; then
+    XDG_DATA_HOME=$HOME/.local/share
+fi
+DOCSET_HOME=$XDG_DATA_HOME/dasht/docsets
+mkdir -p $DOCSET_HOME
+DOCSET_PATH=$DOCSET_HOME/$NAME.docset
+
+if test -d $DOCSET_PATH; then
+    echo "Docset $NAME already exists"
+    exit 0
+fi
+
+mvn -q dependency:get -DgroupId=$1 -DartifactId=$2 -Dversion=$3 -Dclassifier=javadoc
+
+GROUP_PATH=$(echo $1 | sed 's/\./\//g')
+
+JAR=$HOME/.m2/repository/$GROUP_PATH/$2/$3/$NAME-javadoc.jar
+
+if ! test -f $JAR; then
+    echo "Javadoc JAR does not exist at $JAR"
+    exit 1
+fi
+
+mkdir -p /tmp/$NAME
+unzip -q $JAR -d /tmp/$NAME
+cd $DOCSET_HOME
+$JAVADOCSET $NAME /tmp/$NAME
+rm -rf /tmp/$NAME
