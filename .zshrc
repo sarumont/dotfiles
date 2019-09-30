@@ -47,7 +47,14 @@ HIST_STAMPS="yyyy-mm-dd"
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$HOME/.omz-custom
 
-NVM_LAZY_LOAD=true
+get_tmux_session_name() {
+    tty=$(tty)
+    for s in $(tmux list-sessions -F '#{session_name}' 2>/dev/null); do
+        tmux list-panes -F '#{pane_tty} #{session_name}' -t "$s"
+    done | grep "$tty" | awk '{print $2}'
+}
+
+NVM_LAZY_LOAD=$([[ $(get_tmux_session_name) == "dev" ]] && echo "false" || echo "true")
 NVM_AUTO_USE=true
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
