@@ -5,7 +5,7 @@
     "coc-java": ">=1.4.5",
     "coc-json": ">=1.2.3",
     "coc-eslint": ">=1.2.2",
-    "coc-prettier": ">=1.1.7",
+    "coc-prettier": ">=1.1.8",
     "coc-ultisnips": ">=1.2.3"
   }
 }
