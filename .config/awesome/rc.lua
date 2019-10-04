@@ -534,6 +534,9 @@ globalkeys = my_table.join(
     awful.key({ "Control", altkey }, 'space', function () awful.spawn("/home/sarumont/.local/bin/emoji-keyboard -s") end,
         {description = "emoji keyboard", group = "launcher"}),
 
+    awful.key({ modkey }, 'e', function () awful.spawn('spacefm') end,
+    {description = "Spawn SpaceFM", group = "launcher"}),
+
     awful.key({ modkey }, 'g', function ()
         local matcher = function (c)
             return awful.rules.match(c, {class = 'Google-chrome'})
