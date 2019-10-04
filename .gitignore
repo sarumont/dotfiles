@@ -15,6 +15,7 @@
 .compiz
 .config/.mono/
 .config/Signal/
+.config/VirtualBox/
 .config/Unknown Organization/
 .config/asciinema/
 .config/beets/library.db
@@ -31,6 +32,7 @@
 .config/doctl/
 .config/enchant/
 .config/evolution/
+.config/ghb/
 .config/git/
 .config/gnome-initial-setup-done
 .config/goa-1.0/
@@ -59,6 +61,7 @@
 .cordova/
 .cups/
 .dbus/
+.dmrc
 .docker/
 .dropbox-dist/
 .dropbox/
@@ -77,6 +80,7 @@
 .groovy/
 .gstreamer-0.10/
 .gtkrc-2.0
+.helm/
 .heroku/
 .histfile
 .httpie/sessions/
@@ -92,6 +96,7 @@
 .local/
 .localvimrc_persistent
 .lsp4xml/
+.lyrics/
 .m2/
 .minikube/
 .mozilla/
@@ -110,6 +115,7 @@
 .plugman/
 .privfiles/
 .psql_history
+.pulse-cookie
 .rnd
 .rvm/
 .sdkman/
@@ -131,6 +137,7 @@
 .vault-token
 .viminfo
 .vimtags
+.vms/
 .vscode/
 .w3m/
 .wget-hsts
