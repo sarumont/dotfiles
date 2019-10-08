@@ -1,13 +1,22 @@
 #!/bin/sh
 
+PACTL=$(which pactl)
+if test $? -ne 0; then
+    PACTL=""
+fi
+
 mpc pause
 if test "on" = $1; then
-	pactl suspend-sink 1
-	mpc enable 2
-	mpc disable 1
+    if test -n "$PACTL"; then
+        $PACTL suspend-sink 1
+    fi
+    mpc enable 2
+    mpc disable 1
 else
-	mpc enable 1
-	mpc disable 2
-	pactl suspend-sink 0
+    mpc enable 1
+    mpc disable 2
+    if test -n "$PACTL"; then
+        $PACTL suspend-sink 0
+    fi
 fi
 mpc play
