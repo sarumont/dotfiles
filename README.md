@@ -73,6 +73,26 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
     sdk i gradle
     sdk i java 11.0.2-open
 
+### More stuff
+
+    # TODO: browser, gtk theme, Dropbox, Zoom, VPN, sound
+    # https://github.com/microsoft/cascadia-code/releases
+    sudo apt install arc-theme spacefm parcellite xdotool
+
+### 🎧
+
+    sudo apt install python3-pip ncmpcpp mpd mpc
+    pip3 install beets[fetchart,lyrics,lastgenre] flask
+
+Now, configure / mount music dir. Drop the following into `~/.local/beets/config.yaml`:
+
+    directory: /media/chocobo/music
+    library: /home/sarumont/.local/beets/library.blb
+    import:
+      log: /home/sarumont/.local/beets/import.log
+
+And begin the import!
+
 # Local overrides
 
 ## shell
