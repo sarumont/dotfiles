@@ -93,6 +93,11 @@ Now, configure / mount music dir. Drop the following into `~/.local/beets/config
 
 And begin the import!
 
+### dasht
+
+    sudo apt install golang w3m sqlite3
+    go get github.com/william8th/javadocset
+
 # Local overrides
 
 ## shell
