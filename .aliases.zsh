@@ -42,7 +42,8 @@ alias st='scm_st'
 
 # Kubectl
 alias ka='kubectl apply'
-alias kd='kubectl delete'
+alias kd='kubectl describe'
+alias kdel='kubectl delete'
 alias kg='kubectl get'
 alias kl='kubectl logs'
 
