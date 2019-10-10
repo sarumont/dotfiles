@@ -89,6 +89,7 @@
 .java
 .jenv/
 .jrebel
+.k9s/
 .keychain
 .keycloak/
 .kube/
