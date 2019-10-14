@@ -17,10 +17,12 @@ for development work.
 ### Ubuntu
 
     # basic utilities
-    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree docker
+    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree docker whois
 
     # If it's a desktop environment
-    sudo apt install fonts-firacode htop scrot slock lightdm awesome udevil redshift lightdm slick-greeter lightdm-settings libgtk-3-dev gtk-doc-tools
+    sudo apt install fonts-firacode htop scrot slock awesome udevil redshift lightdm slick-greeter lightdm-settings libgtk-3-dev gtk-doc-tools fonts-ubuntu fonts-noto-color-emoji
+
+    # grab Cascadia Code from Github, and drop it into ~/.local/share/fonts && fc-cache -f
 
     # If it's a laptop
     sudo apt install powertop tpm
@@ -59,6 +61,13 @@ TODO: make this a script
 
     echo "Please log out, log back in, and run 'viup' to initialize your neovim setup."
 
+    # If desktop:
+    mkdir -p ~/.config/awesome
+    cd ~/.config/awesome
+    git clone --recursive git@github.com:sarumont/awesome-copycats.git 
+    ln -s awesome-copycats/{freedesktop,lain,themes} .
+    ln -s themes/powerarrow-dark/my-theme.lua .
+
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
  - `.ssh/config` -> `.privfiles/ssh/config`
@@ -72,6 +81,7 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
     sdk i maven
     sdk i gradle
     sdk i java 11.0.2-open
+    # maybe: sdk i java 8.0.222-zulu
 
 ### More stuff
 
@@ -108,6 +118,8 @@ Local zsh overrides are supported:
  - `.zlogin` -> `.local/sh/zlogin`
  - `.zshenv` -> `.local/sh/zshenv`
  - `.zshrc` -> `.local/sh/zshrc`
+
+# TODO: VSCode
 
 ## vim-notes
 
