@@ -32,12 +32,14 @@
 .config/doctl/
 .config/enchant/
 .config/evolution/
+.config/freshwrapper-data
 .config/ghb/
 .config/git/
 .config/gnome-initial-setup-done
 .config/goa-1.0/
 .config/google-chrome/
 .config/gtk-2.0/
+.config/gtk-3.0/bookmarks
 .config/heroku/
 .config/htop/
 .config/ibus/
