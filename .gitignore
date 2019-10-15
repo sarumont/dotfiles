@@ -103,14 +103,17 @@
 .m2/
 .minikube/
 .mozilla/
+.mpd/
 .mvnGoLang/
 .ngrok2/
 .nmcli-history
 .node-gyp/
+.node_repl_history
 .npm/
 .nv/
 .nvidia-settings-rc
 .nvm/
+.ocr-last
 .oracle_jre_usage/
 .p2/
 .pgpass
