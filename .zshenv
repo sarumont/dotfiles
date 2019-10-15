@@ -21,5 +21,6 @@ path+=(
     $HEROKU_HOME/bin
     $HOME/.rvm/bin
     $HOME/.dasht/bin
+    $HOME/go/bin
     .)
 path=($^path(N))
