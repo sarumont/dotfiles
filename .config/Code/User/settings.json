@@ -1,7 +1,7 @@
 {
     "java.home": "/home/sarumont/.sdkman/candidates/java/current",
     "workbench.colorTheme": "One Dark Pro",
-    "terminal.integrated.fontFamily": "Fira Code Retina",
+    "terminal.integrated.fontFamily": "Cascadia Code",
     "editor.rulers": [120],
     "editor.minimap.enabled": false,
     "workbench.editor.showTabs": false,
