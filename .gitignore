@@ -19,6 +19,7 @@
 .config/Unknown Organization/
 .config/asciinema/
 .config/beets/library.db
+.config/cef_user_data
 .config/coc/commands
 .config/coc/db.json
 .config/coc/extensions/coc-java-data/
