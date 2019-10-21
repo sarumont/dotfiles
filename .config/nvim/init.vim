@@ -223,7 +223,7 @@ nnoremap <silent> <Leader>mc I🔀 <esc>
 nnoremap <silent> <Leader>gd :Gdiff<cr>
 nnoremap <silent> <Leader>gl :Glog<cr>
 nnoremap <silent> <Leader>gs :Gstatus<cr>
-nnoremap <silent> <Leader>gb :Gblame<cr>
+nnoremap <silent> <Leader>gb :Gblame -w -M<cr>
 nnoremap <silent> <Leader>gc :Gcommit<cr>
 nnoremap <silent> <Leader>gp :Gpush<cr>
 nnoremap <silent> <Leader>amend :Git commit --amend<cr>
