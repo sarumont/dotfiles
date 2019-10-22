@@ -527,6 +527,14 @@ globalkeys = my_table.join(
     end,
     {description = "Launch Chrome", group = "launcher"}),
 
+    awful.key({ modkey }, 'b', function ()
+        local matcher = function (c)
+            return awful.rules.match(c, {class = 'Brave-browser'})
+        end
+        awful.client.run_or_raise('brave-browser', matcher)
+    end,
+    {description = "Launch Brave", group = "launcher"}),
+
     awful.key({ modkey }, 'c', function ()
         local matcher = function (c)
             return awful.rules.match(c, {class = 'Code'})
@@ -677,6 +685,7 @@ awful.rules.rules = {
       properties = { titlebars_enabled = true } },
 
     { rule = { class = "Google-chrome" }, properties = { tag = "🌐" } },
+    { rule = { class = "Brave-browser" }, properties = { tag = "🌐" } },
     { rule = { class = "Code" }, properties = { tag = "🖥" } },
     { rule = { instance = "dev" }, properties = { tag = "💻" } },
     { rule = { class = "zoom" }, properties = { ontop = true, floating = true }}
