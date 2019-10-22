@@ -1,5 +1,5 @@
 music_directory		    "/media/chocobo/music"
-playlist_directory		"/media/chocobo/playlists"
+playlist_directory		"/media/chocobo/music/playlists"
 
 db_file			        "~/.mpd/tag_cache"
 log_file			    "~/.mpd/mpd.log"
