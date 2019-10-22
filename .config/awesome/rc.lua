@@ -527,7 +527,7 @@ globalkeys = my_table.join(
     end,
     {description = "Launch Chrome", group = "launcher"}),
 
-    awful.key({ modkey }, 'b', function ()
+    awful.key({ modkey }, 'h', function ()
         local matcher = function (c)
             return awful.rules.match(c, {class = 'Brave-browser'})
         end
