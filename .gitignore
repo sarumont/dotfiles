@@ -50,6 +50,7 @@
 .config/nautilus/
 .config/neofetch/
 .config/neverfail/
+.config/nixnote2/
 .config/nvim/.netrwhist
 .config/nvim/.plugins/
 .config/pgcli/history
