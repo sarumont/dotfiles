@@ -56,6 +56,39 @@ git_svn_version() {
 	fi
 }
 
+all() {
+	case $1 in 
+		status)
+			GIT_CMD="git status"
+			SVN_CMD="svn status"
+			;;
+		pull)
+			GIT_CMD="git pull --rebase"
+			SVN_CMD="svn up"
+			;;
+		push)
+			GIT_CMD="git push"
+			SVN_CMD=""
+			;;
+		*)
+			echo "Unknown command: $1"
+			return 1
+	esac
+
+	for x in $(command ls -d */); do 
+		cd $x
+		echo "\n$fg[blue]$x:\e[0m"
+		if [[ -d .git ]]; then 
+			eval $GIT_CMD
+		elif [[ -d .svn ]]; then
+			eval $SVN_CMD
+		else
+			echo "No supported SCM detected"
+		fi
+		cd ..
+	done
+}
+
 build() {
 	dir=`pwd`
 	cmd='echo "Could not find buildfile"'
