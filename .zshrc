@@ -149,4 +149,3 @@ alias vi=$EDITOR
 export PG_PAGER="$EDITOR -R -c 'set ft=dbout' -"
 
 #zprof
-
