@@ -147,8 +147,8 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 fpath+=(
     "$HOME/.zfunctions" 
     "$HOME/.dasht/etc/zsh/completions")
-autoload -U promptinit; promptinit
-prompt pure
+# autoload -U promptinit; promptinit
+# prompt pure
 
 # Editor setup
 EDITOR=`which nvim`
@@ -160,5 +160,7 @@ alias vim=$EDITOR
 alias vi=$EDITOR
 
 export PG_PAGER="$EDITOR -R -c 'set ft=dbout' -"
+
+eval "$(starship init zsh)"
 
 #zprof
