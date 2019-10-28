@@ -17,7 +17,7 @@ for development work.
 ### Ubuntu
 
     # basic utilities
-    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree docker whois fd-find
+    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux universal-ctags docker whois fd-find
 
     # TODO: use official docker repository...?
 
