@@ -27,6 +27,7 @@ for development work.
 
     # grab Cascadia Code from Github, and drop it into ~/.local/share/fonts && fc-cache -f
     # https://github.com/sharkdp/bat/releases
+    # https://github.com/sharkdp/hexyl/releases
 
     # If it's a laptop
     sudo apt install powertop tpm
