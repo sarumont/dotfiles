@@ -14,6 +14,9 @@ alias 7='fg %7'
 alias 8='fg %8'
 alias 9='fg %9'
 
+# Ubuntu
+alias as='apt search'
+
 # general aliases
 alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
