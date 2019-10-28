@@ -26,8 +26,13 @@ for development work.
         lightdm-settings libgtk-3-dev gtk-doc-tools fonts-ubuntu fonts-noto-color-emoji
 
     # grab Cascadia Code from Github, and drop it into ~/.local/share/fonts && fc-cache -f
+    # 
+    # TODO can use something like this to grab release from GH:
+    # wget -q --show-progress https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz
+    #
     # https://github.com/sharkdp/bat/releases
     # https://github.com/sharkdp/hexyl/releases
+    # tar xvf starship-x86_64-unknown-linux-gnu.tar.gz
 
     # If it's a laptop
     sudo apt install powertop tpm
