@@ -1,6 +1,3 @@
-unalias rm
-unalias mv
-
 alias vi=$EDITOR
 alias vim=$EDITOR
 alias viup='vim -c ":PlugUpgrade | :PlugUpdate | :PlugInstall | :PlugClean | :quitall"'
@@ -21,17 +18,34 @@ alias 9='fg %9'
 alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
 alias bc='bc ~/.bcrc'
-#alias tmux="tmux -2 -u"
-alias _git_full_log="git log --graph --oneline --decorate"
-alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(master|develop)"'
 
-alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
+# tree navigation
+alias ls='exa --icons'
+alias l='ls --git --long'
+alias la='ls -al' # note this should also include --git, but there is currently a bug in eva
+alias ll='l'
+alias ltr='l --sort newest'
+alias tree='exa -T'
+
+# suffixes (from OMZ common-aliases)
+alias H='| head'
+alias T='| tail'
+alias G='| grep'
+alias L='| less'
+alias M='| most'
+alias LL=' 2>&1 | less'
+alias CA=' 2>&1 | cat -A'
+alias NE=' 2> /dev/null'
+alias NUL=' > /dev/null 2>&1'
+
+# search
 alias ag="ag --smart-case"
 
-alias sub_st='for x in `find . -maxdepth 1 -mindepth 1 -type d`; do cd $x; echo $x:; git status -s; cd ..; done'
-
 # SCM
-alias bump='git commit -m ":arrow_up:"'
+alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
+alias _git_full_log="git log --graph --oneline --decorate"
+alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(master|develop)"'
+alias bump='git commit -m "⬆️"'
 alias full_pull='git pull --rebase && git fetch --all --prune && git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
 alias gcm='git commit -m' # override gcm - git checkout master is useless
 alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
@@ -40,16 +54,7 @@ alias gtt='git log -1 --format=%ai '
 alias gup='git up' # defer this to ~/gitconfig
 alias st='scm_st'
 
-# Kubectl
-alias ka='kubectl apply'
-alias kd='kubectl describe'
-alias kdel='kubectl delete'
-alias kg='kubectl get'
-alias kl='kubectl logs'
-
-alias ltr="ls -altr"
-alias tree='tree -C'
-
+# JDK switching
 alias jdk8="sdk use java 8.0.222-zulu"
 alias jdk11="sdk use java 11.0.2-open"
 

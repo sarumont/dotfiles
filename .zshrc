@@ -61,7 +61,20 @@ NVM_AUTO_USE=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git common-aliases ssh-agent zsh-nvm zsh-syntax-highlighting) 
+plugins=(
+    debian
+    docker
+    git 
+    gitfast
+    gradle
+    httpie
+    kubectl
+    mvn
+    ssh-agent 
+    sudo
+    zsh-nvm 
+    zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
