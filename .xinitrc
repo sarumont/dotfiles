@@ -1,1 +1,5 @@
-export QT_QPA_PLATFORMTHEME=gtk2
+#!/bin/sh
+
+# Make sure this is before the 'exec' command or it won't be sourced.
+[ -f /etc/xprofile ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
