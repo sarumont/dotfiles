@@ -142,3 +142,5 @@ To get Italics working in both vim and tmux (on macOS):
 ## Undervolting
 
 [intel-undervolt](https://github.com/kitsunyan/intel-undervolt)
+
+Shout-out to @notlesh for dropping me [this awesome link](https://www.wezm.net/technical/2019/10/useful-command-line-tools/), which has influenced some of my configuration now.
