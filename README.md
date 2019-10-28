@@ -32,7 +32,6 @@ for development work.
     #
     # https://github.com/sharkdp/bat/releases
     # https://github.com/sharkdp/hexyl/releases
-    # tar xvf starship-x86_64-unknown-linux-gnu.tar.gz
 
     # If it's a laptop
     sudo apt install powertop tpm
