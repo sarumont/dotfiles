@@ -17,7 +17,7 @@ alias 9='fg %9'
 # general aliases
 alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
-alias bc='bc ~/.bcrc'
+alias bc='eva'
 
 # tree navigation
 alias ls='exa --icons'
