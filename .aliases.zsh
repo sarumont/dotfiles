@@ -18,6 +18,8 @@ alias 9='fg %9'
 alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
 alias bc='eva'
+alias cat='bat'
+alias fd='fdfind'
 
 # tree navigation
 alias ls='exa --icons'
@@ -39,7 +41,7 @@ alias NE=' 2> /dev/null'
 alias NUL=' > /dev/null 2>&1'
 
 # search
-alias ag="ag --smart-case"
+alias ag='ag --smart-case'
 
 # SCM
 alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'

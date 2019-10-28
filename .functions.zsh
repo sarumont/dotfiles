@@ -1,24 +1,3 @@
-#
-# Functions for wrapping up find(1)
-#
-
-export FIND_IGNORE_REGEX=".*\.(svn|sw.|git.*|un.)"
-
-# Find the given text in a filename
-f() {
-    find -E . ! -regex "$FIND_IGNORE_REGEX" -regex ".*$1.*" -print
-}
-
-# Find the given text in a Java source file
-fjf() {
-    find -E . ! -regex "$FIND_IGNORE_REGEX" -regex ".*$1.*\.java" -print
-}
-
-# Find a file with the given case-insensitive name
-fe() {
-    find -E . ! -regex "$FIND_IGNORE_REGEX" -iname $1 -print
-}
-
 track_lengths() {
     for x in *.flac; do 
         metaflac --show-total-samples --show-sample-rate $x |\

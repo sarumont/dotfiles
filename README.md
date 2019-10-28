@@ -17,12 +17,16 @@ for development work.
 ### Ubuntu
 
     # basic utilities
-    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree docker whois
+    sudo apt install git zsh keychain neovim silversearcher-ag zip unzip tmux exuberant-ctags tree docker whois fd-find
+
+    # TODO: use official docker repository...?
 
     # If it's a desktop environment
-    sudo apt install fonts-firacode htop scrot slock awesome udevil redshift lightdm slick-greeter lightdm-settings libgtk-3-dev gtk-doc-tools fonts-ubuntu fonts-noto-color-emoji
+    sudo apt install fonts-firacode htop scrot slock awesome udevil redshift lightdm slick-greeter \
+        lightdm-settings libgtk-3-dev gtk-doc-tools fonts-ubuntu fonts-noto-color-emoji
 
     # grab Cascadia Code from Github, and drop it into ~/.local/share/fonts && fc-cache -f
+    # https://github.com/sharkdp/bat/releases
 
     # If it's a laptop
     sudo apt install powertop tpm
