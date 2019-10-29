@@ -143,6 +143,7 @@
 .sudo_as_admin_successful
 .terraform.d/
 .thumbnails/
+.tig_history
 .tooling/
 .vaadin/
 .vault-token
