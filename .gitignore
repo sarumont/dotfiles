@@ -59,6 +59,7 @@
 .config/QtProject.conf
 .config/radeon-profile/
 .config/spacefm/
+.config/syncthing/
 .config/terminology/
 .config/user-dirs.dirs
 .config/user-dirs.locale
