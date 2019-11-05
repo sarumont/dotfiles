@@ -280,10 +280,12 @@ let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 let g:ctrlp_by_filename = 1
 " }}}
 
-" NERDCommenter {{{
+" NERD {{{
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDTrimTrailingWhitespace = 1
+
+let g:NERDTreeWinSize = 50
 " }}}
 
 " Gist {{{
