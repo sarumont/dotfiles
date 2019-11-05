@@ -79,6 +79,9 @@ alias mymounts="tree -L 1 /media/$USER"
 alias darktermite="cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config"
 alias lighttermite="cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config"
 
+# productivity
+alias pomodoro="mpc play && at now + 25 minutes <<< 'mpc pause && notify-send -i ~/Dropbox/tomato.png -u normal \"Take a break\"'"
+
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh
 fi
