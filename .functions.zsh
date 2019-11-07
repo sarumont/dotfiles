@@ -122,6 +122,16 @@ set_version() {
     mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$1
 }
 
+go_light() {
+    echo "set background=light" > ~/.config/nvim/bg.vim
+    cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config
+}
+
+go_dark() {
+    echo "set background=dark" > ~/.config/nvim/bg.vim
+    cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
+}
+
 if [[ -r ~/.local/sh/functions.zsh ]]; then
     . ~/.local/sh/functions.zsh
 fi
