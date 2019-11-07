@@ -7,6 +7,6 @@
     "coc-eslint": ">=1.2.2",
     "coc-prettier": ">=1.1.10",
     "coc-ultisnips": ">=1.2.3",
-    "coc-tsserver": ">=1.4.4"
+    "coc-tsserver": ">=1.4.5"
   }
 }
