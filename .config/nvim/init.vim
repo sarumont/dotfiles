@@ -122,7 +122,7 @@ endif
 colorscheme one
 let g:one_allow_italics = 1 
 let g:onedark_terminal_italics=1
-set background=dark
+exec "source " . $HOME . "/.config/nvim/bg.vim"
 set cursorline
 set colorcolumn=120
 
