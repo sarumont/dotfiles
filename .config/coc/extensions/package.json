@@ -4,7 +4,7 @@
     "coc-html": ">=1.2.1",
     "coc-java": ">=1.4.5",
     "coc-json": ">=1.2.4",
-    "coc-eslint": ">=1.2.2",
+    "coc-eslint": ">=1.2.3",
     "coc-prettier": ">=1.1.10",
     "coc-ultisnips": ">=1.2.3",
     "coc-tsserver": ">=1.4.5"
