@@ -34,6 +34,7 @@ Plug 'adelarsq/vim-matchit'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'roryokane/detectindent'
+Plug 'pedrohdz/vim-yaml-folds'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -150,6 +151,8 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 
 let g:VimuxHeight = "30"
+
+autocmd FileType yaml set foldlevel=2
 
 "}}}
 
