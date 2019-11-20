@@ -49,6 +49,10 @@ all() {
             GIT_CMD="git push"
             SVN_CMD=""
             ;;
+        full)
+            GIT_CMD="git fetch --all --prune && git pull --rebase"
+            SVN_CMD=""
+            ;;
         *)
             echo "Unknown command: $1"
             return 1
