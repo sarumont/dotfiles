@@ -77,6 +77,8 @@ alias mymounts="tree -L 1 /media/$USER"
 
 # productivity
 alias pomodoro="mpc play && at now + 25 minutes <<< 'mpc pause && notify-send -i ~/Dropbox/tomato.png -u normal \"Take a break\"'"
+alias super_pom="mpc play && at now + 50 minutes <<< 'mpc pause && notify-send -i ~/Dropbox/tomato.png -u normal \"Take a break\"'"
+alias deep_work="mpc play && at now + 90 minutes <<< 'mpc pause && notify-send -i ~/Dropbox/tomato.png -u normal \"Take a break\"'"
 
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh
