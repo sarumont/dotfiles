@@ -47,6 +47,7 @@
 .config/ibus/
 .config/letsencrypt/
 .config/mimeapps.list
+.config/menus
 .config/nautilus/
 .config/neofetch/
 .config/neverfail/
@@ -156,6 +157,7 @@
 .vscode/
 .w3m/
 .wget-hsts
+.wine/
 .wireshark-etc/
 .wireshark/
 .xsession-errors
