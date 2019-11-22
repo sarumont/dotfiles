@@ -20,3 +20,8 @@ WEB-INF/*
 *.gif
 *.jpg
 *.jpeg
+
+# SCM
+.git/*
+.hg/*
+.svn/*
