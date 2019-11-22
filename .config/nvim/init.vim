@@ -61,7 +61,7 @@ filetype plugin indent on
 let g:yankring_history_file = '.yankring_history'
 let g:notes_directories = [$HOME . "/.local/share/vim/notes"]
 let g:agprg="ag --nocolor --nogroup --column --smart-case"
-set wildignore=*/generated/*,.git,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.png,*.jpg,*.ttf,*.woff,*/javadoc/*,*.gif,*.ogg,*.mp3,*.mp4,*/node_modules/*
+set wildignore=*/generated/*,*/.git/*,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.png,*.jpg,*.ttf,*.woff,*/javadoc/*,*.gif,*.ogg,*.mp3,*.mp4,*/node_modules/*
 set ignorecase
 set smartcase
 set nohlsearch
@@ -279,8 +279,9 @@ nnoremap <Leader>vz  :VimuxZoomRunner<CR>
 " CtrlP {{{
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
 let g:ctrlp_by_filename = 1
+let g:ctrlp_switch_buffer = 'Et'
 " }}}
 
 " NERD {{{
