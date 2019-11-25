@@ -685,6 +685,7 @@ awful.rules.rules = {
       properties = { titlebars_enabled = true } },
 
     { rule = { class = "Google-chrome" }, properties = { tag = "🌐" } },
+    { rule = { class = "Firefox" }, properties = { tag = "🌐" } },
     { rule = { class = "Brave-browser" }, properties = { tag = "🌐" } },
     { rule = { class = "Code" }, properties = { tag = "🖥" } },
     { rule = { instance = "dev" }, properties = { tag = "💻" } },
