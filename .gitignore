@@ -145,6 +145,7 @@
 .steampid
 .subversion/
 .sudo_as_admin_successful
+.task
 .terraform.d/
 .thumbnails/
 .tig_history
