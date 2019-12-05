@@ -45,6 +45,7 @@ Plug 'majutsushi/tagbar'
 
 " Filetype
 Plug 'sheerun/vim-polyglot'
+Plug 'lifepillar/pgsql'
 
 " Utility
 Plug 'benmills/vimux'
@@ -152,9 +153,14 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 let g:VimuxHeight = "30"
 
-autocmd FileType yaml set foldlevel=2
-
 "}}}
+
+" Code Formatting {{{
+
+autocmd FileType yaml set foldlevel=2
+let g:sql_type_default = 'pgsql'
+
+" }}}
 
 " Indentation {{{
 set copyindent
