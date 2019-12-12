@@ -75,10 +75,10 @@ set lazyredraw
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
 
 " TMUX renaming
-if exists('$TMUX')
-    autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
-    autocmd VimLeave * call system("tmux setw automatic-rename")
-endif
+" if exists('$TMUX')
+    " autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
+    " autocmd VimLeave * call system("tmux setw automatic-rename")
+" endif
 
 " system clipboard integration
 set clipboard=unnamedplus
@@ -304,8 +304,9 @@ let g:gist_post_private = 1
 let g:gist_update_on_write = 2
 " }}}
 
-" Snippets {{{
+" UltiSnips {{{
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME . "/.local/share/vim/vim-snippets"]
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
