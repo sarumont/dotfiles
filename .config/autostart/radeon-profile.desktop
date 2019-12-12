@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=radeon-profile
+Comment=Shut your fans up
+Exec=sudo radeon-profile
+Terminal=false
+Type=Application
+StartupNotify=false
