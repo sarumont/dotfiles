@@ -19,15 +19,16 @@ Plug 'terryma/vim-expand-region'
 Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
-Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
+" Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
+Plug 'junegunn/vim-peekaboo'
 Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mtth/scratch.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'ervandew/supertab'
 
 " Code 
-Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter' 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'adelarsq/vim-matchit'
@@ -127,6 +128,7 @@ let g:onedark_terminal_italics=1
 exec "source " . $HOME . "/.config/nvim/bg.vim"
 set cursorline
 set colorcolumn=120
+set cmdheight=2
 
 " Lightline
 set laststatus=2
@@ -134,8 +136,8 @@ set noshowmode
 let g:lightline = {
             \ 'colorscheme': 'one',
             \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+            \   'left':  [ [ 'mode', 'paste' ],
+            \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],
             \   'right': [ [ 'lineinfo' ],
             \              [ 'percent' ],
             \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
@@ -144,7 +146,8 @@ let g:lightline = {
             \   'charvaluehex': '0x%B'
             \ },
             \ 'component_function': {
-            \   'gitbranch': 'fugitive#head'
+            \   'gitbranch': 'fugitive#head',
+            \   'cocstatus': 'coc#status'
             \ },
             \ }
 let g:indent_guides_start_level = 2
@@ -180,9 +183,8 @@ let g:gutentags_ctags_tagfile = '.tags'
 " let g:gutentags_modules = ['ctags', 'cscope']
 " }}}
 
-"{{{ Keymaps 
 
-" coc / omni
+" CoC {{{
 " inoremap <silent><expr> <TAB>
             " \ pumvisible() ? "\<C-n>" :
             " \ <SID>check_back_space() ? "\<TAB>" :
@@ -191,6 +193,63 @@ let g:gutentags_ctags_tagfile = '.tags'
 inoremap <silent><expr> <c-space> coc#refresh()
 imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <C-d> <Plug>(coc-range-select)
+xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" }}}
+
+"{{{ Keymaps 
 nnoremap <silent> <Leader>a :Ag! 
 
 nnoremap <expr> j v:count ? 'j' : 'gj'
@@ -252,15 +311,15 @@ nnoremap <silent> <Leader>fi :CocCommand java.action.organizeImports<cr>
 
 " search related docsets
 " nnoremap <Leader>k :Dasht<Space>
-" nnoremap <Leader><Leader>k :Dasht!<Space>
+nnoremap <Leader><Leader>k :Dasht!<Space>
 
 " Search docsets for words under cursor:
 " nnoremap <silent> <Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')])<Return>
-" nnoremap <silent> <Leader><Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')], '!')<Return>
+nnoremap <silent> <Leader><Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')], '!')<Return>
 
 " Search docsets for your selected text:
 " vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
-" vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
+vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
 
 nnoremap <silent> <Leader>yr :YRShow<cr>
 
