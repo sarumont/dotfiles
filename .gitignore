@@ -84,6 +84,7 @@
 .fontconfig/
 .fpp/
 .freac/
+.fzf/
 .gem/
 .gist-vim
 .gitkraken/
