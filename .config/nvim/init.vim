@@ -13,20 +13,18 @@ Plug 'machakann/vim-highlightedyank'
 " Misc
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
-Plug 'numkil/ag.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'terryma/vim-expand-region'
-Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
+Plug 'sunaku/vim-dasht'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
-" Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 Plug 'junegunn/vim-peekaboo'
 Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mtth/scratch.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 
 " Code 
 Plug 'scrooloose/nerdcommenter' 
@@ -40,13 +38,15 @@ Plug 'pedrohdz/vim-yaml-folds'
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'easymotion/vim-easymotion'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'justinmk/vim-sneak'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 
 " Filetype
 Plug 'sheerun/vim-polyglot'
-Plug 'lifepillar/pgsql'
+Plug 'lifepillar/pgsql.vim'
 
 " Utility
 Plug 'benmills/vimux'
@@ -60,7 +60,6 @@ call plug#end()
 let mapleader = ","
 let g:mapleader = ","
 filetype plugin indent on
-let g:yankring_history_file = '.yankring_history'
 let g:notes_directories = [$HOME . "/.local/share/vim/notes"]
 let g:agprg="ag --nocolor --nogroup --column --smart-case"
 set wildignore=*/generated/*,*/.git/*,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.png,*.jpg,*.ttf,*.woff,*/javadoc/*,*.gif,*.ogg,*.mp3,*.mp4,*/node_modules/*
@@ -183,7 +182,6 @@ let g:gutentags_ctags_tagfile = '.tags'
 " let g:gutentags_modules = ['ctags', 'cscope']
 " }}}
 
-
 " CoC {{{
 " inoremap <silent><expr> <TAB>
             " \ pumvisible() ? "\<C-n>" :
@@ -247,13 +245,16 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+" show yank history
+nnoremap <silent> <Leader>yr  :<C-u>CocList -A --normal yank<cr>
 " }}}
 
-"{{{ Keymaps 
-nnoremap <silent> <Leader>a :Ag! 
+"{{{ FZF 
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+nnoremap <silent> <C-p> :Files<cr>
+" }}}
 
-nnoremap <expr> j v:count ? 'j' : 'gj'
-nnoremap <expr> k v:count ? 'k' : 'gk'
+"{{{ Navigation
 
 " Windows 
 nmap <silent> <C-h> :wincmd h<CR>
@@ -261,19 +262,15 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
-" easymotion
-let g:EasyMotion_smartcase = 1
-nmap f <Plug>(easymotion-overwin-f2)
-map <Leader> <Plug>(easymotion-prefix)
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>hh <Plug>(easymotion-linebackward)
-
+let g:sneak#label = 1
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+"}}}
+
+"{{{ Keymaps 
+" nnoremap <silent> <Leader>a :Ag!
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 " NERDTree
 :map <C-I> :NERDTreeToggle<cr>
@@ -281,9 +278,8 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 :map <C-Tab> :tabnext<cr>
 :map <C-S-Tab> :tabprev<cr>
 
-:map <Leader><Leader>h :set hlsearch!<cr>
-:map <Leader><Leader>l :set background=light<cr>
-:map <Leader><Leader>d :set background=dark<cr>
+:map <Leader>h :set hlsearch!<cr>
+:map <Leader>p :set paste!<cr>
 
 " git
 nnoremap <silent> <Leader>mc I🔀 <esc>
@@ -311,7 +307,7 @@ nnoremap <silent> <Leader>fi :CocCommand java.action.organizeImports<cr>
 
 " search related docsets
 " nnoremap <Leader>k :Dasht<Space>
-nnoremap <Leader><Leader>k :Dasht!<Space>
+" nnoremap <Leader><Leader>k :Dasht!<Space>
 
 " Search docsets for words under cursor:
 " nnoremap <silent> <Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')])<Return>
@@ -320,8 +316,6 @@ nnoremap <silent> <Leader><Leader>K :call Dasht([expand('<cword>'), expand('<cWO
 " Search docsets for your selected text:
 " vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
 vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
-
-nnoremap <silent> <Leader>yr :YRShow<cr>
 
 " vim-notes
 nnoremap <silent> <Leader>d ^wiDONE <esc> :r! date +" [\%H:\%M]"<ENTER>kJA<Esc>$
@@ -340,14 +334,6 @@ nnoremap <Leader>vq  :VimuxCloseRunner<CR>
 nnoremap <Leader>vz  :VimuxZoomRunner<CR>
 
 "}}}
-
-" CtrlP {{{
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
-let g:ctrlp_by_filename = 1
-let g:ctrlp_switch_buffer = 'Et'
-" }}}
 
 " NERD {{{
 let g:NERDSpaceDelims = 1
