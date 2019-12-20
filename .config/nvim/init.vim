@@ -262,6 +262,8 @@ nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
 let g:sneak#label = 1
+let g:sneak#use_ic_scs = 1
+
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 "}}}
