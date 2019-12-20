@@ -127,7 +127,6 @@ let g:onedark_terminal_italics=1
 exec "source " . $HOME . "/.config/nvim/bg.vim"
 set cursorline
 set colorcolumn=120
-set cmdheight=2
 
 " Lightline
 set laststatus=2
