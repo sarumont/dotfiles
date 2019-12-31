@@ -190,6 +190,8 @@ let g:gutentags_ctags_tagfile = '.tags'
 inoremap <silent><expr> <c-space> coc#refresh()
 imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
+nnoremap <silent> <Leader>fi :CocCommand java.action.organizeImports<cr>
+
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -206,12 +208,11 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
+
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
-
 
 " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
 nmap <silent> <C-d> <Plug>(coc-range-select)
@@ -261,6 +262,9 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
+noremap Zz <c-w>_ \| <c-w>\|
+noremap Zo <c-w>=
+
 let g:sneak#label = 1
 let g:sneak#use_ic_scs = 1
 
@@ -302,7 +306,6 @@ nnoremap <silent> <F12> :TagbarOpen fjc<cr>
 
 " Code miscellany
 nnoremap <silent> <Leader>pj :%!python -m json.tool<cr>
-nnoremap <silent> <Leader>fi :CocCommand java.action.organizeImports<cr>
 
 " Dasht
 
