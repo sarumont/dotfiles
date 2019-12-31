@@ -1,27 +1,10 @@
 let mapleader = ","
 
 set surround
+set easymotion
 
 " Keymaps {{{
 map <leader>cc :action CommentByLineComment<cr>
-
-" AceJump
-" nnoremap f :action AceAction<CR>
-" Press `F` to activate Target Mode
-map F :action AceTargetAction<CR>
-" Press `g` to activate Line Mode
-" map <leader>j :action AceLineAction<CR>
-" map <leader>k :action AceLineAction<CR>
-" map / :action AceAction<CR>
-" map <leader>f :action AceAction<CR>
-
-" KJump
-" map f :action KJumpAction<CR>
-" map / :action KJumpAction.Word1<CR>
-map <leader>h :action KJumpAction.Word0<CR>
-map <leader>l :action KJumpAction.Word0<CR>
-map <leader>j :action KJumpAction.Line<CR>
-map <leader>k :action KJumpAction.Line<CR>
 
 map <C-h> :action PrevSplitter<CR>
 map <C-l> :action NextSplitter<CR>
