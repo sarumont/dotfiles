@@ -70,6 +70,7 @@ set title
 set formatoptions=croqlj
 set number
 set lazyredraw
+set splitright
 
 " watch for file changes
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
@@ -269,6 +270,20 @@ let g:sneak#label = 1
 let g:sneak#use_ic_scs = 1
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+" Run a given vim command on the results of alt from a given path.
+" See usage below.
+function! AltCommand(path, vim_command)
+  let l:alternate = system("alt " . a:path)
+  if empty(l:alternate)
+    echo "No alternate file for " . a:path . " exists!"
+  else
+    exec a:vim_command . " " . l:alternate
+  endif
+endfunction
+
+" Find the alternate file for the current path and open it
+nnoremap <leader>. :w<cr>:call AltCommand(expand('%'), ':vsplit')<cr>
 
 "}}}
 
