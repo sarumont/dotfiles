@@ -273,17 +273,19 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 " Run a given vim command on the results of alt from a given path.
 " See usage below.
-function! AltCommand(path, vim_command)
-  let l:alternate = system("alt " . a:path)
+function! GetJavaAlts(path, vim_command)
+  let l:alternate = systemlist("fdfind -c never -HI '.*" . expand('%:t:r') . ".*.java' -E '" . expand('%:t') . "'")
   if empty(l:alternate)
     echo "No alternate file for " . a:path . " exists!"
   else
-    exec a:vim_command . " " . l:alternate
+    for i in l:alternate
+      exec a:vim_command . " " . i
+    endfor
   endif
 endfunction
 
 " Find the alternate file for the current path and open it
-nnoremap <leader>. :w<cr>:call AltCommand(expand('%'), ':vsplit')<cr>
+nnoremap <leader>. :w<cr>:call GetJavaAlts(expand('%'), ':vsplit')<cr>
 
 "}}}
 
