@@ -24,7 +24,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mtth/scratch.vim'
 Plug 'junegunn/goyo.vim'
-" Plug 'ervandew/supertab'
 
 " Code 
 Plug 'scrooloose/nerdcommenter' 
@@ -52,6 +51,9 @@ Plug 'lifepillar/pgsql.vim'
 Plug 'benmills/vimux'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+" put this at the end to map <Tab> last
+Plug 'ervandew/supertab'
 
 call plug#end()
 "}}}
@@ -108,6 +110,8 @@ let g:localvimrc_persistent=2
 
 :command Writemode setlocal spell | Goyo 100
 :command Codemode set nospell | Goyo!
+
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 "}}}
 
@@ -167,9 +171,9 @@ let g:sql_type_default = 'pgsql'
 " Indentation {{{
 set copyindent
 set expandtab       " default to hard tabs
-set shiftwidth=4    " shift operation == tabstob
-set tabstop=4       " show tabs as 4 spaces
-set softtabstop=4   " soft tab == 4 spaces
+set shiftwidth=2    " shift operation == tabstob
+set tabstop=2       " show tabs as 4 spaces
+set softtabstop=2   " soft tab == 4 spaces
 
 augroup DetectIndent
     autocmd!
@@ -183,11 +187,6 @@ let g:gutentags_ctags_tagfile = '.tags'
 " }}}
 
 " CoC {{{
-" inoremap <silent><expr> <TAB>
-            " \ pumvisible() ? "\<C-n>" :
-            " \ <SID>check_back_space() ? "\<TAB>" :
-            " \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
@@ -205,6 +204,13 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -373,6 +379,11 @@ let g:gist_update_on_write = 2
 " UltiSnips {{{
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME . "/.local/share/vim/vim-snippets"]
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
