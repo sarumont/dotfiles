@@ -259,6 +259,7 @@ nnoremap <silent> <Leader>yr  :<C-u>CocList -A --normal yank<cr>
 "{{{ FZF 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 nnoremap <silent> <C-p> :Files<cr>
+nnoremap <silent> <leader>bt :BTags<cr>
 " }}}
 
 "{{{ Navigation
@@ -296,6 +297,9 @@ nnoremap <leader>. :w<cr>:call GetJavaAlts(expand('%'), ':vsplit')<cr>
 "}}}
 
 "{{{ Keymaps 
+"
+nnoremap <silent> <leader><leader>bg :exec "source " . $HOME . "/.config/nvim/bg.vim"<cr>
+
 " nnoremap <silent> <Leader>a :Ag!
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
