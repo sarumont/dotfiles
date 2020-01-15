@@ -1,7 +1,6 @@
 [options]
 allow_bold = true
 audible_bell = false
-font = Fira Code Retina 10
 font = Cascadia Code 10
 scrollback_lines = 10000
 hyperlinks = true
