@@ -53,7 +53,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " put this at the end to map <Tab> last
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 
 call plug#end()
 "}}}
@@ -187,6 +187,19 @@ let g:gutentags_ctags_tagfile = '.tags'
 " }}}
 
 " CoC {{{
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" inoremap <silent><expr> <TAB>
+      " \ pumvisible() ? "\<C-n>" :
+      " \ <SID>check_back_space() ? "\<TAB>" :
+      " \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" function! s:check_back_space() abort
+  " let col = col('.') - 1
+  " return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+
 inoremap <silent><expr> <c-space> coc#refresh()
 imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
