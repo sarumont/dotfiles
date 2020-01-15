@@ -11,6 +11,7 @@
 .azure/
 .bundle/
 .cache
+.cargo
 .cert/
 .circleci/
 .compiz
@@ -23,6 +24,7 @@
 .config/asciinema/
 .config/beets/library.db
 .config/cef_user_data
+.config/chromium
 .config/coc/commands
 .config/coc/db.json
 .config/coc/extensions/coc-java-data/
@@ -33,6 +35,7 @@
 .config/coc/memos.json
 .config/coc/mru
 .config/configstore
+.config/devsupply/
 .config/dconf/
 .config/doctl/
 .config/enchant/
