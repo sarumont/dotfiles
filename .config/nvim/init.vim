@@ -73,6 +73,7 @@ set formatoptions=croqlj
 set number
 set lazyredraw
 set splitright
+let g:omni_sql_no_default_maps = 1
 
 " watch for file changes
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
