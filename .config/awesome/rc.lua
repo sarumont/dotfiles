@@ -254,11 +254,14 @@ local quake = lain.util.quake({
     extra = "-e \"" .. os.getenv("HOME") .. "/.my/bin/tmux_attach main\"",
     horiz = "center",
     height = .75,
+    width = .99,
     {
         settings = function(c)
             c.floating = true
             c.ontop = true
             c.followtag = true
+            c.requests_no_titlebar = true
+            c.titlebars_enabled = false
         end}})
 
 -- {{{ Key bindings
@@ -689,7 +692,12 @@ awful.rules.rules = {
     { rule = { class = "Brave-browser" }, properties = { tag = "🌐" } },
     { rule = { class = "Code" }, properties = { tag = "🖥" } },
     { rule = { instance = "dev" }, properties = { tag = "💻" } },
-    { rule = { class = "zoom" }, properties = { ontop = true, floating = true }}
+    { rule = { class = "zoom" }, properties = { ontop = true, floating = true }},
+    { rule = { instance = 'visor' }, properties = {
+            border_color = beautiful.fg_urgent,
+            titlebars_enabled = false,
+            requests_no_titlebar = true }},
+
 }
 -- }}}
 
@@ -771,8 +779,16 @@ awful.screen.set_auto_dpi_enabled(true)
 
 -- Enable sloppy focus, so that focus follows mouse.
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) 
+    if c.instance ~= 'visor' then
+        c.border_color = beautiful.border_focus 
+    end
+end)
+client.connect_signal("unfocus", function(c) 
+    if c.instance ~= 'visor' then 
+        c.border_color = beautiful.border_normal 
+    end
+end)
 
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
