@@ -111,6 +111,7 @@
 .keychain
 .keycloak/
 .kube/
+.lastpass/
 .lesshst
 .local/
 .localvimrc_persistent
