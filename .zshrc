@@ -53,8 +53,9 @@ get_tmux_session_name() {
         tmux list-panes -F '#{pane_tty} #{session_name}' -t "$s"
     done | grep "$tty" | awk '{print $2}'
 }
+export TMUX_SESSION_NAME=$(get_tmux_session_name)
 
-NVM_LAZY_LOAD=$([[ $(get_tmux_session_name) == "dev" ]] && echo "false" || echo "true")
+NVM_LAZY_LOAD=$([[ $TMUX_SESSION_NAME == "dev" ]] && echo "false" || echo "true")
 NVM_AUTO_USE=true
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
