@@ -79,10 +79,18 @@ let g:omni_sql_no_default_maps = 1
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
 
 " TMUX renaming
-" if exists('$TMUX')
-    " autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
-    " autocmd VimLeave * call system("tmux setw automatic-rename")
-" endif
+if exists('$TMUX') 
+  if $TMUX_SESSION_NAME == 'dev'
+    " in my 'dev' terminal, I just want my tmux window to have the name of the
+    " project (i.e. - the directory). Having 3 windows with titles README.md
+    " doesn't really help me to navigate...
+    call system("tmux setw automatic-rename")
+    call system("tmux rename-window '" . fnamemodify(getcwd(), ':t') . "'")
+  else
+    autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
+    autocmd VimLeave * call system("tmux setw automatic-rename")
+  endif
+endif
 
 " system clipboard integration
 set clipboard=unnamedplus
