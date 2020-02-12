@@ -22,5 +22,6 @@ path+=(
     $HOME/.rvm/bin
     $HOME/.dasht/bin
     $HOME/go/bin
+    /snap/bin
     .)
 path=($^path(N))
