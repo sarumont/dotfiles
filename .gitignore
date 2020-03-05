@@ -67,6 +67,7 @@
 .config/QtProject.conf
 .config/radeon-profile/
 .config/spacefm/
+.config/spotdl/
 .config/syncthing/
 .config/terminology/
 .config/update-notifier/
