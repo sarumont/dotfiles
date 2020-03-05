@@ -9,6 +9,7 @@ Plug 'rakr/vim-one'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ryanoasis/vim-devicons'
 Plug 'machakann/vim-highlightedyank'
+Plug 'pangloss/vim-javascript'
 
 " Misc
 Plug 'xolox/vim-misc'
@@ -84,7 +85,6 @@ if exists('$TMUX')
     " in my 'dev' terminal, I just want my tmux window to have the name of the
     " project (i.e. - the directory). Having 3 windows with titles README.md
     " doesn't really help me to navigate...
-    call system("tmux setw automatic-rename")
     call system("tmux rename-window '" . fnamemodify(getcwd(), ':t') . "'")
   else
     autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
@@ -167,6 +167,8 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 
 let g:VimuxHeight = "30"
+
+let g:javascript_plugin_jsdoc = 1
 
 "}}}
 
@@ -385,6 +387,8 @@ nnoremap <Leader>vmf  :VimuxPromptCommand("mvn clean install")<CR>
 
 nnoremap <Leader>vq  :VimuxCloseRunner<CR>
 nnoremap <Leader>vz  :VimuxZoomRunner<CR>
+
+nnoremap <Leader><Leader>vtp :VimuxRunCommand("export DISABLE_AUTO_TITLE=true")<CR>:call system("tmux rename-window '" . fnamemodify(getcwd(), ':t') . "'")<cr>
 
 "}}}
 
