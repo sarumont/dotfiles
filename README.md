@@ -140,6 +140,21 @@ Local zsh overrides are supported:
 
 The directory for [vim-notes](https://github.com/xolox/vim-notes) is `~/.local/share/vim/notes`. This can be a symlink to e.g. `~/Dropbox/notes` to allow syncing of notes between machines.
 
+## Xresources
+
+DPI is machine-dependent, but an example `~/.Xresources` is:
+
+
+    Xft.dpi: 144
+
+    ! These might also be useful depending on your monitor and personal preference:
+    Xft.autohint: 0
+    Xft.lcdfilter:  lcddefault
+    Xft.hintstyle:  hintfull
+    Xft.hinting: 1
+    Xft.antialias: 1
+    Xft.rgba: rgb
+
 # Niceties
 
 ## Italics
