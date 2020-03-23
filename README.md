@@ -111,6 +111,13 @@ Now, configure / mount music dir. Drop the following into `~/.local/beets/config
 
 And begin the import!
 
+#### PulseAudio
+
+    ### Enable Echo/Noise-Cancellation
+    load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args="analog_gain_control=0\ digital_gain_control=1"
+    set-default-source echoCancel_source
+    set-default-sink echoCancel_sink
+
 ### dasht
 
     sudo apt install golang w3m sqlite3
