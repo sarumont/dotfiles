@@ -3,6 +3,7 @@
 .NERDTreeBookmarks
 .Trash/
 .Xauthority
+.Xresources
 .android/
 .aptitude
 .arquillian/
@@ -39,6 +40,8 @@
 .config/dconf/
 .config/doctl/
 .config/enchant/
+.config/eog/
+.config/evince/
 .config/evolution/
 .config/freshwrapper-data
 .config/ghb/
@@ -65,7 +68,9 @@
 .config/pgcli/log
 .config/pulse/
 .config/QtProject.conf
+.config/pavucontrol.ini
 .config/radeon-profile/
+.config/skypeforlinux/
 .config/spacefm/
 .config/spotdl/
 .config/syncthing/
