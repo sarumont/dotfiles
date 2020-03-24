@@ -133,6 +133,7 @@
 .node-gyp/
 .node_repl_history
 .npm/
+.npmrc
 .nv/
 .nvidia-settings-rc
 .nvm/
