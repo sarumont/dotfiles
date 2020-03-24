@@ -385,6 +385,8 @@ nnoremap <Leader>vgf :VimuxRunCommand("gradlew clean build publishToMavenLocal")
 nnoremap <Leader>vmp  :VimuxPromptCommand("mvn ")<CR>
 nnoremap <Leader>vmf  :VimuxPromptCommand("mvn clean install")<CR>
 
+nnoremap <Leader>vnp  :VimuxPromptCommand("npm run ")<CR>
+
 nnoremap <Leader>vq  :VimuxCloseRunner<CR>
 nnoremap <Leader>vz  :VimuxZoomRunner<CR>
 
