@@ -19,6 +19,7 @@
 .config/.mono/
 .config/BraveSoftware/
 .config/Code/Code Cache/
+.config/Electron/
 .config/Signal/
 .config/VirtualBox/
 .config/Unknown Organization/
