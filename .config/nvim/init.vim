@@ -28,7 +28,7 @@ Plug 'junegunn/goyo.vim'
 
 " Code 
 Plug 'scrooloose/nerdcommenter' 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'adelarsq/vim-matchit'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
