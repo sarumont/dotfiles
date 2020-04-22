@@ -4,7 +4,7 @@ export MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 export MAVEN_ARGS="-T 1C"
 
 # path prepend
-path[1,0]=($HOME/.local/bin $HOME/.my/bin /opt/bin)
+path[1,0]=($HOME/.local/bin $HOME/.my/bin /opt/bin /snap/bin)
 
 # path append
 path+=(/sbin /usr/sbin)
@@ -22,6 +22,5 @@ path+=(
     $HOME/.rvm/bin
     $HOME/.dasht/bin
     $HOME/go/bin
-    /snap/bin
     .)
 path=($^path(N))
