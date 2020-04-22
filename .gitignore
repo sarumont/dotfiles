@@ -19,10 +19,13 @@
 .config/.mono/
 .config/BraveSoftware/
 .config/Code/Code Cache/
+.config/Code/Session Storage/
+.config/Code/TransportSecurity
 .config/Electron/
+.config/QtProject.conf
 .config/Signal/
-.config/VirtualBox/
 .config/Unknown Organization/
+.config/VirtualBox/
 .config/asciinema/
 .config/beets/library.db
 .config/cef_user_data
@@ -37,9 +40,10 @@
 .config/coc/memos.json
 .config/coc/mru
 .config/configstore
-.config/devsupply/
 .config/dconf/
+.config/devsupply/
 .config/doctl/
+.config/easytag/
 .config/enchant/
 .config/eog/
 .config/evince/
@@ -56,8 +60,8 @@
 .config/htop/
 .config/ibus/
 .config/letsencrypt/
-.config/mimeapps.list
 .config/menus
+.config/mimeapps.list
 .config/nautilus/
 .config/neofetch/
 .config/neverfail/
@@ -65,11 +69,10 @@
 .config/nvim/.netrwhist
 .config/nvim/.plugins/
 .config/nvim/bg.vim
+.config/pavucontrol.ini
 .config/pgcli/history
 .config/pgcli/log
 .config/pulse/
-.config/QtProject.conf
-.config/pavucontrol.ini
 .config/radeon-profile/
 .config/skypeforlinux/
 .config/spacefm/
