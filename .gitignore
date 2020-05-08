@@ -22,6 +22,7 @@
 .config/Code/Session Storage/
 .config/Code/TransportSecurity
 .config/Electron/
+.config/Meltytech/
 .config/QtProject.conf
 .config/Signal/
 .config/Unknown Organization/
@@ -56,6 +57,7 @@
 .config/google-chrome/
 .config/gtk-2.0/
 .config/gtk-3.0/bookmarks
+.config/guvcview2/
 .config/heroku/
 .config/htop/
 .config/ibus/
