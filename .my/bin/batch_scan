@@ -11,11 +11,11 @@ print_usage() {
 
 SCANIMAGE=/usr/bin/scanimage
 NOW=`date +%s`
-WILDCARD_NAME="/tmp/$NOW/scan_%02d_.pnm"
+WILDCARD_NAME="/tmp/$NOW/scan_%02d_.tiff"
 
-SCANNER="pixma:MX860_pixma"
-SOURCE="Automatic Document Feeder"
-SIZE_ADJ="-y 279"
+SCANNER="hpaio:/net/officejet_4650_series?ip=172.21.1.10&queue=false"
+SOURCE="ADF"
+# SIZE_ADJ="-y 279"
 VERBOSE=""
 while getopts dlvn:f o
 do
@@ -41,12 +41,12 @@ fi
 mkdir "/tmp/$NOW"
 echo "Temporary directory: $WILDCARD_NAME"
 
-$SCANIMAGE -v -d $SCANNER --batch="$WILDCARD_NAME" --source "$SOURCE" --resolution 150 $SIZE_ADJ $VERBOSE
+$SCANIMAGE -v -d $SCANNER --batch="$WILDCARD_NAME" --source "$SOURCE" --resolution 300 $VERBOSE --format=tiff
 
 # flip all even-numbered files (they will be upside down)
 if test -n "$DUPLEX"; then
 
-	for f in /tmp/$NOW/scan_*_.pnm
+	for f in /tmp/$NOW/scan_*_.tiff
 	do
 		num=`echo "$f" | awk -F "_" '{ print $2 }'`
 		mod=$(( $num % 2 ))
@@ -57,5 +57,5 @@ if test -n "$DUPLEX"; then
 	done
 fi
 
-convert -scale 850x1100 -define pdf:use-trimbox=true /tmp/$NOW/*.pnm $NAME.pdf
+convert -scale 850x1100 -define pdf:use-trimbox=true /tmp/$NOW/*.tiff $NAME.pdf
 #rm -rf /tmp/$NOW
