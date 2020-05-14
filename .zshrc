@@ -148,8 +148,6 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 fpath+=(
     "$HOME/.zfunctions" 
     "$HOME/.dasht/etc/zsh/completions")
-# autoload -U promptinit; promptinit
-# prompt pure
 
 # Editor setup
 EDITOR=`which nvim`
