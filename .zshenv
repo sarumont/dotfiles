@@ -9,6 +9,11 @@ path[1,0]=($HOME/.local/bin $HOME/.my/bin /opt/bin /snap/bin)
 # path append
 path+=(/sbin /usr/sbin)
 
+# source private shared shit
+if [[ -r ~/.privfiles/sh/zshenv ]]; then
+    . ~/.privfiles/sh/zshenv
+fi
+
 # source machine-specific code
 if [[ -r ~/.local/sh/zshenv ]]; then
     . ~/.local/sh/zshenv
