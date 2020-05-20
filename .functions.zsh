@@ -136,6 +136,14 @@ go_dark() {
     cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
 }
 
+fetch_gh_latest() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: $0 <user/repo>"
+        return 1
+    fi
+    curl -L $(curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r '.assets[] | select(.browser_download_url | contains("linux")) | .browser_download_url') | tar zx
+}
+
 if [[ -r ~/.local/sh/functions.zsh ]]; then
     . ~/.local/sh/functions.zsh
 fi
