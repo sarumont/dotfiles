@@ -58,6 +58,7 @@
 .config/gtk-2.0/
 .config/gtk-3.0/bookmarks
 .config/guvcview2/
+.config/helm/
 .config/heroku/
 .config/htop/
 .config/ibus/
