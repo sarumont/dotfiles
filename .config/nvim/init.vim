@@ -34,6 +34,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'roryokane/detectindent'
 Plug 'pedrohdz/vim-yaml-folds'
+Plug 'stephpy/vim-yaml'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
