@@ -2,7 +2,7 @@
 call plug#begin('~/.config/nvim/.plugins')
 
 " Visual
-Plug 'joshdick/onedark.vim'
+Plug 'iCyMind/NeoSolarized'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'rakr/vim-one'
@@ -136,10 +136,9 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-colorscheme one
-let g:one_allow_italics = 1 
-let g:onedark_terminal_italics=1
 exec "source " . $HOME . "/.config/nvim/bg.vim"
+let g:neosolarized_italic = 1
+colorscheme NeoSolarized
 set cursorline
 set colorcolumn=120
 
