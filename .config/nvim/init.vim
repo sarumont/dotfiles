@@ -2,7 +2,7 @@
 call plug#begin('~/.config/nvim/.plugins')
 
 " Visual
-Plug 'iCyMind/NeoSolarized'
+Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'rakr/vim-one'
@@ -136,9 +136,10 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-exec "source " . $HOME . "/.config/nvim/bg.vim"
-let g:neosolarized_italic = 1
-colorscheme NeoSolarized
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+colorscheme nord
+
 set cursorline
 set colorcolumn=120
 
@@ -146,7 +147,7 @@ set colorcolumn=120
 set laststatus=2
 set noshowmode
 let g:lightline = {
-            \ 'colorscheme': 'one',
+            \ 'colorscheme': 'nord',
             \ 'active': {
             \   'left':  [ [ 'mode', 'paste' ],
             \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],
