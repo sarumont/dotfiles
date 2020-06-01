@@ -399,32 +399,6 @@ function helpers.prompt(action, textbox, prompt, callback)
     end
 end
 
-function helpers.run_or_raise(match, move, spawn_cmd, spawn_args)
-    local matcher = function (c)
-        return awful.rules.match(c, match)
-    end
-
-    -- Find and raise
-    local found = false
-    for c in awful.client.iterate(matcher) do
-        found = true
-        c.minimized = false
-        if move then
-            c:move_to_tag(mouse.screen.selected_tag)
-            client.focus = c
-            c:raise()
-        else
-            c:jump_to()
-        end
-        break
-    end
-
-    -- Spawn if not found
-    if not found then
-        awful.spawn(spawn_cmd, spawn_args)
-    end
-end
-
 function helpers.float_and_resize(c, width, height)
     c.width = width
     c.height = height
