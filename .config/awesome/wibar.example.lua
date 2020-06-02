@@ -19,21 +19,22 @@ vicious.register(
     vicious.widgets.mpd,
     function (widget, args)
         local state = args["{state}"]
-        if state == "Stop" or state == "Paused" then
+        if state == "Stop" or state == "Pause" then
             artist_fg = paused_color
             title_fg = paused_color
         else
             artist_fg = artist_color
             title_fg = title_color
         end
-        return ('<span foreground=\'%s\'>%s</span> - <span foreground=\'%s\'>%s</span>'):format(
+        return ('<span foreground=\'%s\'>%s - </span><span foreground=\'%s\'>%s</span>'):format(
             artist_fg, args["{Artist}"], title_fg, args["{Title}"])
-    end)
+    end,
+    8)
 
 local cpu = rounded_bar(beautiful.cpu_bar_active_color, beautiful.cpu_bar_background_color, icons.cpu)
 vicious.register(cpu.bar, vicious.widgets.cpu, "$1", 3)
 local mem = rounded_bar(beautiful.mem_bar_active_color, beautiful.mem_bar_background_color, icons.mem)
-vicious.register(mem.bar, vicious.widgets.mem, "$1", 3)
+vicious.register(mem.bar, vicious.widgets.mem, "$1", 13)
 
 local active_color = beautiful.volume_bar_active_color
 local muted_color = beautiful.volume_bar_muted_color
