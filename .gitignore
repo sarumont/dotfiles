@@ -61,6 +61,7 @@
 .config/heroku/
 .config/htop/
 .config/ibus/
+.config/inkscape/
 .config/letsencrypt/
 .config/menus
 .config/mimeapps.list
