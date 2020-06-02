@@ -161,17 +161,11 @@ keys.globalkeys = gears.table.join(
 
   -- Brightness
   awful.key({ }, "XF86MonBrightnessUp", function () 
-      local f = assert(io.popen("brightlight -p -i 5", 'r'))
-      local s = assert(f:read('*a'))
-      f:close()
-      naughty.notify({ text = s, position = "top_right", timeout = 2 })
+      local f = assert(io.popen("xbacklight -inc 5", 'r'))
   end,
   {description = "+5%", group = "hotkeys"}),
   awful.key({ }, "XF86MonBrightnessDown", function () 
-      local f = assert(io.popen("brightlight -p -d 5", 'r'))
-      local s = assert(f:read('*a'))
-      f:close()
-      naughty.notify({ text = s, position = "top_right", timeout = 2 })
+      local f = assert(io.popen("xbacklight -dec 5", 'r'))
   end,
             {description = "-5%", group = "hotkeys"}),
 
@@ -237,19 +231,6 @@ keys.globalkeys = gears.table.join(
           beautiful.mpd.update()
       end,
       {description = "mpc next", group = "widgets"}),
-  awful.key({ altkey }, "0",
-      function ()
-          local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
-          if beautiful.mpd.timer.started then
-              beautiful.mpd.timer:stop()
-              common.text = common.text .. lain.util.markup.bold("OFF")
-          else
-              beautiful.mpd.timer:start()
-              common.text = common.text .. lain.util.markup.bold("ON")
-          end
-          naughty.notify(common)
-      end,
-      {description = "mpc on/off", group = "widgets"}),
 
   -- Prompt
   awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
@@ -288,7 +269,7 @@ keys.globalkeys = gears.table.join(
       end
       awful.client.run_or_raise('firefox', matcher)
   end,
-  {description = "Launch Brave", group = "launcher"}),
+  {description = "Launch Firefox", group = "launcher"}),
 
   awful.key({ modkey }, 'c', function ()
       local matcher = function (c)
