@@ -21,13 +21,15 @@ return function(active_color, background_color, icon)
         widget        = wibox.widget.progressbar,
     }
 
+    local imagebox = wibox.widget.imagebox(icon)
     local box = wibox.widget{
-        wibox.widget.imagebox(icon),
+        imagebox,
         bar,
         layout = wibox.layout.fixed.horizontal,
     }
 
     return {
+        icon = imagebox,
         bar = bar,
         widget = box,
     }

@@ -8,7 +8,6 @@ local spr = wibox.widget.textbox(' ')
 
 require("evil.volume")
 require("evil.weather")
-require("evil.battery")
 
 local mpd_icon = wibox.widget.imagebox(icons.music)
 local mpd = wibox.widget.textbox()
@@ -35,7 +34,23 @@ local cpu = rounded_bar(beautiful.cpu_bar_active_color, beautiful.cpu_bar_backgr
 vicious.register(cpu.bar, vicious.widgets.cpu, "$1", 3)
 local mem = rounded_bar(beautiful.mem_bar_active_color, beautiful.mem_bar_background_color, icons.mem)
 vicious.register(mem.bar, vicious.widgets.mem, "$1", 3)
-local volume = require("widgets.volume_bar")
+local volume_bar = rounded_bar(beautiful.volume_bar_active_color, beautiful.volume_bar_background_color, icons.volume)
+awesome.connect_signal("evil::volume", function(volume, muted)
+    local bg_color
+    if muted then
+        fill_color = muted_color
+        bg_color = muted_background_color
+        volume_bar.icon.image = icons.muted
+    else
+        fill_color = active_color
+        bg_color = active_background_color
+        volume_bar.icon.image = icons.volume
+    end
+    volume_bar.bar.value = volume / 100
+    volume_bar.bar.color = fill_color
+    volume_bar.bar.background_color = bg_color
+end)
+
 local weather = require("widgets.weather")
 local clock_icon = wibox.widget.imagebox(icons.clock)
 local clock = wibox.widget.textbox()
@@ -93,7 +108,7 @@ return function(s)
             spr,
             mem.widget,
             spr,
-            volume.widget,
+            volume_bar.widget,
             spr,
             weather,
             spr,
