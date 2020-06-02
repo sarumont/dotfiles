@@ -5,8 +5,8 @@ local naughty = require("naughty")
 local gears = require("gears")
 local beautiful = require("beautiful")
 local lain          = require("lain")
+local user = require("user")
 
-local terminal = "termite"
 local scrlocker    = "slock"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
@@ -14,7 +14,7 @@ local altkey       = "Mod1"
 local keys = {}
 
 local quake = lain.util.quake({
-    app = terminal,
+    app = user.terminal,
     name = "visor",
     argname = "--name visor",
     extra = "-e \"" .. os.getenv("HOME") .. "/.my/bin/tmux_attach main\"",
@@ -114,7 +114,7 @@ keys.globalkeys = gears.table.join(
             {description = "delete tag", group = "tag"}),
 
   -- Standard program
-  awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+  awful.key({ modkey,           }, "Return", function () awful.spawn(user.terminal) end,
             {description = "open a terminal", group = "launcher"}),
   awful.key({ modkey, "Control" }, "r", awesome.restart,
             {description = "reload awesome", group = "awesome"}),

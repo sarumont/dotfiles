@@ -9,7 +9,8 @@ local wibox         = require("wibox")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local vicious       = require("vicious")
-local keys = require("keys")
+
+local keys          = require("keys")
 -- }}}
 
 -- {{{ Error handling
@@ -54,23 +55,7 @@ awful.spawn.with_shell(
 )
 
 -- }}}
-user = {
-    -- >> Default applications <<
-    terminal = "termite",
-    browser = "firefox",
-    file_manager = "spacefm",
-    wallpaper = os.getenv("HOME") .. "/Dropbox/Pictures/bg/minimal/jason-abdilla-tvs3SeHBWDI-unsplash.jpg",
-    editor = os.getenv("EDITOR") or "vim",
-
-    -- >> Weather <<
-    -- Get your key and find your city id at
-    -- https://openweathermap.org/
-    -- (You will need to make an account!)
-    openweathermap_key = "157834868571f9015bf03447224ca39a",
-    openweathermap_city_id =  "5414872",
-    -- > Use "metric" for Celcius, "imperial" for Fahrenheit
-    weather_units = "metric",
-}
+local user = require("user")
 
 icons = require("icons")
 icons.init('linebit')
