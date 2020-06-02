@@ -157,13 +157,6 @@ DPI is machine-dependent, but an example `~/.Xresources` is:
 
 # Niceties
 
-## Italics
-
-To get Italics working in both vim and tmux (on macOS):
-
- - https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
- - https://apple.stackexchange.com/questions/249307/tic-doesnt-read-from-stdin-and-segfaults-when-adding-terminfo-to-support-italic/249385
-
 ## Undervolting
 
 [intel-undervolt](https://github.com/kitsunyan/intel-undervolt)
