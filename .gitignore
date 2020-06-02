@@ -3,6 +3,7 @@
 .NERDTreeBookmarks
 .Trash/
 .Xauthority
+.Xresources.local
 .android/
 .aptitude
 .arquillian/
