@@ -4,7 +4,7 @@
     "coc-emoji": ">=1.2.3",
     "coc-eslint": ">=1.2.7",
     "coc-html": ">=1.2.4",
-    "coc-java": ">=1.4.10",
+    "coc-java": ">=1.4.11",
     "coc-json": ">=1.2.6",
     "coc-prettier": ">=1.1.14",
     "coc-tsserver": ">=1.5.1",
