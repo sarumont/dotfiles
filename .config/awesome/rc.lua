@@ -58,7 +58,7 @@ awful.spawn.with_shell(
 local user = require("user")
 
 icons = require("icons")
-icons.init('linebit')
+icons.init(user.icon_theme)
 
 -- Initialization
 -- ===================================================================
@@ -90,9 +90,7 @@ x = {
 }
 
 -- Themes define colours, icons, fonts, window decorations and wallpapers
-local theme = "ephemeral"
-local theme_dir = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme .. "/"
-beautiful.init(theme_dir .. "theme.lua")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/" .. user.theme .. "/" .. "theme.lua")
 
 require("evil")
 
