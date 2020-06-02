@@ -386,7 +386,7 @@ awful.rules.rules = {
     },
 
     { rule = { class = "Google-chrome" }, properties = { tag = "www" } },
-    { rule = { class = "Firefox" }, properties = { tag = "www" } },
+    { rule = { instance = "Navigator" }, properties = { tag = "www" } },
     { rule = { class = "Code" }, properties = { tag = "ide" } },
     { rule = { class = "zoom" }, properties = { ontop = true, floating = true }},
 

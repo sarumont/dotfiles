@@ -284,7 +284,7 @@ keys.globalkeys = gears.table.join(
 
   awful.key({ modkey }, 'h', function ()
       local matcher = function (c)
-          return awful.rules.match(c, {class = 'Firefox'})
+          return awful.rules.match(c, {instance = 'Navigator'})
       end
       awful.client.run_or_raise('firefox', matcher)
   end,
