@@ -1,6 +1,0 @@
-require("evil.volume")
-require("evil.weather")
--- require("evil.battery")
--- require("evil.temperature")
--- require("evil.brightness")
--- require("evil.spotify")
