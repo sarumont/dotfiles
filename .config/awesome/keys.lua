@@ -195,25 +195,21 @@ keys.globalkeys = gears.table.join(
   awful.key({ altkey, "Control" }, "Up",
       function ()
           os.execute("mpc toggle")
-          beautiful.mpd.update()
       end,
       {description = "mpc toggle", group = "widgets"}),
   awful.key({ altkey, "Control" }, "Down",
       function ()
           os.execute("mpc stop")
-          beautiful.mpd.update()
       end,
       {description = "mpc stop", group = "widgets"}),
   awful.key({ altkey, "Control" }, "Left",
       function ()
           os.execute("mpc prev")
-          beautiful.mpd.update()
       end,
       {description = "mpc prev", group = "widgets"}),
   awful.key({ altkey, "Control" }, "Right",
       function ()
           os.execute("mpc next")
-          beautiful.mpd.update()
       end,
       {description = "mpc next", group = "widgets"}),
 
