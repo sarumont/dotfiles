@@ -90,8 +90,6 @@ x = {
 -- Themes define colours, icons, fonts, window decorations and wallpapers
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/" .. user.theme .. "/" .. "theme.lua")
 
-require("evil")
-
 -- {{{ Variable definitions
 
 local modkey       = "Mod4"
