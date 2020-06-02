@@ -34,6 +34,11 @@ local cpu = rounded_bar(beautiful.cpu_bar_active_color, beautiful.cpu_bar_backgr
 vicious.register(cpu.bar, vicious.widgets.cpu, "$1", 3)
 local mem = rounded_bar(beautiful.mem_bar_active_color, beautiful.mem_bar_background_color, icons.mem)
 vicious.register(mem.bar, vicious.widgets.mem, "$1", 3)
+
+local active_color = beautiful.volume_bar_active_color
+local muted_color = beautiful.volume_bar_muted_color
+local active_background_color = beautiful.volume_bar_active_background_color
+local muted_background_color = beautiful.volume_bar_muted_background_color
 local volume_bar = rounded_bar(beautiful.volume_bar_active_color, beautiful.volume_bar_background_color, icons.volume)
 awesome.connect_signal("evil::volume", function(volume, muted)
     local bg_color
