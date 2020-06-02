@@ -128,12 +128,12 @@ set_version() {
 
 go_light() {
     echo "set background=light" > ~/.config/nvim/bg.vim
-    cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config
+    command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config
 }
 
 go_dark() {
     echo "set background=dark" > ~/.config/nvim/bg.vim
-    cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
+    command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
 }
 
 fetch_gh_latest() {
