@@ -169,7 +169,17 @@ keys.globalkeys = gears.table.join(
   end,
             {description = "-5%", group = "hotkeys"}),
 
-  -- ALSA volume control
+  -- PulseAudio volume control
+  awful.key({modkey, "Control"}, "Up",
+      function ()
+          os.execute("pactl set-sink-volume 0 +5%")
+      end,
+      {description = "volume up", group = "hotkeys"}),
+  awful.key({modkey, "Control"}, "Down",
+      function ()
+          os.execute("pactl set-sink-volume 0 -5%")
+      end,
+      {description = "volume down", group = "hotkeys"}),
   awful.key({ }, "XF86AudioRaiseVolume",
       function ()
           os.execute("pactl set-sink-volume 0 +5%")
@@ -196,22 +206,22 @@ keys.globalkeys = gears.table.join(
       function ()
           os.execute("mpc toggle")
       end,
-      {description = "mpc toggle", group = "widgets"}),
+      {description = "mpc toggle", group = "mpd"}),
   awful.key({ altkey, "Control" }, "Down",
       function ()
           os.execute("mpc stop")
       end,
-      {description = "mpc stop", group = "widgets"}),
+      {description = "mpc stop", group = "mpd"}),
   awful.key({ altkey, "Control" }, "Left",
       function ()
           os.execute("mpc prev")
       end,
-      {description = "mpc prev", group = "widgets"}),
+      {description = "mpc prev", group = "mpd"}),
   awful.key({ altkey, "Control" }, "Right",
       function ()
           os.execute("mpc next")
       end,
-      {description = "mpc next", group = "widgets"}),
+      {description = "mpc next", group = "mpd"}),
 
   -- Prompt
   awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
