@@ -124,6 +124,7 @@
 .k9s/
 .keychain
 .keycloak/
+.konan/
 .kube/
 .lastpass/
 .lesshst
