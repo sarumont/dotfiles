@@ -13,32 +13,61 @@ for development work.
 
 - `git`
 - `zsh`
+- `neovim`
+- `starship`
 
-### Ubuntu
+## Additional Utilities
 
-    # basic utilities
-    sudo apt install git zsh keychain neovim zip unzip tmux universal-ctags docker whois fd-find fzf ripgrep
+- `exa`
+- `eva`
+- `bat`
+- `hexyl`
+- `universal-ctags`
+- `zip` / `unzip`
+- `fzf`
+- `ripgrep`
+- `fd-find`
+- `whois`
+- `gotop`
 
-    # TODO: use official docker repository...?
+## Development 🛠
 
-    # If it's a desktop environment
-    sudo apt install fonts-firacode htop scrot slock awesome udevil redshift lightdm slick-greeter \
-        lightdm-settings libgtk-3-dev gtk-doc-tools fonts-ubuntu fonts-noto-color-emoji libnotify-bin
+- Azure CLI (`azure-cli`)
+- VSCode
+- IntelliJ
+- `nvm`
 
-    # TODO can use something like this to grab release from GH:
-    #
-    # wget -q --show-progress https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz
-    # grab Cascadia Code from Github, and drop it into ~/.local/share/fonts && fc-cache -f
-    # https://github.com/sharkdp/bat/releases
-    # https://github.com/sharkdp/hexyl/releases
+### SDKMan
 
-    # If it's a laptop
-    sudo apt install powertop tpm
+    curl -s "https://get.sdkman.io" | zsh
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    sdk i maven
+    sdk i gradle
+    sdk i java 11.0.2-open
+    # maybe: sdk i java 8.0.252-zulu
 
-    # set shell to zsh
-    chsh 
+## Desktop (non-headless)
 
-## Setup
+- FiraCode Nerd Font
+- `redshift`
+- `lightdm`
+- `slock`
+- `scrot`
+- `udevil`
+- `awesome` (WM)
+- `spacefm`
+- `parcellite`
+- `xdotool`
+- Nordic GTK theme
+- `evince` (PDF viewer)
+- `vlc`
+
+## Laptop
+
+- `powertop`
+- `tpm`
+
+# Setup
 
 TODO: make this a script
 
@@ -69,35 +98,13 @@ TODO: make this a script
 
     echo "Please log out, log back in, and run 'viup' to initialize your neovim setup."
 
-    # If desktop:
-    mkdir -p ~/.config/awesome
-    cd ~/.config/awesome
-    git clone --recursive git@github.com:sarumont/awesome-copycats.git 
-    ln -s awesome-copycats/{freedesktop,lain,themes} .
-    ln -s themes/powerarrow-dark/my-theme.lua .
-
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
  - `.ssh/config` -> `.privfiles/ssh/config`
 
-## Optional components
+# Optional components
 
-### SDKMan
-
-    curl -s "https://get.sdkman.io" | zsh
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-    sdk i maven
-    sdk i gradle
-    sdk i java 11.0.2-open
-    # maybe: sdk i java 8.0.222-zulu
-
-### More stuff
-
-    # TODO: browser, gtk theme, Dropbox, Zoom, VPN, sound
-    # https://github.com/microsoft/cascadia-code/releases
-    sudo apt install arc-theme spacefm parcellite xdotool
-
-### 🎧
+## 🎧
 
     sudo apt install python3-pip ncmpcpp mpd mpc
     pip3 install beets[fetchart,lyrics,lastgenre] flask
@@ -111,14 +118,14 @@ Now, configure / mount music dir. Drop the following into `~/.local/beets/config
 
 And begin the import!
 
-#### PulseAudio
+## PulseAudio
 
     ### Enable Echo/Noise-Cancellation
     load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args="analog_gain_control=0\ digital_gain_control=1"
     set-default-source echoCancel_source
     set-default-sink echoCancel_sink
 
-### dasht
+## dasht
 
     sudo apt install golang w3m sqlite3
     go get github.com/william8th/javadocset
