@@ -262,6 +262,14 @@ keys.globalkeys = gears.table.join(
   end,
   {description = "Launch Firefox", group = "launcher"}),
 
+  awful.key({ modkey }, 'l', function ()
+    local comms = awful.tag.find_by_name(awful.screen.focused(), "comms")
+    if comms then
+      comms:view_only()
+    end
+  end,
+  {description = "Switch to comms", group = "launcher"}),
+
   awful.key({ modkey }, 'c', function ()
       local matcher = function (c)
           return awful.rules.match(c, {class = 'Code'})

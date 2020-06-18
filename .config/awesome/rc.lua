@@ -220,9 +220,16 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag.add("www", {
             layout = awful.layout.suit.tile,
             master_width_factor = 0.7,
-            -- master_fill_policy = "master_width_factor",
-            -- gap_single_client  = true,
-            -- gap                = 7,
+            screen             = s,
+        })
+
+    awful.tag.add("comms", {
+            layout = 
+            -- lain.
+            awful.layout.suit.fair,
+            -- awful.layout.suit.spiral,
+            -- awful.layout.suit.tile,
+            -- master_width_factor = 0.7,
             screen             = s,
         })
 
@@ -276,6 +283,8 @@ awful.rules.rules = {
     { rule = { instance = "Navigator" }, properties = { tag = "www" } },
     { rule = { class = "Code" }, properties = { tag = "ide" } },
     { rule = { class = "zoom" }, properties = { ontop = true, floating = true }},
+
+    { rule = { instance = "slack" }, properties = { tag = "comms" } },
 
     { 
         rule = { instance = "dev" },
