@@ -24,6 +24,7 @@
 .config/Electron/
 .config/Meltytech/
 .config/QtProject.conf
+.config/Slack/
 .config/Signal/
 .config/Unknown Organization/
 .config/VirtualBox/
@@ -63,6 +64,7 @@
 .config/htop/
 .config/ibus/
 .config/inkscape/
+.config/insight-nodejs/
 .config/letsencrypt/
 .config/menus
 .config/mimeapps.list
@@ -190,6 +192,7 @@
 .xsettingsd
 .yankring_history_v2.txt
 .yarnrc
+.yo-rc-global.json
 .zcompdump*
 .zoom/
 .zoomus/
