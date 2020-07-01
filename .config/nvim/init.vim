@@ -187,6 +187,9 @@ set shiftwidth=2    " shift operation == tabstob
 set tabstop=2       " show tabs as 4 spaces
 set softtabstop=2   " soft tab == 4 spaces
 
+let g:detectindent_preferred_expandtab = 1
+let g:detectindent_preferred_indent = 2
+
 augroup DetectIndent
     autocmd!
     autocmd BufReadPost *  DetectIndent
