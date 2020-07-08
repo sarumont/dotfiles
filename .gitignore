@@ -175,6 +175,7 @@
 .sudo_as_admin_successful
 .task
 .terraform.d/
+.themes/
 .thumbnails/
 .tig_history
 .tooling/
