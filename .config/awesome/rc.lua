@@ -218,18 +218,13 @@ awful.screen.connect_for_each_screen(function(s)
         })
 
     awful.tag.add("www", {
-            layout = awful.layout.suit.tile,
+            layout = user.layouts.www or awful.layout.suit.tile,
             master_width_factor = 0.7,
             screen             = s,
         })
 
     awful.tag.add("comms", {
-            layout = 
-            -- lain.
-            awful.layout.suit.fair,
-            -- awful.layout.suit.spiral,
-            -- awful.layout.suit.tile,
-            -- master_width_factor = 0.7,
+            layout = user.layouts.comms or awful.layout.suit.fair,
             screen             = s,
         })
 
