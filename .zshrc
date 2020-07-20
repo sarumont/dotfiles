@@ -162,4 +162,9 @@ export PG_PAGER="$EDITOR -R -c 'set ft=dbout' -"
 
 eval "$(starship init zsh)"
 
+DIRENV=$(which direnv)
+if [[ $? -eq 0 ]]; then
+    eval "$($DIRENV hook zsh)"
+fi
+
 #zprof
