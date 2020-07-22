@@ -44,6 +44,7 @@
 .config/configstore
 .config/dconf/
 .config/devsupply/
+.config/direnv/
 .config/doctl/
 .config/easytag/
 .config/enchant/
