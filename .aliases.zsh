@@ -61,7 +61,7 @@ alias gup='git up' # defer this to ~/gitconfig
 alias st='scm_st'
 
 # JDK switching
-alias jdk8="sdk use java 8.0.252-zulu"
+alias jdk8="sdk use java 8.0.262-zulu"
 alias jdk11="sdk use java 20.1.0.r11-grl"
 
 alias certbot='certbot --config-dir ~/.config/letsencrypt --logs-dir ~/tmp --work-dir ~/tmp'
