@@ -67,6 +67,7 @@
 .config/inkscape/
 .config/insight-nodejs/
 .config/letsencrypt/
+.config/libreoffice/
 .config/menus
 .config/mimeapps.list
 .config/nautilus/
