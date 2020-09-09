@@ -24,6 +24,7 @@
 .config/Electron/
 .config/Meltytech/
 .config/QtProject.conf
+.config/Raspberry Pi/
 .config/Slack/
 .config/Signal/
 .config/Unknown Organization/
