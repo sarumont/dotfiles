@@ -27,9 +27,9 @@ local quake = lain.util.quake({
 keys.globalkeys = gears.table.join(
   -- Take a screenshot
   -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-  awful.key({ modkey, "Shift" }, "3", function() os.execute("scrot") end,
+  awful.key({ modkey, "Shift" }, "3", function() os.execute("maim") end,
             {description = "take a screenshot", group = "hotkeys"}),
-  awful.key({ modkey, "Shift" }, "4", function() os.execute("sleep 0.2 && scrot -s") end,
+  awful.key({ modkey, "Shift" }, "4", function() os.execute("maim -s") end,
             {description = "take a selective screenshot", group = "hotkeys"}),
 
   -- X screen locker
