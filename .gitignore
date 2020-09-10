@@ -162,6 +162,7 @@
 .privfiles/
 .psql_history
 .pulse-cookie
+.python_history
 .rnd
 .rvm/
 .sdkman/
