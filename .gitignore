@@ -18,6 +18,7 @@
 .compiz
 .config/.mono/
 .config/BraveSoftware/
+.config/Code/CachedExtensionVSIXs/
 .config/Code/Code Cache/
 .config/Code/Session Storage/
 .config/Code/TransportSecurity
@@ -89,6 +90,7 @@
 .config/spotdl/
 .config/spotify/
 .config/syncthing/
+.config/telepresence/
 .config/terminology/
 .config/update-notifier/
 .config/user-dirs.dirs
@@ -156,6 +158,7 @@
 .ocr-last
 .oracle_jre_usage/
 .p2/
+.pex/
 .pgpass
 .pki/
 .plugman/

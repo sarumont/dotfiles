@@ -32,7 +32,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'adelarsq/vim-matchit'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
-Plug 'roryokane/detectindent'
+Plug 'tpope/vim-sleuth'
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'stephpy/vim-yaml'
 
@@ -182,18 +182,10 @@ let g:sql_type_default = 'pgsql'
 
 " Indentation {{{
 set copyindent
-set expandtab       " default to hard tabs
+set expandtab       " default to soft tabs
 set shiftwidth=2    " shift operation == tabstob
 set tabstop=2       " show tabs as 4 spaces
 set softtabstop=2   " soft tab == 4 spaces
-
-let g:detectindent_preferred_expandtab = 1
-let g:detectindent_preferred_indent = 2
-
-augroup DetectIndent
-    autocmd!
-    autocmd BufReadPost *  DetectIndent
-augroup END
 " }}}
 
 " Tags {{{
