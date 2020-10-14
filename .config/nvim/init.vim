@@ -276,6 +276,7 @@ nnoremap <silent> <Leader>yr  :<C-u>CocList -A --normal yank<cr>
 " }}}
 
 "{{{ FZF 
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.5, 'yoffset': 1, 'border': 'top' } }
 nnoremap <silent> <C-p> :Files<cr>
 nnoremap <silent> <leader>bt :BTags<cr>
