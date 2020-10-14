@@ -167,4 +167,6 @@ if [[ $? -eq 0 ]]; then
     eval "$($DIRENV hook zsh)"
 fi
 
+[[ -s "${HOME}/.fzf.zsh" ]] && source "${HOME}/.fzf.zsh"
+
 #zprof
