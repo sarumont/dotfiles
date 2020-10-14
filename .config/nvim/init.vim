@@ -40,7 +40,7 @@ Plug 'stephpy/vim-yaml'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
@@ -65,7 +65,6 @@ let mapleader = ","
 let g:mapleader = ","
 filetype plugin indent on
 let g:notes_directories = [$HOME . "/.local/share/vim/notes"]
-let g:agprg="ag --nocolor --nogroup --column --smart-case"
 set wildignore=*/generated/*,*/.git/*,*.pyc,.svn,*.jar,*.class,*.un~,*.swp,*.swo,*.png,*.jpg,*.ttf,*.woff,*/javadoc/*,*.gif,*.ogg,*.mp3,*.mp4,*/node_modules/*
 set ignorecase
 set smartcase
@@ -277,7 +276,7 @@ nnoremap <silent> <Leader>yr  :<C-u>CocList -A --normal yank<cr>
 " }}}
 
 "{{{ FZF 
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.5, 'yoffset': 1, 'border': 'top' } }
 nnoremap <silent> <C-p> :Files<cr>
 nnoremap <silent> <leader>bt :BTags<cr>
 " }}}
@@ -320,7 +319,7 @@ nnoremap <leader>. :w<cr>:call GetJavaAlts(expand('%'), ':vsplit')<cr>
 "
 nnoremap <silent> <leader><leader>bg :exec "source " . $HOME . "/.config/nvim/bg.vim"<cr>
 
-" nnoremap <silent> <Leader>a :Ag!
+nnoremap <silent> <Leader>r :Rg 
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
