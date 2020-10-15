@@ -44,8 +44,7 @@ alias NE=' 2> /dev/null'
 alias NUL=' > /dev/null 2>&1'
 
 # search
-alias ag='rg -S'
-alias rg='rg -S'
+alias ag='rg'
 
 # SCM
 alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
