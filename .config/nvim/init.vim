@@ -165,6 +165,7 @@ let g:lightline = {
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf']
 
 let g:VimuxHeight = "30"
 
@@ -276,10 +277,36 @@ nnoremap <silent> <Leader>yr  :<C-u>CocList -A --normal yank<cr>
 " }}}
 
 "{{{ FZF 
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+let $FZF_DEFAULT_COMMAND = 'TERM=dumb rg --files --hidden  --smart-case --search-zip'
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.5, 'yoffset': 1, 'border': 'top' } }
 nnoremap <silent> <C-p> :Files<cr>
 nnoremap <silent> <leader>bt :BTags<cr>
+nnoremap <silent> <Leader>rg :Rg 
+
+let $FZF_DEFAULT_OPTS=' --color=dark --info=inline --margin 1,4 --color=gutter:-1,marker:4,hl:1,hl+:1'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = float2nr(30)
+  let width = max([float2nr(&columns * 0.75), min([80, &columns])])
+  let horizontal = float2nr((&columns - width) / 2)
+  let vertical = 1
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
 " }}}
 
 "{{{ Navigation
@@ -320,7 +347,6 @@ nnoremap <leader>. :w<cr>:call GetJavaAlts(expand('%'), ':vsplit')<cr>
 "
 nnoremap <silent> <leader><leader>bg :exec "source " . $HOME . "/.config/nvim/bg.vim"<cr>
 
-nnoremap <silent> <Leader>r :Rg 
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
