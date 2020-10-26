@@ -208,6 +208,11 @@ keys.globalkeys = gears.table.join(
       {description = "toggle mute", group = "hotkeys"}),
 
   -- MPD control
+  awful.key({ }, "XF86AudioPlay",
+      function ()
+          os.execute("mpc toggle")
+      end,
+      {description = "mpc toggle", group = "mpd"}),
   awful.key({ altkey, "Control" }, "Up",
       function ()
           os.execute("mpc toggle")
@@ -218,11 +223,21 @@ keys.globalkeys = gears.table.join(
           os.execute("mpc stop")
       end,
       {description = "mpc stop", group = "mpd"}),
+  awful.key({ }, "XF86AudioPrev",
+      function ()
+          os.execute("mpc prev")
+      end,
+      {description = "mpc prev", group = "mpd"}),
   awful.key({ altkey, "Control" }, "Left",
       function ()
           os.execute("mpc prev")
       end,
       {description = "mpc prev", group = "mpd"}),
+  awful.key({ }, "XF86AudioNext",
+      function ()
+          os.execute("mpc next")
+      end,
+      {description = "mpc next", group = "mpd"}),
   awful.key({ altkey, "Control" }, "Right",
       function ()
           os.execute("mpc next")
