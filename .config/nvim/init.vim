@@ -10,6 +10,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ryanoasis/vim-devicons'
 Plug 'machakann/vim-highlightedyank'
 Plug 'pangloss/vim-javascript'
+" Plug 'roman/golden-ratio'
 
 " Misc
 Plug 'xolox/vim-misc'
@@ -74,6 +75,7 @@ set formatoptions=croqlj
 set number
 set lazyredraw
 set splitright
+set splitbelow
 let g:omni_sql_no_default_maps = 1
 
 " watch for file changes
@@ -162,6 +164,8 @@ let g:lightline = {
             \   'cocstatus': 'coc#status'
             \ },
             \ }
+
+" IndentGuides
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
