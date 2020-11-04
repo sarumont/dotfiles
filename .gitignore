@@ -117,6 +117,7 @@
 .gem/
 .gist-vim
 .gitkraken/
+.gnome/
 .gnupg/
 .gnuplot_history
 .gradle/
