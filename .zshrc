@@ -58,12 +58,18 @@ export TMUX_SESSION_NAME=$(get_tmux_session_name)
 NVM_LAZY_LOAD=$([[ $TMUX_SESSION_NAME == "dev" ]] && echo "false" || echo "true")
 NVM_AUTO_USE=true
 
+OS=""
+if [[ -f "/etc/lsb-release" ]]; then
+    OS=debian
+elif [[ -f "/etc/arch-release" ]]; then 
+    OS=archlinux
+fi
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    debian
+    $OS
     docker
     git 
     gitfast
