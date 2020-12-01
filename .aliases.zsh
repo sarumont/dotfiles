@@ -22,7 +22,6 @@ alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
 alias bc='eva'
 alias cat='bat'
-alias fd='fdfind'
 
 # tree navigation
 alias ls='exa --icons'
