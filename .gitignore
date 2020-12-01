@@ -75,6 +75,7 @@
 .config/menus
 .config/mimeapps.list
 .config/nautilus/
+.config/ncspot/
 .config/neofetch/
 .config/neverfail/
 .config/nixnote2/
