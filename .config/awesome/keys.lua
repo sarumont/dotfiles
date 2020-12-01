@@ -259,10 +259,6 @@ keys.globalkeys = gears.table.join(
       }
     end,
     {description = "lua execute prompt", group = "awesome"}),
-  --]]
-
-  awful.key({ "Control", altkey }, 'space', function () awful.spawn("/home/sarumont/.local/bin/emoji-keyboard -s") end,
-      {description = "emoji keyboard", group = "launcher"}),
 
   awful.key({ modkey }, 'e', function () awful.spawn('spacefm') end,
   {description = "Spawn SpaceFM", group = "launcher"}),
@@ -271,17 +267,17 @@ keys.globalkeys = gears.table.join(
       local matcher = function (c)
           return awful.rules.match(c, {class = 'Google-chrome'})
       end
-      awful.client.run_or_raise('google-chrome', matcher)
+      awful.client.run_or_raise(user.chrome or 'google-chrome', matcher)
   end,
-  {description = "Launch Chrome", group = "launcher"}),
+  {description = 'Launch Chrome', group = 'launcher'}),
 
   awful.key({ modkey }, 'h', function ()
       local matcher = function (c)
           return awful.rules.match(c, {instance = 'Navigator'})
       end
-      awful.client.run_or_raise('firefox', matcher)
+      awful.client.run_or_raise(user.browser or 'firefox', matcher)
   end,
-  {description = "Launch Firefox", group = "launcher"}),
+  {description = "Launch Browser", group = "launcher"}),
 
   awful.key({ modkey }, 'l', function ()
     local comms = awful.tag.find_by_name(awful.screen.focused(), "comms")
@@ -300,13 +296,20 @@ keys.globalkeys = gears.table.join(
   {description = "Launch VSCode", group = "launcher"}),
 
   awful.key({ modkey }, 'd', function ()
-    awful.client.run_or_raise("termite --name=dev --exec=\"" .. os.getenv("HOME") .. "/.my/bin/tmux_attach dev\"", 
+    awful.client.run_or_raise("termite --name=dev --exec=\"" .. os.getenv("HOME") .. "/.my/bin/tmux_attach dev\"",
       function (c)
         return awful.rules.match(c, {instance = 'dev'})
       end)
     end,
-    {description = "Launch dev terminal", group = "launcher"})
-    --]]
+    {description = "Launch dev terminal", group = "launcher"}),
+
+  awful.key({ modkey }, 't', function ()
+    awful.client.run_or_raise("termite --name=dev --exec=\"ssh -t barret tmux_attach dev\"",
+      function (c)
+        return awful.rules.match(c, {instance = 'dev'})
+      end)
+    end,
+    {description = "Launch barret dev terminal", group = "launcher"})
 )
 
 keys.clientkeys = gears.table.join(
