@@ -10,7 +10,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ryanoasis/vim-devicons'
 Plug 'machakann/vim-highlightedyank'
 Plug 'pangloss/vim-javascript'
-" Plug 'roman/golden-ratio'
+Plug 'sarumont/golden-ratio'
 
 " Misc
 Plug 'xolox/vim-misc'
@@ -77,6 +77,7 @@ set lazyredraw
 set splitright
 set splitbelow
 let g:omni_sql_no_default_maps = 1
+let g:golden_ratio_exclude_nonmodifiable = 1
 
 " watch for file changes
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
@@ -170,6 +171,8 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf']
+
+let g:golden_ratio_exclude_filetypes = ['help', 'nerdtree', 'fzf']
 
 let g:VimuxHeight = "30"
 
@@ -287,20 +290,19 @@ nnoremap <silent> <C-p> :Files<cr>
 nnoremap <silent> <leader>bt :BTags<cr>
 nnoremap <silent> <Leader>rg :Rg 
 
-let $FZF_DEFAULT_OPTS=' --color=dark --info=inline --margin 1,4 --color=gutter:-1,marker:4,hl:1,hl+:1'
+let $FZF_DEFAULT_OPTS=' --color=dark --info=inline --margin 1,4 --color=gutter:-1,marker:4,hl:1,hl+:1 --layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
 
   let height = float2nr(30)
   let width = max([float2nr(&columns * 0.75), min([80, &columns])])
   let horizontal = float2nr((&columns - width) / 2)
-  let vertical = 1
+  let vertical = 0
 
   let opts = {
-        \ 'relative': 'editor',
+        \ 'relative': 'cursor',
         \ 'row': vertical,
         \ 'col': horizontal,
         \ 'width': width,
