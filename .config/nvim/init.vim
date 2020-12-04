@@ -77,7 +77,6 @@ set lazyredraw
 set splitright
 set splitbelow
 let g:omni_sql_no_default_maps = 1
-let g:golden_ratio_exclude_nonmodifiable = 1
 
 " watch for file changes
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
@@ -172,6 +171,7 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf']
 
+let g:golden_ratio_exclude_nonmodifiable = 1
 let g:golden_ratio_exclude_filetypes = ['help', 'nerdtree', 'fzf']
 
 let g:VimuxHeight = "30"
