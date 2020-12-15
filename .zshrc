@@ -75,13 +75,16 @@ plugins=(
     gitfast
     gradle
     httpie
+    keychain
     kubectl
     mvn
-    ssh-agent 
     sudo
     zsh-nvm 
     zsh-syntax-highlighting
 )
+
+zstyle :omz:plugins:keychain agents gpg,ssh
+zstyle :omz:plugins:keychain options --quiet
 
 source $ZSH/oh-my-zsh.sh
 
