@@ -1,6 +1,7 @@
 [user]
 	name = Richard Kolkovich
 	email = richard@sigil.org
+	signingkey = 40D44733C598FF43
 [color]
 	status = auto
 	branch = auto
@@ -31,3 +32,7 @@
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true
