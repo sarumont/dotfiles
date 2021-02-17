@@ -422,13 +422,13 @@ nnoremap <silent> <Leader>d ^wiDONE <esc> :r! date +" [\%H:\%M]"<ENTER>kJA<Esc>$
 nnoremap <silent> <Leader>rl :wa<cr>:VimuxRunLastCommand<cr>
 nnoremap <Leader>vp  :VimuxPromptCommand<CR>
 
-nnoremap <Leader>vgp  :VimuxPromptCommand("gradlew ")<CR>
-nnoremap <Leader>vgf :VimuxRunCommand("gradlew clean build publishToMavenLocal")<CR>
+nnoremap <Leader>vgp  :VimuxPromptCommand('gradlew ')<CR>
+nnoremap <Leader>vgf :VimuxRunCommand('gradlew clean build publishToMavenLocal')<CR>
 
-nnoremap <Leader>vmp  :VimuxPromptCommand("mvn ")<CR>
-nnoremap <Leader>vmf  :VimuxPromptCommand("mvn clean install")<CR>
+nnoremap <Leader>vmp  :VimuxPromptCommand('mvn ')<CR>
+nnoremap <Leader>vmf  :VimuxPromptCommand('mvn clean install')<CR>
 
-nnoremap <Leader>vnp  :VimuxPromptCommand("npm run ")<CR>
+nnoremap <Leader>vnp  :VimuxPromptCommand('npm run ')<CR>
 
 nnoremap <Leader>vq  :VimuxCloseRunner<CR>
 nnoremap <Leader>vz  :VimuxZoomRunner<CR>
