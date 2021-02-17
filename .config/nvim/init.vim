@@ -399,6 +399,8 @@ nnoremap <silent> <F12> :TagbarOpen fjc<cr>
 " Code miscellany
 nnoremap <silent> <Leader>pj :%!python -m json.tool<cr>
 
+nnoremap <silent> <Leader><Leader>sc :Scratch<cr>
+
 " Dasht
 
 " search related docsets
