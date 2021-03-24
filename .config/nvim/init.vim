@@ -10,7 +10,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ryanoasis/vim-devicons'
 Plug 'machakann/vim-highlightedyank'
 Plug 'pangloss/vim-javascript'
-Plug 'sarumont/golden-ratio'
+Plug 'justincampbell/vim-eighties'
 
 " Misc
 Plug 'xolox/vim-misc'
@@ -142,7 +142,7 @@ let g:nord_italic_comments = 1
 colorscheme nord
 
 set cursorline
-set colorcolumn=120
+set colorcolumn=100
 
 " Lightline
 set laststatus=2
@@ -171,8 +171,11 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf']
 
-let g:golden_ratio_exclude_nonmodifiable = 1
-let g:golden_ratio_exclude_filetypes = ['help', 'nerdtree', 'fzf']
+let g:eighties_enabled = 1
+let g:eighties_minimum_width = 100
+let g:eighties_extra_width = 20
+let g:eighties_compute = 1
+let g:eighties_bufname_additional_patterns = ['fugitiveblame', 'nerdtree', 'fzf', 'help']
 
 let g:VimuxHeight = "30"
 
