@@ -201,18 +201,13 @@ awful.screen.connect_for_each_screen(function(s)
 
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
 
-    awful.tag.add("fl0", {
+    awful.tag.add("fl", {
             layout             = awful.layout.suit.floating,
             screen             = s,
             selected           = true,
         })
 
     awful.tag.add("dev", {
-            layout = awful.layout.suit.max,
-            screen             = s,
-        })
-
-    awful.tag.add("ide", {
             layout = awful.layout.suit.max,
             screen             = s,
         })
@@ -280,6 +275,8 @@ awful.rules.rules = {
     { rule = { class = "zoom" }, properties = { ontop = true, floating = true }},
 
     { rule = { instance = "slack" }, properties = { tag = "comms" } },
+    { rule = { class = "signal" }, properties = { tag = "comms" } },
+    { rule = { class = "discord" }, properties = { tag = "comms" } },
 
     { 
         rule = { instance = "dev" },
