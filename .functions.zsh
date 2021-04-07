@@ -127,13 +127,13 @@ set_version() {
 }
 
 go_light() {
-    echo "set background=light" > ~/.config/nvim/bg.vim
+    echo "colorscheme onehalflight" > ~/.config/nvim/bg.vim
     command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config
     killall -USR1 termite
 }
 
 go_dark() {
-    echo "set background=dark" > ~/.config/nvim/bg.vim
+    echo "colorscheme onehalfdark" > ~/.config/nvim/bg.vim
     command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
     killall -USR1 termite
 }
