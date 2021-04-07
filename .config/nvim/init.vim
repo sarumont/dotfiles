@@ -2,10 +2,9 @@
 call plug#begin('~/.config/nvim/.plugins')
 
 " Visual
-Plug 'arcticicestudio/nord-vim'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'rakr/vim-one'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ryanoasis/vim-devicons'
 Plug 'machakann/vim-highlightedyank'
@@ -137,9 +136,7 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
-colorscheme nord
+source $HOME/.config/nvim/bg.vim
 
 set cursorline
 set colorcolumn=100
@@ -148,7 +145,7 @@ set colorcolumn=100
 set laststatus=2
 set noshowmode
 let g:lightline = {
-            \ 'colorscheme': 'nord',
+            \ 'colorscheme': 'onehalfdark',
             \ 'active': {
             \   'left':  [ [ 'mode', 'paste' ],
             \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],
@@ -432,6 +429,9 @@ nnoremap <Leader>vmp  :VimuxPromptCommand('mvn ')<CR>
 nnoremap <Leader>vmf  :VimuxPromptCommand('mvn clean install')<CR>
 
 nnoremap <Leader>vnp  :VimuxPromptCommand('npm run ')<CR>
+
+nnoremap <Leader>vnit  :VimuxPromptCommand("npm run test:integration")<CR>
+nnoremap <Leader>vnut  :VimuxPromptCommand("npm run test:unit")<CR>
 
 nnoremap <Leader>vq  :VimuxCloseRunner<CR>
 nnoremap <Leader>vz  :VimuxZoomRunner<CR>
