@@ -1,28 +1,44 @@
 [colors]
-cursor = #d8dee9
-cursor_foreground = #2e3440
+# Onehalf Colorscheme for Kitty
+# Based on https://github.com/sonph/onehalf
+# By https://github.com/dbinary
 
-foreground = #d8dee9
-foreground_bold = #d8dee9
-background = #2e3440
+foreground            = #dcdfe4
+background            = #282c34
+selection_foreground  = #000000
+selection_background  = #FFFACD
+url_color             = #0087BD
 
-highlight = #4c566a
+# black
+color0   = #282c34
+color8   = #5d677a
 
-color0  = #3b4252
-color1  = #bf616a
-color2  = #a3be8c
-color3  = #ebcb8b
-color4  = #81a1c1
-color5  = #b48ead
-color6  = #88c0d0
-color7  = #e5e9f0
-color8  = #4c566a
-color9  = #bf616a
-color10 = #a3be8c
-color11 = #ebcb8b
-color12 = #81a1c1
-color13 = #b48ead
-color14 = #8fbcbb
-color15 = #eceff4
+# red
+color1   = #e06c75
+color9   = #e06c75
+
+# green
+color2   = #98c379
+color10  = #98c379
+
+# yellow
+color3   = #e5c07b
+color11  = #e5c07b
+
+# blue
+color4  = #61afef
+color12 = #61afef
+
+# magenta
+color5   = #c678dd
+color13  = #c678dd
+
+# cyan
+color6   = #56b6c2
+color14  = #56b6c2
+
+# white
+color7   = #dcdfe4
+color15  = #dcdfe4
 
 # vim: ft=dosini cms=#%s
