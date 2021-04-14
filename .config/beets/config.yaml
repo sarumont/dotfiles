@@ -6,7 +6,7 @@ import:
 threaded: yes
 clutter: [ "Thumbs.DB", ".DS_Store", "*.m3u", "*.txt" ]
 
-plugins: lastgenre inline info fetchart web bpd 
+plugins: lastgenre inline info fetchart web mbsync thumbnails lyrics acousticbrainz
 format_item: $artist - $album - $title [$genre] [$format]
 
 copyartifacts:
@@ -31,3 +31,9 @@ paths:
 bpd:
     host: 127.0.0.1
     port: 6600
+
+thumbnails:
+    auto: yes
+
+lyrics:
+    auto: yes
