@@ -76,6 +76,7 @@ set lazyredraw
 set splitright
 set splitbelow
 let g:omni_sql_no_default_maps = 1
+let g:gist_token = $GITHUB_GIST_TOKEN
 
 " watch for file changes
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
