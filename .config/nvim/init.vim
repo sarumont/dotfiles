@@ -386,7 +386,7 @@ nnoremap <silent> <Leader>gd :Gdiff<cr>
 nnoremap <silent> <Leader>gl :Glog<cr>
 nnoremap <silent> <Leader>gs :Git<cr>
 nnoremap <silent> <Leader>gb :Gblame -w -M<cr>
-nnoremap <silent> <Leader>gc :Gcommit<cr>
+nnoremap <silent> <Leader>gc :Git commit<cr>
 nnoremap <silent> <Leader>gp :Git push<cr>
 nnoremap <silent> <Leader>amend :Git commit --amend<cr>
 nnoremap <silent> <Leader>stash :Git stash<cr>
