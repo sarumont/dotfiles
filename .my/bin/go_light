@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "colorscheme onehalflight" > ~/.config/nvim/bg.vim
+echo "--theme=OneHalfLight" > ~/.config/bat/config
+echo "Net/ThemeName \"Arc\"" > ~/.xsettingsd.theme
+command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config
+killall -USR1 termite
+reload_xsettings
