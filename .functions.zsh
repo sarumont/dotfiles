@@ -126,18 +126,6 @@ set_version() {
     mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$1
 }
 
-go_light() {
-    echo "colorscheme onehalflight" > ~/.config/nvim/bg.vim
-    command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config
-    killall -USR1 termite
-}
-
-go_dark() {
-    echo "colorscheme onehalfdark" > ~/.config/nvim/bg.vim
-    command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
-    killall -USR1 termite
-}
-
 fetch_gh_latest() {
     if [[ $# -ne 1 ]]; then
         echo "Usage: $0 <user/repo>"

@@ -31,6 +31,7 @@
 .config/Unknown Organization/
 .config/VirtualBox/
 .config/asciinema/
+.config/bat
 .config/beets/library.db
 .config/cef_user_data
 .config/chromium
@@ -203,6 +204,8 @@
 .xsession-errors
 .xsession-errors.old
 .xsettingsd
+.xsettingsd.dpi
+.xsettingsd.theme
 .yankring_history_v2.txt
 .yarnrc
 .yo-rc-global.json

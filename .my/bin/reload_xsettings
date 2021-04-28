@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cat ~/.xsettingsd.base ~/.xsettingsd.dpi ~/.xsettingsd.theme > ~/.xsettingsd
+pkill -HUP xsettingsd 
