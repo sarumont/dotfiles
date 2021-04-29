@@ -388,6 +388,7 @@ nnoremap <silent> <Leader>gs :Git<cr>
 nnoremap <silent> <Leader>gb :Gblame -w -M<cr>
 nnoremap <silent> <Leader>gc :Git commit<cr>
 nnoremap <silent> <Leader>gp :Git push<cr>
+nnoremap <silent> <Leader>gup :Git up<cr>
 nnoremap <silent> <Leader>amend :Git commit --amend<cr>
 nnoremap <silent> <Leader>stash :Git stash<cr>
 nnoremap <silent> <Leader>pop :Git stash pop<cr>
