@@ -1,2 +1,1 @@
 \set PROMPT1 '%M/%/> '
-\set search_path to hydra, hub, dana, public;
