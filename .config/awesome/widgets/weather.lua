@@ -16,6 +16,7 @@ local weather_text = wibox.widget{
     valign = 'center',
     font = beautiful.font,
     widget = wibox.widget.textbox,
+
 }
 
 local weather_icon = wibox.widget.imagebox(icons.whatever)
@@ -53,7 +54,7 @@ awesome.connect_signal("evil::weather", function(temperature, description, icon_
         weather_icon.image = icons.whatever
     end
 
-    weather_text.markup = description.." "..tostring(temperature)..weather_temperature_symbol
+    weather_text.markup = ('<span color=\'%s\'>%s</span>'):format(beautiful.fg_focus, description.." "..tostring(temperature)..weather_temperature_symbol)
 end)
 
 return weather

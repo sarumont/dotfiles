@@ -27,14 +27,14 @@ theme.font          = "sans 10"
 -- local cool_color = awesome.xrdb_get_value("", "color16")
 
 theme.bg_dark       = x.background
-theme.bg_normal     = x.color0
-theme.bg_focus      = x.color8
+theme.bg_normal     = x.background
+theme.bg_focus      = x.background
 theme.bg_urgent     = x.color8
 theme.bg_minimize   = x.color8
 theme.bg_systray    = x.color8
 
-theme.fg_normal     = x.color8
-theme.fg_focus      = x.color4
+theme.fg_normal     = x.foreground.."66"
+theme.fg_focus      = x.foreground
 theme.fg_urgent     = x.color3
 theme.fg_minimize   = x.color8
 
@@ -59,10 +59,10 @@ theme.titlebar_title_enabled = false
 theme.titlebar_font = "sans bold 9"
 theme.titlebar_title_align = "center"
 theme.titlebar_position = "top"
-theme.titlebar_bg = x.background
-theme.titlebar_bg_focus = x.background
-theme.titlebar_fg_normal = x.color8
-theme.titlebar_fg = x.color7
+theme.titlebar_bg_normal = theme.bg_normal.."CC"
+theme.titlebar_bg_focus = theme.bg_focus
+theme.titlebar_fg_normal = theme.fg_normal
+theme.titlebar_fg_focus = theme.fg_focus
 
 -- Notifications
 -- ============================
@@ -296,35 +296,35 @@ theme.layout_cornerse = layout_icon_path .. "cornerse.png"
 --theme = theme_assets.recolor_layout(theme, x.color1)
 
 -- Mpd song
-theme.mpd_song_title_color = x.color7
-theme.mpd_song_artist_color = x.color7
-theme.mpd_song_paused_color = x.color8
+theme.mpd_song_title_color = theme.fg_focus
+theme.mpd_song_artist_color = theme.fg_focus
+theme.mpd_song_paused_color = theme.fg_normal
 
 -- Volume bar
 theme.volume_bar_active_color = x.color6
-theme.volume_bar_active_background_color = x.color0
+theme.volume_bar_active_background_color = theme.bg_focus
 theme.volume_bar_muted_color = x.color8
-theme.volume_bar_muted_background_color = x.color0
+theme.volume_bar_muted_background_color = theme.bg_normal
 
 -- Temperature bar
 theme.temperature_bar_active_color = x.color1
-theme.temperature_bar_background_color = x.color0
+theme.temperature_bar_background_color = theme.bg_focus
 
 -- Battery bar
 theme.battery_bar_active_color = x.color5
-theme.battery_bar_background_color = x.color0
+theme.battery_bar_background_color = theme.bg_focus
 
 -- CPU bar
 theme.cpu_bar_active_color = x.color2
-theme.cpu_bar_background_color = x.color0
+theme.cpu_bar_background_color = theme.bg_focus
 
 -- mem bar
 theme.mem_bar_active_color = x.color4
-theme.mem_bar_background_color = x.color0
+theme.mem_bar_background_color = theme.bg_focus
 
 -- Brightness bar
 theme.brightness_bar_active_color = x.color3
-theme.brightness_bar_background_color = x.color0
+theme.brightness_bar_background_color = theme.bg_focus
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
