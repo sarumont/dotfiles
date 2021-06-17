@@ -201,6 +201,7 @@
 .wine/
 .wireshark-etc/
 .wireshark/
+.wpa_cli_history
 .xsession-errors
 .xsession-errors.old
 .xsettingsd
