@@ -1,0 +1,24 @@
+#include ".Xresources"
+
+*.foreground:   onehalflightfg
+*.background:   onehalflightbg
+*.cursorColor:  onehalflightfg
+*fading: 35
+*fadeColor:     onehalflight3
+
+*.color0:       onehalflight0
+*.color1:       onehalflight1
+*.color2:       onehalflight2
+*.color3:       onehalflight3
+*.color4:       onehalflight4
+*.color5:       onehalflight5
+*.color6:       onehalflight6
+*.color7:       onehalflight7
+*.color8:       onehalflight8
+*.color9:       onehalflight9
+*.color10:      onehalflight10
+*.color11:      onehalflight11
+*.color12:      onehalflight12
+*.color13:      onehalflight13
+*.color14:      onehalflight14
+*.color15:      onehalflight15
