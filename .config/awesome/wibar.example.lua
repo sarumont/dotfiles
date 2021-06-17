@@ -11,9 +11,9 @@ require("evil.weather")
 
 local mpd_icon = wibox.widget.imagebox(icons.music)
 local mpd = wibox.widget.textbox()
-local paused_color = beautiful.mpd_song_paused_color or beautiful.normal_fg
-local title_color =  beautiful.mpd_song_title_color or beautiful.wibar_fg
-local artist_color = beautiful.mpd_song_artist_color or beautiful.wibar_fg
+local paused_color = beautiful.mpd_song_paused_color or beautiful.fg_normal
+local title_color =  beautiful.mpd_song_title_color or beautiful.fg_focus
+local artist_color = beautiful.mpd_song_artist_color or beautiful.fg_focus
 vicious.register(
     mpd,
     vicious.widgets.mpd,
@@ -60,7 +60,11 @@ end)
 local weather = require("widgets.weather")
 local clock_icon = wibox.widget.imagebox(icons.clock)
 local clock = wibox.widget.textbox()
-vicious.register(clock, vicious.widgets.date, "%a %d %b %R", 30)
+vicious.register(
+    clock,
+    vicious.widgets.date,
+    '<span color=\''..beautiful.fg_focus..'\'>%a %d %b %R</span>',
+    34)
 
 -- wibox
 return function(s)
