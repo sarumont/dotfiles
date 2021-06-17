@@ -18,8 +18,6 @@ local theme = {}
 -- Set theme wallpaper.
 -- It won't change anything if you are using feh to set the wallpaper like I do.
 theme.wallpaper = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name .. "/wallpaper.jpg"
--- A blurred version of your wallpaper would be nice
-theme.wallpaper_lock = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name .. "/wallpaper_lock.jpg"
 
 -- Set the theme font. This is the font that will be used by default in menus, bars, titlebars etc.
 theme.font          = "sans 10"
@@ -146,15 +144,15 @@ theme.prefix_fg = x.color8
 
  --Tasklist
 theme.tasklist_font = "sans medium 8"
+theme.tasklist_font_minimized = "sans italic 8"
 theme.tasklist_disable_icon = true
 theme.tasklist_plain_task_name = true
-theme.tasklist_bg_focus = x.color0
+theme.tasklist_bg_focus = x.background
 theme.tasklist_fg_focus = x.foreground
-theme.tasklist_bg_normal = "#00000000"
-theme.tasklist_fg_normal = x.foreground.."77"
-theme.tasklist_bg_minimize = "#00000000"
-theme.tasklist_fg_minimize = x.color8
--- theme.tasklist_font_minimized = "sans italic 8"
+theme.tasklist_bg_normal = x.background
+theme.tasklist_fg_normal = x.foreground.."66"
+theme.tasklist_bg_minimize = x.background
+theme.tasklist_fg_minimize = x.foreground.."66"
 theme.tasklist_bg_urgent = x.background
 theme.tasklist_fg_urgent = x.color3
 theme.tasklist_spacing = dpi(0)
@@ -177,10 +175,6 @@ theme.exit_screen_bg = x.color0 .. "CC"
 theme.exit_screen_fg = x.color7
 theme.exit_screen_font = "sans 20"
 theme.exit_screen_icon_size = dpi(180)
-
--- Lock screen
-theme.lock_screen_bg = x.color0 .. "CC"
-theme.lock_screen_fg = x.color7
 
 -- Icon taglist
 local ntags = 10

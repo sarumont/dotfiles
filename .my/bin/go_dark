@@ -3,6 +3,7 @@
 echo "colorscheme onehalfdark" > ~/.config/nvim/bg.vim
 echo "--theme=OneHalfDark" > ~/.config/bat/config
 echo "Net/ThemeName \"Arc-Dark\"" > ~/.xsettingsd.theme
+xrdb -merge ~/.Xresources.dark
 command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
 killall -USR1 termite
 reload_xsettings
