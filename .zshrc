@@ -176,6 +176,7 @@ if [[ $? -eq 0 ]]; then
     eval "$($DIRENV hook zsh)"
 fi
 
-[[ -s "${HOME}/.fzf.zsh" ]] && source "${HOME}/.fzf.zsh"
+source "/usr/share/fzf/completion.zsh" 2> /dev/null
+source "/usr/share/fzf/key-bindings.zsh"
 
 #zprof
