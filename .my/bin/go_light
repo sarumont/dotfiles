@@ -8,3 +8,8 @@ xrdb -merge ~/.Xresources.light
 command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config
 killall -USR1 termite
 reload_xsettings
+
+which awesome-client
+if test $? -eq 0; then
+    awesome-client 'awesome.restart()'
+fi
