@@ -194,13 +194,13 @@ end
 theme.prompt_fg = x.color12
 
 -- Text Taglist (default)
-theme.taglist_font = "monospace bold 9"
+theme.taglist_font = "monospace 9"
 theme.taglist_bg_focus = x.background
 theme.taglist_fg_focus = x.color12
 theme.taglist_bg_occupied = x.background
-theme.taglist_fg_occupied = x.color8
+theme.taglist_fg_occupied = theme.fg_focus
 theme.taglist_bg_empty = x.background
-theme.taglist_fg_empty = x.color0
+theme.taglist_fg_empty = theme.fg_normal
 theme.taglist_bg_urgent = x.background
 theme.taglist_fg_urgent = x.color3
 theme.taglist_disable_icon = true
