@@ -1,4 +1,4 @@
-#include ".Xresources"
+#include ".Xresources.onehalf"
 
 *.foreground:   onehalflightfg
 *.background:   onehalflightbg
