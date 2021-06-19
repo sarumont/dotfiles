@@ -29,13 +29,13 @@ for development work.
 - `fd-find`
 - `whois`
 - `gotop`
+- `jq`
+- `yq`
 
 ## Development 🛠
 
-- Azure CLI (`azure-cli`)
-- VSCode
-- IntelliJ
-- `nvm`
+- `aws-cli`
+- `docker`
 
 ### SDKMan
 
@@ -44,7 +44,6 @@ for development work.
     sdk i maven
     sdk i gradle
     sdk i java 11.0.2-open
-    # maybe: sdk i java 8.0.252-zulu
 
 ## Desktop (non-headless)
 
@@ -61,6 +60,7 @@ for development work.
 - Nordic GTK theme
 - `evince` (PDF viewer)
 - `vlc`
+- `ttf-dejavu`
 
 ## Laptop
 
@@ -141,8 +141,6 @@ Local zsh overrides are supported:
  - `.zshenv` -> `.local/sh/zshenv`
  - `.zshrc` -> `.local/sh/zshrc`
 
-# TODO: VSCode
-
 ## vim-notes
 
 The directory for [vim-notes](https://github.com/xolox/vim-notes) is `~/.local/share/vim/notes`. This can be a symlink to e.g. `~/Dropbox/notes` to allow syncing of notes between machines.
@@ -150,7 +148,6 @@ The directory for [vim-notes](https://github.com/xolox/vim-notes) is `~/.local/s
 ## Xresources.local
 
 DPI is machine-dependent, but an example `~/.Xresources.local` is:
-
 
     Xft.dpi: 144
 
