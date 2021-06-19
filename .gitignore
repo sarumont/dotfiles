@@ -94,6 +94,7 @@
 .config/spotdl/
 .config/spotify/
 .config/syncthing/
+.config/systemd/
 .config/telepresence/
 .config/terminology/
 .config/update-notifier/
