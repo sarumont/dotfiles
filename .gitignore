@@ -74,6 +74,7 @@
 .config/letsencrypt/
 .config/libreoffice/
 .config/menus
+.config/mpd
 .config/mimeapps.list
 .config/nautilus/
 .config/ncspot/
@@ -136,6 +137,7 @@
 .java
 .jenv/
 .jrebel
+.k3d/
 .k9s/
 .keychain
 .keycloak/
@@ -151,7 +153,6 @@
 .minikube/
 .mozilla/
 .mpd/
-.mpdconf
 .mvnGoLang/
 .ngrok2/
 .nmcli-history
