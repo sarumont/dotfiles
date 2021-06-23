@@ -1,0 +1,48 @@
+music_directory         "/media/smb-chocobo.local-music"
+playlist_directory      "/media/smb-chocobo.local-music/playlists"
+filesystem_charset      "UTF-8"
+db_file                 "~/.mpd/tag_cache"
+log_file                "~/.mpd/mpd.log"
+pid_file                "~/.mpd/pid"
+state_file              "~/.mpd/state"
+sticker_file            "~/.mpd/sticker.sql"
+bind_to_address         "localhost"
+
+input {
+  plugin "curl"
+}
+
+decoder {
+  plugin                "hybrid_dsd"
+  enabled               "no"
+}
+
+audio_output {
+  type                  "alsa"
+  name                  "Mixed Alsa"
+  mixer_type            "software"
+  mixer_device          "default"
+  mixer_control         "PCM"
+}
+
+audio_output { 
+  type                  "alsa" 
+  name                  "K3" 
+  device                "hw:CARD=K3,DEV=0"
+  mixer_type            "none"
+  dsd_usb               "no"
+  buffer_time           "200000"
+  period_time           "256000000"
+  use_mmap              "yes"
+  auto_resample         "no"
+  auto_channels         "no"
+  auto_format           "no"
+} 
+
+audio_output {
+    type                "fifo"
+    name                "my_fifo"
+    path                "/tmp/mpd.fifo"
+    format              "44100:16:2"
+}
+
