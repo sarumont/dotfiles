@@ -151,6 +151,7 @@
 .minikube/
 .mozilla/
 .mpd/
+.mpdconf
 .mvnGoLang/
 .ngrok2/
 .nmcli-history
