@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=mpd
+Comment=Music
+Exec=mpd
+Terminal=false
+Type=Application
+StartupNotify=false
