@@ -20,10 +20,18 @@ if [[ -r ~/.privfiles/sh/zshenv ]]; then
     . ~/.privfiles/sh/zshenv
 fi
 
+for f in ~/.privfiles/sh/*.zshenv(N); do
+    . $f
+done
+
 # source machine-specific code
 if [[ -r ~/.local/sh/zshenv ]]; then
     . ~/.local/sh/zshenv
 fi
+
+for f in ~/.local/sh/*.zshenv(N); do
+    . $f
+done
 
 # these will always be set in the local if they exist - and '.' is always at the end
 path+=(
