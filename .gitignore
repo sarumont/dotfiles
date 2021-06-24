@@ -74,7 +74,6 @@
 .config/letsencrypt/
 .config/libreoffice/
 .config/menus
-.config/mpd
 .config/mimeapps.list
 .config/nautilus/
 .config/ncspot/

@@ -10,11 +10,11 @@ if test "on" = $1; then
     if test -n "$PACTL"; then
         $PACTL suspend-sink 1
     fi
-    mpc enable 2
-    mpc disable 1
+    mpc enable dac
+    mpc disable pulse
 else
-    mpc enable 1
-    mpc disable 2
+    mpc enable pulse
+    mpc disable dac
     if test -n "$PACTL"; then
         $PACTL suspend-sink 0
     fi
