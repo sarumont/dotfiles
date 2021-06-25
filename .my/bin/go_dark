@@ -8,6 +8,7 @@ xrdb -merge ~/.Xresources.dark
 command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
 killall -USR1 termite
 reload_xsettings
+feh --no-fehbg --bg-fill ~/.config/awesome/themes/ephemeral/arch\ black.png
 
 which awesome-client
 if test $? -eq 0; then
