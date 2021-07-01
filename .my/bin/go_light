@@ -8,9 +8,9 @@ xrdb -merge ~/.Xresources.light
 command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light > $HOME/.config/termite/config
 killall -USR1 termite
 reload_xsettings
-feh --no-fehbg --bg-fill ~/.config/awesome/themes/ephemeral/arch\ white.jpg
 
 which awesome-client
 if test $? -eq 0; then
     awesome-client 'awesome.restart()'
 fi
+feh --no-fehbg --bg-fill ~/.config/awesome/themes/ephemeral/arch\ light.jpg
