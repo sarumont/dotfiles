@@ -287,14 +287,7 @@ keys.globalkeys = gears.table.join(
   end,
   {description = "Switch to comms", group = "launcher"}),
 
-  awful.key({ modkey }, 'c', function ()
-      local matcher = function (c)
-          return awful.rules.match(c, {class = 'Code'})
-      end
-      awful.client.run_or_raise('code', matcher)
-  end,
-  {description = "Launch VSCode", group = "launcher"}),
-
+  -- TODO: this is tied to termite
   awful.key({ modkey }, 'd', function ()
     awful.client.run_or_raise("termite --name=dev --exec=\"" .. os.getenv("HOME") .. "/.my/bin/tmux_attach dev\"",
       function (c)
@@ -303,13 +296,23 @@ keys.globalkeys = gears.table.join(
     end,
     {description = "Launch dev terminal", group = "launcher"}),
 
-  awful.key({ modkey }, 't', function ()
-    awful.client.run_or_raise("termite --name=dev --exec=\"" .. os.getenv("HOME") .. "/.local/bin/remote_dev\"",
-      function (c)
-        return awful.rules.match(c, {instance = 'dev'})
-      end)
-    end,
-    {description = "Launch barret dev terminal", group = "launcher"})
+  -- TODO: these are tied to asusctl. Need to break out a user.keys when I can
+  awful.key({ }, "XF86Launch4",
+      function ()
+          os.execute("asusctl profile -n")
+      end,
+      {description = "Switch Fan profile", group = "system"}),
+
+  awful.key({ }, "XF86KbdBrightnessDown",
+      function ()
+          os.execute(os.getenv("HOME") .. "/.local/bin/kbd down")
+      end,
+      {description = "Decrease Keyboard backlight", group = "system"}),
+  awful.key({ }, "XF86KbdBrightnessUp",
+      function ()
+          os.execute(os.getenv("HOME") .. "/.local/bin/kbd up")
+      end,
+      {description = "Increase Keyboard backlight", group = "system"})
 )
 
 keys.clientkeys = gears.table.join(
