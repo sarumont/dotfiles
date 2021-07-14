@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set +e
+
 echo "colorscheme onehalflight" > ~/.config/nvim/bg.vim
 echo "--theme=OneHalfLight" > ~/.config/bat/config
 echo "Net/ThemeName \"Arc\"" > ~/.xsettingsd.theme
@@ -9,8 +11,10 @@ command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.light
 killall -USR1 termite
 reload_xsettings
 
-which awesome-client
+sleep 1
+which awesome-client &>/dev/null
 if test $? -eq 0; then
-    awesome-client 'awesome.restart()'
+    awesome-client 'awesome.restart()' &>/dev/null
 fi
+sleep 1
 feh --no-fehbg --bg-fill ~/.config/awesome/themes/ephemeral/arch\ light.jpg
