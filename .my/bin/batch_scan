@@ -13,9 +13,10 @@ SCANIMAGE=/usr/bin/scanimage
 NOW=`date +%s`
 WILDCARD_NAME="/tmp/$NOW/scan_%02d_.tiff"
 
-SCANNER="hpaio:/net/officejet_4650_series?ip=172.21.1.10&queue=false"
+SCANNER="escl:https://172.21.1.102:443"
+# SCANNER="hpaio:/net/officejet_4650_series?ip=172.21.1.10&queue=false"
 SOURCE="ADF"
-# SIZE_ADJ="-y 279"
+SIZE_ADJ="-y 279"
 VERBOSE=""
 while getopts dlvn:f o
 do
