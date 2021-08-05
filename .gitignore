@@ -176,6 +176,7 @@
 .rnd
 .rvm/
 .sdkman/
+.serverless*
 .smb.conf
 .sonar/
 .sqlite_history
