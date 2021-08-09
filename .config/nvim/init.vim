@@ -432,8 +432,10 @@ nnoremap <Leader>vmf  :VimuxPromptCommand('mvn clean install')<CR>
 
 nnoremap <Leader>vnp  :VimuxPromptCommand('npm run ')<CR>
 
-nnoremap <Leader>vnit  :VimuxPromptCommand("npm run test:integration")<CR>
-nnoremap <Leader>vnut  :VimuxPromptCommand("npm run test:unit")<CR>
+nnoremap <Leader>vnb  :VimuxRunCommand("npm run build")<CR>
+nnoremap <Leader>vncb  :VimuxRunCommand("npm run clean && npm run build")<CR>
+nnoremap <Leader>vnit  :VimuxRunCommand("npm run test:integration")<CR>
+nnoremap <Leader>vnut  :VimuxRunCommand("npm run test:unit")<CR>
 
 nnoremap <Leader>vq  :VimuxCloseRunner<CR>
 nnoremap <Leader>vz  :VimuxZoomRunner<CR>
