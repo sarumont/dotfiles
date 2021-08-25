@@ -24,6 +24,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mtth/scratch.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'mbbill/undotree'
 
 " Code 
 Plug 'scrooloose/nerdcommenter' 
@@ -122,6 +123,9 @@ let g:localvimrc_persistent=2
 :command Codemode set nospell | Goyo!
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
+
+set undodir=~/.local/share/vim/undo/
+set undofile
 
 "}}}
 
