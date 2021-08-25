@@ -145,7 +145,7 @@ let g:one_allow_italics=1
 colorscheme one
 set background=dark
 
-# automatically set background mode based on xorg settings
+" automatically set background mode based on xorg settings
 function! SetBackgroundMode(...)
   let s:new_bg = "dark"
   let s:dark = systemlist('grep -i dark ~/.xsettingsd.theme')
