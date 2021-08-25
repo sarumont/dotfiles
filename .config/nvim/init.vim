@@ -2,7 +2,7 @@
 call plug#begin('~/.config/nvim/.plugins')
 
 " Visual
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'rakr/vim-one'
 Plug 'itchyny/lightline.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ryanoasis/vim-devicons'
@@ -136,7 +136,26 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-source $HOME/.config/nvim/bg.vim
+let g:gruvbox_italic=1
+let g:one_allow_italics=1
+colorscheme one
+set background=dark
+
+# automatically set background mode based on xorg settings
+function! SetBackgroundMode(...)
+  let s:new_bg = "dark"
+  let s:dark = systemlist('grep -i dark ~/.xsettingsd.theme')
+  if len(s:dark) == 0
+    let s:new_bg = "light"
+  else
+    let s:new_bg = "dark"
+  endif
+  if &background !=? s:new_bg
+    let &background = s:new_bg
+  endif
+endfunction
+call SetBackgroundMode()
+call timer_start(3000, "SetBackgroundMode", {"repeat": -1})
 
 set cursorline
 set colorcolumn=100
@@ -145,7 +164,7 @@ set colorcolumn=100
 set laststatus=2
 set noshowmode
 let g:lightline = {
-            \ 'colorscheme': 'onehalfdark',
+            \ 'colorscheme': 'one',
             \ 'active': {
             \   'left':  [ [ 'mode', 'paste' ],
             \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],
@@ -364,8 +383,6 @@ nnoremap <leader>. :w<cr>:call GetJavaAlts(expand('%'), ':vsplit')<cr>
 
 "{{{ Keymaps 
 "
-nnoremap <silent> <leader><leader>bg :exec "source " . $HOME . "/.config/nvim/bg.vim"<cr>
-
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 

@@ -2,7 +2,6 @@
 
 set +e
 
-echo "colorscheme onehalfdark" > ~/.config/nvim/bg.vim
 echo "--theme=OneHalfDark" > ~/.config/bat/config
 echo "Net/ThemeName \"Arc-Dark\"" > ~/.xsettingsd.theme
 echo "Net/IconThemeName \"Flat-Remix-Blue-Dark\"" >> ~/.xsettingsd.theme
