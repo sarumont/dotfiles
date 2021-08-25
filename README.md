@@ -57,7 +57,7 @@ for development work.
 - `spacefm`
 - `parcellite`
 - `xdotool`
-- Nordic GTK theme
+- Arc GTK theme
 - `evince` (PDF viewer)
 - `vlc`
 - `ttf-dejavu`
@@ -65,7 +65,7 @@ for development work.
 ## Laptop
 
 - `powertop`
-- `tpm`
+- `battop`
 
 # Setup
 
