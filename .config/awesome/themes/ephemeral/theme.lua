@@ -295,10 +295,10 @@ theme.layout_cornerse = layout_icon_path .. "cornerse.png"
 -- Recolor layout icons
 --theme = theme_assets.recolor_layout(theme, x.color1)
 
--- Mpd song
-theme.mpd_song_title_color = theme.fg_focus
-theme.mpd_song_artist_color = theme.fg_focus
-theme.mpd_song_paused_color = theme.fg_normal
+-- song
+theme.song_title_color = theme.color4
+theme.song_artist_color = theme.fg_focus
+theme.song_paused_color = theme.fg_normal
 
 -- Volume bar
 theme.volume_bar_active_color = x.color6
