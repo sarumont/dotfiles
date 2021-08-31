@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=playerctld
+Comment=Music
+Exec=playerctld daemon
+Terminal=false
+Type=Application
+StartupNotify=false

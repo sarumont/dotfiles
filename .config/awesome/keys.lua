@@ -210,39 +210,39 @@ keys.globalkeys = gears.table.join(
   -- MPD control
   awful.key({ }, "XF86AudioPlay",
       function ()
-          os.execute("mpc toggle")
+          os.execute("playerctl play-pause")
       end,
-      {description = "mpc toggle", group = "mpd"}),
+      {description = "toggle play/pause", group = "music"}),
   awful.key({ altkey, "Control" }, "Up",
       function ()
-          os.execute("mpc toggle")
+          os.execute("playerctl play-pause")
       end,
-      {description = "mpc toggle", group = "mpd"}),
+      {description = "toggle play/pause", group = "music"}),
   awful.key({ altkey, "Control" }, "Down",
       function ()
-          os.execute("mpc stop")
+          os.execute("playerctl stop")
       end,
-      {description = "mpc stop", group = "mpd"}),
+      {description = "stop the music (why?)", group = "music"}),
   awful.key({ }, "XF86AudioPrev",
       function ()
-          os.execute("mpc prev")
+          os.execute("playerctl previous")
       end,
-      {description = "mpc prev", group = "mpd"}),
+      {description = "go back", group = "music"}),
   awful.key({ altkey, "Control" }, "Left",
       function ()
-          os.execute("mpc prev")
+          os.execute("playerctl previous")
       end,
-      {description = "mpc prev", group = "mpd"}),
+      {description = "go back", group = "music"}),
   awful.key({ }, "XF86AudioNext",
       function ()
-          os.execute("mpc next")
+          os.execute("playerctl next")
       end,
-      {description = "mpc next", group = "mpd"}),
+      {description = "next track (go into the future!)", group = "music"}),
   awful.key({ altkey, "Control" }, "Right",
       function ()
-          os.execute("mpc next")
+          os.execute("playerctl next")
       end,
-      {description = "mpc next", group = "mpd"}),
+      {description = "next track (go into the future!)", group = "music"}),
 
   -- Prompt
   awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
