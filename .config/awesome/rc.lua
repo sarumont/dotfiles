@@ -273,6 +273,7 @@ awful.rules.rules = {
     { rule = { instance = "Navigator" }, properties = { tag = "www" } },
     { rule = { class = "Code" }, properties = { tag = "ide" } },
     { rule = { class = "zoom" }, properties = { ontop = true, floating = true }},
+    { rule = { instance = "yubioath-desktop" }, properties = { ontop = true, floating = true }},
 
     { rule = { instance = "slack" }, properties = { tag = "comms" } },
     { rule = { class = "signal" }, properties = { tag = "comms" } },
