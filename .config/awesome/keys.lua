@@ -213,6 +213,11 @@ keys.globalkeys = gears.table.join(
           os.execute("playerctl play-pause")
       end,
       {description = "toggle play/pause", group = "music"}),
+  awful.key({ }, "XF86Launch1",
+      function ()
+          os.execute("playerctl play-pause")
+      end,
+      {description = "toggle play/pause", group = "music"}),
   awful.key({ altkey, "Control" }, "Up",
       function ()
           os.execute("playerctl play-pause")
