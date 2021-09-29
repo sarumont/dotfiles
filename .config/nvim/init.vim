@@ -246,6 +246,10 @@ nnoremap <silent> <Leader>fi :CocCommand java.action.organizeImports<cr>
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
+" Use `[c` and `]c` to navigate conflicts
+nmap <silent> [c <Plug>(coc-git-prevconflict)
+nmap <silent> ]c <Plug>(coc-git-nextconflict)
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -412,6 +416,13 @@ nnoremap <silent> <Leader>gup :Git up<cr>
 nnoremap <silent> <Leader>amend :Git commit --amend<cr>
 nnoremap <silent> <Leader>stash :Git stash<cr>
 nnoremap <silent> <Leader>pop :Git stash pop<cr>
+
+" navigate changed hunks
+nmap <silent> <Leader>hi <Plug>(coc-git-chunkinfo)
+nmap <silent> <Leader>hn <Plug>(coc-git-nextchunk)
+nmap <silent> <Leader>hp <Plug>(coc-git-prevchunk)
+nmap <silent> <Leader>hs <Plug>(coc-git-chunkstage)
+nmap <silent> <Leader>hu <Plug>(coc-git-chunkundo)
 
 " IntelliJ IDEA-like keymaps
 nnoremap <silent> <F2> :w<cr>:cNext<cr>
