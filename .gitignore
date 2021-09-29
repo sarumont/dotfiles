@@ -57,6 +57,7 @@
 .config/eog/
 .config/evince/
 .config/evolution/
+.config/freerdp/
 .config/freshwrapper-data
 .config/ghb/
 .config/git/
