@@ -310,12 +310,12 @@ keys.globalkeys = gears.table.join(
 
   awful.key({ }, "XF86KbdBrightnessDown",
       function ()
-          os.execute(os.getenv("HOME") .. "/.local/bin/kbd down")
+          os.execute("asusctl -p")
       end,
       {description = "Decrease Keyboard backlight", group = "system"}),
   awful.key({ }, "XF86KbdBrightnessUp",
       function ()
-          os.execute(os.getenv("HOME") .. "/.local/bin/kbd up")
+          os.execute("asusctl -n")
       end,
       {description = "Increase Keyboard backlight", group = "system"})
 )
