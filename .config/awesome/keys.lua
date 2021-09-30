@@ -295,7 +295,7 @@ keys.globalkeys = gears.table.join(
   awful.key({ modkey }, 'd', function ()
     awful.client.run_or_raise("termite --name=dev --exec=\"" .. os.getenv("HOME") .. "/.my/bin/tmux_attach dev\"",
       function (c)
-        return awful.rules.match(c, {instance = 'dev'})
+        return awful.rules.match(c, {instance = 'dev', class = 'Termite'})
       end)
     end,
     {description = "Launch dev terminal", group = "launcher"}),

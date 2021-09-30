@@ -279,7 +279,7 @@ awful.rules.rules = {
     { rule = { class = "discord" }, properties = { tag = "comms" } },
 
     { 
-        rule = { instance = "dev" },
+        rule = { instance = "dev", class = "Termite" },
         properties = { tag = "dev", titlebars_enabled = false }
     },
     { 
