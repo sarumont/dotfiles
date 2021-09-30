@@ -7,7 +7,6 @@ local beautiful = require("beautiful")
 local lain          = require("lain")
 local user = require("user")
 
-local scrlocker    = "slock"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 
@@ -39,7 +38,7 @@ keys.globalkeys = gears.table.join(
             {description = "take a selective screenshot", group = "hotkeys"}),
 
   -- X screen locker
-  awful.key({ modkey, "Shift" }, "l", function () os.execute(scrlocker) end,
+  awful.key({ modkey, "Shift" }, "l", function () os.execute("loginctl lock-session") end,
             {description = "lock screen", group = "hotkeys"}),
 
   -- Hotkeys
