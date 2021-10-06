@@ -1,0 +1,74 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["custom/media", "tray", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/utc", "custom/ro"],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "disable-click": true,
+    },
+    "tray": {
+        "spacing": 10,
+    },
+    "clock": {
+        "format": "{:%a %Y %b %d %R}"
+    },
+    "custom/utc": {
+        "format": "{}",
+        "exec": "TZ=UTC date \"+%H:%M %Z\"",
+        "interval": 30,
+    },
+    "custom/ro": {
+        "format": "{}",
+        "exec": "TZ=Europe/Bucharest date \"+%H:%M %Z\"",
+        "interval": 30,
+    },
+    "custom/media": {
+        "format": "{icon}{}",
+        "return-type": "json",
+        "format-icons": {
+            "Playing": " ",
+            "Paused": " ",
+        },
+        "max-length":70,
+        "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+        "on-click": "playerctl play-pause",
+    },
+    "cpu": {
+        "format": " {usage}%"
+    },
+    "memory": {
+        "format": " {}%"
+    },
+    "temperature": {
+        "critical-threshold": 75,
+        "format": " {temperatureC}°C"
+    },
+    "battery": {
+        "bat": "BAT0",
+        "full-at": 95,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-ethernet": "✔",
+        "format-wifi": " {essid}",
+        "format-disconnected": "⚠ Disconnected"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+}

@@ -9,6 +9,8 @@ export MAVEN_ARGS="-T 1C"
 
 export GPG_TTY=$(tty)
 
+export MOZ_ENABLE_WAYLAND=1
+
 # path prepend
 path[1,0]=($HOME/.local/bin $HOME/.my/bin /opt/bin /snap/bin)
 
