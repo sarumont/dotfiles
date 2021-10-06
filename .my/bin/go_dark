@@ -10,10 +10,14 @@ command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark 
 killall -USR1 termite
 reload_xsettings
 
-sleep 1
-which awesome-client &>/dev/null
-if test $? -eq 0; then
-    awesome-client 'awesome.restart()' &>/dev/null
-fi
-sleep 1
-feh --no-fehbg --bg-fill ~/.config/awesome/themes/ephemeral/arch\ dark.png
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Blue-Dark"
+
+# xorg
+# sleep 1
+# which awesome-client &>/dev/null
+# if test $? -eq 0; then
+    # awesome-client 'awesome.restart()' &>/dev/null
+# fi
+# sleep 1
+# feh --no-fehbg --bg-fill ~/.config/awesome/themes/ephemeral/arch\ dark.png
