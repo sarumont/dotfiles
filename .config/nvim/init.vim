@@ -422,7 +422,7 @@ nmap <silent> <Leader>hi <Plug>(coc-git-chunkinfo)
 nmap <silent> <Leader>hn <Plug>(coc-git-nextchunk)
 nmap <silent> <Leader>hp <Plug>(coc-git-prevchunk)
 nmap <silent> <Leader>hs <Plug>(coc-git-chunkstage)
-nmap <silent> <Leader>hu <Plug>(coc-git-chunkundo)
+nmap <silent> <Leader>hu :CocCommand git.chunkUndo<cr>
 
 " IntelliJ IDEA-like keymaps
 nnoremap <silent> <F2> :w<cr>:cNext<cr>
