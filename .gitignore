@@ -75,6 +75,7 @@
 .config/insight-nodejs/
 .config/letsencrypt/
 .config/libreoffice/
+.config/looking-glass
 .config/menus
 .config/mimeapps.list
 .config/nautilus/
@@ -184,7 +185,7 @@
 .sqlite_history
 .ssh/environment-*
 .ssh/id_*
-.ssh/known_hosts
+.ssh/known_hosts*
 .steam/
 .steampath
 .steampid
