@@ -81,7 +81,7 @@ input * {
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym Ctrl+Shift+r reload
+    bindsym Ctrl+Alt+r reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
@@ -225,14 +225,9 @@ for_window [instance="spotify"] move container to workspace music
 
 for_window [app_id="yubico.com.yubioath-desktop"] floating enable
 
-# autostart
-exec wl-paste -t text --watch clipman store
-#exec termite --name=dev
-
 # utility keybindings
 
 # music
-bindsym XF86Launch1    exec playerctl play-pause
 bindsym XF86AudioPlay  exec playerctl play-pause
 bindsym Ctrl+Alt+Up    exec playerctl play-pause
 bindsym XF86AudioStop  exec playerctl stop
@@ -241,3 +236,30 @@ bindsym XF86AudioPrev  exec playerctl previous
 bindsym Ctrl+Alt+Left  exec playerctl previous
 bindsym XF86AudioNext  exec playerctl next
 bindsym Ctrl+Alt+Right exec playerctl previous
+
+# Asus G14
+bindsym XF86Launch1    exec playerctl play-pause
+bindsym XF86Launch4    exec asusctl profile -n
+bindsym XF86KbdBrightnessDown exec asusctl -p
+bindsym XF86KbdBrightnessUp   exec asusctl -n
+
+# TODO:
+# keys:
+#   SpaceFM
+#   volume mgmt
+#   brightness
+#
+# run-or-raise - or autospon
+# dev terminal
+# quake terminal
+# exec non-desktop entry commands
+# autostart other things
+# notification dark/light mode
+# theme + dark/light mode
+# backgrounds
+
+# autostart
+exec parcellite
+#exec termite --name=dev
+
+include config.local
