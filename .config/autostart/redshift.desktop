@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=Redshift
-Comment=Protect your eyes
-Exec=redshift
-Terminal=false
-Type=Application
-StartupNotify=false
