@@ -233,7 +233,7 @@ tmux_conf_uninstall_plugins_on_reload=true
 set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'jbnicolai/tmux-fpp'
 set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'schasse/tmux-jump'
+#set -g @plugin 'schasse/tmux-jump'
 set -g @fpp-key 'u'
 
 # -- custom variables ----------------------------------------------------------
