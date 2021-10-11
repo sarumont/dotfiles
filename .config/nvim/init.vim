@@ -103,7 +103,7 @@ if has("unix")
         let g:gist_clip_command = 'pbcopy'
     else
       let s:session = system("get_session_type")
-      if s:session = "wayland"
+      if s:session == "wayland"
         nnoremap <silent> <Leader>pp :set paste<cr>$:r ! wl-paste <cr>:set nopaste<cr>$
         let g:gist_clip_command = 'wl-copy -selection clipboard'
       else
