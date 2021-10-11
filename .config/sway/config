@@ -15,7 +15,7 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term termite
-set $menu wofi --show=drun --lines=5 --prompt=""
+set $menu wofi 
 
 ### Output configuration
 #
@@ -138,28 +138,29 @@ bindsym $mod+Shift+m move container to workspace music
 #
 # Layout stuff:
 #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
 
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+t layout tabbed
-    bindsym $mod+e layout toggle split
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
 
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
 
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
+# Move focus to the parent container
+bindsym $mod+a focus parent
+
 #
 # Scratchpad:
 #
@@ -203,63 +204,27 @@ bar {
 
 include /etc/sway/config.d/*
 
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+
 # style
 default_border pixel 3
 gaps inner 5
 
-# display management
-set $laptop_display eDP-1
-set $monitor HDMI-A-1
-bindswitch --reload --locked lid:on output $laptop_display disable
-bindswitch --reload --locked lid:off output $laptop_display enable
-
-# window rules
-assign [app_id="^dev$"] workspace dev
-assign [app_id="^mpdevil$"] workspace music
-assign [app_id="^firefox$"] workspace www
-
-# use for_window for Electron apps because they are slow
-for_window [instance="slack"] move container to workspace comms
-for_window [instance="discord"] move container to workspace comms
-for_window [instance="spotify"] move container to workspace music
-
-for_window [app_id="yubico.com.yubioath-desktop"] floating enable
-
 # utility keybindings
-
-# music
-bindsym XF86AudioPlay  exec playerctl play-pause
-bindsym Ctrl+Alt+Up    exec playerctl play-pause
-bindsym XF86AudioStop  exec playerctl stop
-bindsym Ctrl+Alt+Down  exec playerctl stop
-bindsym XF86AudioPrev  exec playerctl previous
-bindsym Ctrl+Alt+Left  exec playerctl previous
-bindsym XF86AudioNext  exec playerctl next
-bindsym Ctrl+Alt+Right exec playerctl previous
-
-# Asus G14
-bindsym XF86Launch1    exec playerctl play-pause
-bindsym XF86Launch4    exec asusctl profile -n
-bindsym XF86KbdBrightnessDown exec asusctl -p
-bindsym XF86KbdBrightnessUp   exec asusctl -n
+bindsym Ctrl+Shift+Return    scratchpad show
 
 # TODO:
 # keys:
 #   SpaceFM
-#   volume mgmt
-#   brightness
 #
-# run-or-raise - or autospon
+# run-or-raise - or autospawn
 # dev terminal
 # quake terminal
-# exec non-desktop entry commands
-# autostart other things
 # notification dark/light mode
 # theme + dark/light mode
-# backgrounds
+#   - not sure...kinda liking it monochromatic...
+# xclip replacement
+# (double-check parcellite)
 
-# autostart
-exec parcellite
-#exec termite --name=dev
-
-include config.local
+include *.config
