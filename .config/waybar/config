@@ -4,10 +4,37 @@
     "height": 24,
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/media", "tray", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "clock", "custom/utc", "custom/ro"],
+    "modules-right": [
+        "custom/media",
+        "network",
+        "temperature",
+        "cpu",
+        "memory",
+        "pulseaudio", 
+        "backlight",
+        "battery",
+        "custom/weather",
+        "clock",
+        "custom/utc",
+        "custom/ro",
+        "tray"
+    ],
+    "backlight": {
+        "device": "amdgpu_bl0",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", ""]
+    },
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-click": true,
+        "format": "{icon} {name}",
+        "format-icons": {
+            "dev": "",
+            "www": "",
+            "music": "",
+            "comms": "",
+            "urgent": "",
+        }
     },
     "tray": {
         "spacing": 10,
@@ -36,6 +63,10 @@
         "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
         "on-click": "playerctl play-pause",
     },
+    "custom/weather": {
+        "exec": "curl 'https://wttr.in/Breckenridge+CO?format=1&m'",
+        "interval": 3600
+    },
     "cpu": {
         "format": " {usage}%"
     },
@@ -58,9 +89,9 @@
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        "format-ethernet": "✔",
+        "format-ethernet": "ﯱ",
         "format-wifi": " {essid}",
-        "format-disconnected": "⚠ Disconnected"
+        "format-disconnected": ""
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
