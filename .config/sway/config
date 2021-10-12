@@ -211,8 +211,11 @@ set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 default_border pixel 3
 gaps inner 5
 
-# utility keybindings
+# use scratchpad for a visor terminal
 bindsym Ctrl+Shift+Return    scratchpad show
+for_window [app_id="^visor$"] move scratchpad
+exec ~/.my/bin/visor
+#exec --no-startup-id termite --name=visor --exec="tmux_attach visor"
 
 # TODO:
 # keys:
@@ -220,11 +223,6 @@ bindsym Ctrl+Shift+Return    scratchpad show
 #
 # run-or-raise - or autospawn
 # dev terminal
-# quake terminal
 # notification dark/light mode
-# theme + dark/light mode
-#   - not sure...kinda liking it monochromatic...
-# xclip replacement
-# (double-check parcellite)
 
 include *.config
