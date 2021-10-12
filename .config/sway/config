@@ -213,9 +213,12 @@ gaps inner 5
 
 # use scratchpad for a visor terminal
 bindsym Ctrl+Shift+Return    scratchpad show
-for_window [app_id="^visor$"] move scratchpad
-exec ~/.my/bin/visor
-#exec --no-startup-id termite --name=visor --exec="tmux_attach visor"
+for_window [app_id="^visor$"] {
+    move scratchpad
+    move absolute position 0 25
+    resize set 100 ppt 80 ppt
+}
+#exec ~/.my/bin/visor
 
 # TODO:
 # keys:
@@ -226,3 +229,7 @@ exec ~/.my/bin/visor
 # notification dark/light mode
 
 include *.config
+
+exec --no-startup-id termite --name=dev
+exec --no-startup-id termite --name=visor
+exec firefox
