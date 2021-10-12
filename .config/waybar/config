@@ -14,9 +14,9 @@
         "backlight",
         "battery",
         "custom/weather",
-        "clock",
         "custom/utc",
         "custom/ro",
+        "clock",
         "tray"
     ],
     "backlight": {
