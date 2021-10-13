@@ -7,6 +7,7 @@
     "modules-right": [
         "custom/media",
         "network",
+        "custom/profile",
         "temperature",
         "cpu",
         "memory",
@@ -66,6 +67,17 @@
     "custom/weather": {
         "exec": "curl 'https://wttr.in/Breckenridge+CO?format=1&m'",
         "interval": 3600
+    },
+    "custom/profile": {
+        "exec": "~/.my/bin/get_profile",
+        "return-type": "json",
+        "interval": 60,
+        "format": "{icon}",
+        "format-icons": {
+            "performance": "",
+            "balanced": "",
+            "power-saver": "ﴛ"
+        }
     },
     "cpu": {
         "format": " {usage}%"
