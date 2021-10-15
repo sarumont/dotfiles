@@ -1,22 +1,15 @@
 #!/bin/sh
 
-PACTL=$(which pactl)
-if test $? -ne 0; then
-    PACTL=""
-fi
-
 mpc pause
 if test "on" = $1; then
-    if test -n "$PACTL"; then
-        $PACTL suspend-sink 1
-    fi
+    systemctl stop --user pipewire-pulse.service
+    systemctl stop --user pipewire-pulse.socket
     mpc enable dac
-    mpc disable pulse
+    mpc disable alsa
 else
-    mpc enable pulse
+    mpc enable alsa
     mpc disable dac
-    if test -n "$PACTL"; then
-        $PACTL suspend-sink 0
-    fi
+    systemctl start --user pipewire-pulse.service
+    systemctl start --user pipewire-pulse.socket
 fi
 mpc play
