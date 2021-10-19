@@ -218,7 +218,6 @@ for_window [app_id="^visor$"] {
     move absolute position 0 25
     resize set 100 ppt 80 ppt
 }
-#exec ~/.my/bin/visor
 
 # TODO:
 # keys:
