@@ -74,8 +74,8 @@
         "interval": 60,
         "format": "{icon}",
         "format-icons": {
-            "performance": "",
-            "balanced": "",
+            "performance": "",
+            "balanced": "",
             "power-saver": "ﴛ"
         }
     },
