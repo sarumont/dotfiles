@@ -106,10 +106,12 @@
         "format-disconnected": ""
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "{icon} {volume}%    {format_source}",
         "format-muted": "",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
         "format-icons": {
-            "headphones": "",
+            "headphone": "",
             "default": ["", ""]
         },
         "on-click": "pavucontrol"
