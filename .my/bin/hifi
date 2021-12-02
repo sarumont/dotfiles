@@ -2,14 +2,12 @@
 
 mpc pause
 if test "on" = $1; then
-    systemctl stop --user pipewire-pulse.service
-    systemctl stop --user pipewire-pulse.socket
+    pulse stop
     mpc enable dac
     mpc disable alsa
 else
     mpc enable alsa
     mpc disable dac
-    systemctl start --user pipewire-pulse.service
-    systemctl start --user pipewire-pulse.socket
+    pulse start
 fi
 mpc play
