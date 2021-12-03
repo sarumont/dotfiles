@@ -158,6 +158,7 @@
 .mvnGoLang/
 .ngrok2/
 .nmcli-history
+.node/
 .node-gyp/
 .node_repl_history
 .npm/
