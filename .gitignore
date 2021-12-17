@@ -17,6 +17,7 @@
 .circleci/
 .compiz
 .config/.mono/
+.config/.org.chromium.Chromium.no5SOx
 .config/BraveSoftware/
 .config/Code/CachedExtensionVSIXs/
 .config/Code/Code Cache/
@@ -24,7 +25,7 @@
 .config/Code/TransportSecurity
 .config/Electron/
 .config/Meltytech/
-.config/QtProject.conf
+.config/QtProject*
 .config/Raspberry Pi/
 .config/Slack/
 .config/Signal/
@@ -109,6 +110,7 @@
 .cordova/
 .cups/
 .dbus/
+.designer/
 .dmrc
 .docker/
 .dropbox-dist/
@@ -194,6 +196,7 @@
 .sudo_as_admin_successful
 .task
 .terraform.d/
+.testcontainers.properties
 .themes/
 .thumbnails/
 .tig_history
