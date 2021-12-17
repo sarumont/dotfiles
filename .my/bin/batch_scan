@@ -13,7 +13,7 @@ SCANIMAGE=/usr/bin/scanimage
 NOW=`date +%s`
 WILDCARD_NAME="/tmp/$NOW/scan_%02d_.tiff"
 
-SCANNER="escl:https://172.21.1.102:443"
+SCANNER="escl:https://192.168.1.102:443"
 # SCANNER="hpaio:/net/officejet_4650_series?ip=172.21.1.10&queue=false"
 SOURCE="ADF"
 SIZE_ADJ="-y 279"
