@@ -10,12 +10,6 @@
 [submodule ".dasht"]
 	path = .dasht
 	url = https://github.com/sunaku/dasht.git
-[submodule ".config/awesome/vicious"]
-	path = .config/awesome/vicious
-	url = https://github.com/vicious-widgets/vicious.git
-[submodule ".config/awesome/lain"]
-	path = .config/awesome/lain
-	url = git@github.com:lcpz/lain.git
 [submodule ".tmux"]
 	path = .tmux
 	url = https://github.com/gpakosz/.tmux.git
