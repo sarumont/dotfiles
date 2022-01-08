@@ -412,10 +412,10 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 " git
 nnoremap <silent> <Leader>mc I🔀 <esc>
 
-nnoremap <silent> <Leader>gd :Gdiff<cr>
-nnoremap <silent> <Leader>gl :Glog<cr>
+nnoremap <silent> <Leader>gd :Git diff<cr>
+nnoremap <silent> <Leader>gl :Git log<cr>
 nnoremap <silent> <Leader>gs :Git<cr>
-nnoremap <silent> <Leader>gb :Gblame -w -M<cr>
+nnoremap <silent> <Leader>gb :Git blame -w -M<cr>
 nnoremap <silent> <Leader>gc :Git commit<cr>
 nnoremap <silent> <Leader>gp :Git push<cr>
 nnoremap <silent> <Leader>gup :Git up<cr>
