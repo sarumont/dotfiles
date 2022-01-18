@@ -140,6 +140,7 @@
 .jalopy/
 .java
 .jenv/
+.jira.d/
 .jrebel
 .k3d/
 .k9s/
