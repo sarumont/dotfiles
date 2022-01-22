@@ -68,6 +68,9 @@ alias jdk11="sdk use java 20.1.0.r11-grl"
 
 alias certbot='certbot --config-dir ~/.config/letsencrypt --logs-dir ~/tmp --work-dir ~/tmp'
 
+# lerna
+alias bootstrap='npx lerna exec npm i && npx lerna bootstrap'
+
 # notes
 alias daily='$EDITOR note:`date +%Y-%m-%d` -c ":Writemode"'
 alias yesterday='$EDITOR note:`date -v-1d +%Y-%m-%d` -c ":Writemode"'
