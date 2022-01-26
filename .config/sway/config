@@ -145,6 +145,9 @@ bindsym $mod+space focus mode_toggle
 # Move focus to the parent container
 bindsym $mod+a focus parent
 
+# Toggle Sticky
+bindsym $mod+Shift+s sticky toggle
+
 #
 # Scratchpad:
 #
