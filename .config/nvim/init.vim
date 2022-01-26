@@ -33,8 +33,9 @@ Plug 'adelarsq/vim-matchit'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-sleuth'
-Plug 'pedrohdz/vim-yaml-folds'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'stephpy/vim-yaml'
+" Plug 'lifepillar/pgsql.vim'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -44,10 +45,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
-
-" Filetype
-Plug 'sheerun/vim-polyglot'
-Plug 'lifepillar/pgsql.vim'
 
 " Utility
 Plug 'benmills/vimux'
@@ -173,11 +170,16 @@ set colorcolumn=100
 " Lightline
 set laststatus=2
 set noshowmode
+
+function! LightlineTreesitter()
+  return nvim_treesitter#statusline(90)
+endfunction
+
 let g:lightline = {
             \ 'colorscheme': 'one',
             \ 'active': {
             \   'left':  [ [ 'mode', 'paste' ],
-            \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],
+            \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus', 'treesitter' ] ],
             \   'right': [ [ 'lineinfo' ],
             \              [ 'percent' ],
             \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
@@ -187,7 +189,8 @@ let g:lightline = {
             \ },
             \ 'component_function': {
             \   'gitbranch': 'fugitive#head',
-            \   'cocstatus': 'coc#status'
+            \   'cocstatus': 'coc#status',
+            \   'treesitter': 'LightlineTreesitter'
             \ },
             \ }
 
@@ -211,8 +214,26 @@ let g:javascript_plugin_jsdoc = 1
 
 " Code Formatting {{{
 
-autocmd FileType yaml set foldlevel=2
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
+au BufReadPost * set foldlevel=2
 let g:sql_type_default = 'pgsql'
+
+lua <<EOF
+local ts = require 'nvim-treesitter.configs'
+ts.setup {
+  ensure_installed = 'maintained',
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true,
+    disable = { 'yaml' },
+  },
+}
+EOF
 
 " }}}
 

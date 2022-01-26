@@ -47,6 +47,7 @@
 .config/coc/lists
 .config/coc/memos.json
 .config/coc/mru
+.config/coc/suggest.txt
 .config/configstore
 .config/dconf/
 .config/devsupply/
