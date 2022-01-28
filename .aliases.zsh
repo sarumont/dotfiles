@@ -48,16 +48,16 @@ alias ag='rg'
 # SCM
 alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
 alias _git_full_log="git log --graph --oneline --decorate"
-alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(master|develop)"'
+alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(main|master|develop)"'
 alias bump='git commit -m "⬆️"'
-alias full_pull='git pull --all --prune --rebase && git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
+alias full_pull='git pull --all --prune --rebase && git branch -d `git branch --merged | grep -v "\*" | egrep -v "(main|master|develop|richard)"`'
 
 # OMZ overrides
 alias gcm='git commit -m' 
 alias glg='git log --stat --show-signature'
 alias gstl='git stash list --date=relative' # overrides OMZ default
 
-alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(master|develop|richard)"`'
+alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(main|master|develop|richard)"`'
 alias gtt='git log -1 --format=%ai '
 alias gup='git up' # defer this to ~/gitconfig
 alias st='scm_st'
