@@ -1,6 +1,7 @@
 .ICEauthority
 .IntelliJIdea*
 .NERDTreeBookmarks
+.SynologyDrive/
 .Trash/
 .Xauthority
 .Xresources.local
@@ -137,6 +138,7 @@
 .heroku/
 .histfile
 .httpie/sessions/
+.icons/
 .ionic/
 .jalopy/
 .java
