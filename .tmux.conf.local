@@ -189,6 +189,7 @@ tmux_conf_theme_clock_colour=$blue
 tmux_conf_theme_clock_style='24'
 
 # -- clipboard -----------------------------------------------------------------
+#set-option -g set-clipboard on
 
 # in copy mode, copying selection also copies to the OS clipboard
 #   - true
@@ -230,9 +231,9 @@ tmux_conf_update_plugins_on_launch=true
 tmux_conf_update_plugins_on_reload=true
 tmux_conf_uninstall_plugins_on_reload=true
 
-set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'jbnicolai/tmux-fpp'
 set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'abhinav/tmux-fastcopy'
 #set -g @plugin 'schasse/tmux-jump'
 set -g @fpp-key 'u'
 
