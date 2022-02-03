@@ -10,13 +10,10 @@
         "custom/profile",
         "temperature",
         "cpu",
-        "memory",
-        "pulseaudio", 
         "backlight",
         "battery",
+        "pulseaudio", 
         "custom/weather",
-        "custom/utc",
-        "custom/ro",
         "clock",
         "tray"
     ],
@@ -38,20 +35,16 @@
         }
     },
     "tray": {
-        "spacing": 10,
+        "spacing": 5,
     },
     "clock": {
-        "format": "{:%a %Y %b %d %R}"
-    },
-    "custom/utc": {
-        "format": "{}",
-        "exec": "TZ=UTC date \"+%H:%M %Z\"",
-        "interval": 30,
-    },
-    "custom/ro": {
-        "format": "{}",
-        "exec": "TZ=Europe/Bucharest date \"+%H:%M %Z\"",
-        "interval": 30,
+        "format": "{:%d %b %R}",
+        "tooltip-format": "{:%a %d %b %Y %R %Z}",
+        "timezones": [
+            "America/Denver",
+            "Etc/UTC",
+            "Europe/Bucharest",
+        ]
     },
     "custom/media": {
         "format": "{icon}{}",
@@ -93,7 +86,7 @@
         "bat": "BAT0",
         "full-at": 95,
         "states": {
-            "good": 95,
+            "good": 80,
             "warning": 30,
             "critical": 15
         },
@@ -106,7 +99,7 @@
         "format-disconnected": ""
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%    {format_source}",
+        "format": "{icon} {volume}%   {format_source}",
         "format-muted": "",
         "format-source": " {volume}%",
         "format-source-muted": "",
