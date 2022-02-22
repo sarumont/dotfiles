@@ -34,6 +34,7 @@
 .config/VirtualBox/
 .config/Yubico/
 .config/asciinema/
+.config/autostart/
 .config/awesome/icons
 .config/bat
 .config/beets/library.db
@@ -89,6 +90,7 @@
 .config/nvim/.netrwhist
 .config/nvim/.plugins/
 .config/nvim/bg.vim
+.config/obs-studio/
 .config/pacmixer/
 .config/pavucontrol.ini
 .config/pgcli/history
