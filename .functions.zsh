@@ -92,6 +92,19 @@ build() {
             cmd="mvn -f ${dir}/pom.xml $MAVEN_ARGS $@"
             break
         fi
+        if test -f ${dir}/package.json; then
+            if [[ $# -eq 0 ]]; then
+                cmd="npm run build"
+            elif [[ $# -eq 1 ]]; then
+                cmd="npm run $@"
+            else
+                cmd='echo "npm '$@'"'
+                for target in $@; do
+                    cmd="${cmd} && npm run ${target}"
+                done
+            fi
+            break
+        fi
         dir=${dir%/*}
     done
     eval $cmd
@@ -114,6 +127,9 @@ c() {
 }
 bi() {
     build install $@
+}
+clb() {
+    cl build $@
 }
 cli() {
     cl install $@
