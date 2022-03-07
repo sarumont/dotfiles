@@ -77,6 +77,7 @@
 .config/ibus/
 .config/inkscape/
 .config/insight-nodejs/
+.config/jgit/
 .config/letsencrypt/
 .config/libreoffice/
 .config/looking-glass
@@ -139,6 +140,7 @@
 .helm/
 .heroku/
 .histfile
+.httpie/plugins/
 .httpie/sessions/
 .icons/
 .ionic/
