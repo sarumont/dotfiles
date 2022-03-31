@@ -93,14 +93,19 @@ build() {
             break
         fi
         if test -f ${dir}/package.json; then
+            cmdBase="npm"
+            if test -f ${dir}/lerna.json; then
+                cmdBase="npx lerna"
+            fi
+
             if [[ $# -eq 0 ]]; then
-                cmd="npm run build"
+                cmd="${cmdBase} run build"
             elif [[ $# -eq 1 ]]; then
-                cmd="npm run $@"
+                cmd="${cmdBase} run $@"
             else
-                cmd='echo "npm '$@'"'
+                cmd='echo "'${cmdBase}' '$@'"'
                 for target in $@; do
-                    cmd="${cmd} && npm run ${target}"
+                    cmd="${cmd} && ${cmdBase} run ${target}"
                 done
             fi
             break
