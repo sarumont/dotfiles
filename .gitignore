@@ -19,6 +19,7 @@
 .compiz
 .config/.mono/
 .config/.org.chromium.Chromium.no5SOx
+.config/@trezor/
 .config/BraveSoftware/
 .config/Code/CachedExtensionVSIXs/
 .config/Code/Code Cache/
