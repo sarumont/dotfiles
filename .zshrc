@@ -83,7 +83,7 @@ plugins=(
     zsh-syntax-highlighting
 )
 
-zstyle :omz:plugins:keychain agents gpg,ssh
+zstyle :omz:plugins:keychain agents gpg
 zstyle :omz:plugins:keychain options --quiet
 
 source $ZSH/oh-my-zsh.sh
