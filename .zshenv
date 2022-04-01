@@ -12,10 +12,16 @@ export GPG_TTY=$(tty)
 export MOZ_ENABLE_WAYLAND=1
 
 # path prepend
-path[1,0]=($HOME/.local/bin $HOME/.my/bin /opt/bin /snap/bin)
-
-# path append
-path+=(/sbin /usr/sbin)
+path[1,0]=(
+    $HOME/.local/bin
+    $HOME/.my/bin 
+    /sbin
+    /usr/sbin
+    /opt/bin 
+    /opt/local/bin
+    /opt/local/sbin
+    /snap/bin
+)
 
 # source private shared shit
 if [[ -r ~/.privfiles/sh/zshenv ]]; then
@@ -35,7 +41,9 @@ for f in ~/.local/sh/*.zshenv(N); do
     . $f
 done
 
-# these will always be set in the local if they exist - and '.' is always at the end
+# path append
+# FOO_HOME will always be set in .local if they exist
+# and '.' is always at the end
 path+=(
     $ANDROID_HOME/platform-tools
     $ANDROID_HOME/tools
