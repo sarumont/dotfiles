@@ -78,6 +78,7 @@
 .config/ibus/
 .config/inkscape/
 .config/insight-nodejs/
+.config/iterm2/
 .config/jgit/
 .config/letsencrypt/
 .config/libreoffice/
@@ -163,6 +164,7 @@
 .lsp4xml/
 .lyrics/
 .m2/
+.macports/
 .minikube/
 .mozilla/
 .mpd/
@@ -235,6 +237,7 @@
 .zoomus/
 .zsh-update
 .zsh_history
+.zsh_sessions/
 
 # ignore non-dotfiles
 /[^.]*
