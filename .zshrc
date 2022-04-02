@@ -73,18 +73,14 @@ plugins=(
     docker
     git 
     gitfast
+    gpg-agent
     gradle
     httpie
-    keychain
     kubectl
-    mvn
     sudo
     zsh-nvm 
     zsh-syntax-highlighting
 )
-
-zstyle :omz:plugins:keychain agents gpg
-zstyle :omz:plugins:keychain options --quiet
 
 source $ZSH/oh-my-zsh.sh
 
@@ -176,7 +172,9 @@ if [[ $? -eq 0 ]]; then
     eval "$($DIRENV hook zsh)"
 fi
 
-source "/usr/share/fzf/completion.zsh" 2> /dev/null
-source "/usr/share/fzf/key-bindings.zsh"
+if [[ -n "$FZF_BASE" ]]; then
+    source "$FZF_BASE/completion.zsh" 2> /dev/null
+    source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
+fi
 
 #zprof
