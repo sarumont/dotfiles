@@ -53,6 +53,10 @@ all() {
             GIT_CMD="git fetch --all --prune && git pull --rebase"
             SVN_CMD=""
             ;;
+        stashes)
+            GIT_CMD="git --no-pager stash list"
+            SVN_CMD=""
+            ;;
         *)
             echo "Unknown command: $1"
             return 1
