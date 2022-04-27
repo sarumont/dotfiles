@@ -3,17 +3,28 @@
 set +e
 
 echo "--theme=OneHalfDark" > ~/.config/bat/config
-echo "Net/ThemeName \"Arc-Dark\"" > ~/.xsettingsd.theme
-echo "Net/IconThemeName \"Flat-Remix-Blue-Dark\"" >> ~/.xsettingsd.theme
-xrdb -merge ~/.Xresources.dark
-command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
-killall -USR1 termite
-reload_xsettings
 
-gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
-gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Blue-Dark"
+case $(uname) in
+    Linux)
+        echo "Net/ThemeName \"Arc-Dark\"" > ~/.xsettingsd.theme
+        echo "Net/IconThemeName \"Flat-Remix-Blue-Dark\"" >> ~/.xsettingsd.theme
+        xrdb -merge ~/.Xresources.dark
+        command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
+        killall -USR1 termite
+        reload_xsettings
 
-# xorg
+        gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+        gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Blue-Dark"
+        ;;
+    Darwin)
+        echo "dark" > ~/.xsettingsd.theme # my nvim setup uses this
+        ;;
+    *)
+        echo "Really? $(uname)?"
+        ;;
+esac
+
+# old, deprecated xorg + awesomewm stuff
 # sleep 1
 # which awesome-client &>/dev/null
 # if test $? -eq 0; then
