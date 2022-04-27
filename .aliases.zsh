@@ -1,6 +1,6 @@
 alias vi=$EDITOR
 alias vim=$EDITOR
-alias viup='vim -c ":PlugUpgrade | :PlugUpdate | :PlugInstall | :PlugClean | :quitall"'
+alias viup='vim -c ":PlugUpgrade | :PlugUpdate | :PlugInstall | :PlugClean | :TSUpdateSync | :quitall"'
 
 # job management
 alias j='jobs'

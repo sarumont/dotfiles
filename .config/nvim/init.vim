@@ -171,15 +171,11 @@ set colorcolumn=100
 set laststatus=2
 set noshowmode
 
-function! LightlineTreesitter()
-  return nvim_treesitter#statusline(90)
-endfunction
-
 let g:lightline = {
             \ 'colorscheme': 'one',
             \ 'active': {
             \   'left':  [ [ 'mode', 'paste' ],
-            \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus', 'treesitter' ] ],
+            \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],
             \   'right': [ [ 'lineinfo' ],
             \              [ 'percent' ],
             \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
@@ -189,8 +185,7 @@ let g:lightline = {
             \ },
             \ 'component_function': {
             \   'gitbranch': 'fugitive#head',
-            \   'cocstatus': 'coc#status',
-            \   'treesitter': 'LightlineTreesitter'
+            \   'cocstatus': 'coc#status'
             \ },
             \ }
 
@@ -223,7 +218,7 @@ let g:sql_type_default = 'pgsql'
 lua <<EOF
 local ts = require 'nvim-treesitter.configs'
 ts.setup {
-  ensure_installed = 'maintained',
+  ensure_installed = 'all',
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -422,7 +417,7 @@ nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
 " NERDTree
-:map <C-I> :NERDTreeToggle<cr>
+:map <Tab> :NERDTreeToggle<cr>
 
 :map <C-Tab> :tabnext<cr>
 :map <C-S-Tab> :tabprev<cr>
