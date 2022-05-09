@@ -137,7 +137,7 @@ tmux_conf_theme_right_separator_sub=''  #   PowerlineSymbols.otf font
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=' ❐ #S '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{weather} | #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , #{online} , #{loadavg} , %R , %d %b | #{username}#{root} | #{hostname} '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , #{loadavg} , %R , %d %b | #{username}#{root} | #{hostname} '
 
 # status left style
 tmux_conf_theme_status_left_fg=$black,$white,$white
@@ -243,15 +243,6 @@ set -g @fpp-key 'u'
 # EOF
 #
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
-#
-# weather() {
-#   curl -m 1 wttr.in/Breckenridge+CO\?format=1\&m 2>/dev/null
-#   sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
-# }
-#
-# online() {
-#   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
-# }
 #
 # "$@"
 # # /!\ do not remove the previous line
