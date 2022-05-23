@@ -7,35 +7,18 @@ driven by the fact that I generally only have one machine to maintain now. It is
 desire to have a more portable config for managing remote servers and/or spinning up docker images
 for development work.
 
-# Usage
+# Software
 
 ## Prerequisites
 
-- `git`
-- `zsh`
-- `neovim`
-- `starship`
+    yay -S starship neovim zsh git
 
-## Additional Utilities
+## Additional Utilities 🛠
 
-- `exa`
-- `eva`
-- `bat`
-- `hexyl`
+    yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli docker
+
+TODO: haven't been using this. TypeScript integration seems a bit janky
 - `universal-ctags`
-- `zip` / `unzip`
-- `fzf`
-- `ripgrep`
-- `fd-find`
-- `whois`
-- `gotop`
-- `jq`
-- `yq`
-
-## Development 🛠
-
-- `aws-cli`
-- `docker`
 
 ### SDKMan
 
@@ -46,6 +29,8 @@ for development work.
     sdk i java 11.0.2-open
 
 ## Desktop (non-headless)
+
+TODO: not up to date with Wayland-ification
 
 - FiraCode Nerd Font
 - `redshift`
@@ -64,34 +49,29 @@ for development work.
 
 ## Laptop
 
-- `powertop`
-- `battop`
+    yay -S battop
 
 # Setup
 
 TODO: make this a script
 
-    ssh-keygen -t rsa -b 4096 -f /tmp/id_rsa
-    ssh-agent
+    # TODO: proper GPG Yubikey instructions
+    # 
+    # echo UPDATESTARTUPTTY | gpg-connect-agent
 
-    # <set env vars to use agent>
-    # <add public key to Github>
-
-    ssh-add /tmp/id_rsa
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
-
-    git checkout master
-    git branch --set-upstream-to=origin/master master
     git pull
+    git checkout master
     git submodule update --init --recursive
-    mv /tmp/id_rsa* ~/.ssh/
 
     # optional: git clone git@github.com:sarumont/privfiles.git .privfiles
     # or mkdir -p ~/.privfiles/ssh
 
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    chsh # set to /usr/bin/zsh
 
     rm ~/.bash*
     rm ~/.profile
