@@ -86,6 +86,10 @@ alias pomodoro="playerctl play && at now + 25 minutes <<< 'playerctl pause && no
 alias super_pom="playerctl play && at now + 50 minutes <<< 'playerctl pause && notify-send -i ~/.my/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
 alias deep_work="playerctl play && at now + 90 minutes <<< 'playerctl pause && notify-send -i ~/.my/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
 
+if [[ -r ~/.privfiles/sh/aliases.zsh ]]; then
+    . ~/.privfiles/sh/aliases.zsh
+fi
+
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh
 fi
