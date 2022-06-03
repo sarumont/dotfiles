@@ -184,7 +184,7 @@ let g:lightline = {
             \   'charvaluehex': '0x%B'
             \ },
             \ 'component_function': {
-            \   'gitbranch': 'fugitive#head',
+            \   'gitbranch': 'FugitiveHead',
             \   'cocstatus': 'coc#status'
             \ },
             \ }
