@@ -9,6 +9,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'machakann/vim-highlightedyank'
 Plug 'pangloss/vim-javascript'
 Plug 'justincampbell/vim-eighties'
+Plug 'sainnhe/everforest'
 
 " Misc
 Plug 'xolox/vim-misc'
