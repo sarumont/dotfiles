@@ -1,3 +1,4 @@
+# editor aliases
 alias vi=$EDITOR
 alias vim=$EDITOR
 alias viup='vim -c ":PlugUpgrade | :PlugUpdate | :PlugInstall | :PlugClean | :TSUpdateSync | :quitall"'
@@ -13,9 +14,6 @@ alias 6='fg %6'
 alias 7='fg %7'
 alias 8='fg %8'
 alias 9='fg %9'
-
-# Ubuntu
-alias as='apt search'
 
 # general aliases
 alias grep='grep --color'
@@ -52,7 +50,7 @@ alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(main|master
 alias bump='git commit -m "⬆️"'
 alias full_pull='git pull --all --prune --rebase && git branch -d `git branch --merged | grep -v "\*" | egrep -v "(main|master|develop|richard)"`'
 
-# OMZ overrides
+# OMZ overrides (mostly git)
 alias gcm='git commit -m' 
 alias glg='git log --stat --show-signature'
 alias gstl='git stash list --date=relative' # overrides OMZ default
@@ -61,10 +59,6 @@ alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(mai
 alias gtt='git log -1 --format=%ai '
 alias gup='git up' # defer this to ~/gitconfig
 alias st='scm_st'
-
-# JDK switching
-alias jdk8="sdk use java 8.0.262-zulu"
-alias jdk11="sdk use java 20.1.0.r11-grl"
 
 alias certbot='certbot --config-dir ~/.config/letsencrypt --logs-dir ~/tmp --work-dir ~/tmp'
 
@@ -82,9 +76,9 @@ alias beet="$(which beet) --config ~/.local/beets/config.yaml"
 alias mymounts="tree -L 1 /media/$USER"
 
 # productivity
-alias pomodoro="playerctl play && at now + 25 minutes <<< 'playerctl pause && notify-send -i ~/.my/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
-alias super_pom="playerctl play && at now + 50 minutes <<< 'playerctl pause && notify-send -i ~/.my/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
-alias deep_work="playerctl play && at now + 90 minutes <<< 'playerctl pause && notify-send -i ~/.my/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
+alias pomodoro="playerctl play && at now + 25 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
+alias super_pom="playerctl play && at now + 50 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
+alias deep_work="playerctl play && at now + 90 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
 
 if [[ -r ~/.privfiles/sh/aliases.zsh ]]; then
     . ~/.privfiles/sh/aliases.zsh
