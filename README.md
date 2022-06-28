@@ -11,11 +11,11 @@ for development work.
 
 ## Prerequisites
 
-    yay -S starship neovim zsh git
+    yay -S starship neovim zsh git gnupg yubikey-manager openssh
 
 ## Additional Utilities 🛠
 
-    yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli docker
+    yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli docker tmux
 
 TODO: haven't been using this. TypeScript integration seems a bit janky
 - `universal-ctags`
@@ -30,9 +30,10 @@ TODO: haven't been using this. TypeScript integration seems a bit janky
 
 ## Desktop (non-headless)
 
+    yay -S sway waybar swaylock termite firefox noto-fonts-emoji nerd-fonts-fira-code
+
 TODO: not up to date with Wayland-ification
 
-- FiraCode Nerd Font
 - `redshift`
 - `lightdm`
 - `slock`
@@ -49,19 +50,29 @@ TODO: not up to date with Wayland-ification
 
 ## Laptop
 
-    yay -S battop
+    yay -S battop power-profiles-daemon
 
 # Setup
 
 TODO: make this a script
 
-    # TODO: proper GPG Yubikey instructions
-    # 
-    # echo UPDATESTARTUPTTY | gpg-connect-agent
+    mkdir ~/.gnupg
+    curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg.conf > .gnupg/gpg.conf
+    curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg-agent-template.conf > .gnupg/gpg-agent.conf
+    gpg --card-edit --expert
+    > fetch
+    > quit
+
+    # set trust to 'ultimate' for your key via gpg --edit-key
+
+    gpg --list-keys # side-effect of starting the agent
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    echo UPDATESTARTUPTTY | gpg-connect-agent
 
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
     git pull
+    rm .gnupg/gpg.conf
     git checkout master
     git submodule update --init --recursive
 
@@ -76,7 +87,7 @@ TODO: make this a script
     rm ~/.bash*
     rm ~/.profile
 
-    echo "Please log out, log back in, and run 'viup' to initialize your neovim setup."
+    echo "Please log out, log back in, and run 'viup' twice to initialize your neovim setup."
 
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
