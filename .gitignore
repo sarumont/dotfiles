@@ -142,8 +142,7 @@
 .helm/
 .heroku/
 .histfile
-.httpie/plugins/
-.httpie/sessions/
+.httpie/
 .icons/
 .ionic/
 .jalopy/

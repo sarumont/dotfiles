@@ -16,18 +16,10 @@ for development work.
 ## Additional Utilities 🛠
 
     yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli docker \
-           tmux neofetch
+           tmux neofetch httpie
 
 TODO: haven't been using this. TypeScript integration seems a bit janky
 - `universal-ctags`
-
-### SDKMan
-
-    curl -s "https://get.sdkman.io" | zsh
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-    sdk i maven
-    sdk i gradle
-    sdk i java 11.0.2-open
 
 ## Desktop (non-headless)
 
@@ -45,6 +37,18 @@ TODO: not up to date with Wayland-ification
 ## Laptop
 
     yay -S battop power-profiles-daemon cpupower lightc python-gobject
+
+## Kubernetes
+
+    yay -S k3d kubectl
+
+## SDKMan
+
+    curl -s "https://get.sdkman.io" | zsh
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    sdk i maven
+    sdk i gradle
+    sdk i java 11.0.2-open
 
 # Setup
 
