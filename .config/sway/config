@@ -189,10 +189,11 @@ bar {
     swaybar_command waybar
 }
 
-include /etc/sway/config.d/*
-
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
+
+include /etc/sway/config.d/*
 
 # style
 default_border pixel 3
@@ -208,10 +209,8 @@ for_window [app_id="^visor$"] {
 
 # TODO:
 # keys:
-#   SpaceFM
+#   Nautilus
 #
-# run-or-raise - or autospawn
-# dev terminal
 # notification dark/light mode
 
 include *.config
