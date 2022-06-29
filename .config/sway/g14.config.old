@@ -1,9 +1,3 @@
-# display management
-set $laptop_display eDP-1
-set $monitor HDMI-A-1
-bindswitch --reload --locked lid:on output $laptop_display disable
-bindswitch --reload --locked lid:off output $laptop_display enable
-
 # Asus G14
 bindsym XF86Launch1    exec playerctl play-pause
 bindsym XF86Launch4    exec asusctl profile -n
