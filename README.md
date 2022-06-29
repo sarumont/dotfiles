@@ -15,7 +15,8 @@ for development work.
 
 ## Additional Utilities 🛠
 
-    yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli docker tmux
+    yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli docker \
+           tmux neofetch
 
 TODO: haven't been using this. TypeScript integration seems a bit janky
 - `universal-ctags`
@@ -30,31 +31,22 @@ TODO: haven't been using this. TypeScript integration seems a bit janky
 
 ## Desktop (non-headless)
 
-    yay -S sway waybar swaylock termite firefox noto-fonts-emoji nerd-fonts-fira-code
+    yay -S sway waybar swaylock termite firefox noto-fonts-emoji nerd-fonts-fira-code \
+           polkit playerctl synology-drive grimshot wob xorg-xwayland yubioath-desktop \
+           arc-gtk-theme flat-remix man-db gammastep nautilus ttf-dejavu nerd-fonts-ubuntu-mono \
+           imv
 
 TODO: not up to date with Wayland-ification
 
-- `redshift`
-- `lightdm`
-- `slock`
-- `scrot`
 - `udevil`
-- `awesome` (WM)
-- `spacefm`
-- `parcellite`
-- `xdotool`
-- Arc GTK theme
 - `evince` (PDF viewer)
-- `vlc`
 - `ttf-dejavu`
 
 ## Laptop
 
-    yay -S battop power-profiles-daemon
+    yay -S battop power-profiles-daemon cpupower lightc python-gobject
 
 # Setup
-
-TODO: make this a script
 
     mkdir ~/.gnupg
     curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg.conf > .gnupg/gpg.conf
@@ -89,6 +81,8 @@ TODO: make this a script
 
     echo "Please log out, log back in, and run 'viup' twice to initialize your neovim setup."
 
+## Privfiles
+
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
  - `.ssh/config` -> `.privfiles/ssh/config`
@@ -115,11 +109,6 @@ And begin the import!
     load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args="analog_gain_control=0\ digital_gain_control=1"
     set-default-source echoCancel_source
     set-default-sink echoCancel_sink
-
-## dasht
-
-    sudo apt install golang w3m sqlite3
-    go get github.com/william8th/javadocset
 
 # Local overrides
 
