@@ -15,18 +15,21 @@ for development work.
 
 ## Additional Utilities 🛠
 
-    yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli docker \
-           tmux neofetch httpie
+    yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli-v2-bin docker \
+           tmux neofetch httpie direnv vault
 
 TODO: haven't been using this. TypeScript integration seems a bit janky
 - `universal-ctags`
 
 ## Desktop (non-headless)
 
-    yay -S sway waybar swaylock termite firefox noto-fonts-emoji nerd-fonts-fira-code \
+    yay -S sway waybar swaylock termite firefox arc-gtk-theme flat-remix man-db gammastep \
            polkit playerctl synology-drive grimshot wob xorg-xwayland yubioath-desktop \
-           arc-gtk-theme flat-remix man-db gammastep nautilus ttf-dejavu nerd-fonts-ubuntu-mono \
-           imv
+           imv nautilus 
+
+### Fonts
+    yay -S noto-fonts-emoji nerd-fonts-fira-code ttf-dejavu nerd-fonts-ubuntu-mono ttf-roboto \
+           ttf-roboto-mono ttf-ubuntu-font-family ttf-ms-fonts
 
 TODO: not up to date with Wayland-ification
 
@@ -40,7 +43,7 @@ TODO: not up to date with Wayland-ification
 
 ## Kubernetes
 
-    yay -S k3d kubectl
+    yay -S k3d kubectl terragrunt helm telepresence
 
 ## SDKMan
 
