@@ -82,6 +82,7 @@
 .config/jgit/
 .config/letsencrypt/
 .config/libreoffice/
+.config/local
 .config/looking-glass
 .config/menus
 .config/mimeapps.list
