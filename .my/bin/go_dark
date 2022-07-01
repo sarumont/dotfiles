@@ -1,34 +1,26 @@
 #!/bin/sh
 
 set +e
+mkdir -p ~/.config/local
 
 echo "--theme=OneHalfDark" > ~/.config/bat/config
 
 case $(uname) in
     Linux)
-        echo "Net/ThemeName \"Arc-Dark\"" > ~/.xsettingsd.theme
-        echo "Net/IconThemeName \"Flat-Remix-Blue-Dark\"" >> ~/.xsettingsd.theme
-        xrdb -merge ~/.Xresources.dark
+        echo "dark" > ~/.config/local/theme
         command cat $HOME/.config/termite/config.base $HOME/.config/termite/config.dark > $HOME/.config/termite/config
         killall -USR1 termite
-        reload_xsettings
-
+        echo 'gtk-icon-theme-name = "Flat-Remix-Blue-Dark"' > ~/.gtkrc-2.0
+        echo 'gtk-theme-name = "Arc-Dark"' >> ~/.gtkrc-2.0
         gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
         gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Blue-Dark"
         ;;
     Darwin)
-        echo "dark" > ~/.xsettingsd.theme # my nvim setup uses this
+        echo "dark" > ~/.config/local/theme
         ;;
     *)
         echo "Really? $(uname)?"
         ;;
 esac
 
-# old, deprecated xorg + awesomewm stuff
-# sleep 1
-# which awesome-client &>/dev/null
-# if test $? -eq 0; then
-    # awesome-client 'awesome.restart()' &>/dev/null
-# fi
-# sleep 1
-# feh --no-fehbg --bg-fill ~/.config/awesome/themes/ephemeral/arch\ dark.png
+# TODO background?
