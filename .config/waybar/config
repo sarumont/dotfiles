@@ -80,8 +80,9 @@
     },
     "temperature": {
       "thermal-zone": 9,
-      "critical-threshold": 75,
-      "format": " {temperatureC}°C"
+      "critical-threshold": 80,
+      "format": " {temperatureC}°C",
+      "format-critical": "🔥 {temperatureC}°C"
     },
     "battery": {
         "bat": "BAT0",
