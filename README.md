@@ -1,57 +1,59 @@
 Dotfiles for my home directory.
 
-I used to have another repository in my `$HOME` setup called `homes.git`. It was representative of actual `$HOME` and had submodules for `dotfiles.git` (this repo) and, optionally, `privfiles.git` (ssh configs, etc.). There were many symlinks into the common and local. `homes.git` had a branch per machine/VM to allow `.local` to contain differing configurations.
+I used to have another repository in my `$HOME` setup called `homes.git`. It was representative of 
+actual `$HOME` and had submodules for `dotfiles.git` (this repo) and, optionally, `privfiles.git` 
+(ssh configs, etc.). There were many symlinks into the common and local. `homes.git` had a branch 
+per machine/VM to allow `.local` to contain differing configurations.
 
 Now, this repository is an amalgamation of the old `homes.git` and `dotfiles.git`. Part of this is
 driven by the fact that I generally only have one machine to maintain now. It is also driven by
 desire to have a more portable config for managing remote servers and/or spinning up docker images
-for development work.
+for development work, so I have attempted to make everything as portable as possible.
 
 # Software
 
 ## Prerequisites
 
-    yay -S starship neovim zsh git gnupg yubikey-manager openssh
+    yay -S starship neovim zsh git gnupg openssh
 
 ## Additional Utilities 🛠
 
     yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli-v2-bin docker \
-           tmux neofetch httpie direnv vault
+           tmux neofetch httpie direnv vault kcat-cli
 
 TODO: haven't been using this. TypeScript integration seems a bit janky
 - `universal-ctags`
 
-## Desktop (non-headless)
+## Desktop Utilities (non-headless)
 
-    yay -S sway waybar swaylock termite firefox arc-gtk-theme flat-remix man-db gammastep \
+    yay -S sway waybar swaylock swaybg termite firefox arc-gtk-theme flat-remix man-db gammastep \
            polkit playerctl synology-drive grimshot wob xorg-xwayland yubioath-desktop \
-           imv nautilus 
+           imv nautilus udevil cifs-utils evince yubikey-manager 
 
 ### Fonts
     yay -S noto-fonts-emoji nerd-fonts-fira-code ttf-dejavu nerd-fonts-ubuntu-mono ttf-roboto \
-           ttf-roboto-mono ttf-ubuntu-font-family ttf-ms-fonts
+           ttf-roboto-mono ttf-ubuntu-font-family ttf-ms-fonts noto-fonts-jp-vf
 
-TODO: not up to date with Wayland-ification
-
-- `udevil`
-- `evince` (PDF viewer)
-- `ttf-dejavu`
-
-## Laptop
+### Laptop Utilities
 
     yay -S battop power-profiles-daemon cpupower lightc python-gobject
 
 ## Kubernetes
 
-    yay -S k3d kubectl terragrunt helm telepresence
+    yay -S kubectl terragrunt helm telepresence2
 
-## SDKMan
+### Local cluster
+
+    yay -S k3d 
+
+## SDKMan (Java SDK manager)
 
     curl -s "https://get.sdkman.io" | zsh
     source "$HOME/.sdkman/bin/sdkman-init.sh"
     sdk i maven
     sdk i gradle
-    sdk i java 11.0.2-open
+    sdk ls java
+    sdk i java <whatever version you want/need>
 
 # Setup
 
@@ -98,10 +100,9 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
 
 ## 🎧
 
-    sudo apt install python3-pip ncmpcpp mpd mpc
-    pip3 install beets[fetchart,lyrics,lastgenre] flask
+    yay -S mpc ncmpcpp mpd beets spotify mpdevil
 
-Now, configure / mount music dir. Drop the following into `~/.local/beets/config.yaml`:
+Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
 
     directory: /media/chocobo/music
     library: /home/sarumont/.local/beets/library.blb
@@ -109,6 +110,8 @@ Now, configure / mount music dir. Drop the following into `~/.local/beets/config
       log: /home/sarumont/.local/beets/import.log
 
 And begin the import!
+
+TODO: pipewire, easyeffects, revisit PulseAudio section
 
 ## PulseAudio
 
