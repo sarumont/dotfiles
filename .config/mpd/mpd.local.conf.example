@@ -3,22 +3,3 @@
 #
 music_directory         "/media/smb-chocobo.local-music"
 playlist_directory      "/media/smb-chocobo.local-music/playlists"
-
-#
-# Direct hardware access. This is designed to send audio directly to a DAC without 
-# mixing or resampling. See ~/.my/bin/hifi for more info
-#
-audio_output { 
-  type                  "alsa" 
-  name                  "dac" 
-  device                "hw:CARD=K3,DEV=0"
-  mixer_type            "none"
-  dsd_usb               "no"
-  buffer_time           "200000"
-  period_time           "256000000"
-  use_mmap              "yes"
-  auto_resample         "no"
-  auto_channels         "no"
-  auto_format           "no"
-  enabled               "no"
-} 

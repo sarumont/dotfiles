@@ -19,10 +19,9 @@ for development work, so I have attempted to make everything as portable as poss
 ## Additional Utilities 🛠
 
     yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli-v2-bin docker \
-           tmux neofetch httpie direnv vault kcat-cli
+           tmux neofetch httpie direnv vault kcat-cli rubygems
 
-TODO: haven't been using this. TypeScript integration seems a bit janky
-- `universal-ctags`
+    gem install schema-evolution-manager
 
 ## Desktop Utilities (non-headless)
 
@@ -96,11 +95,18 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
  - `.ssh/config` -> `.privfiles/ssh/config`
 
+# Misc configuration
+
+ - Enable color output in `pacman/yay` - uncomment `Color` in `/etc/pacman.conf`
+
 # Optional components
 
 ## 🎧
 
-    yay -S mpc ncmpcpp mpd beets spotify mpdevil
+### `mpd` && `beets`
+
+    yay -S mpc ncmpcpp mpd spotify mpdevil \
+           beets python-pylast python-http python-pyxdg python-httpx
 
 Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
 
@@ -111,14 +117,9 @@ Now, configure and mount your music dir. Drop the following into `~/.local/beets
 
 And begin the import!
 
-TODO: pipewire, easyeffects, revisit PulseAudio section
+### Easyeffects
 
-## PulseAudio
-
-    ### Enable Echo/Noise-Cancellation
-    load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args="analog_gain_control=0\ digital_gain_control=1"
-    set-default-source echoCancel_source
-    set-default-sink echoCancel_sink
+    yay -S easyeffects easyeffects-presets
 
 # Local overrides
 
