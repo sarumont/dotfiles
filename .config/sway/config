@@ -29,10 +29,20 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Idle configuration
+# Locks screen after 5 minutes
+# Turns off display after 10 minutes
+# Turns off display after 15 seconds if swaylock is running (cat bumps mouse)
+# Locks before entering sleep/suspend
+# Locks via 'loginctl lock-session'
 exec swayidle -w \
-    timeout 300 'swaylock -f -c 000000' \
-    timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -f -c 000000'
+    timeout 300 'swaylock' \
+    timeout 600 'swaymsg "output * dpms off"' \
+      resume 'swaymsg "output * dpms on"' \
+    timeout 15 'pgrep swaylock && swaymsg "output * dpms off"' \
+      resume 'pgrep swaylock && swaymsg "output * dpms on"' \
+    before-sleep 'swaylock' \
+    lock 'swaymsg "output * dpms on" && swaylock' \
+      unlock 'kill -s 1 $(pgrep swaylock)'
 
 ### KB config
 input * {
@@ -117,7 +127,7 @@ bindsym $mod+m workspace music
 bindsym $mod+Shift+m move container to workspace music
 
 # lock screen
-bindsym $mod+Ctrl+Shift+l exec swaylock -f -c 000000
+bindsym $mod+Alt+l exec loginctl lock-session
 
 #
 # Layout stuff:
