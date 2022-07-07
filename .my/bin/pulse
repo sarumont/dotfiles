@@ -1,5 +1,0 @@
-#!/bin/sh
-systemctl $1 --user pipewire-pulse.service
-systemctl $1 --user pipewire-pulse.socket
-systemctl $1 --user pipewire.service
-systemctl $1 --user pipewire.socket
