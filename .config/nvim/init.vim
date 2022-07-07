@@ -152,7 +152,7 @@ set background=dark
 " automatically set background mode based on xorg settings
 function! SetBackgroundMode(...)
   let s:new_bg = "dark"
-  let s:dark = systemlist('grep -i dark ~/.config/local.theme')
+  let s:dark = systemlist('grep -i dark ~/.config/local/theme')
   if len(s:dark) == 0
     let s:new_bg = "light"
   else
