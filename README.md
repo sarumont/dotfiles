@@ -43,7 +43,7 @@ for development work, so I have attempted to make everything as portable as poss
 
 ### Local cluster
 
-    yay -S k3d 
+    yay -S rancher-k3d-bin
 
 ## SDKMan (Java SDK manager)
 
