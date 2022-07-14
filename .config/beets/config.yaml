@@ -7,7 +7,10 @@ threaded: yes
 clutter: [ "Thumbs.DB", ".DS_Store", "*.m3u", "*.txt" ]
 
 plugins: lastgenre inline info fetchart web mbsync thumbnails lyrics acousticbrainz
-format_item: $artist - $album - $title [$genre] [$format] [$samplerate/$bitdepth]
+format_item: "$artist - $album - $title [$genre] [$format] [$samplerate/$bitdepth]"
+
+ui:
+    color: yes
 
 copyartifacts:
     extensions: .pdf .png .jpg

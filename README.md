@@ -19,7 +19,7 @@ for development work, so I have attempted to make everything as portable as poss
 ## Additional Utilities 🛠
 
     yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli-v2-bin docker \
-           tmux neofetch httpie direnv vault kcat-cli rubygems
+           tmux neofetch httpie direnv vault kcat-cli rubygems at
 
     gem install schema-evolution-manager
 
@@ -27,7 +27,7 @@ for development work, so I have attempted to make everything as portable as poss
 
     yay -S sway waybar swaylock swaybg termite firefox arc-gtk-theme flat-remix man-db gammastep \
            polkit playerctl synology-drive grimshot wob xorg-xwayland yubioath-desktop \
-           imv nautilus udevil cifs-utils evince yubikey-manager 
+           imv mpv nautilus udevil cifs-utils evince yubikey-manager 
 
 ### Fonts
     yay -S noto-fonts-emoji nerd-fonts-fira-code ttf-dejavu nerd-fonts-ubuntu-mono ttf-roboto \
@@ -98,6 +98,7 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
 # Misc configuration
 
  - Enable color output in `pacman/yay` - uncomment `Color` in `/etc/pacman.conf`
+ - add `vers=3.0` to `cifs` mount options in `/etc/udevil/udevil.conf` (both allowed and default)
 
 # Optional components
 
