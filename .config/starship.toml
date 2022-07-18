@@ -30,3 +30,7 @@ format = """\
 [kubernetes]
 disabled = false
 format = '[$symbol$context( \($namespace\))]($style) '
+
+[env_var.PGDATABASE]
+format = '$symbol [$env_value]($style) '
+symbol = ''
