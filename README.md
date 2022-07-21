@@ -19,7 +19,7 @@ for development work, so I have attempted to make everything as portable as poss
 ## Additional Utilities 🛠
 
     yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli-v2-bin docker \
-           tmux neofetch httpie direnv vault kcat-cli rubygems at
+           tmux neofetch httpie direnv vault kcat-cli rubygems at jwt-cli
 
     gem install schema-evolution-manager
 
