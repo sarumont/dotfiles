@@ -68,6 +68,10 @@ window#waybar {
 	color:#ee2e24;
 }
 
+#custom-profile {
+    font-size: 26px;
+}
+
 #tray,
 #mode,
 #battery,
@@ -79,6 +83,11 @@ window#waybar {
 #idle_inhibitor,
 #sway-language,
 #backlight,
+#custom-media,
+#custom-profile,
+#custom-ro,
+#custom-utc,
+#custom-weather,
 #custom-storage,
 #custom-cpu_speed,
 #custom-powermenu,
