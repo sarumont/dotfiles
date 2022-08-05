@@ -10,6 +10,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'pangloss/vim-javascript'
 Plug 'justincampbell/vim-eighties'
 Plug 'sainnhe/everforest'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 " Misc
 Plug 'xolox/vim-misc'
@@ -146,7 +147,7 @@ endif
 
 let g:gruvbox_italic=1
 let g:one_allow_italics=1
-colorscheme one
+colorscheme tokyonight
 set background=dark
 
 " automatically set background mode based on xorg settings
@@ -173,7 +174,7 @@ set laststatus=2
 set noshowmode
 
 let g:lightline = {
-            \ 'colorscheme': 'one',
+            \ 'colorscheme': 'tokyonight',
             \ 'active': {
             \   'left':  [ [ 'mode', 'paste' ],
             \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],

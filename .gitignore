@@ -211,6 +211,7 @@
 .themes/
 .thumbnails/
 .tig_history
+.tmux.conf.theme
 .tooling/
 .vaadin/
 .vault-token

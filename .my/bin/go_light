@@ -5,6 +5,7 @@ mkdir -p ~/.config/local
 
 echo "--theme=OneHalfLight" > ~/.config/bat/config
 echo "light" > ~/.config/local/theme
+echo "source -q ~/.config/tmux/.tmux.conf.light" > ~/.tmux.conf.theme
 
 case $(uname) in
     Linux)
