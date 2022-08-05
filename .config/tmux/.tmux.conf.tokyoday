@@ -1,0 +1,18 @@
+# TokyoDay colors for Tmux
+black='#e9e9ed'
+blue='#2e7de9'
+yellow='#8c6c3e'
+red='#f52a65'
+white='#6172b0'
+magenta='#9854f1'
+cyan='#007197'
+green='#587539'
+
+# status bar text
+comment_grey='#909cc7'
+
+# username background
+visual_grey='#d1d1d5'
+
+# used for pane borders
+gutter_grey='#e9e9ed'

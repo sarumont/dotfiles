@@ -206,8 +206,29 @@ exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 include /etc/sway/config.d/*
 
 # style
+
+# Borders
+# Also removes all title bars
+for_window [class="^.*"] border pixel 3
 default_border pixel 3
+default_floating_border pixel 3
+
+# Hide borders at the edge of the screen
+hide_edge_borders smart
+
+# Set colours various window states
+client.focused           #9aa5ce #16161d #c0caf5 #9aa5ce   #9aa5ce
+client.focused_inactive  #16161d #16161d #c0caf5 #16161d   #16161d
+client.unfocused         #16161d #16161d #c0caf5 #16161d   #16161d
+
+# Gaps
 gaps inner 5
+gaps outer 1
+gaps top 1
+gaps bottom 1
+
+# Hide gaps when there is only 1 window
+smart_gaps on
 
 # use scratchpad for a visor terminal
 bindsym Ctrl+Shift+Return    scratchpad show
