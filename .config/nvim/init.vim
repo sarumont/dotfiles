@@ -249,7 +249,9 @@ let g:gutentags_ctags_tagfile = '.tags'
 " }}}
 
 " CoC {{{
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> coc#pum#visible() && coc#pum#info()['index'] < 0 ? "\<CR>" :
+        \ coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm() :
+        \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " inoremap <silent><expr> <TAB>
       " \ pumvisible() ? "\<C-n>" :
