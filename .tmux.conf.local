@@ -64,7 +64,7 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 
 # fastcopy
 set -g @plugin 'abhinav/tmux-fastcopy'
-set-option -g @fastcopy-action wl-copy
+set-option -g @fastcopy-shift-action wl-copy
 
 # -- custom variables ----------------------------------------------------------
 
