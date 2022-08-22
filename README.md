@@ -99,6 +99,7 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
 
  - Enable color output in `pacman/yay` - uncomment `Color` in `/etc/pacman.conf`
  - add `vers=3.0` to `cifs` mount options in `/etc/udevil/udevil.conf` (both allowed and default)
+ - enable/start `playerctld`: `systemctl --user enable --now playerctld`
 
 # Optional components
 
