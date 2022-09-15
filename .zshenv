@@ -15,8 +15,6 @@ export MOZ_ENABLE_WAYLAND=1
 path[1,0]=(
     $HOME/.local/bin
     $HOME/.my/bin 
-    /sbin
-    /usr/sbin
     /opt/bin 
     /opt/local/bin
     /opt/local/sbin
