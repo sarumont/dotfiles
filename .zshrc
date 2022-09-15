@@ -55,8 +55,10 @@ get_tmux_session_name() {
 }
 export TMUX_SESSION_NAME=$(get_tmux_session_name)
 
-NVM_LAZY_LOAD=$([[ $TMUX_SESSION_NAME == "dev" ]] && echo "false" || echo "true")
-NVM_AUTO_USE=true
+# lazy load doesn't work with auto use
+# export NVM_LAZY_LOAD=true
+export NVM_AUTO_USE=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim' 'nvim' 'vi')
 
 OS=""
 if [[ -f "/etc/lsb-release" ]]; then
