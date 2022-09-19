@@ -177,6 +177,10 @@ if [[ $? -eq 0 ]]; then
     eval "$($DIRENV hook zsh)"
 fi
 
+if [[ -z "$FZF_BASE" && -d "/usr/share/fzf" ]]; then
+    export FZF_BASE="/usr/share/fzf"
+fi
+
 if [[ -n "$FZF_BASE" ]]; then
     source "$FZF_BASE/completion.zsh" 2> /dev/null
     source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
