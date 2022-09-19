@@ -75,7 +75,6 @@ plugins=(
     docker
     git 
     gitfast
-    gpg-agent
     gradle
     httpie
     kubectl
@@ -83,6 +82,10 @@ plugins=(
     zsh-nvm 
     zsh-syntax-highlighting
 )
+
+if [[ $GPG_AGENT = "true" ]]; then
+    plugins+=gpg-agent;
+fi
 
 source $ZSH/oh-my-zsh.sh
 
