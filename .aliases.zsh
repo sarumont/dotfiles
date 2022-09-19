@@ -48,7 +48,7 @@ alias update_submodules='git pull --recurse-submodules && git submodule update -
 alias _git_full_log="git log --graph --oneline --decorate"
 alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(main|master|develop)"'
 alias bump='git commit -m "⬆️"'
-alias full_pull='git pull --all --prune --rebase && git branch -d `git branch --merged | grep -v "\*" | egrep -v "(main|master|develop|richard)"`'
+alias full_pull='git pull --all --prune --rebase && git branch -d `git branch --merged | grep -v "\*" | grep -E -v "(main|master|develop|richard)"`'
 
 # OMZ overrides (mostly git)
 alias gcm='git commit -m' 
