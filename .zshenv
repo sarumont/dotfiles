@@ -3,6 +3,7 @@ typeset -U path
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
+export GPG_AGENT=true
 
 export MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 export MAVEN_ARGS="-T 1C"
