@@ -14,38 +14,48 @@ for development work, so I have attempted to make everything as portable as poss
 
 ## Prerequisites
 
-    yay -S starship neovim zsh git gnupg openssh
+### paru
+
+    sudo pacman -S --needed base-devel git
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
 
 ## Additional Utilities 🛠
 
-    yay -S go-yq exa eva bat hexyl zip unzip fzf ripgrep fd whois gotop jq aws-cli-v2-bin docker \
-           tmux neofetch httpie direnv vault kcat-cli rubygems at jwt-cli
+### General
 
+    paru -S starship neovim zsh gnupg openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
+            whois gotop jq tmux direnv at
+
+### Dev
+
+    paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
     gem install schema-evolution-manager
 
 ## Desktop Utilities (non-headless)
 
-    yay -S sway waybar swaylock swaybg termite firefox arc-gtk-theme flat-remix man-db gammastep \
-           polkit playerctl synology-drive grimshot wob xorg-xwayland yubioath-desktop \
-           imv mpv nautilus udevil cifs-utils evince yubikey-manager 
+    paru -S sway waybar swaylock swaybg termite firefox arc-gtk-theme flat-remix man-db gammastep \
+            polkit playerctl synology-drive grimshot wob xorg-xwayland yubioath-desktop \
+            imv mpv nautilus udevil cifs-utils evince yubikey-manager neofetch 
 
 ### Fonts
-    yay -S noto-fonts-emoji nerd-fonts-fira-code ttf-dejavu nerd-fonts-ubuntu-mono ttf-roboto \
-           ttf-roboto-mono ttf-ubuntu-font-family ttf-ms-fonts noto-fonts-jp-vf
+    paru -S noto-fonts-emoji nerd-fonts-fira-code ttf-dejavu nerd-fonts-ubuntu-mono ttf-roboto \
+            ttf-roboto-mono ttf-ubuntu-font-family ttf-ms-fonts noto-fonts-jp-vf
 
 ### Laptop Utilities
 
-    yay -S battop power-profiles-daemon cpupower lightc python-gobject
+    paru -S battop power-profiles-daemon cpupower lightc python-gobject
 
 ## Kubernetes
 
-    yay -S kubectl terragrunt helm telepresence2
+    paru -S kubectl terragrunt helm telepresence2
 
 ### Local cluster
 
-    yay -S rancher-k3d-bin
+    paru -S rancher-k3d-bin
 
-## SDKMan (Java SDK manager)
+## SDKMan (Java SDK manager) (TODO: remove this in favor of devcontainers)
 
     curl -s "https://get.sdkman.io" | zsh
     source "$HOME/.sdkman/bin/sdkman-init.sh"
@@ -56,6 +66,7 @@ for development work, so I have attempted to make everything as portable as poss
 
 # Setup
 
+    # local only
     mkdir ~/.gnupg
     curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg.conf > .gnupg/gpg.conf
     curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg-agent-template.conf > .gnupg/gpg-agent.conf
@@ -68,16 +79,16 @@ for development work, so I have attempted to make everything as portable as poss
     gpg --list-keys # side-effect of starting the agent
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     echo UPDATESTARTUPTTY | gpg-connect-agent
+    # end local only
 
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
     git pull
+    # local only
     rm .gnupg/gpg.conf
+    # end local only
     git checkout master
     git submodule update --init --recursive
-
-    # optional: git clone git@github.com:sarumont/privfiles.git .privfiles
-    # or mkdir -p ~/.privfiles/ssh
 
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -87,9 +98,18 @@ for development work, so I have attempted to make everything as portable as poss
     rm ~/.bash*
     rm ~/.profile
 
-    echo "Please log out, log back in, and run 'viup' twice to initialize your neovim setup."
+    echo "Please log out, log back in, and run 'viup' (twice) to initialize your neovim setup."
+
+    # remote only
+    mkdir -p ~/.local/sh
+    echo "export GPG_AGENT=false" >> ~/.local/sh/zshenv
+    gpg2 --recv-key <GPG KEY ID>
+    # end remote only
 
 ## Privfiles
+
+    # optional privfiles
+    git clone git@github.com:sarumont/privfiles.git .privfiles
 
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
@@ -97,18 +117,19 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
 
 # Misc configuration
 
- - Enable color output in `pacman/yay` - uncomment `Color` in `/etc/pacman.conf`
+ - Enable color output in `pacman/yay/paru` - uncomment `Color` in `/etc/pacman.conf`
  - add `vers=3.0` to `cifs` mount options in `/etc/udevil/udevil.conf` (both allowed and default)
  - enable/start `playerctld`: `systemctl --user enable --now playerctld`
+ - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
 
-# Optional components
+# Optional components and configuration
 
 ## 🎧
 
 ### `mpd` && `beets`
 
-    yay -S mpc ncmpcpp mpd spotify mpdevil \
-           beets python-pylast python-http python-pyxdg python-httpx
+    paru -S mpc ncmpcpp mpd spotify mpdevil \
+            beets python-pylast python-http python-pyxdg python-httpx
 
 Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
 
@@ -121,7 +142,7 @@ And begin the import!
 
 ### Easyeffects
 
-    yay -S easyeffects easyeffects-presets
+    paru -S easyeffects easyeffects-presets
 
 # Local overrides
 
@@ -152,10 +173,21 @@ DPI is machine-dependent, but an example `~/.Xresources.local` is:
     Xft.antialias: 1
     Xft.rgba: rgb
 
-# Niceties
+# Servers
 
-## Undervolting
+## GPG forwarding
 
-[intel-undervolt](https://github.com/kitsunyan/intel-undervolt)
+On the client machine:
+
+`~/.ssh/config`
+
+    Host foo
+      RemoteForward /run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra
+
+Double-check your UID. Also, season to taste for macOS vs Linux client. Note that the format is `RemoteForward <remote socket> <local socket>`
+
+On the server machine, add `StreamLocalBindUnlink yes` to `/etc/ssh/sshd_config` (or wherever the ssh daemon's config is) and restart it.
+
+----
 
 Shout-out to @notlesh for dropping me [this awesome link](https://www.wezm.net/technical/2019/10/useful-command-line-tools/), which has influenced some of my configuration now.
