@@ -132,6 +132,9 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 set undodir=~/.local/share/vim/undo/
 set undofile
 
+" global coc-extensions
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-json', 'coc-html', 'coc-emoji']
+
 "}}}
 
 " Visuals {{{
