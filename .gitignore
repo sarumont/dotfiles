@@ -23,6 +23,7 @@
 .config/BetterDiscord
 .config/BetterDiscord Installer/
 .config/BraveSoftware/
+.config/Code - OSS/
 .config/Code/CachedExtensionVSIXs/
 .config/Code/Code Cache/
 .config/Code/Session Storage/
@@ -31,8 +32,8 @@
 .config/Meltytech/
 .config/QtProject*
 .config/Raspberry Pi/
-.config/Slack/
 .config/Signal/
+.config/Slack/
 .config/Unknown Organization/
 .config/VirtualBox/
 .config/Yubico/
@@ -43,12 +44,12 @@
 .config/beets/library.db
 .config/cef_user_data
 .config/chromium
+.config/coc/*history.json
 .config/coc/commands
 .config/coc/db.json
 .config/coc/extensions/coc-java-data/
 .config/coc/extensions/coc-yank-data/
 .config/coc/extensions/db.json
-.config/coc/*history.json
 .config/coc/lists
 .config/coc/memos.json
 .config/coc/mru
@@ -87,6 +88,7 @@
 .config/libreoffice/
 .config/local
 .config/looking-glass
+.config/memos.json
 .config/menus
 .config/mimeapps.list
 .config/nautilus/
@@ -119,6 +121,7 @@
 .config/vertiscale/
 .config/vlc/
 .config/zoomus.conf
+.vscode-oss/
 .cordova/
 .cups/
 .dbus/
