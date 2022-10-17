@@ -1,0 +1,17 @@
+[Unit]
+Description=Idle manager for Wayland
+Documentation=man:swayidle(1)
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+### Idle configuration
+# Locks screen after 5 minutes
+# Turns off display after 10 minutes
+# Turns off display after 15 seconds if swaylock is running (cat bumps mouse)
+# Locks before entering sleep/suspend
+# Locks via 'loginctl lock-session'
+ExecStart=/usr/bin/swayidle -w timeout 300 'swaylock' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' timeout 15 'pgrep swaylock && swaymsg "output * dpms off"' resume 'pgrep swaylock && swaymsg "output * dpms on"' before-sleep 'swaylock' lock 'swaymsg "output * dpms on" && swaylock' unlock 'kill -s 1 $(pgrep swaylock)'
+
+[Install]
+WantedBy=sway-session.target

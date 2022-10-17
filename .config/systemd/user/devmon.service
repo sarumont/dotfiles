@@ -1,0 +1,9 @@
+[Unit]
+Description=Devmon Service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/devmon
+
+[Install]
+WantedBy=multi-user.target

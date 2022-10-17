@@ -1,0 +1,10 @@
+[Unit]
+Description=Set Sway background
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'swaymsg output \* bg $(gsettings get org.gnome.desktop.background picture-uri) fill'
+
+[Install]
+WantedBy=sway-session.target

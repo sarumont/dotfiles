@@ -33,10 +33,14 @@ for development work, so I have attempted to make everything as portable as poss
     paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
     gem install schema-evolution-manager
 
+### Misc
+
+    paru -S syncthing 
+
 ## Desktop Utilities (non-headless)
 
     paru -S sway waybar swaylock swaybg termite firefox arc-gtk-theme flat-remix man-db gammastep \
-            polkit playerctl synology-drive grimshot wob xorg-xwayland yubioath-desktop \
+            polkit playerctl grimshot wob xorg-xwayland yubioath-desktop \
             imv mpv nautilus udevil cifs-utils evince yubikey-manager neofetch 
 
 ### Fonts
@@ -46,6 +50,12 @@ for development work, so I have attempted to make everything as portable as poss
 ### Laptop Utilities
 
     paru -S battop power-profiles-daemon cpupower lightc python-gobject
+
+### Sway
+
+Set background (managed via `systemd`):
+
+    gsettings set org.gnome.desktop.background picture-uri ~/Drive/Pictures/bg/jason-abdilla-tvs3SeHBWDI-unsplash.jpg    
 
 ## Kubernetes
 
@@ -120,6 +130,9 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
  - Enable color output in `pacman/yay/paru` - uncomment `Color` in `/etc/pacman.conf`
  - add `vers=3.0` to `cifs` mount options in `/etc/udevil/udevil.conf` (both allowed and default)
  - enable/start `playerctld`: `systemctl --user enable --now playerctld`
+ - enable/start `devmon`: `systemctl --user enable --now devmon`
+ - enable/start `syncthing`: `systemctl --user enable --now syncthing`
+ - enable/start `pipewire`: `systemctl --user enable --now pipewire`
  - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
 
 # Optional components and configuration
