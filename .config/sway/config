@@ -17,33 +17,6 @@ set $right l
 set $term termite
 set $menu wofi 
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
-### Idle configuration
-# Locks screen after 5 minutes
-# Turns off display after 10 minutes
-# Turns off display after 15 seconds if swaylock is running (cat bumps mouse)
-# Locks before entering sleep/suspend
-# Locks via 'loginctl lock-session'
-exec swayidle -w \
-    timeout 300 'swaylock' \
-    timeout 600 'swaymsg "output * dpms off"' \
-      resume 'swaymsg "output * dpms on"' \
-    timeout 15 'pgrep swaylock && swaymsg "output * dpms off"' \
-      resume 'pgrep swaylock && swaymsg "output * dpms on"' \
-    before-sleep 'swaylock' \
-    lock 'swaymsg "output * dpms on" && swaylock' \
-      unlock 'kill -s 1 $(pgrep swaylock)'
-
 ### KB config
 input * {
     xkb_layout "us"
@@ -203,7 +176,6 @@ bar {
     swaybar_command waybar
 }
 
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 
@@ -254,3 +226,6 @@ exec wl-paste -t text --watch clipman store
 exec --no-startup-id termite --name=dev
 exec --no-startup-id termite --name=visor
 exec firefox
+
+# systemd hook
+exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP; systemctl --user start sway-session.target"
