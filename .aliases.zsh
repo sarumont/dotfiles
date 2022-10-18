@@ -60,10 +60,9 @@ alias gtt='git log -1 --format=%ai '
 alias gup='git up' # defer this to ~/gitconfig
 alias st='scm_st'
 
-alias certbot='certbot --config-dir ~/.config/letsencrypt --logs-dir ~/tmp --work-dir ~/tmp'
-
-# lerna
+# NPM / lerna
 alias bootstrap='npx lerna exec npm i && npx lerna bootstrap'
+alias scrubadubdub='rm -rf package-lock.json node_modules && npm i'
 
 # notes
 alias daily='$EDITOR note:`date +%Y-%m-%d` -c ":Writemode"'
