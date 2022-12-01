@@ -14,8 +14,12 @@ for development work, so I have attempted to make everything as portable as poss
 
 ## Prerequisites
 
+1. Create a user
+1. Add user to `sudoers`
+
 ### paru
 
+    sudo pacman -Syu
     sudo pacman -S --needed base-devel git
     git clone https://aur.archlinux.org/paru.git
     cd paru
@@ -107,6 +111,7 @@ Set background (managed via `systemd`):
 
     rm ~/.bash*
     rm ~/.profile
+    rm -rf paru
 
     echo "Please log out, log back in, and run 'viup' (twice) to initialize your neovim setup."
 
