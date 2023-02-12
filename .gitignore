@@ -47,6 +47,7 @@
 .config/coc/*history.json
 .config/coc/commands
 .config/coc/db.json
+.config/coc/extensions/coc-go-data/
 .config/coc/extensions/coc-java-data/
 .config/coc/extensions/coc-yank-data/
 .config/coc/extensions/db.json
