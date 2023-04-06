@@ -261,3 +261,6 @@
 state.pickle
 yarn.lock
 **/node_modules/**
+
+# ignore JumpCloud originals
+*.jcorig
