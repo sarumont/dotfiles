@@ -1,7 +1,3 @@
-[user]
-	name = sarumont
-	email = richard@sigil.org
-	signingkey = 40D44733C598FF43
 [color]
 	status = auto
 	branch = auto

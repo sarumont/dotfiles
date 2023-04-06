@@ -71,7 +71,6 @@
 .config/freerdp/
 .config/freshwrapper-data
 .config/ghb/
-.config/git/
 .config/gnome-initial-setup-done
 .config/goa-1.0/
 .config/google-chrome/
@@ -144,6 +143,7 @@
 .fzf*
 .gem/
 .gist-vim
+.gitconfig
 .gitkraken/
 .gnome/
 .gnupg/
