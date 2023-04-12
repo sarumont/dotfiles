@@ -10,7 +10,7 @@ case $1 in
         BAT_THEME_NAME="OneHalfLight"
         THEME="light"
         echo 'gtk-application-prefer-dark-theme = "no"' >> ~/.gtkrc-2.0
-        gsettings set org.gnome.desktop.interface color-scheme "default"
+        which gsettings && gsettings set org.gnome.desktop.interface color-scheme "default"
         ;;
     dark)
         GTK_THEME_NAME="Tokyonight-Storm-BL-LB"
@@ -18,7 +18,7 @@ case $1 in
         BAT_THEME_NAME="OneHalfDark"
         THEME="dark"
         echo 'gtk-application-prefer-dark-theme = "yes"' >> ~/.gtkrc-2.0
-        gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+        which gsettings && gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
         ;;
     *)
         echo "Unknown variant: $1"
