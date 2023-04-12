@@ -181,6 +181,7 @@
 .mozilla/
 .mpd/
 .mvnGoLang/
+.mysql_history
 .ngrok2/
 .nmcli-history
 .node/
@@ -193,6 +194,7 @@
 .nvm/
 .ocr-last
 .oracle_jre_usage/
+.ossindex/
 .p2/
 .pex/
 .pgpass
