@@ -37,7 +37,6 @@ Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-sleuth'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'stephpy/vim-yaml'
-" Plug 'lifepillar/pgsql.vim'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -52,9 +51,6 @@ Plug 'majutsushi/tagbar'
 Plug 'benmills/vimux'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
-" put this at the end to map <Tab> last
-" Plug 'ervandew/supertab'
 
 call plug#end()
 "}}}
@@ -79,6 +75,9 @@ let g:gist_token = $GITHUB_GIST_TOKEN
 
 " watch for file changes
 au CursorHold,CursorHoldI,WinEnter,BufWinEnter * checktime
+
+" format on write
+au BufWritePre *.go :call CocAction('format')
 
 " TMUX renaming
 if exists('$TMUX') 
@@ -126,8 +125,6 @@ let g:localvimrc_persistent=2
 
 :command Writemode setlocal spell | Goyo 100
 :command Codemode set nospell | Goyo!
-
-let g:SuperTabDefaultCompletionType = "<c-n>"
 
 set undodir=~/.local/share/vim/undo/
 set undofile
@@ -241,8 +238,8 @@ EOF
 set copyindent
 set expandtab       " default to soft tabs
 set shiftwidth=2    " shift operation == tabstob
-set tabstop=2       " show tabs as 4 spaces
-set softtabstop=2   " soft tab == 4 spaces
+set tabstop=2       " show tabs as 2 spaces
+set softtabstop=2   " soft tab == 2 spaces
 " }}}
 
 " Tags {{{
@@ -521,7 +518,7 @@ let g:gist_update_on_write = 2
 
 " UltiSnips {{{
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME . "/.local/share/vim/vim-snippets"]
+let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME . "/.local/share/vim/vim-snippets", $HOME . "/.local/share/nvim/snippets"]
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
