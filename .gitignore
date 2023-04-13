@@ -70,6 +70,7 @@
 .config/evolution/
 .config/freerdp/
 .config/freshwrapper-data
+.config/gh/
 .config/ghb/
 .config/gnome-initial-setup-done
 .config/goa-1.0/
