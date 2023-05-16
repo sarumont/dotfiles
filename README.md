@@ -37,6 +37,13 @@ for development work, so I have attempted to make everything as portable as poss
     paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
     gem install schema-evolution-manager
 
+#### Go
+
+    paru -S go
+
+    # Debugger
+    go install github.com/go-delve/delve/cmd/dlv@latest
+
 ### Misc
 
     paru -S syncthing 
