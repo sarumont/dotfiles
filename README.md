@@ -31,6 +31,7 @@ for development work, so I have attempted to make everything as portable as poss
 
     paru -S starship neovim zsh gnupg openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
             whois gotop jq tmux direnv at
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 ### Dev
 
