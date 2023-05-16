@@ -27,7 +27,7 @@ case $1 in
 esac
 
 echo "--theme=$BAT_THEME_NAME" > ~/.config/bat/config
-echo "source -q ~/.config/tmux/.tmux.conf.$THEME" > ~/.tmux.conf.theme
+# echo "source -q ~/.config/tmux/tmux.conf.$THEME" > ~/.tmux.conf.theme
 
 case $(uname) in
     Linux)
