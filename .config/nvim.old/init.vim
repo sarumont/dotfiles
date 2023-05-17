@@ -37,6 +37,8 @@ Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-sleuth'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'stephpy/vim-yaml'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'andythigpen/nvim-coverage'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -230,6 +232,7 @@ ts.setup {
     disable = { 'yaml' },
   },
 }
+# require("coverage").setup()
 EOF
 
 " }}}

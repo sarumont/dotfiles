@@ -17,7 +17,7 @@ for development work, so I have attempted to make everything as portable as poss
 1. Create a user
 1. Add user to `sudoers`
 
-### paru
+### paru (Arch)
 
     sudo pacman -Syu
     sudo pacman -S --needed base-devel git
@@ -31,6 +31,8 @@ for development work, so I have attempted to make everything as portable as poss
 
     paru -S starship neovim zsh gnupg openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
             whois gotop jq tmux direnv at
+
+    # install tmux plugin manager (tpm)
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 ### Dev
@@ -88,7 +90,10 @@ Set background (managed via `systemd`):
 
 # Setup
 
-    # local only
+The following is split up a bit based on what sort of machine is being set up. A "local" machine is one you'll be physically using; a "remote" machine is something you'll ssh into (e.g. a server somewhere)
+
+## Local machine setup (GPG)
+
     mkdir ~/.gnupg
     curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg.conf > .gnupg/gpg.conf
     curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg-agent-template.conf > .gnupg/gpg-agent.conf
@@ -101,36 +106,39 @@ Set background (managed via `systemd`):
     gpg --list-keys # side-effect of starting the agent
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     echo UPDATESTARTUPTTY | gpg-connect-agent
-    # end local only
 
+## General setup
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
     git pull
+
     # local only
     rm .gnupg/gpg.conf
     # end local only
+
     git checkout master
     git submodule update --init --recursive
 
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    # install nvchad (neovim base config)
+    git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 
-    chsh # set to /usr/bin/zsh
+    # start tmux and run <prefix>I to install all plugins
+
+    # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
+    chsh
 
     rm ~/.bash*
     rm ~/.profile
     rm -rf paru
 
-    echo "Please log out, log back in, and run 'viup' (twice) to initialize your neovim setup."
+    echo "Please log out and log back in"
 
-    # remote only
+## Remote only
     mkdir -p ~/.local/sh
     echo "export GPG_AGENT=false" >> ~/.local/sh/zshenv
     gpg2 --recv-key <GPG KEY ID>
-    # end remote only
 
 ## Privfiles
-
     # optional privfiles
     git clone git@github.com:sarumont/privfiles.git .privfiles
 
