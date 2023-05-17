@@ -124,6 +124,18 @@ local plugins = {
      end,
   },
   {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        mappings = {
+          i = {
+            ["<C-u>"] = false
+          },
+        },
+      }
+    }
+  },
+  {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
