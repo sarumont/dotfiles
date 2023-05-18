@@ -32,9 +32,6 @@ for development work, so I have attempted to make everything as portable as poss
     paru -S starship neovim zsh gnupg openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
             whois gotop jq tmux direnv at
 
-    # install tmux plugin manager (tpm)
-    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-
 ### Dev
 
     paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
@@ -120,8 +117,15 @@ The following is split up a bit based on what sort of machine is being set up. A
     git submodule update --init --recursive
 
     # install nvchad (neovim base config)
-    git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+    git clone https://github.com/NvChad/NvChad ~/.config/nvim.nv --depth 1
+    mv .config/nvim.nv/lua/* .config/nvim/lua/
+    rmdir .config/nvim.nv/lua 
+    mv .config/nvim.nv/* .config/nvim/                                    
+    mv .config/nvim.nv/.* .config/nvim/
+    rmdir .config/nvim.nv
 
+    # install tmux plugin manager (tpm)
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
     # start tmux and run <prefix>I to install all plugins
 
     # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
