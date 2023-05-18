@@ -20,6 +20,7 @@ alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
 alias bc='eva'
 alias cat='bat'
+alias cd='cd -P' # cd to physical location, not symlink
 
 # tree navigation
 alias ls='exa --icons'
@@ -78,6 +79,9 @@ alias mymounts="tree -L 1 /media/$USER"
 alias pomodoro="playerctl play && at now + 25 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
 alias super_pom="playerctl play && at now + 50 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
 alias deep_work="playerctl play && at now + 90 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
+
+# tumx
+alias tkill="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzf); do echo \$s; tmux kill-session -t \$s; done;"
 
 if [[ -r ~/.privfiles/sh/aliases.zsh ]]; then
     . ~/.privfiles/sh/aliases.zsh
