@@ -136,7 +136,18 @@ local plugins = {
     }
   },
   {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+  },
+  {
     "christoomey/vim-tmux-navigator",
+    lazy = false,
+    init = function()
+      vim.g["VtrPercentage"] = 30
+    end,
+  },
+  {
+    "christoomey/vim-tmux-runner",
     lazy = false,
   },
 

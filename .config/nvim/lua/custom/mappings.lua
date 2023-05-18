@@ -86,9 +86,36 @@ M.gopher = {
       "<cmd> GoTagAdd json <CR>",
       "Add json struct tags"
     },
-    ["<leader>gsy"] = {
-      "<cmd> GoTagAdd yaml <CR>",
-      "Add yaml struct tags"
+    ["<leader>gst"] = {
+      "<cmd> GoTagAdd otel <CR>",
+      "Add Open Telemetry struct tags"
+    },
+    ["<leader>gie"] = {
+      "<cmd> GoIfErr <CR>",
+      "Add Go try-catch block"
+    }
+  }
+}
+
+M.vtr = {
+  n = {
+
+-- Before using this command, attaching to a tmux runner pane via VtrOpenRunner
+-- or VtrAttachToPane is required. If you would like VTR to create a runner pane
+-- if it doesn't exist while issuing a command, a bang version can be used:
+-- VtrSendCommandToRunner!.
+
+    ["<leader>vp"] = {
+      "<cmd> VtrFlushCommand <cr><cmd> VtrSendCommandToRunner! <cr>",
+      "Prompt command to execute in tmux runner"
+    },
+    ["<leader>vrl"] = {
+      "<cmd> VtrSendCommandToRunner! <cr>",
+      "Re-run last command in tmux runner"
+    },
+    ["<leader>vq"] = {
+      "<cmd> VtrKillRunner <cr>",
+      "Kill the tmux runner"
     }
   }
 }
