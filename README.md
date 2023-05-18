@@ -183,6 +183,22 @@ And begin the import!
 
     paru -S easyeffects easyeffects-presets
 
+## Symlink gallery
+
+I ripped this idea from [Waylon Walker](https://waylonwalker.com/symlink-gallery/). Basically, this creates a directory that is a "gallery" of projects, tying into tmux keybindings (see `C-w`). You can add multiple galleries (work, oss, etc.) and corresponding keybindings in your `tmux.conf`.
+
+I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it periodically to keep the galleries up to date:
+
+    update_link_galleries() {
+      rm -rf ~/work
+      mkdir ~/work
+      ln -sf ~/github.com/myorganization/* ~/work
+
+      rm -rf ~/work
+      mkdir ~/work
+      ln -sf ~/work/* ~/git
+    }
+
 # Local overrides
 
 ## shell
