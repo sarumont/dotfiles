@@ -96,7 +96,7 @@ source $ZSH/oh-my-zsh.sh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # set custom options
-setopt histreduceblanks extendedglob notify dvorak 
+setopt histreduceblanks extendedglob notify dvorak CHASE_LINKS
 
 # vim mode
 bindkey -v
@@ -185,7 +185,5 @@ if [[ -n "$FZF_BASE" ]]; then
     source "$FZF_BASE/completion.zsh" 2> /dev/null
     source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
 fi
-
-set -o physical
 
 #zprof
