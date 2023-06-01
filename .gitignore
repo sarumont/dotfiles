@@ -209,6 +209,7 @@
 .serverless*
 .smb.conf
 .sonar/
+.spacelift/
 .sqlite_history
 .ssh/environment-*
 .ssh/id_*
