@@ -180,7 +180,7 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
  - enable/start `syncthing`: `systemctl --user enable --now syncthing`
  - enable/start `pipewire`: `systemctl --user enable --now pipewire`
  - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
- - use `~/.gitconfig` for local git overrides and configuration (i.e. `[user]` section)
+ - use `~/.gitconfig` for local git overrides and configuration (i.e. `[user]` section, setting `gpgSign = true` for commits, tags)
 
 # Optional components and configuration
 

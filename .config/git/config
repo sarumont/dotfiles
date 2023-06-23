@@ -29,8 +29,8 @@
 	smudge = git lfs smudge %f
 	required = true
 [commit]
-	gpgSign = true
+	gpgSign = false
 [tag]
-	gpgSign = true
+	gpgSign = false
 [init]
 	defaultBranch = main
