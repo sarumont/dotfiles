@@ -16,8 +16,9 @@ for development work, so I have attempted to make everything as portable as poss
 
 1. Create a user
 1. Add user to `sudoers`
+1. Install package manager
 
-### paru (Arch)
+### paru (Arch Linux)
 
     sudo pacman -Syu
     sudo pacman -S --needed base-devel git
@@ -25,16 +26,34 @@ for development work, so I have attempted to make everything as portable as poss
     cd paru
     makepkg -si
 
+### macports
+
+MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local ports tree.
+
 ## Additional Utilities 🛠
 
 ### General
 
+#### Arch
+
     paru -S starship neovim zsh gnupg openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
             whois gotop jq tmux direnv at
 
+#### macOS
+
+    sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
+                      direnv yq gnupg2 pinentry-mac
+
 ### Dev
 
+#### Arch
+
     paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
+
+#### macOS
+
+#### Generic
+
     gem install schema-evolution-manager
 
 #### Go
@@ -104,6 +123,8 @@ The following is split up a bit based on what sort of machine is being set up. A
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     echo UPDATESTARTUPTTY | gpg-connect-agent
 
+    # if macos, uncomment pinentry specification in gpg-agent.conf
+
 ## General setup
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
@@ -168,7 +189,7 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
 ### `mpd` && `beets`
 
     paru -S mpc ncmpcpp mpd spotify mpdevil \
-            beets python-pylast python-http python-pyxdg python-httpx
+            beets python-pylast python-http python-pyxdg python-httpx python-flask python-requests imagemagick
 
 Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
 
