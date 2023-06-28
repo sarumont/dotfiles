@@ -44,6 +44,17 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
                       direnv yq gnupg2 pinentry-mac
 
+#### Debian-based systems
+
+    sudo apt install zsh git tmux snapd fzf ripgrep fd-find at zip unzip direnv jq whois hexyl \
+                     bat exa gnupg
+    ## grab gotop manually: https://github.com/xxxserxxx/gotop/releases
+    ## missing: eva, go-yq
+    sudo snap install --classic nvim # necessary to get a modern neovim for e.g. Raspbian
+
+    ## Starship
+    curl -sS https://starship.rs/install.sh | sh
+
 ### Dev
 
 #### Arch
@@ -58,10 +69,13 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 #### Go
 
-    paru -S go
+##### Arch
 
-    # Debugger
-    go install github.com/go-delve/delve/cmd/dlv@latest
+    paru -S go delve
+
+###### macOS
+
+    sudo port install go delve
 
 ### Misc
 
