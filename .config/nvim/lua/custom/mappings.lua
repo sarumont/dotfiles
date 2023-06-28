@@ -170,5 +170,22 @@ M.vtr = {
   }
 }
 
-return M
+M.coverage = {
+  plugin = true,
+  n = {
+    ["<leader>cl"] = {
+      "<cmd> Coverage <CR>",
+      "Load code coverage"
+    },
+    ["<leader>ct"] = {
+      "<cmd> CoverageToggle <CR>",
+      "Toggle code coverage display"
+    },
+    ["<leader>cs"] = {
+      "<cmd> CoverageSummary <CR>",
+      "Show code coverage summary"
+    }
+  }
+}
 
+return M

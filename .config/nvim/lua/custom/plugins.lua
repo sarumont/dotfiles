@@ -52,7 +52,27 @@ local plugins = {
     end
   },
 
-  -- go
+  -- golang
+  {
+    "andythigpen/nvim-coverage",
+    ft = "go",
+    init = function()
+      require("core.utils").load_mappings("coverage")
+    end,
+    config = function()
+      require("coverage").setup({
+        auto_reload = true,
+        load_coverage_cb = function (ftype)
+          vim.notify("Loaded " .. ftype .. " coverage")
+        end,
+        lang = {
+          go = {
+            coverage_file = "coverage.txt"
+          }
+        }
+      })
+    end,
+  },
   {
     "leoluz/nvim-dap-go",
     ft = "go",
