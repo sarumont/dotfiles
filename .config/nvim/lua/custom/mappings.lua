@@ -50,13 +50,68 @@ M.dap = {
       "<cmd> DapToggleBreakpoint <CR>",
       "Add breakpoint at line"
     },
-    ["<leader>dus"] = {
-      function ()
-        local widgets = require('dap.ui.widgets');
-        local sidebar = widgets.sidebar(widgets.scopes);
-        sidebar.open();
+    ["<leader>dr"] = {
+      "<cmd> DapToggleRepl <CR>",
+      "Open Debugging console"
+    },
+    ["<leader>dso"] = {
+      "<cmd> DapStepOver <CR>",
+      "Step over current line"
+    },
+    ["<leader>dsi"] = {
+      "<cmd> DapStepInto <CR>",
+      "Step into current line"
+    },
+    ["<leader>dsu"] = {
+      "<cmd> DapStepOut <CR>",
+      "Step out of current line"
+    },
+    ["<leader>dx"] = {
+      function()
+        require('dap').terminate()
+        require('dap').repl.close()
       end,
-      "Open debugging sidebar"
+      "Terminate debugging"
+    },
+    ["<leader>dc"] = {
+      function()
+        require('dap').continue()
+        require('dap').repl.open()
+      end,
+      "Begin or resume debugging test"
+    },
+    ["<leader>dl"] = {
+      function()
+        require('dap').run_last()
+        require('dap').repl.open()
+      end,
+      "Debug last test"
+    },
+    ["<leader>dh"] = {
+      function()
+        require('dap.ui.widgets').hover()
+      end,
+      "Show dap hover widget"
+    },
+    ["<leader>dp"] = {
+      function()
+        require('dap.ui.widgets').preview()
+      end,
+      "Show dap preview widget"
+    },
+    ["<leader>df"] = {
+      function()
+        local widgets = require('dap.ui.widgets')
+        widgets.centered_float(widgets.frames)
+      end,
+      "Show debug frames"
+    },
+    ["<leader>ds"] = {
+      function()
+        local widgets = require('dap.ui.widgets')
+        widgets.centered_float(widgets.scopes)
+      end,
+      "Show debug scopes"
     }
   }
 }
@@ -67,14 +122,9 @@ M.dap_go = {
     ["<leader>dgt"] = {
       function()
         require('dap-go').debug_test()
+        require('dap').repl.open()
       end,
       "Debug go test"
-    },
-    ["<leader>dgl"] = {
-      function()
-        require('dap-go').debug_last()
-      end,
-      "Debug last go test"
     }
   }
 }

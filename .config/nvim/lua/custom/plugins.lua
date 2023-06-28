@@ -54,7 +54,7 @@ local plugins = {
 
   -- go
   {
-    "dreamsofcode-io/nvim-dap-go",
+    "leoluz/nvim-dap-go",
     ft = "go",
     dependencies = "mfussenegger/nvim-dap",
     config = function(_, opts)

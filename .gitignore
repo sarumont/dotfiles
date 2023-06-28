@@ -124,6 +124,7 @@
 .config/vertiscale/
 .config/vlc/
 .config/zoomus.conf
+.dlv/
 .vscode-oss/
 .cordova/
 .cups/
