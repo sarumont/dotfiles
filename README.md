@@ -37,12 +37,12 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 #### Arch
 
     paru -S starship neovim zsh gnupg openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois gotop jq tmux direnv at
+            whois gotop jq tmux direnv at keychain
 
 #### macOS
 
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
-                      direnv yq gnupg2 pinentry-mac
+                      direnv yq gnupg2 pinentry-mac keychain
 
 #### Debian-based systems
 
@@ -137,6 +137,9 @@ The following is split up a bit based on what sort of machine is being set up. A
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     echo UPDATESTARTUPTTY | gpg-connect-agent
 
+    mkdir -p ~/.local/sh
+    echo "export GPG_KEY=<key ID>" >> ~/.local/sh/zshenv
+
     # if macos, uncomment pinentry specification in gpg-agent.conf
 
 ## General setup
@@ -173,8 +176,6 @@ The following is split up a bit based on what sort of machine is being set up. A
     echo "Please log out and log back in"
 
 ## Remote only
-    mkdir -p ~/.local/sh
-    echo "export GPG_AGENT=false" >> ~/.local/sh/zshenv
     gpg2 --recv-key <GPG KEY ID>
 
 ## Privfiles
@@ -184,6 +185,10 @@ The following is split up a bit based on what sort of machine is being set up. A
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
  - `.ssh/config` -> `.privfiles/ssh/config`
+
+## keychain
+
+`keychain` is used to optionally manage GPG and SSH keys. To enable, use `~/.local/sh/zshenv` to set `GPG_KEY` and `SSH_KEY` to key IDs to be loaded. For SSH keys, this is the filename of the key (i.e. `id_rsa`).
 
 # Misc configuration
 
