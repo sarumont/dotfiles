@@ -83,8 +83,24 @@ plugins=(
     zsh-syntax-highlighting
 )
 
-if [[ $GPG_AGENT = "true" ]]; then
-    plugins+=gpg-agent;
+KEYCHAIN_AGENTS=""
+if [[ -n "$SSH_KEY" ]]; then
+  KEYCHAIN_AGENTS="ssh"
+  KEYCHAIN_IDENTITIES=$SSH_KEY
+fi
+if [[ -n "$GPG_KEY" ]]; then
+  if [[ -n "$KEYCHAIN_AGENTS" ]]; then
+    KEYCHAIN_AGENTS="${KEYCHAIN_AGENTS},gpg"
+  else
+    KEYCHAIN_AGENTS="gpg"
+  fi
+  KEYCHAIN_IDENTITIES="${KEYCHAIN_IDENTITIES} ${GPG_KEY}"
+fi
+
+if [[ -n "$KEYCHAIN_AGENTS" ]]; then
+  plugins+=keychain;
+  zstyle :omz:plugins:keychain agents $KEYCHAIN_AGENTS
+  zstyle :omz:plugins:keychain identities $KEYCHAIN_IDENTITIES
 fi
 
 source $ZSH/oh-my-zsh.sh
