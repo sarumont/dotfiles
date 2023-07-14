@@ -106,7 +106,7 @@ M.dap = {
       end,
       "Show debug frames"
     },
-    ["<leader>ds"] = {
+    ["<leader>dv"] = {
       function()
         local widgets = require('dap.ui.widgets')
         widgets.centered_float(widgets.scopes)
