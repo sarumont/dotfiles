@@ -221,7 +221,7 @@ local plugins = {
         end
         return tostring(os.time()) .. "-" .. suffix
       end,
-    }, 
+    },
     config = function(_, opts)
       require("core.utils").load_mappings("obsidian")
       require("obsidian").setup(opts)
