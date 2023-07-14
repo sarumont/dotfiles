@@ -250,9 +250,9 @@ Local zsh overrides are supported:
  - `.zshenv` -> `.local/sh/zshenv`
  - `.zshrc` -> `.local/sh/zshrc`
 
-## vim-notes
+## obsidian.nvim
 
-The directory for [vim-notes](https://github.com/xolox/vim-notes) is `~/.local/share/vim/notes`. This can be a symlink to e.g. `~/Dropbox/notes` to allow syncing of notes between machines.
+You can set `OBSIDIAN_VAULT_DIR` in your `~/.local/sh/zshenv` to point to an Obsidian Vault. This allows [`obsidian.nvim`](https://github.com/epwalsh/obsidian.nvim) to utilize it.
 
 ## Xresources.local
 
