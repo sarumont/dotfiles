@@ -17,6 +17,7 @@ local plugins = {
 
         -- markup
         "markdown",
+        "markdown_inline",
         "yaml",
 
         -- real languages
@@ -195,6 +196,46 @@ local plugins = {
   {
     "Pocco81/TrueZen.nvim",
     cmd = { "TZAtaraxis", "TZMinimalist" },
+  },
+
+  -- notes
+  {
+    "epwalsh/obsidian.nvim",
+    lazy = true,
+    event = { "BufReadPre " .. os.getenv("OBSIDIAN_VAULT_DIR") .. "/**.md" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+      "nvim-telescope/telescope.nvim",
+    },
+    opts = {
+      dir = os.getenv("OBSIDIAN_VAULT_DIR"),
+      note_id_func = function(title)
+        if title ~= nil then
+          return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        end
+        -- If title is nil, suffix 4 random uppercase letters to the timestamp
+        local suffix = ""
+        for _ = 1, 4 do
+          suffix = suffix .. string.char(math.random(65, 90))
+        end
+        return tostring(os.time()) .. "-" .. suffix
+      end,
+    }, 
+    config = function(_, opts)
+      require("core.utils").load_mappings("obsidian")
+      require("obsidian").setup(opts)
+
+      -- Optional, override the 'gf' keymap to utilize Obsidian's search functionality.
+      -- see also: 'follow_url_func' config option below.
+      vim.keymap.set("n", "gf", function()
+        if require("obsidian").util.cursor_on_markdown_link() then
+          return "<cmd>ObsidianFollowLink<CR>"
+        else
+          return "gf"
+        end
+      end, { noremap = false, expr = true })
+    end,
   },
 
   -- disabled

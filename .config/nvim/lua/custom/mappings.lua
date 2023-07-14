@@ -188,4 +188,26 @@ M.coverage = {
   }
 }
 
+M.obsidian = {
+  plugin = true,
+  n = {
+     ["<C-p>"] = {
+      "<cmd>ObsidianQuickSwitch<CR>",
+      "Obsidian quick switch"
+    },
+     ["<leader>on"] = {
+      ":ObsidianNew ",
+      "Obsidian new note"
+    },
+  }
+}
+
+-- use telescope for some LSP things instead of the default (quickfix window)
+M.lspoveride = {
+   n = {
+      ["gi"] = { "<cmd> Telescope lsp_implementations <CR>", "LSP implementations" },
+      ["gr"] = { "<cmd> Telescope lsp_references <CR>", "LSP references" },
+   },
+}
+
 return M
