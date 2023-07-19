@@ -190,6 +190,12 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
 
 `keychain` is used to optionally manage GPG and SSH keys. To enable, use `~/.local/sh/zshenv` to set `GPG_KEY` and `SSH_KEY` to key IDs to be loaded. For SSH keys, this is the filename of the key (i.e. `id_rsa`).
 
+If you are using a GPG subkey as your SSH key, you will need to override `SSH_AUTH_SOCK` in `~/.local/sh/zshrc`.
+
+Example:
+
+    export SSH_AUTH_SOCK=~/.gnupg/S.gpg-agent.ssh
+
 # Misc configuration
 
  - Enable color output in `pacman/yay/paru` - uncomment `Color` in `/etc/pacman.conf`

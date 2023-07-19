@@ -172,8 +172,8 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 fpath+=(
-    "$HOME/.zfunctions" 
-    "$HOME/.dasht/etc/zsh/completions")
+  "$HOME/.zfunctions"
+)
 
 # Editor setup
 EDITOR=`which nvim`
