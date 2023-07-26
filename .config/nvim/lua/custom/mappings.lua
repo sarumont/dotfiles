@@ -1,5 +1,14 @@
 local M = {}
 
+-- In order to disable a default keymap, use
+M.disabled = {
+  n = {
+      ["<tab>"] = "",
+      ["<S-tab>"] = "",
+      ["<leader>x"] = "",
+  }
+}
+
 M.general = {
   n = {
      ["<C-h>"] = {":TmuxNavigateLeft<CR>", "navigate left"},
