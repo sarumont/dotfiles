@@ -7,3 +7,5 @@ vim.cmd([[au VimResized * :wincmd =]])
 
 vim.fn.sign_define('DapBreakpoint', {text='🔴', texthl='', linehl='', numhl=''})
 
+-- per-window statusline
+vim.opt.laststatus = 2
