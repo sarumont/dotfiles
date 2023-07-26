@@ -1,4 +1,5 @@
 local plugins = {
+
   -- code
   {
     "nvim-treesitter/nvim-treesitter",
@@ -51,6 +52,50 @@ local plugins = {
     init = function()
       require("core.utils").load_mappings("dap")
     end
+  },
+  {
+    "nvim-neotest/neotest",
+    init = function()
+      require("core.utils").load_mappings("neotest")
+    end,
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-go"),
+        },
+      })
+    end,
+  },
+
+  -- Copilot
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    opts = function()
+      return require "custom.configs.copilot"
+    end 
+  },
+
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
+    },
+    opts = {
+      sources = {
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "copilot",  group_index = 2 },
+        { name = "luasnip",  group_index = 2 },
+        { name = "buffer",   group_index = 2 },
+        { name = "nvim_lua", group_index = 2 },
+        { name = "path",     group_index = 2 },
+      },
+    },
   },
 
   -- golang
