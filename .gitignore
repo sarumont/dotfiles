@@ -72,6 +72,7 @@
 .config/freshwrapper-data
 .config/gh/
 .config/ghb/
+.config/github-copilot/
 .config/gnome-initial-setup-done
 .config/goa-1.0/
 .config/google-chrome/
