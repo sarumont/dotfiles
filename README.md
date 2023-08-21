@@ -36,18 +36,18 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 #### Arch
 
-    paru -S starship neovim zsh gnupg openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
+    paru -S starship neovim zsh openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
             whois gotop jq tmux direnv at keychain
 
 #### macOS
 
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
-                      direnv yq gnupg2 pinentry-mac keychain
+                      direnv yq pinentry-mac keychain
 
 #### Debian-based systems
 
     sudo apt install zsh git tmux snapd fzf ripgrep fd-find at zip unzip direnv jq whois hexyl \
-                     bat exa gnupg
+                     bat exa 
     ## grab gotop manually: https://github.com/xxxserxxx/gotop/releases
     ## missing: eva, go-yq
     sudo snap install --classic nvim # necessary to get a modern neovim for e.g. Raspbian
@@ -122,34 +122,16 @@ Set background (managed via `systemd`):
 
 The following is split up a bit based on what sort of machine is being set up. A "local" machine is one you'll be physically using; a "remote" machine is something you'll ssh into (e.g. a server somewhere)
 
-## Local machine setup (GPG)
-
-    mkdir ~/.gnupg
-    curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg.conf > .gnupg/gpg.conf
-    curl https://raw.githubusercontent.com/sarumont/dotfiles/master/.gnupg/gpg-agent-template.conf > .gnupg/gpg-agent.conf
-    gpg --card-edit --expert
-    > fetch
-    > quit
-
-    # set trust to 'ultimate' for your key via gpg --edit-key
-
-    gpg --list-keys # side-effect of starting the agent
-    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-    echo UPDATESTARTUPTTY | gpg-connect-agent
-
-    mkdir -p ~/.local/sh
-    echo "export GPG_KEY=<key ID>" >> ~/.local/sh/zshenv
-
-    # if macos, uncomment pinentry specification in gpg-agent.conf
-
 ## General setup
+
+    # Generate a new SSH key
+    ssh-keygen -t ed25519
+    # add ~/.ssh/id_ed25519.pub to Github
+    # TODO: need to re-add the temp key process I used to have here
+
     git init .
     git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
     git pull
-
-    # local only
-    rm .gnupg/gpg.conf
-    # end local only
 
     git checkout master
     git submodule update --init --recursive
@@ -175,26 +157,34 @@ The following is split up a bit based on what sort of machine is being set up. A
 
     echo "Please log out and log back in"
 
-## Remote only
-    gpg2 --recv-key <GPG KEY ID>
-
 ## Privfiles
     # optional privfiles
     git clone git@github.com:sarumont/privfiles.git .privfiles
 
 Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
+ - `.ssh/allowed_signers` -> `.privfiles/ssh/allowed_signers`
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
  - `.ssh/config` -> `.privfiles/ssh/config`
 
 ## keychain
 
-`keychain` is used to optionally manage GPG and SSH keys. To enable, use `~/.local/sh/zshenv` to set `GPG_KEY` and `SSH_KEY` to key IDs to be loaded. For SSH keys, this is the filename of the key (i.e. `id_rsa`).
+`keychain` is used to optionally manage SSH keys. To enable, use `~/.local/sh/zshenv` to set `SSH_KEY` to key IDs to be loaded. For SSH keys, this is the filename of the key (i.e. `id_ed25519`).
 
-If you are using a GPG subkey as your SSH key, you will need to override `SSH_AUTH_SOCK` in `~/.local/sh/zshrc`.
+## Local git configuration
 
-Example:
+This repo stores global git configuration in `~/.config/git/config`. This leaves `~/.gitconfig` for local overrides. You can set your name and email:
 
-    export SSH_AUTH_SOCK=~/.gnupg/S.gpg-agent.ssh
+    git config --global user.name Zaphod Beeblebrox
+    git config --global user.email zaphod@heartofgold.com
+
+### Signing git commits with your SSH key
+
+We need to configure `git` to use your SSH key as the signing key. There should only be one key in your keyring if you've followed these instructions. If you have multiple keys, copy-paste the one you want to use rather than using the `ssh-add -L` command below.
+
+    git config --global user.signingkey "$(ssh-add -L)"
+    git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
+    echo EMAIL $(ssh-add -L) > ~/.ssh/allowed_signers
+
 
 # Misc configuration
 
@@ -205,7 +195,6 @@ Example:
  - enable/start `syncthing`: `systemctl --user enable --now syncthing`
  - enable/start `pipewire`: `systemctl --user enable --now pipewire`
  - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
- - use `~/.gitconfig` for local git overrides and configuration (i.e. `[user]` section, setting `gpgSign = true` for commits, tags)
 
 # Optional components and configuration
 
@@ -273,21 +262,6 @@ DPI is machine-dependent, but an example `~/.Xresources.local` is:
     Xft.hinting: 1
     Xft.antialias: 1
     Xft.rgba: rgb
-
-# Servers
-
-## GPG forwarding
-
-On the client machine:
-
-`~/.ssh/config`
-
-    Host foo
-      RemoteForward /run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra
-
-Double-check your UID. Also, season to taste for macOS vs Linux client. Note that the format is `RemoteForward <remote socket> <local socket>`
-
-On the server machine, add `StreamLocalBindUnlink yes` to `/etc/ssh/sshd_config` (or wherever the ssh daemon's config is) and restart it.
 
 ----
 
