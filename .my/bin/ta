@@ -74,6 +74,9 @@ else
   path_name=$DIR/$_session_name
 fi
 
+if [ -L "$path_name" ]; then
+  path_name=$(readlink $path_name)
+fi
 echo session name is \"$session_name\"
 echo path name is $path_name
 
