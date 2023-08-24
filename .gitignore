@@ -183,6 +183,7 @@
 .mpd/
 .mvnGoLang/
 .mysql_history
+.mycli-history
 .ngrok2/
 .nmcli-history
 .node/
