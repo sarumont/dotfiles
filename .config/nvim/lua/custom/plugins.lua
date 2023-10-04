@@ -31,6 +31,10 @@ local plugins = {
         "dockerfile",
         "terraform",
       },
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = { "markdown" },
+      },
     },
   },
   {
@@ -73,9 +77,8 @@ local plugins = {
     event = "InsertEnter",
     opts = function()
       return require "custom.configs.copilot"
-    end 
+    end
   },
-
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -266,20 +269,19 @@ local plugins = {
         end
         return tostring(os.time()) .. "-" .. suffix
       end,
-    },
-    config = function(_, opts)
-      require("core.utils").load_mappings("obsidian")
-      require("obsidian").setup(opts)
 
-      -- Optional, override the 'gf' keymap to utilize Obsidian's search functionality.
-      -- see also: 'follow_url_func' config option below.
-      vim.keymap.set("n", "gf", function()
-        if require("obsidian").util.cursor_on_markdown_link() then
-          return "<cmd>ObsidianFollowLink<CR>"
-        else
-          return "gf"
-        end
-      end, { noremap = false, expr = true })
+      -- drop daily notes into a subdirectory
+      daily_notes = {
+        folder = "daily",
+      },
+      overwrite_mappings = true,
+      templates = {
+        subdir = "templates",
+      },
+      open_notes_in = "vsplit",
+    },
+    init = function()
+      require("core.utils").load_mappings("obsidian")
     end,
   },
 
