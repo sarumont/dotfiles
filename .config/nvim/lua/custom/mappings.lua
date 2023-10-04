@@ -200,13 +200,21 @@ M.coverage = {
 M.obsidian = {
   plugin = true,
   n = {
-     ["<C-p>"] = {
+    ["<C-p>"] = {
       "<cmd>ObsidianQuickSwitch<CR>",
       "Obsidian quick switch"
     },
-     ["<leader>on"] = {
+    ["<leader>on"] = {
       ":ObsidianNew ",
       "Obsidian new note"
+    },
+    ["<leader>ot"] = {
+      "<cmd>ObsidianToday<cr>",
+      "Obsidian note for today"
+    },
+    ["<leader>oy"] = {
+      "<cmd>ObsidianYesterday<cr>",
+      "Obsidian note for yesterday"
     },
   }
 }
