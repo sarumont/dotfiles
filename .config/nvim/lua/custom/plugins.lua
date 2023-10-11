@@ -239,6 +239,10 @@ local plugins = {
     "tpope/vim-fugitive",
     cmd = {"Git"}
   },
+  {
+    "f-person/git-blame.nvim",
+    lazy = false,
+  },
 
   -- misc
   {

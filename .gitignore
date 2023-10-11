@@ -11,6 +11,7 @@
 .awesome-client_history
 .aws/
 .azure/
+.boto
 .bundle/
 .cache
 .cargo
@@ -45,18 +46,6 @@
 .config/beets/library.db
 .config/cef_user_data
 .config/chromium
-.config/coc/*history.json
-.config/coc/commands
-.config/coc/db.json
-.config/coc/extensions/coc-go-data/
-.config/coc/extensions/coc-java-data/
-.config/coc/extensions/coc-yank-data/
-.config/coc/extensions/db.json
-.config/coc/list_history.dat
-.config/coc/lists
-.config/coc/memos.json
-.config/coc/mru
-.config/coc/suggest.txt
 .config/configstore
 .config/dconf/
 .config/devsupply/
@@ -70,6 +59,7 @@
 .config/evolution/
 .config/freerdp/
 .config/freshwrapper-data
+.config/gcloud/
 .config/gh/
 .config/ghb/
 .config/github-copilot/
