@@ -23,12 +23,12 @@ alias cat='bat'
 alias cd='cd -P' # cd to physical location, not symlink
 
 # tree navigation
-alias ls='exa --icons'
+alias ls='eza --icons'
 alias l='ls --git --long'
 alias la='ls -al' # note this should also include --git, but there is currently a bug in eva
 alias ll='l'
 alias ltr='l --sort newest'
-alias tree='exa -T'
+alias tree='eza -T'
 
 # suffixes (from OMZ common-aliases)
 alias H='| head'
