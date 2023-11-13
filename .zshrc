@@ -73,6 +73,7 @@ fi
 plugins=(
     $OS
     docker
+    gcloud
     git 
     gitfast
     gradle

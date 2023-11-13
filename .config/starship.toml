@@ -18,6 +18,7 @@ format = """\
     $memory_usage\
     $aws\
     $kubernetes\
+    $gcloud\
     $env_var\
     $cmd_duration\
     $line_break\
@@ -35,3 +36,7 @@ format = '[$symbol$context( \($namespace\))]($style) '
 format = '$symbol [$env_value]($style) '
 symbol = ''
 style = 'grey bold'
+
+[gcloud]
+format = '[$symbol$project]($style) '
+style = 'bold yellow'
