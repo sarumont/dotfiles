@@ -116,7 +116,6 @@
 .config/vlc/
 .config/zoomus.conf
 .dlv/
-.vscode-oss/
 .cordova/
 .cups/
 .dbus/
@@ -128,6 +127,7 @@
 .dvdcss/
 .eclipse/
 .electron/
+.envrc
 .fontconfig/
 .fpp/
 .freac/
@@ -226,6 +226,7 @@
 .vimtags
 .vms/
 .vscode/
+.vscode-oss/
 .w3m/
 .wget-hsts
 .wine/
