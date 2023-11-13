@@ -52,6 +52,36 @@ M.fugitive = {
   }
 }
 
+M.neotest = {
+  plugin = true,
+  n = {
+    ["<leader>dn"] = {
+      function()
+        require("neotest").run.run({ strategy = "dap" })
+      end,
+      "Debug nearest test"
+    },
+    ["<leader>tn"] = {
+      function()
+        require("neotest").run.run()
+      end,
+      "Run nearest test"
+    },
+    ["<leader>tf"] = {
+      function()
+        require("neotest").run.run(vim.fn.expand("%"))
+      end,
+      "Run all tests in file"
+    },
+    ["<leader>df"] = {
+      function()
+        require("neotest").run.run(vim.fn.expand("%"), { strategy = "dap" })
+      end,
+      "Debug all tests in file"
+    }
+  }
+}
+
 M.dap = {
   plugin = true,
   n = {
