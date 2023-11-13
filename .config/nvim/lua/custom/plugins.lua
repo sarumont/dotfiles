@@ -43,6 +43,11 @@ local plugins = {
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
+    opts = {
+      inlay_hints = {
+        enabled = false,
+      },
+    }
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
