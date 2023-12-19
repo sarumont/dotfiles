@@ -1,0 +1,26 @@
+#!/bin/bash
+# git clean-merged [-n] [-m] [MAIN BRANCH] - removes all local branches which have been merged into the main branch
+#
+# -n - dry run
+# -m - use custom main branch name. Default: main or master (prefers main if both are present)
+#
+# Adapted from https://stackoverflow.com/a/56026209
+
+DRY_RUN=0
+MAIN_BRANCH=$(git branch -l master main | sed -r 's/^[* ] //' | head -n 1)
+while getopts 'nm:' c
+do
+  case $c in
+    n) DRY_RUN=1 ;;
+    m) MAIN_BRANCH=$OPTARG ;;
+    *) echo "Usage: $0 [-n] [-m MAIN BRANCH]" >&2
+       exit 1 ;;
+  esac
+done
+
+if [[ $DRY_RUN -eq 0 ]]; then
+  echo "Cleaning branches merged into $MAIN_BRANCH"
+  git checkout -q $MAIN_BRANCH && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base $MAIN_BRANCH $branch) && [[ $(git cherry $MAIN_BRANCH $(git commit-tree $(git rev-parse "$branch^{tree}") -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done
+else
+  git checkout -q $MAIN_BRANCH && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base $MAIN_BRANCH $branch) && [[ $(git cherry $MAIN_BRANCH $(git commit-tree $(git rev-parse "$branch^{tree}") -p $mergeBase -m _)) == "-"* ]] && echo "$branch is merged into $MAIN_BRANCH and can be deleted"; done
+fi
