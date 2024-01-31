@@ -17,6 +17,7 @@ local plugins = {
         "typescript",
 
         -- markup
+        "comment",
         "markdown",
         "markdown_inline",
         "yaml",
@@ -278,12 +279,20 @@ local plugins = {
     "Pocco81/TrueZen.nvim",
     cmd = { "TZAtaraxis", "TZMinimalist" },
   },
+  {
+    'ruifm/gitlinker.nvim',
+    dependencies = {'nvim-lua/plenary.nvim'},
+    lazy = false,
+    init = function()
+      require("gitlinker").setup()
+    end,
+  },
 
   -- notes
   {
     "epwalsh/obsidian.nvim",
     lazy = true,
-    event = { 
+    event = {
       "BufReadPre " .. os.getenv("OBSIDIAN_VAULT_DIR") .. "/**.md",
       "BufNewFile " .. os.getenv("OBSIDIAN_VAULT_DIR") .. "/**.md",
     },
