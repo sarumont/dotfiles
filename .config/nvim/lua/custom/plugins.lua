@@ -321,12 +321,10 @@ local plugins = {
         daily_notes = {
           folder = "daily",
         },
-        -- overwrite_mappings = true,
         templates = {
           subdir = "templates",
         },
         open_notes_in = "vsplit",
-        overwrite_mappings = true,
       })
     end,
   },
