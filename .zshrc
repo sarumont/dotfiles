@@ -43,6 +43,8 @@ COMPLETION_WAITING_DOTS="true"
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
+HISTSIZE=50000
+SAVEHIST=50000
 
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$HOME/.omz-custom
@@ -104,7 +106,7 @@ source $ZSH/oh-my-zsh.sh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # set custom options
-setopt histreduceblanks extendedglob notify dvorak CHASE_LINKS
+setopt histreduceblanks hist_ignore_dups hist_ignore_space share_history extendedglob notify dvorak CHASE_LINKS
 
 # vim mode
 bindkey -v
