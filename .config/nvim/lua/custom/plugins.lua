@@ -51,6 +51,16 @@ local plugins = {
     }
   },
   {
+    "nvim-treesitter/nvim-treesitter-context",
+    lazy = false,
+    config = function()
+      require("treesitter-context").setup({
+        separator = "─",
+      })
+      vim.cmd([[hi TreesitterContextLineNumberBottom gui=underline]])
+    end,
+  },
+  {
     "jose-elias-alvarez/null-ls.nvim",
     ft = {"go", "lua"},
     opts = function()
@@ -74,6 +84,7 @@ local plugins = {
           require("neotest-go"),
         },
       })
+      require('nvim-treesitter.configs').setup({})
     end,
   },
 
