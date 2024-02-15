@@ -44,7 +44,7 @@
 #
 # Forked and modified from: https://github.com/WaylonWalker/devtainer/blob/main/bin/.local/bin/ta
 
-NEOVIM_CMD="nvim -c :VtrOpenRunner -c ':Telescope find_files'"
+NEOVIM_CMD="nvim -c :VtrOpenRunner -c ':Telescope find_files' -c ':VtrSendCommand gup'"
 
 not_in_tmux() {
   [ -z "$TMUX" ]
