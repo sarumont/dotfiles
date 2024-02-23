@@ -196,4 +196,7 @@ if [[ -n "$FZF_BASE" ]]; then
     source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
 fi
 
+# zoxide
+eval "$(zoxide init --cmd cd zsh)"
+
 #zprof
