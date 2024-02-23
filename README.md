@@ -34,22 +34,24 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 ### General
 
+General utilities for getting around on the CLI.
+
 #### Arch
 
     paru -S starship neovim zsh openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois gotop jq tmux direnv at keychain
+            whois gotop jq tmux direnv at keychain zoxide
 
 #### macOS
 
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
-                      direnv yq pinentry-mac keychain
+                      direnv yq pinentry-mac keychain zoxide
 
 #### Debian-based systems
 
     sudo apt install zsh git tmux snapd fzf ripgrep fd-find at zip unzip direnv jq whois hexyl \
                      bat exa 
     ## grab gotop manually: https://github.com/xxxserxxx/gotop/releases
-    ## missing: eva, go-yq
+    ## missing: eva, go-yq, zoxide
     sudo snap install --classic nvim # necessary to get a modern neovim for e.g. Raspbian
 
     ## Starship
@@ -57,17 +59,19 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 ### Dev
 
+Development tools. Season these to taste based on your needs.
+
 #### Arch
 
     paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
 
 #### macOS
 
-#### Generic
+#### DB
 
     gem install schema-evolution-manager
 
-#### Go
+#### Golang
 
 ##### Arch
 
@@ -93,6 +97,7 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 ### Laptop Utilities
 
+    # TODO: revisit ppd vs tlp/powertop
     paru -S battop power-profiles-daemon cpupower lightc python-gobject
 
 ### Sway
