@@ -41,6 +41,8 @@ General utilities for getting around on the CLI.
     paru -S starship neovim zsh openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
             whois gotop jq tmux direnv at keychain zoxide
 
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 #### macOS
 
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
@@ -92,8 +94,8 @@ Development tools. Season these to taste based on your needs.
             imv mpv nautilus udevil cifs-utils evince yubikey-manager neofetch 
 
 ### Fonts
-    paru -S noto-fonts-emoji nerd-fonts-fira-code ttf-dejavu nerd-fonts-ubuntu-mono ttf-roboto \
-            ttf-roboto-mono ttf-ubuntu-font-family ttf-ms-fonts noto-fonts-jp-vf
+    paru -S noto-fonts-emoji otf-fira-code-symbol ttf-dejavu ttf-ubuntu-nerd ttf-ubuntu-mono-nerd ttf-roboto \
+            ttf-roboto-mono ttf-ms-fonts noto-fonts-jp-vf
 
 ### Laptop Utilities
 

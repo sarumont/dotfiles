@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term termite
+set $term alacritty
 set $menu wofi 
 
 ### KB config
@@ -223,8 +223,8 @@ for_window [app_id="^visor$"] {
 include *.config
 
 exec wl-paste -t text --watch clipman store
-exec --no-startup-id termite --name=dev
-exec --no-startup-id termite --name=visor
+exec --no-startup-id alacritty --name=dev
+exec --no-startup-id alacritty --name=visor
 exec firefox
 
 # systemd hook
