@@ -10,7 +10,6 @@ export OBSIDIAN_VAULT_DIR=$HOME/notes
 # path prepend
 path[1,0]=(
     $HOME/.local/bin
-    $HOME/.my/bin 
     /opt/bin 
     /opt/local/bin
     /opt/local/sbin
