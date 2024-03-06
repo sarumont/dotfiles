@@ -103,6 +103,12 @@ Now, configure and mount your music dir. Drop the following into `~/.local/beets
 
 And begin the import!
 
+# Thinkpad X1C 9th Gen
+
+Most of this is from the [Arch Wiki](https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_9))
+
+    paru -S sof-firmware intel-media-driver
+
 # Configuration
 
 ## keychain
@@ -134,6 +140,7 @@ We need to configure `git` to use your SSH key as the signing key. There should 
  - enable/start `syncthing`: `systemctl --user enable --now syncthing`
  - enable/start `pipewire`: `systemctl --user enable --now pipewire`
  - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
+ - configure `easyeffects`
 
 
 
