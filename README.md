@@ -1,24 +1,12 @@
-Dotfiles for my home directory.
+My dotfiles. The current iteration utilizes [GNU Stow](https://www.gnu.org/software/stow/) via `make`. This setup is inspired by [this post](https://venthur.de/2021-12-19-managing-dotfiles-with-stow.html).
 
-I used to have another repository in my `$HOME` setup called `homes.git`. It was representative of 
-actual `$HOME` and had submodules for `dotfiles.git` (this repo) and, optionally, `privfiles.git` 
-(ssh configs, etc.). There were many symlinks into the common and local. `homes.git` had a branch 
-per machine/VM to allow `.local` to contain differing configurations.
-
-Now, this repository is an amalgamation of the old `homes.git` and `dotfiles.git`. Part of this is
-driven by the fact that I generally only have one machine to maintain now. It is also driven by
-desire to have a more portable config for managing remote servers and/or spinning up docker images
-for development work, so I have attempted to make everything as portable as possible.
-
-# Software
-
-## Prerequisites
+# Prerequisites
 
 1. Create a user
 1. Add user to `sudoers`
 1. Install package manager
 
-### paru (Arch Linux)
+## paru (Arch Linux)
 
     sudo pacman -Syu
     sudo pacman -S --needed base-devel git
@@ -26,9 +14,59 @@ for development work, so I have attempted to make everything as portable as poss
     cd paru
     makepkg -si
 
-### macports
+## macports
 
 MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local ports tree.
+
+# Setup
+
+    # Generate a new SSH key
+    ssh-keygen -t ed25519
+    # add ~/.ssh/id_ed25519.pub to Github
+
+    mkdir ~/git/
+    git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
+    cd ~/git/dotfiles
+    make # installs all links
+
+
+## neovim
+
+    cd ~/git/dotfiles
+    make install-nvchad 
+
+    ## TODO: below this
+
+    # install nvchad (neovim base config)
+    mv .config/nvim.nv/lua/* .config/nvim/lua/
+    rmdir .config/nvim.nv/lua 
+    mv .config/nvim.nv/* .config/nvim/                                    
+    mv .config/nvim.nv/.* .config/nvim/
+    rmdir .config/nvim.nv
+
+    # install tmux plugin manager (tpm)
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+    # start tmux and run <prefix>I to install all plugins
+
+    # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
+    chsh
+
+    rm ~/.bash*
+    rm ~/.profile
+    rm -rf paru
+
+    echo "Please log out and log back in"
+
+## Privfiles
+    # optional privfiles
+    git clone git@github.com:sarumont/privfiles.git .privfiles
+
+Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
+ - `.ssh/allowed_signers` -> `.privfiles/ssh/allowed_signers`
+ - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
+ - `.ssh/config` -> `.privfiles/ssh/config`
+
+
 
 ## Additional Utilities 🛠
 
@@ -91,7 +129,8 @@ Development tools. Season these to taste based on your needs.
 
     paru -S sway waybar swaylock swaybg termite firefox arc-gtk-theme flat-remix man-db gammastep \
             polkit playerctl grimshot wob xorg-xwayland yubioath-desktop \
-            imv mpv nautilus udevil cifs-utils evince yubikey-manager neofetch 
+            imv mpv nautilus udevil cifs-utils evince yubikey-manager neofetch \
+            wl-clipboard
 
 ### Fonts
     paru -S noto-fonts-emoji otf-fira-code-symbol ttf-dejavu ttf-ubuntu-nerd ttf-ubuntu-mono-nerd ttf-roboto \
@@ -128,50 +167,6 @@ Set background (managed via `systemd`):
 # Setup
 
 The following is split up a bit based on what sort of machine is being set up. A "local" machine is one you'll be physically using; a "remote" machine is something you'll ssh into (e.g. a server somewhere)
-
-## General setup
-
-    # Generate a new SSH key
-    ssh-keygen -t ed25519
-    # add ~/.ssh/id_ed25519.pub to Github
-    # TODO: need to re-add the temp key process I used to have here
-
-    git init .
-    git remote add -t \* -f origin git@github.com:sarumont/dotfiles.git
-    git pull
-
-    git checkout master
-    git submodule update --init --recursive
-
-    # install nvchad (neovim base config)
-    git clone https://github.com/NvChad/NvChad ~/.config/nvim.nv --depth 1
-    mv .config/nvim.nv/lua/* .config/nvim/lua/
-    rmdir .config/nvim.nv/lua 
-    mv .config/nvim.nv/* .config/nvim/                                    
-    mv .config/nvim.nv/.* .config/nvim/
-    rmdir .config/nvim.nv
-
-    # install tmux plugin manager (tpm)
-    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-    # start tmux and run <prefix>I to install all plugins
-
-    # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
-    chsh
-
-    rm ~/.bash*
-    rm ~/.profile
-    rm -rf paru
-
-    echo "Please log out and log back in"
-
-## Privfiles
-    # optional privfiles
-    git clone git@github.com:sarumont/privfiles.git .privfiles
-
-Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
- - `.ssh/allowed_signers` -> `.privfiles/ssh/allowed_signers`
- - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
- - `.ssh/config` -> `.privfiles/ssh/config`
 
 ## keychain
 
