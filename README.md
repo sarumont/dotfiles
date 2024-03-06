@@ -35,7 +35,7 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 ### Arch
     paru -S zsh starship neovim openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois gotop jq tmux direnv at keychain zoxide
+            whois gotop jq tmux direnv at keychain zoxide usbutils
 
 ### macOS
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
@@ -150,9 +150,17 @@ Development tools. Season these to taste based on your needs.
 
 Most of this is from the [Arch Wiki](https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_9))
 
-    paru -S sof-firmware intel-media-driver
+    paru -S sof-firmware intel-media-driver fprintd
 
 # Configuration
+
+## add user to useful groups
+
+    sudo gpasswd -a sarumont disk
+    sudo gpasswd -a sarumont storage
+    sudo gpasswd -a sarumont users
+    sudo gpasswd -a sarumont input
+    sudo gpasswd -a sarumont audio
 
 ## keychain
 

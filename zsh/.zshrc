@@ -84,18 +84,11 @@ plugins=(
     sudo
     zsh-nvm 
     zsh-syntax-highlighting
+    keychain
 )
 
-KEYCHAIN_AGENTS=""
-if [[ -n "$SSH_KEY" ]]; then
-  KEYCHAIN_AGENTS="ssh"
-  KEYCHAIN_IDENTITIES=$SSH_KEY
-fi
-if [[ -n "$KEYCHAIN_AGENTS" ]]; then
-  plugins+=keychain;
-  zstyle :omz:plugins:keychain agents $KEYCHAIN_AGENTS
-  zstyle :omz:plugins:keychain identities $KEYCHAIN_IDENTITIES
-fi
+zstyle :omz:plugins:keychain agents "ssh"
+zstyle :omz:plugins:keychain identities "id_ed25519"
 
 source $ZSH/oh-my-zsh.sh
 
