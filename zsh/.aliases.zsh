@@ -20,7 +20,7 @@ alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
 alias bc='eva'
 alias cat='bat'
-alias cd='cd -P' # cd to physical location, not symlink
+#alias cd='cd -P' # cd to physical location, not symlink
 
 # tree navigation
 alias ls='eza --icons'
