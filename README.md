@@ -76,15 +76,18 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 ## Laptop Utilities
 
-    # TODO: revisit ppd vs tlp/powertop
     paru -S battop 
+
+    # TODO: revisit ppd vs tlp/powertop
+    # lightc
 
     # power-profiles-daemon cpupower lightc python-gobject
 
-
 ## 🎧
 
-    paru -S easyeffects easyeffects-presets spotify pavucontrol
+    paru -S easyeffects easyeffects-presets spotify pavucontrol lsp-plugins
+
+    # now configure easyeffects
 
 ### `mpd` 
 
@@ -102,6 +105,46 @@ Now, configure and mount your music dir. Drop the following into `~/.local/beets
       log: /home/sarumont/.local/beets/import.log
 
 And begin the import!
+
+## Dev
+
+Development tools. Season these to taste based on your needs.
+
+### Arch
+
+    paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
+
+
+### DB
+
+    gem install schema-evolution-manager
+
+### Golang
+
+#### Arch
+
+    paru -S go delve
+
+#### macOS
+
+    sudo port install go delve
+
+### Java
+
+    curl -s "https://get.sdkman.io" | zsh
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    sdk i maven
+    sdk i gradle
+    sdk ls java
+    sdk i java <whatever version you want/need>
+
+## Kubernetes
+
+    paru -S kubectl terragrunt helm telepresence2
+
+### Local cluster
+
+    paru -S rancher-k3d-bin
 
 # Thinkpad X1C 9th Gen
 
@@ -143,7 +186,6 @@ We need to configure `git` to use your SSH key as the signing key. There should 
  - configure `easyeffects`
 
 
-
 ## TODO: below this
 
     rm ~/.bash*
@@ -161,52 +203,11 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
  - `.ssh/config` -> `.privfiles/ssh/config`
 
 
-### Dev
-
-Development tools. Season these to taste based on your needs.
-
-#### Arch
-
-    paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
-
-#### macOS
-
-#### DB
-
-    gem install schema-evolution-manager
-
-#### Golang
-
-##### Arch
-
-    paru -S go delve
-
-###### macOS
-
-    sudo port install go delve
-
 ### Sway
 
 Set background (managed via `systemd`):
 
     gsettings set org.gnome.desktop.background picture-uri ~/Drive/Pictures/bg/jason-abdilla-tvs3SeHBWDI-unsplash.jpg    
-
-## Kubernetes
-
-    paru -S kubectl terragrunt helm telepresence2
-
-### Local cluster
-
-    paru -S rancher-k3d-bin
-
-## SDKMan (Java SDK manager) (TODO: remove this in favor of devcontainers)
-
-    curl -s "https://get.sdkman.io" | zsh
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-    sdk i maven
-    sdk i gradle
-    sdk ls java
-    sdk i java <whatever version you want/need>
 
 # Optional components and configuration
 
