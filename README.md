@@ -13,12 +13,14 @@ My dotfiles. The current iteration utilizes [GNU Stow](https://www.gnu.org/softw
     git clone https://aur.archlinux.org/paru.git
     cd paru
     makepkg -si
+    cd ~
+    rm -rf paru
 
 ## macports
 
 MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local ports tree.
 
-# Setup
+# Software
 
     # Generate a new SSH key
     ssh-keygen -t ed25519
@@ -29,103 +31,35 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
     cd ~/git/dotfiles
     make # installs all links
 
+## basic utilities
 
-## neovim
+### Arch
+    paru -S zsh starship neovim openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
+            whois gotop jq tmux direnv at keychain zoxide
 
-    cd ~/git/dotfiles
-    make install-nvchad 
+### macOS
+    sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
+                      direnv yq pinentry-mac keychain zoxide
 
-    ## TODO: below this
+## zsh
+    # oh my zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-    # install nvchad (neovim base config)
-    mv .config/nvim.nv/lua/* .config/nvim/lua/
-    rmdir .config/nvim.nv/lua 
-    mv .config/nvim.nv/* .config/nvim/                                    
-    mv .config/nvim.nv/.* .config/nvim/
-    rmdir .config/nvim.nv
+    # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
+    chsh
+
+## `tmux`
 
     # install tmux plugin manager (tpm)
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
     # start tmux and run <prefix>I to install all plugins
 
-    # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
-    chsh
+## `neovim`
 
-    rm ~/.bash*
-    rm ~/.profile
-    rm -rf paru
+    cd ~/git/dotfiles
+    make install-nvchad 
 
-    echo "Please log out and log back in"
-
-## Privfiles
-    # optional privfiles
-    git clone git@github.com:sarumont/privfiles.git .privfiles
-
-Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
- - `.ssh/allowed_signers` -> `.privfiles/ssh/allowed_signers`
- - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
- - `.ssh/config` -> `.privfiles/ssh/config`
-
-
-
-## Additional Utilities 🛠
-
-### General
-
-General utilities for getting around on the CLI.
-
-#### Arch
-
-    paru -S starship neovim zsh openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois gotop jq tmux direnv at keychain zoxide
-
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-#### macOS
-
-    sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
-                      direnv yq pinentry-mac keychain zoxide
-
-#### Debian-based systems
-
-    sudo apt install zsh git tmux snapd fzf ripgrep fd-find at zip unzip direnv jq whois hexyl \
-                     bat exa 
-    ## grab gotop manually: https://github.com/xxxserxxx/gotop/releases
-    ## missing: eva, go-yq, zoxide
-    sudo snap install --classic nvim # necessary to get a modern neovim for e.g. Raspbian
-
-    ## Starship
-    curl -sS https://starship.rs/install.sh | sh
-
-### Dev
-
-Development tools. Season these to taste based on your needs.
-
-#### Arch
-
-    paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
-
-#### macOS
-
-#### DB
-
-    gem install schema-evolution-manager
-
-#### Golang
-
-##### Arch
-
-    paru -S go delve
-
-###### macOS
-
-    sudo port install go delve
-
-### Misc
-
-    paru -S syncthing 
-
-## Desktop Utilities (non-headless)
+## GUI
 
     paru -S sway waybar swaylock swaybg termite firefox arc-gtk-theme flat-remix man-db gammastep \
             polkit playerctl grimshot wob xorg-xwayland yubioath-desktop \
@@ -136,37 +70,40 @@ Development tools. Season these to taste based on your needs.
     paru -S noto-fonts-emoji otf-fira-code-symbol ttf-dejavu ttf-ubuntu-nerd ttf-ubuntu-mono-nerd ttf-roboto \
             ttf-roboto-mono ttf-ms-fonts noto-fonts-jp-vf
 
-### Laptop Utilities
+## Misc
+
+    paru -S syncthing 
+
+## Laptop Utilities
 
     # TODO: revisit ppd vs tlp/powertop
-    paru -S battop power-profiles-daemon cpupower lightc python-gobject
+    paru -S battop 
 
-### Sway
+    # power-profiles-daemon cpupower lightc python-gobject
 
-Set background (managed via `systemd`):
 
-    gsettings set org.gnome.desktop.background picture-uri ~/Drive/Pictures/bg/jason-abdilla-tvs3SeHBWDI-unsplash.jpg    
+## 🎧
 
-## Kubernetes
+    paru -S easyeffects easyeffects-presets spotify pavucontrol
 
-    paru -S kubectl terragrunt helm telepresence2
+### `mpd` 
 
-### Local cluster
+    paru -S mpc ncmpcpp mpd mpdevil
 
-    paru -S rancher-k3d-bin
+### `beets`
 
-## SDKMan (Java SDK manager) (TODO: remove this in favor of devcontainers)
+    paru -S beets python-pylast python-http python-pyxdg python-httpx python-flask python-requests imagemagick
 
-    curl -s "https://get.sdkman.io" | zsh
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-    sdk i maven
-    sdk i gradle
-    sdk ls java
-    sdk i java <whatever version you want/need>
+Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
 
-# Setup
+    directory: /media/chocobo/music
+    library: /home/sarumont/.local/beets/library.blb
+    import:
+      log: /home/sarumont/.local/beets/import.log
 
-The following is split up a bit based on what sort of machine is being set up. A "local" machine is one you'll be physically using; a "remote" machine is something you'll ssh into (e.g. a server somewhere)
+And begin the import!
+
+# Configuration
 
 ## keychain
 
@@ -198,27 +135,73 @@ We need to configure `git` to use your SSH key as the signing key. There should 
  - enable/start `pipewire`: `systemctl --user enable --now pipewire`
  - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
 
+
+
+## TODO: below this
+
+    rm ~/.bash*
+    rm ~/.profile
+
+    echo "Please log out and log back in"
+
+## Privfiles
+    # optional privfiles
+    git clone git@github.com:sarumont/privfiles.git .privfiles
+
+Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
+ - `.ssh/allowed_signers` -> `.privfiles/ssh/allowed_signers`
+ - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
+ - `.ssh/config` -> `.privfiles/ssh/config`
+
+
+### Dev
+
+Development tools. Season these to taste based on your needs.
+
+#### Arch
+
+    paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
+
+#### macOS
+
+#### DB
+
+    gem install schema-evolution-manager
+
+#### Golang
+
+##### Arch
+
+    paru -S go delve
+
+###### macOS
+
+    sudo port install go delve
+
+### Sway
+
+Set background (managed via `systemd`):
+
+    gsettings set org.gnome.desktop.background picture-uri ~/Drive/Pictures/bg/jason-abdilla-tvs3SeHBWDI-unsplash.jpg    
+
+## Kubernetes
+
+    paru -S kubectl terragrunt helm telepresence2
+
+### Local cluster
+
+    paru -S rancher-k3d-bin
+
+## SDKMan (Java SDK manager) (TODO: remove this in favor of devcontainers)
+
+    curl -s "https://get.sdkman.io" | zsh
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    sdk i maven
+    sdk i gradle
+    sdk ls java
+    sdk i java <whatever version you want/need>
+
 # Optional components and configuration
-
-## 🎧
-
-### `mpd` && `beets`
-
-    paru -S mpc ncmpcpp mpd spotify mpdevil \
-            beets python-pylast python-http python-pyxdg python-httpx python-flask python-requests imagemagick
-
-Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
-
-    directory: /media/chocobo/music
-    library: /home/sarumont/.local/beets/library.blb
-    import:
-      log: /home/sarumont/.local/beets/import.log
-
-And begin the import!
-
-### Easyeffects
-
-    paru -S easyeffects easyeffects-presets
 
 ## Symlink gallery
 
