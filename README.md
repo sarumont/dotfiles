@@ -24,20 +24,11 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 # Software
 
-    # Generate a new SSH key
-    ssh-keygen -t ed25519
-    # add ~/.ssh/id_ed25519.pub to Github
-
-    mkdir ~/git/
-    git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
-    cd ~/git/dotfiles
-    make # installs all links
-
 ## basic utilities
 
 ### Arch
     paru -S zsh starship neovim openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois gotop jq tmux direnv at keychain zoxide usbutils
+            whois gotop jq tmux direnv at keychain zoxide usbutils stow
 
 ### macOS
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
@@ -68,7 +59,7 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
             polkit playerctl grimshot xorg-xwayland \
             yubioath-desktop yubikey-manager \
             imv mpv nautilus udevil devmon cifs-utils evince neofetch \
-            wl-clipboard
+            wl-clipboard xdg-desktop-portal-wlr
     systemctl --user enable --now playerctld
     systemctl --user enable --now devmon
 
@@ -168,7 +159,16 @@ Most of this is from the [Arch Wiki](https://wiki.archlinux.org/title/Lenovo_Thi
 
     paru -S sof-firmware intel-media-driver fprintd gnome-polkit
 
-# Configuration
+# Machine Setup
+
+    # Generate a new SSH key
+    ssh-keygen -t ed25519
+    # add ~/.ssh/id_ed25519.pub to Github
+
+    mkdir ~/git/
+    git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
+    cd ~/git/dotfiles
+    make # installs all links
 
 ## add user to useful groups
 
@@ -211,13 +211,16 @@ We need to configure `git` to use your SSH key as the signing key. There should 
 - [ ] privfiles (same as local overrides)
 - [ ] plex
 - [x] fprintd
-- [ ] alacritty config
-- [ ] missing devicons..?
+- [x] alacritty config
+- [x] missing devicons..?
 - [ ] bluetooth
 - [ ] screen auto locking (w/ fprint?)
-- [ ] GDM fprint
+- [x] GDM fprint
 - [ ] power management
 - [ ] Tailscale statusbar
+- [x] dark mode/light mode
+- [ ] printing
+- [ ] darkman (see if it works, add config gotchas to README)
 
 # TODO: everything below here is old and needs updated
 

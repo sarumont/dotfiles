@@ -28,8 +28,8 @@
         "format": "{icon} {name}",
         "format-icons": {
             "dev": "",
-            "www": "",
-            "music": "",
+            "www": "",
+            "music": "󰝚",
             "comms": "",
             "urgent": "",
         }
@@ -96,9 +96,9 @@
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        "format-ethernet": "ﯱ",
+        "format-ethernet": "󰈀",
         "format-wifi": " {essid}",
-        "format-disconnected": ""
+        "format-disconnected": "󰌙"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%   {format_source}",
