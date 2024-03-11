@@ -75,28 +75,20 @@ fi
 plugins=(
     $OS
     docker
-    gcloud
     git 
     gitfast
-    gradle
     httpie
+    keychain
     kubectl
     sudo
     zsh-nvm 
     zsh-syntax-highlighting
-    keychain
 )
 
 zstyle :omz:plugins:keychain agents "ssh"
 zstyle :omz:plugins:keychain identities "id_ed25519"
 
 source $ZSH/oh-my-zsh.sh
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # set custom options
 setopt histreduceblanks hist_ignore_dups hist_ignore_space share_history extendedglob notify dvorak CHASE_LINKS

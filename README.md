@@ -1,5 +1,7 @@
 My dotfiles. The current iteration utilizes [GNU Stow](https://www.gnu.org/software/stow/) via `make`. This setup is inspired by [this post](https://venthur.de/2021-12-19-managing-dotfiles-with-stow.html).
 
+This `README` is designed to be almost a lights-out installation and setup guide for new machines, too.
+
 # Prerequisites
 
 1. Create a user
@@ -61,33 +63,48 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 ## GUI
 
-    paru -S sway waybar swaylock swaybg termite firefox arc-gtk-theme flat-remix man-db gammastep \
-            polkit playerctl grimshot wob xorg-xwayland yubioath-desktop \
-            imv mpv nautilus udevil cifs-utils evince yubikey-manager neofetch \
+    paru -S sway waybar swaylock swaybg wob \
+            alacritty firefox man-db gammastep adw-gtk-theme \
+            polkit playerctl grimshot xorg-xwayland \
+            yubioath-desktop yubikey-manager \
+            imv mpv nautilus udevil devmon cifs-utils evince neofetch \
             wl-clipboard
+    systemctl --user enable --now playerctld
+    systemctl --user enable --now devmon
+
+### alacritty
+
+    mkdir -p ~/.config/alacritty/themes
+    git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 
 ### Fonts
-    paru -S noto-fonts-emoji otf-fira-code-symbol ttf-dejavu ttf-ubuntu-nerd ttf-ubuntu-mono-nerd ttf-roboto \
+    paru -S noto-fonts-emoji otf-fira-code-symbol ttf-dejavu \
+            ttf-ubuntu-nerd ttf-ubuntu-mono-nerd ttf-roboto \
             ttf-roboto-mono ttf-ms-fonts noto-fonts-jp-vf
 
 ## Misc
 
     paru -S syncthing 
+    systemctl --user enable --now syncthing
+
+    paru -S tailscale
+    sudo systemctl enable --now tailscaled
+    sudo tailscale login
+    sudo tailscale up --operator=$(whoami) --accept-routes
 
 ## Laptop Utilities
 
-    paru -S battop 
+    paru -S battop wluma light
 
-    # TODO: revisit ppd vs tlp/powertop
-    # lightc
-
-    # power-profiles-daemon cpupower lightc python-gobject
+    # cpupower 
 
 ## 🎧
 
-    paru -S easyeffects easyeffects-presets spotify pavucontrol lsp-plugins
+    paru -S pipewire pipewire-pulse easyeffects easyeffects-presets spotify \
+            pavucontrol lsp-plugins plexamp-appimage
+    systemctl --user enable --now pipewire
 
-    # now configure easyeffects
+    # configure easyeffects
 
 ### `mpd` 
 
@@ -113,7 +130,6 @@ Development tools. Season these to taste based on your needs.
 ### Arch
 
     paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
-
 
 ### DB
 
@@ -150,7 +166,7 @@ Development tools. Season these to taste based on your needs.
 
 Most of this is from the [Arch Wiki](https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_9))
 
-    paru -S sof-firmware intel-media-driver fprintd
+    paru -S sof-firmware intel-media-driver fprintd gnome-polkit
 
 # Configuration
 
@@ -161,10 +177,7 @@ Most of this is from the [Arch Wiki](https://wiki.archlinux.org/title/Lenovo_Thi
     sudo gpasswd -a sarumont users
     sudo gpasswd -a sarumont input
     sudo gpasswd -a sarumont audio
-
-## keychain
-
-`keychain` is used to optionally manage SSH keys. To enable, use `~/.local/sh/zshenv` to set `SSH_KEY` to key IDs to be loaded. For SSH keys, this is the filename of the key (i.e. `id_ed25519`).
+    sudo gpasswd -a sarumont video
 
 ## Local git configuration
 
@@ -181,25 +194,32 @@ We need to configure `git` to use your SSH key as the signing key. There should 
     git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
     echo EMAIL $(ssh-add -L) > ~/.ssh/allowed_signers
 
-
 # Misc configuration
 
  - Enable color output in `pacman/yay/paru` - uncomment `Color` in `/etc/pacman.conf`
  - add `vers=3.0` to `cifs` mount options in `/etc/udevil/udevil.conf` (both allowed and default)
- - enable/start `playerctld`: `systemctl --user enable --now playerctld`
  - enable/start `devmon`: `systemctl --user enable --now devmon`
- - enable/start `syncthing`: `systemctl --user enable --now syncthing`
- - enable/start `pipewire`: `systemctl --user enable --now pipewire`
  - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
- - configure `easyeffects`
 
 
-## TODO: below this
+# TODO
+- [x] GDM
+- [x] wluma (need autostart)
+- [x] gammastep (need autostart)
+- [ ] geoclue?
+- [ ] local overrides
+- [ ] privfiles (same as local overrides)
+- [ ] plex
+- [x] fprintd
+- [ ] alacritty config
+- [ ] missing devicons..?
+- [ ] bluetooth
+- [ ] screen auto locking (w/ fprint?)
+- [ ] GDM fprint
+- [ ] power management
+- [ ] Tailscale statusbar
 
-    rm ~/.bash*
-    rm ~/.profile
-
-    echo "Please log out and log back in"
+# TODO: everything below here is old and needs updated
 
 ## Privfiles
     # optional privfiles
@@ -209,7 +229,6 @@ Note that if you don't have a `privfiles` equivalent, the only links that need t
  - `.ssh/allowed_signers` -> `.privfiles/ssh/allowed_signers`
  - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
  - `.ssh/config` -> `.privfiles/ssh/config`
-
 
 ### Sway
 
