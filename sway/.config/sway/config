@@ -223,8 +223,11 @@ for_window [app_id="^visor$"] {
 include *.config
 
 exec wl-paste -t text --watch clipman store
-exec --no-startup-id alacritty --name=dev
-exec --no-startup-id alacritty --name=visor
+exec --no-startup-id alacritty --class=dev
+exec --no-startup-id alacritty --class=visor
+exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+exec wluma
+exec gammastep
 exec firefox
 
 # systemd hook
