@@ -7,7 +7,6 @@
     "modules-right": [
         "custom/media",
         "network",
-        "custom/profile",
         "temperature",
         "cpu",
         "backlight",
@@ -61,17 +60,6 @@
         "exec": "curl 'https://wttr.in/Grand+Junction+CO?format=1&m'",
         "interval": 3600
     },
-    "custom/profile": {
-        "exec": "~/.my/bin/get_profile",
-        "return-type": "json",
-        "interval": 60,
-        "format": "{icon} ",
-        "format-icons": {
-            "performance": "",
-            "balanced": "",
-            "power-saver": "ﴛ"
-        }
-    },
     "cpu": {
         "format": " {usage}%"
     },
@@ -79,7 +67,7 @@
         "format": " {}%"
     },
     "temperature": {
-      "thermal-zone": 9,
+      "thermal-zone": 6,
       "critical-threshold": 80,
       "format": " {temperatureC}°C",
       "format-critical": "🔥 {temperatureC}°C"

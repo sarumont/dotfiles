@@ -200,25 +200,26 @@ We need to configure `git` to use your SSH key as the signing key. There should 
  - add `vers=3.0` to `cifs` mount options in `/etc/udevil/udevil.conf` (both allowed and default)
  - enable/start `devmon`: `systemctl --user enable --now devmon`
  - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
+ - enable/start `avahi`: `sudo systemctl enable --now avahi-daemon.service`
 
 
 # TODO
 - [x] GDM
 - [x] wluma (need autostart)
 - [x] gammastep (need autostart)
-- [ ] geoclue?
-- [ ] local overrides
-- [ ] privfiles (same as local overrides)
-- [ ] plex
 - [x] fprintd
 - [x] alacritty config
 - [x] missing devicons..?
+- [x] GDM fprint
+- [x] dark mode/light mode
+- [x] geoclue?
+- [ ] local overrides
+- [ ] privfiles (same as local overrides)
+- [ ] plex (downloads)
 - [ ] bluetooth
 - [ ] screen auto locking (w/ fprint?)
-- [x] GDM fprint
 - [ ] power management
 - [ ] Tailscale statusbar
-- [x] dark mode/light mode
 - [ ] printing
 - [ ] darkman (see if it works, add config gotchas to README)
 
