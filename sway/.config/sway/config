@@ -226,7 +226,7 @@ exec wl-paste -t text --watch clipman store
 exec --no-startup-id alacritty --class=dev
 exec --no-startup-id alacritty --class=visor
 exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-exec wluma
+#exec wluma
 exec gammastep
 exec firefox
 
