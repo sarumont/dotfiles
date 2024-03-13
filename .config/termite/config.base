@@ -1,9 +1,0 @@
-[options]
-allow_bold = true
-audible_bell = false
-font = FiraCode Nerd Font 10
-scrollback_lines = 10000
-hyperlinks = true
-cursor_shape = ibeam
-
-# vim: ft=dosini cms=#%s
