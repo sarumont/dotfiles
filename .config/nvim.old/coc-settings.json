@@ -1,9 +1,0 @@
-{
-		"coc.preferences.rootPatterns": ["tsconfig.json", ".projectroot", ".vim", ".git", ".envrc"],
-		"workspace.workspaceFolderCheckCwd": true,
-		"java.configuration.updateBuildConfiguration": "automatic",
-		"java.errors.incompleteClasspath.severity": "ignore",
-		"java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
-		"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-		"coc.source.emoji.filetypes": ["markdown", "notes", "gitcommit"]
-}
