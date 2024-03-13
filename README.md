@@ -2,7 +2,13 @@ My dotfiles. The current iteration utilizes [GNU Stow](https://www.gnu.org/softw
 
 This `README` is designed to be almost a lights-out installation and setup guide for new machines, too.
 
-# Prerequisites
+# Machine Setup
+
+## Installation
+
+Base installation process follows [this article](https://www.walian.co.uk/arch-install-with-secure-boot-btrfs-tpm2-luks-encryption-unified-kernel-images.html) for Arch (btw).
+
+## Prerequisites
 
 1. Create a user
 1. Add user to `sudoers`
@@ -22,13 +28,73 @@ This `README` is designed to be almost a lights-out installation and setup guide
 
 MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local ports tree.
 
-# Software
+## Dotfiles setup
+
+    # Generate a new SSH key
+    ssh-keygen -t ed25519
+    # add ~/.ssh/id_ed25519.pub to Github
+
+    mkdir ~/git/
+    git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
+    cd ~/git/dotfiles
+    paru -S stow
+    make # installs all links
+
+## add user to useful groups
+
+    sudo gpasswd -a $(whoami) disk
+    sudo gpasswd -a $(whoami) storage
+    sudo gpasswd -a $(whoami) users
+    sudo gpasswd -a $(whoami) input
+    sudo gpasswd -a $(whoami) audio
+    sudo gpasswd -a $(whoami) video
+
+## Local git configuration
+
+This repo stores global git configuration in `~/.config/git/config`. This leaves `~/.gitconfig` for local overrides. You can set your name and email:
+
+    git config --global user.name Zaphod Beeblebrox
+    git config --global user.email zaphod@heartofgold.com
+
+### Signing git commits with your SSH key
+
+We need to configure `git` to use your SSH key as the signing key. There should only be one key in your keyring if you've followed these instructions. If you have multiple keys, copy-paste the one you want to use rather than using the `ssh-add -L` command below.
+
+    git config --global user.signingkey "$(ssh-add -L)"
+    git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
+    echo EMAIL $(ssh-add -L) > ~/.ssh/allowed_signers
+
+Note that these commands need to be run after installing `keychain`
+
+# Local overrides
+
+Local overrides are managed via `stow` using the `make host` command. This looks for a dir called `hosts-$(hostname)` and applies that as a vault. This applies side-by-side, so it does *not* support overwriting.
+
+## shell
+
+The following local zsh overrides are supported:
+
+ - `.aliases.zsh` -> `.local/sh/aliases.zsh`
+ - `.functions.zsh` -> `.local/sh/functions.zsh`
+ - `.zlogin` -> `.local/sh/zlogin`
+ - `.zshenv` -> `.local/sh/zshenv` && `.local/sh/*.zshenv`
+ - `.zshrc` -> `.local/sh/zshrc`
+
+## obsidian.nvim
+
+You can set `OBSIDIAN_VAULT_DIR` in your `~/.local/sh/zshenv` to point to an Obsidian Vault. This allows [`obsidian.nvim`](https://github.com/epwalsh/obsidian.nvim) to utilize it. It defaults to `~/notes`
+
+## Privfiles
+
+I have a private repository that is an overlay on top of this one called `privfiles`. I now manage it the same way (with `stow`) and use it to store e.g. secrets and configurations which I do not want to be public knowledge.
+
+# Additional Software
 
 ## basic utilities
 
 ### Arch
     paru -S zsh starship neovim openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois gotop jq tmux direnv at keychain zoxide usbutils stow
+            whois gotop jq tmux direnv at keychain zoxide usbutils stow smartmontools
 
 ### macOS
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
@@ -59,9 +125,10 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
             polkit playerctl grimshot xorg-xwayland \
             yubioath-desktop yubikey-manager \
             imv mpv nautilus udevil devmon cifs-utils evince neofetch \
-            wl-clipboard xdg-desktop-portal-wlr
+            wl-clipboard xdg-desktop-portal-wlr darkman
     systemctl --user enable --now playerctld
     systemctl --user enable --now devmon
+    systemctl --user enable --now darkman
 
 ### alacritty
 
@@ -69,7 +136,8 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
     git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 
 ### Fonts
-    paru -S noto-fonts-emoji otf-fira-code-symbol ttf-dejavu \
+    paru -S noto-fonts-emoji otf-firamono-nerd otf-fira-mono-italic-git \
+            ttf-dejavu \
             ttf-ubuntu-nerd ttf-ubuntu-mono-nerd ttf-roboto \
             ttf-roboto-mono ttf-ms-fonts noto-fonts-jp-vf
 
@@ -83,11 +151,24 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
     sudo tailscale login
     sudo tailscale up --operator=$(whoami) --accept-routes
 
-## Laptop Utilities
+## Laptop
 
-    paru -S battop wluma light
+    paru -S battop wluma light tlp 
 
-    # cpupower 
+Configure power management via the [Arch Wiki article](https://wiki.archlinux.org/title/Power_management). Also [this Framework thread](https://community.frame.work/t/tracking-linux-battery-life-tuning/6665) is useful, especially for GPU rendering config.
+
+### Thinkpad
+
+[Arch Wiki - X1C 9th gen](https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_9))
+    
+    # TODO: still WIP userspace battery charge threshold
+    paru -S threshy
+    systemctl enable --now threshy
+
+## printing
+
+    paru -S cups
+    sudo gpasswd -a $(whoami) cups
 
 ## 🎧
 
@@ -159,41 +240,6 @@ Most of this is from the [Arch Wiki](https://wiki.archlinux.org/title/Lenovo_Thi
 
     paru -S sof-firmware intel-media-driver fprintd gnome-polkit
 
-# Machine Setup
-
-    # Generate a new SSH key
-    ssh-keygen -t ed25519
-    # add ~/.ssh/id_ed25519.pub to Github
-
-    mkdir ~/git/
-    git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
-    cd ~/git/dotfiles
-    make # installs all links
-
-## add user to useful groups
-
-    sudo gpasswd -a sarumont disk
-    sudo gpasswd -a sarumont storage
-    sudo gpasswd -a sarumont users
-    sudo gpasswd -a sarumont input
-    sudo gpasswd -a sarumont audio
-    sudo gpasswd -a sarumont video
-
-## Local git configuration
-
-This repo stores global git configuration in `~/.config/git/config`. This leaves `~/.gitconfig` for local overrides. You can set your name and email:
-
-    git config --global user.name Zaphod Beeblebrox
-    git config --global user.email zaphod@heartofgold.com
-
-### Signing git commits with your SSH key
-
-We need to configure `git` to use your SSH key as the signing key. There should only be one key in your keyring if you've followed these instructions. If you have multiple keys, copy-paste the one you want to use rather than using the `ssh-add -L` command below.
-
-    git config --global user.signingkey "$(ssh-add -L)"
-    git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
-    echo EMAIL $(ssh-add -L) > ~/.ssh/allowed_signers
-
 # Misc configuration
 
  - Enable color output in `pacman/yay/paru` - uncomment `Color` in `/etc/pacman.conf`
@@ -202,47 +248,7 @@ We need to configure `git` to use your SSH key as the signing key. There should 
  - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
  - enable/start `avahi`: `sudo systemctl enable --now avahi-daemon.service`
 
-
-# TODO
-- [x] GDM
-- [x] wluma (need autostart)
-- [x] gammastep (need autostart)
-- [x] fprintd
-- [x] alacritty config
-- [x] missing devicons..?
-- [x] GDM fprint
-- [x] dark mode/light mode
-- [x] geoclue?
-- [ ] local overrides
-- [ ] privfiles (same as local overrides)
-- [ ] plex (downloads)
-- [ ] bluetooth
-- [ ] screen auto locking (w/ fprint?)
-- [ ] power management
-- [ ] Tailscale statusbar
-- [ ] printing
-- [ ] darkman (see if it works, add config gotchas to README)
-
-# TODO: everything below here is old and needs updated
-
-## Privfiles
-    # optional privfiles
-    git clone git@github.com:sarumont/privfiles.git .privfiles
-
-Note that if you don't have a `privfiles` equivalent, the only links that need to be considered are:
- - `.ssh/allowed_signers` -> `.privfiles/ssh/allowed_signers`
- - `.ssh/authorized_keys` -> `.privfiles/ssh/authorized_keys`
- - `.ssh/config` -> `.privfiles/ssh/config`
-
-### Sway
-
-Set background (managed via `systemd`):
-
-    gsettings set org.gnome.desktop.background picture-uri ~/Drive/Pictures/bg/jason-abdilla-tvs3SeHBWDI-unsplash.jpg    
-
-# Optional components and configuration
-
-## Symlink gallery
+# Symlink gallery
 
 I ripped this idea from [Waylon Walker](https://waylonwalker.com/symlink-gallery/). Basically, this creates a directory that is a "gallery" of projects, tying into tmux keybindings (see `C-w`). You can add multiple galleries (work, oss, etc.) and corresponding keybindings in your `tmux.conf`.
 
@@ -258,34 +264,33 @@ I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it
       ln -sf ~/work/* ~/git
     }
 
-# Local overrides
+# TODO
+- [x] GDM
+- [x] wluma (need autostart)
+- [x] gammastep (need autostart)
+- [x] fprintd
+- [x] alacritty config
+- [x] missing devicons..?
+- [x] GDM fprint
+- [x] dark mode/light mode
+- [x] geoclue?
+- [x] local overrides
+- [ ] privfiles (same as local overrides)
+- [ ] plex (downloads)
+- [ ] bluetooth
+- [ ] screen auto locking (w/ fprint?)
+- [x] power management
+- [ ] Tailscale statusbar
+- [x] printing
+- [x] darkman (see if it works, add config gotchas to README)
 
-## shell
+# TODO: everything below here is old and needs updated
 
-Local zsh overrides are supported:
- - `.aliases.zsh` -> `.local/sh/aliases.zsh`
- - `.functions.zsh` -> `.local/sh/functions.zsh`
- - `.zlogin` -> `.local/sh/zlogin`
- - `.zshenv` -> `.local/sh/zshenv`
- - `.zshrc` -> `.local/sh/zshrc`
+### Sway
 
-## obsidian.nvim
+Set background (managed via `systemd`):
 
-You can set `OBSIDIAN_VAULT_DIR` in your `~/.local/sh/zshenv` to point to an Obsidian Vault. This allows [`obsidian.nvim`](https://github.com/epwalsh/obsidian.nvim) to utilize it.
-
-## Xresources.local
-
-DPI is machine-dependent, but an example `~/.Xresources.local` is:
-
-    Xft.dpi: 144
-
-    ! These might also be useful depending on your monitor and personal preference:
-    Xft.autohint: 0
-    Xft.lcdfilter:  lcddefault
-    Xft.hintstyle:  hintfull
-    Xft.hinting: 1
-    Xft.antialias: 1
-    Xft.rgba: rgb
+    gsettings set org.gnome.desktop.background picture-uri ~/Drive/Pictures/bg/jason-abdilla-tvs3SeHBWDI-unsplash.jpg    
 
 ----
 
