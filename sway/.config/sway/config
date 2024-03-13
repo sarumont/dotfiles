@@ -228,6 +228,7 @@ exec --no-startup-id alacritty --class=visor
 exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 #exec wluma
 exec gammastep
+exec gammastep-indicator
 exec firefox
 
 # systemd hook

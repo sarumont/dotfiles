@@ -14,7 +14,7 @@ family = "FiraMono Nerd Font"
 style = "Bold Italic"
 
 [font.italic]
-family = "FiraMono Nerd Font"
+family = "Fira Mono"
 style = "Italic"
 
 [font.normal]
