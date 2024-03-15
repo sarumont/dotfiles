@@ -275,7 +275,7 @@ I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it
 - [x] dark mode/light mode
 - [x] geoclue?
 - [x] local overrides
-- [ ] privfiles (same as local overrides)
+- [x] privfiles (same as local overrides)
 - [ ] plex (downloads)
 - [ ] bluetooth
 - [ ] screen auto locking (w/ fprint?)
@@ -283,14 +283,6 @@ I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it
 - [ ] Tailscale statusbar
 - [x] printing
 - [x] darkman (see if it works, add config gotchas to README)
-
-# TODO: everything below here is old and needs updated
-
-### Sway
-
-Set background (managed via `systemd`):
-
-    gsettings set org.gnome.desktop.background picture-uri ~/Drive/Pictures/bg/jason-abdilla-tvs3SeHBWDI-unsplash.jpg    
 
 ----
 
