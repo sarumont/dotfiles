@@ -1,8 +1,0 @@
-# Asus G14
-bindsym XF86Launch1    exec playerctl play-pause
-bindsym XF86Launch4    exec asusctl profile -n
-bindsym XF86KbdBrightnessDown exec asusctl -p
-bindsym XF86KbdBrightnessUp   exec asusctl -n
-bindsym $mod+p         exec asusctl profile -n
-
-input 1267:12440:ELAN1201:00_04F3:3098_Touchpad tap enabled
