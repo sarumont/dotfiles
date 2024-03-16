@@ -1,4 +1,4 @@
-STOW=stow --verbose --target=$$HOME
+STOW=stow --verbose --no-folding --target=$$HOME
 HOST=$(shell uname -n)
 DIR=hosts-$(HOST)
 
