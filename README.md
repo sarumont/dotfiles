@@ -276,13 +276,16 @@ I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it
 - [x] geoclue?
 - [x] local overrides
 - [x] privfiles (same as local overrides)
-- [ ] plex (downloads)
-- [ ] bluetooth
-- [ ] screen auto locking (w/ fprint?)
 - [x] power management
-- [ ] Tailscale statusbar
 - [x] printing
 - [x] darkman (see if it works, add config gotchas to README)
+- [ ] plex (downloads)
+- [ ] bluetooth
+- [ ] Tailscale statusbar
+- [ ] trackpad tap
+- [ ] clipman / parcellite / clipboard manager via Wofi
+- [ ] screen auto locking (w/ fprint?)
+- [x] privfiles / locals conflicting (.local/sh)
 
 ----
 
