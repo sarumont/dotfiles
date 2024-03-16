@@ -282,7 +282,7 @@ I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it
 - [ ] plex (downloads)
 - [ ] bluetooth
 - [ ] Tailscale statusbar
-- [ ] trackpad tap
+- [x] trackpad tap (better)
 - [ ] clipman / parcellite / clipboard manager via Wofi
 - [ ] screen auto locking (w/ fprint?)
 - [x] privfiles / locals conflicting (.local/sh)
