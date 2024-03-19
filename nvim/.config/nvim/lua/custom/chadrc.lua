@@ -9,7 +9,7 @@ M.funcs = {
 }
 
 M.ui = {
-  theme = 'catppuccin',
+  theme = 'onenord',
   tabufline = {
     enabled = false
   },
