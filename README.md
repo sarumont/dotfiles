@@ -136,10 +136,11 @@ I have a private repository that is an overlay on top of this one called `privfi
     git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 
 ### Fonts
-    paru -S noto-fonts-emoji otf-firamono-nerd otf-fira-mono-italic-git \
+    paru -S noto-fonts-cjk noto-fonts-emoji noto-fonts \
+            otf-firamono-nerd otf-fira-mono-italic-git \
             ttf-dejavu \
             ttf-ubuntu-nerd ttf-ubuntu-mono-nerd ttf-roboto \
-            ttf-roboto-mono ttf-ms-fonts noto-fonts-jp-vf
+            ttf-roboto-mono ttf-ms-fonts
 
 ## Misc
 
