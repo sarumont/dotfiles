@@ -79,13 +79,13 @@ local plugins = {
       require("core.utils").load_mappings("neotest")
     end,
     config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-go"),
-        },
-      })
       require('nvim-treesitter.configs').setup({})
     end,
+    dependencies = {
+      {
+        "nvim-neotest/nvim-nio",
+      }
+    },
   },
 
   -- Copilot

@@ -9,6 +9,10 @@ M.copilot = {
   panel = {
     enabled = false
   },
+  filetypes = {
+    go = true,
+    ["*"] = false, -- disable for all other filetypes and ignore default `filetypes`
+  }
 }
 
 return M
