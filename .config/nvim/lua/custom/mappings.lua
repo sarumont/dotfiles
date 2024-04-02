@@ -78,7 +78,10 @@ M.neotest = {
         require("neotest").run.run(vim.fn.expand("%"), { strategy = "dap" })
       end,
       "Debug all tests in file"
-    }
+    },
+    ["<leader>tp"] = {":Neotest panel", "Open test panel"},
+    ["<leader>to"] = {":Neotest output", "Show test output"},
+    ["<leader>top"] = {":Neotest output-panel", "Show test output panel"},
   }
 }
 

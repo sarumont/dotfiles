@@ -78,14 +78,19 @@ local plugins = {
     init = function()
       require("core.utils").load_mappings("neotest")
     end,
-    config = function()
-      require('nvim-treesitter.configs').setup({})
-    end,
-    dependencies = {
-      {
-        "nvim-neotest/nvim-nio",
-      }
-    },
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-neotest/neotest-go",
+		},
+		opts = {
+			adapters = {
+				["neotest-go"] = {
+					recursive_run = true,
+				},
+			},
+		},
   },
 
   -- Copilot
