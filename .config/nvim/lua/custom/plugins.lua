@@ -336,6 +336,7 @@ local plugins = {
         -- drop daily notes into a subdirectory
         daily_notes = {
           folder = "daily",
+          template = "Daily.md",
         },
         templates = {
           subdir = "templates",
