@@ -79,9 +79,9 @@ M.neotest = {
       end,
       "Debug all tests in file"
     },
-    ["<leader>tp"] = {":Neotest panel", "Open test panel"},
-    ["<leader>to"] = {":Neotest output", "Show test output"},
-    ["<leader>top"] = {":Neotest output-panel", "Show test output panel"},
+    ["<leader>tp"] = {":Neotest summary<cr>", "Open test summary panel"},
+    ["<leader>to"] = {":Neotest output<cr>", "Show test output"},
+    ["<leader>top"] = {":Neotest output-panel<cr>", "Show test output panel"},
   }
 }
 
