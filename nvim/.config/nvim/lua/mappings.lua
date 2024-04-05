@@ -53,6 +53,9 @@ map("n", "<leader>df",
     require("neotest").run.run(vim.fn.expand("%"), { strategy = "dap" })
   end,
   {desc = "neotest Debug all tests in file"})
+map("n", "<leader>tp", ":Neotest panel<cr>", {desc = "neotest Open test summary panel"})
+map("n", "<leader>to", ":Neotest output<cr>", {desc = "neotest Show test output"})
+map("n", "<leader>top", ":Neotest output-panel<cr>", {desc = "neotest Show test output panel"})
 
 -- debugging
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", {desc = "dap Add breakpoint at line"})

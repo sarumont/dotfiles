@@ -24,6 +24,9 @@ local plugins = {
 
         -- real languages
         "go",
+        "gomod",
+        "gowork",
+        "gosum",
         "java",
         "cmake",
 
@@ -72,15 +75,19 @@ local plugins = {
   },
   {
     "nvim-neotest/neotest",
-    dependencies = "nvim-neotest/nvim-nio",
-    config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-go"),
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+      "nvim-neotest/neotest-go",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      adapters = {
+        ["neotest-go"] = {
+          recursive_run = true,
         },
-      })
-      require('nvim-treesitter.configs').setup({})
-    end,
+      },
+    }
   },
 
   -- Copilot
