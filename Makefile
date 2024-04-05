@@ -1,6 +1,6 @@
 STOW=stow --verbose --no-folding --target=$$HOME
 HOST=$(shell uname -n)
-DIR=hosts-$(HOST)
+DIR=.hosts-$(HOST)
 
 base:
 	$(STOW) --restow */

@@ -14,7 +14,9 @@ Base installation process follows [this article](https://www.walian.co.uk/arch-i
 1. Add user to `sudoers`
 1. Install package manager
 
-## paru (Arch Linux)
+## Packager manager
+
+### paru (Arch Linux)
 
     sudo pacman -Syu
     sudo pacman -S --needed base-devel git
@@ -24,7 +26,7 @@ Base installation process follows [this article](https://www.walian.co.uk/arch-i
     cd ~
     rm -rf paru
 
-## macports
+### macports
 
 MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local ports tree.
 
@@ -40,7 +42,7 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
     paru -S stow
     make # installs all links
 
-## add user to useful groups
+## add user to useful groups (linux)
 
     sudo gpasswd -a $(whoami) disk
     sudo gpasswd -a $(whoami) storage
@@ -68,7 +70,7 @@ Note that these commands need to be run after installing `keychain`
 
 # Local overrides
 
-Local overrides are managed via `stow` using the `make host` command. This looks for a dir called `hosts-$(hostname)` and applies that as a vault. This applies side-by-side, so it does *not* support overwriting.
+Local overrides are managed via `stow` using the `make host` command. This looks for a dir called `.hosts-$(hostname)` and applies that as a vault. This applies side-by-side, so it does *not* support overwriting.
 
 ## shell
 
@@ -98,7 +100,7 @@ I have a private repository that is an overlay on top of this one called `privfi
 
 ### macOS
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
-                      direnv yq pinentry-mac keychain zoxide
+                      direnv yq pinentry-mac keychain zoxide stow
 
 ## zsh
     # oh my zsh
