@@ -40,6 +40,7 @@ done
 path+=(
     $ANDROID_HOME/platform-tools
     $ANDROID_HOME/tools
+    $GCLOUD_HOME/bin
     $HEROKU_HOME/bin
     $HOME/.rvm/bin
     $HOME/.dasht/bin
