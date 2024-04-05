@@ -227,6 +227,13 @@ local plugins = {
         },
       }
     },
+    keys = {
+      {
+        "<C-p>",
+        "<cmd>Telescope find_files<CR>",
+        desc = "telescope find files",
+      },
+    },
     cmd = {"Telescope"}
   },
   {
@@ -305,13 +312,6 @@ local plugins = {
       "hrsh7th/nvim-cmp",
       "nvim-telescope/telescope.nvim",
     },
-    keys = {
-      {
-        "<C-p>",
-        "<cmd>ObsidianQuickSwitch<CR>",
-        desc = "obsidian Quick switch Note",
-      },
-    },
     config = function()
       require("obsidian").setup({
         dir = os.getenv("OBSIDIAN_VAULT_DIR"),
@@ -336,6 +336,7 @@ local plugins = {
         },
         open_notes_in = "vsplit",
       })
+      vim.keymap.set("n", "<C-p>", "<cmd>ObsidianQuickSwitch<CR>")
     end,
   },
 
