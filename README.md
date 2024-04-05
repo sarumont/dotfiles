@@ -115,11 +115,6 @@ I have a private repository that is an overlay on top of this one called `privfi
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
     # start tmux and run <prefix>I to install all plugins
 
-## `neovim`
-
-    cd ~/git/dotfiles
-    make install-nvchad 
-
 ## GUI
 
     paru -S sway waybar swaylock swaybg wob \

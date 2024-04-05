@@ -41,8 +41,8 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
+      require "nvchad.configs.lspconfig"
+      require "configs.lspconfig"
     end,
     opts = {
       inlay_hints = {
@@ -64,20 +64,15 @@ local plugins = {
     "jose-elias-alvarez/null-ls.nvim",
     ft = {"go", "lua"},
     opts = function()
-      return require "custom.configs.null-ls"
+      return require "configs.null-ls"
     end,
   },
   {
     "mfussenegger/nvim-dap",
-    init = function()
-      require("core.utils").load_mappings("dap")
-    end
   },
   {
     "nvim-neotest/neotest",
-    init = function()
-      require("core.utils").load_mappings("neotest")
-    end,
+    dependencies = "nvim-neotest/nvim-nio",
     config = function()
       require("neotest").setup({
         adapters = {
@@ -93,7 +88,7 @@ local plugins = {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
     opts = function()
-      return require "custom.configs.copilot"
+      return require "configs.copilot"
     end
   },
   {
@@ -122,9 +117,6 @@ local plugins = {
   {
     "andythigpen/nvim-coverage",
     ft = "go",
-    init = function()
-      require("core.utils").load_mappings("coverage")
-    end,
     config = function()
       require("coverage").setup({
         auto_reload = true,
@@ -169,7 +161,6 @@ local plugins = {
     dependencies = "mfussenegger/nvim-dap",
     config = function(_, opts)
       require("dap-go").setup(opts)
-      require("core.utils").load_mappings("dap_go")
     end
   },
   {
@@ -177,7 +168,6 @@ local plugins = {
     ft = "go",
     config = function(_, opts)
       require("gopher").setup(opts)
-      require("core.utils").load_mappings("gopher")
     end,
     build = function()
       vim.cmd [[silent! GoInstallDeps]]
@@ -196,13 +186,6 @@ local plugins = {
   },
 
   -- navigation
-  {
-    "phaazon/hop.nvim",
-    cmd = { "HopWordBC", "HopWordAC", "HopLineBC", "HopLineAC", "HopChar2AC", "HopChar2BC" },
-    config = function(_)
-      require 'hop'.setup {}
-    end,
-  },
   {
     "justinmk/vim-sneak",
     keys = {"s", "S"},
@@ -243,7 +226,8 @@ local plugins = {
           },
         },
       }
-    }
+    },
+    cmd = {"Telescope"}
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
@@ -251,20 +235,30 @@ local plugins = {
   },
   {
     "christoomey/vim-tmux-navigator",
-    lazy = false,
-    init = function()
-      vim.g["VtrPercentage"] = 30
-    end,
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateRight",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+    }
   },
   {
     "christoomey/vim-tmux-runner",
-    lazy = false,
+    init = function()
+      vim.g["VtrPercentage"] = 30
+    end,
+    cmd = {
+      "VtrSendCommandToRunner",
+      "VtrFlushCommand",
+      "VtrOpenRunner",
+      "VtrKillRunner",
+    }
   },
 
   -- general editing
   {
     "tpope/vim-surround",
-    keys = {"cs"},
+    keys = {"cs", "ds"},
   },
   {
     "tpope/vim-repeat",
@@ -302,7 +296,6 @@ local plugins = {
   -- notes
   {
     "epwalsh/obsidian.nvim",
-    lazy = true,
     event = {
       "BufReadPre " .. os.getenv("OBSIDIAN_VAULT_DIR") .. "/**.md",
       "BufNewFile " .. os.getenv("OBSIDIAN_VAULT_DIR") .. "/**.md",
@@ -312,8 +305,14 @@ local plugins = {
       "hrsh7th/nvim-cmp",
       "nvim-telescope/telescope.nvim",
     },
+    keys = {
+      {
+        "<C-p>",
+        "<cmd>ObsidianQuickSwitch<CR>",
+        desc = "obsidian Quick switch Note",
+      },
+    },
     config = function()
-      require("core.utils").load_mappings("obsidian")
       require("obsidian").setup({
         dir = os.getenv("OBSIDIAN_VAULT_DIR"),
         note_id_func = function(title)
