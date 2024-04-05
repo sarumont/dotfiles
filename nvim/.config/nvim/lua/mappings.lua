@@ -11,9 +11,6 @@ nomap("n", "<leader>x")
 -- general
 map("i", "jk", "<ESC>", { desc = "general jk to escape" })
 
--- telescope
-map("n", "<C-p>", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
-
 -- navigation
 map("n", "<C-h>", ":TmuxNavigateLeft<cr>", {desc = "navigate left"})
 map("n", "<C-l>", ":TmuxNavigateRight<cr>", {desc = "navigate right"})
