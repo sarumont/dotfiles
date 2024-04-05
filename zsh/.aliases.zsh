@@ -1,7 +1,7 @@
 # editor aliases
 alias vi=$EDITOR
 alias vim=$EDITOR
-alias viup='vim -c ":PlugUpgrade | :PlugUpdate | :PlugInstall | :PlugClean | :TSUpdateSync | :quitall"'
+alias viup='nvim --headless "+Lazy! sync" +qa'
 
 # job management
 alias j='jobs'
