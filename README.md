@@ -106,6 +106,12 @@ I have a private repository that is an overlay on top of this one called `privfi
     # oh my zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+    # zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+    # zsh-nvm
+    git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
+
     # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
     chsh
 
