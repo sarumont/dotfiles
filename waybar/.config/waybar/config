@@ -19,7 +19,7 @@
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
-        "format-icons": ["", ""]
+        "format-icons": ["󰃞", "󰃟", "󰃠"]
     },
     "sway/workspaces": {
         "disable-scroll": true,
