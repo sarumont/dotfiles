@@ -182,6 +182,10 @@ Configure power management via the [Arch Wiki article](https://wiki.archlinux.or
 
     # configure easyeffects
 
+    # bluetooth
+    paru -S bluez bluez-utils bluetuith
+    sudo systemctl enable --now bluetooth.service
+
 ### `mpd` 
 
     paru -S mpc ncmpcpp mpd mpdevil
@@ -283,13 +287,13 @@ I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it
 - [x] power management
 - [x] printing
 - [x] darkman (see if it works, add config gotchas to README)
-- [ ] plex (downloads)
-- [ ] bluetooth
-- [ ] Tailscale statusbar
+- [x] plex (downloads)
 - [x] trackpad tap (better)
-- [ ] clipman / parcellite / clipboard manager via Wofi
-- [ ] screen auto locking (w/ fprint?)
 - [x] privfiles / locals conflicting (.local/sh)
+- [x] bluetooth
+- [ ] Tailscale statusbar
+- [ ] clipman / parcellite / clipboard manager via Wofi
+- [ ] screen auto locking (w/ fprint?) https://github.com/swaywm/swaylock/issues/61#issuecomment-1409369151
 
 ----
 
