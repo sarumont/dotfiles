@@ -80,6 +80,9 @@ alias pomodoro="playerctl play && at now + 25 minutes <<< 'playerctl pause && no
 alias super_pom="playerctl play && at now + 50 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
 alias deep_work="playerctl play && at now + 90 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
 
+# Sway visor terminal size and position
+alias visor_adj="swaymsg resize set 100 ppt 80 ppt && swaymsg move absolute position 0 30"
+
 # tumx
 alias tkill="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzf); do echo \$s; tmux kill-session -t \$s; done;"
 
