@@ -89,7 +89,7 @@
         "format-disconnected": "󰌙"
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%   {format_source}",
+        "format": "{icon}  {volume}%   {format_source}",
         "format-muted": "",
         "format-source": " {volume}%",
         "format-source-muted": "",
