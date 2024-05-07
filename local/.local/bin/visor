@@ -1,11 +1,7 @@
 #!/bin/sh
 
-/usr/bin/termite --name=visor --exec="tmux_attach visor" &
+alacritty --class=visor --command="ta" &
 sleep .3
 swaymsg scratchpad show
-tmux new-window -t visor
-tmux send -t visor: "swaymsg resize set 100 ppt 80 ppt" ENTER
-tmux send -t visor: "swaymsg move absolute position 0 25" ENTER
-tmux send -t visor: exit ENTER
-sleep .3
+tmux new-window 'visor_ad'
 swaymsg scratchpad show
