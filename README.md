@@ -248,6 +248,10 @@ Most of this is from the [Arch Wiki](https://wiki.archlinux.org/title/Lenovo_Thi
 
     paru -S sof-firmware intel-media-driver fprintd gnome-polkit
 
+## Trackpoint Sensitivity
+
+Edit `/sys/devices/platform/i8042/serio1/sensitivity` as necessary. I like `110` as the value (default is `128`)
+
 # Misc configuration
 
  - Enable color output in `pacman/yay/paru` - uncomment `Color` in `/etc/pacman.conf`
