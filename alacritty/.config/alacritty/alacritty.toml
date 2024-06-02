@@ -6,17 +6,17 @@ import = [
 size = 11.0
 
 [font.bold]
-family = "FiraMono Nerd Font"
+family = "MonaspiceNe NFP"
 style = "Bold"
 
 [font.bold_italic]
-family = "FiraMono Nerd Font"
+family = "MonaspiceNe NFP"
 style = "Bold Italic"
 
 [font.italic]
-family = "Fira Mono"
+family = "MonaspiceNe NFP"
 style = "Italic"
 
 [font.normal]
-family = "FiraMono Nerd Font"
+family = "MonaspiceNe NF"
 style = "Regular"
