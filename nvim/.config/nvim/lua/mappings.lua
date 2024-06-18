@@ -140,3 +140,11 @@ map("n", "<leader>tw", "<cmd> Telescope whop <CR>", {desc = "telescope Whop" })
 
 -- scratch pad
 map("n", "<leader>sc", "<cmd> ScratchPad <CR>", {desc = "misc Scratchpad" })
+
+-- trouble.nvim
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", {desc = "trouble Toggle diagnostics"})
+map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", {desc = "trouble Toggle trouble diagnostics (current buffer)"})
+map("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", {desc = "trouble Toggle Symbols"})
+map("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", {desc = "trouble LSP Definitions / references / ..."})
+map("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", {desc = "trouble Location List"})
+map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", {desc = "trouble Quickfix List"})
