@@ -12,6 +12,7 @@
 	up = !git fetch && git rebase --autostash FETCH_HEAD
 	ci = commit
 	pr = pull --rebase
+  powerwash = !git up && git clean-merged
 [github]
 	user = sarumont
 [push]
