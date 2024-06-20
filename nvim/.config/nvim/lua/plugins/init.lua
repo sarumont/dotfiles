@@ -267,9 +267,13 @@ local plugins = {
     cmd = {"Telescope"}
   },
   {
-    "FraserLee/ScratchPad",
+    "https://git.sr.ht/~swaits/scratch.nvim",
     keys = { "<leader>sc" },
-    cmd = { "ScratchPad" },
+    cmd = {
+      "Scratch",
+      "ScratchSplit",
+    },
+    opts = {},
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
