@@ -8,6 +8,10 @@ nomap("n", "<tab>")
 nomap("n", "<S-tab>")
 nomap("n", "<leader>x")
 
+-- disable terminal mappings
+nomap("n", "<leader>v")
+nomap("n", "<leader>h")
+
 -- general
 map("i", "jk", "<ESC>", { desc = "general jk to escape" })
 
