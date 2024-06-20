@@ -144,7 +144,8 @@ map("n", "<leader>tw", "<cmd> Telescope whop <CR>", {desc = "telescope Whop" })
 map("n", "<C-p>", "<cmd> Telescope find_files <CR>", {desc = "telescope Find files" })
 
 -- scratch pad
-map("n", "<leader>sc", "<cmd> ScratchPad <CR>", {desc = "misc Scratchpad" })
+map("n", "<leader>sc", "<cmd> Scratch <CR>", {desc = "misc Scratchpad" })
+map("n", "<leader>sC", "<cmd> ScratchSplit <CR>", {desc = "misc Scratchpad (split)" })
 
 -- trouble.nvim
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", {desc = "trouble Toggle diagnostics"})
