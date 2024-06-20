@@ -134,3 +134,9 @@ map("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", {desc = "obsidian Obsidian 
 -- use telescope for some LSP things instead of the default (quickfix window)
 map("n", "gi", "<cmd> Telescope lsp_implementations <CR>", {desc = "LSP implementations" })
 map("n", "gr", "<cmd> Telescope lsp_references <CR>", {desc = "LSP references" })
+
+-- telescope
+map("n", "<leader>tw", "<cmd> Telescope whop <CR>", {desc = "telescope Whop" })
+
+-- scratch pad
+map("n", "<leader>sc", "<cmd> ScratchPad <CR>", {desc = "misc Scratchpad" })

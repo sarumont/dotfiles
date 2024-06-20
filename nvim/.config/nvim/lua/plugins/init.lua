@@ -234,14 +234,29 @@ local plugins = {
         },
       }
     },
+    dependencies = {
+      {
+        "biozz/whop.nvim",
+        config = function()
+          require("whop").setup({})
+        end
+      }
+    },
+    config = function()
+      require("telescope").load_extension("whop")
+    end,
     keys = {
       {
         "<C-p>",
-        "<cmd>Telescope find_files<CR>",
-        desc = "telescope find files",
+        "<leader>tw",
       },
     },
     cmd = {"Telescope"}
+  },
+  {
+    "FraserLee/ScratchPad",
+    keys = { "<leader>sc" },
+    cmd = { "ScratchPad" },
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
