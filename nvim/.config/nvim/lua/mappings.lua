@@ -141,6 +141,7 @@ map("n", "gr", "<cmd> Telescope lsp_references <CR>", {desc = "LSP references" }
 
 -- telescope
 map("n", "<leader>tw", "<cmd> Telescope whop <CR>", {desc = "telescope Whop" })
+map("n", "<C-p>", "<cmd> Telescope find_files <CR>", {desc = "telescope Find files" })
 
 -- scratch pad
 map("n", "<leader>sc", "<cmd> ScratchPad <CR>", {desc = "misc Scratchpad" })
