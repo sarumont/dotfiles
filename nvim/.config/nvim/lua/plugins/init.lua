@@ -251,13 +251,17 @@ local plugins = {
       {
         "biozz/whop.nvim",
         config = function()
-          require("whop").setup({})
+          require("whop").setup({
+            commands = {
+              {
+                name = "JWT Decode",
+                cmd = [[%!jq -r -R 'split(".") | .[0],.[1] | @base64d | fromjson']],
+              },
+            }
+          })
         end
       }
     },
-    config = function()
-      require("telescope").load_extension("whop")
-    end,
     keys = {
       {
         "<C-p>",
