@@ -144,6 +144,7 @@ local plugins = {
   {
     "andythigpen/nvim-coverage",
     ft = "go",
+    keys = {"<leader>cl", "<leader>ct", "<leader>cs"},
     config = function()
       require("coverage").setup({
         auto_reload = true,
