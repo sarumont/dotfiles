@@ -54,6 +54,13 @@ local plugins = {
     }
   },
   {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require "nvchad.configs.gitsigns"
+      require "configs.gitsigns"
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter-context",
     lazy = false,
     config = function()
@@ -323,10 +330,6 @@ local plugins = {
   {
     "tpope/vim-fugitive",
     cmd = {"Git"}
-  },
-  {
-    "f-person/git-blame.nvim",
-    lazy = false,
   },
 
   -- misc
