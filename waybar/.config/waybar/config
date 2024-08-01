@@ -26,6 +26,10 @@
         "disable-click": true,
         "format": "{icon} {name}",
         "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
             "dev": "",
             "www": "",
             "music": "󰝚",
