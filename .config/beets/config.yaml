@@ -6,7 +6,7 @@ import:
 threaded: yes
 clutter: [ "Thumbs.DB", ".DS_Store", "*.m3u", "*.txt" ]
 
-plugins: lastgenre inline info fetchart web mbsync thumbnails lyrics acousticbrainz
+plugins: lastgenre inline info fetchart web mbsync thumbnails lyrics acousticbrainz unimported
 format_item: "$artist - $album - $title [$genre] [$format] [$samplerate/$bitdepth]"
 
 ui:
@@ -26,10 +26,10 @@ item_fields:
     multidisk: 1 if disctotal > 1 else 0
 
 paths:
-    albumtype:soundtrack: %asciify{Soundtracks/$album/$track $title}
-    singleton: %asciify{Singletons/$artist - $title}
-    comp: %asciify{$genre/$album/$track $title}
-    default: %asciify{$genre/$albumartist/$album%aunique{}/%if{$multidisk,CD${disc}/}$track $title}
+    albumtype:soundtrack: Soundtracks/$album/$track $title
+    singleton: Singletons/$artist - $title
+    comp: $genre/$album/$track $title
+    default: $genre/$albumartist/$album%aunique{}/%if{$multidisk,CD${disc}/}$track $title
 
 bpd:
     host: 127.0.0.1
@@ -40,3 +40,7 @@ thumbnails:
 
 lyrics:
     auto: yes
+
+unimported:
+  ignore_extensions: jpg png
+  ignore_subdirectories: NonMusic data temp
