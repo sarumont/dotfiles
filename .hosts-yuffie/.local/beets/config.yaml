@@ -1,0 +1,4 @@
+directory: /mnt/data/music
+library: /home/sarumont/.local/beets/library.blb
+import:
+  log: /home/sarumont/.local/beets/import.log
