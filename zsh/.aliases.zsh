@@ -70,7 +70,7 @@ alias daily='$EDITOR note:`date +%Y-%m-%d` -c ":Writemode"'
 alias yesterday='$EDITOR note:`date -v-1d +%Y-%m-%d` -c ":Writemode"'
 
 # music
-alias beet="$(which beet) --config ~/.local/beets/config.yaml"
+alias beet="source ~/.beets-venv/bin/activate && ~/.beets-venv/bin/beet --config ~/.local/beets/config.yaml"
 
 # mounts
 alias mymounts="tree -L 1 /media/$USER"
