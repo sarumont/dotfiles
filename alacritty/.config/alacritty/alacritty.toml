@@ -20,3 +20,6 @@ style = "Italic"
 [font.normal]
 family = "MonaspiceNe NF"
 style = "Regular"
+
+[window]
+decorations = "none"

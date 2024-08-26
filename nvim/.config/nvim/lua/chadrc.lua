@@ -8,6 +8,10 @@ M.funcs = {
   end
 }
 
+M.base46 = {
+  theme = 'onenord',
+}
+
 M.ui = {
   theme = 'onenord',
   tabufline = {
