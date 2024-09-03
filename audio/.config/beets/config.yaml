@@ -13,7 +13,7 @@ ui:
     color: yes
 
 copyartifacts:
-    extensions: .pdf .png .jpg
+    extensions: .pdf .png .jpg .toc .log .cue
     print_ignored: yes
 
 lastgenre:
