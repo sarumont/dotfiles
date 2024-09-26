@@ -12,8 +12,11 @@ M.base46 = {
   theme = 'onenord',
 }
 
+M.lsp = {
+  signature = false
+}
+
 M.ui = {
-  theme = 'onenord',
   tabufline = {
     enabled = false
   },
