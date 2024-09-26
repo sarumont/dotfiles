@@ -136,8 +136,9 @@ map("n", "<leader>ot", "<cmd>ObsidianToday<cr>", {desc = "obsidian Obsidian note
 map("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", {desc = "obsidian Obsidian note for yesterday"})
 
 -- use telescope for some LSP things instead of the default (quickfix window)
-map("n", "gi", "<cmd> Telescope lsp_implementations <CR>", {desc = "LSP implementations" })
-map("n", "gr", "<cmd> Telescope lsp_references <CR>", {desc = "LSP references" })
+map("n", "<leader>gi", "<cmd> Telescope lsp_implementations <CR>", {desc = "LSP implementations" })
+map("n", "<leader>gr", "<cmd> Telescope lsp_references <CR>", {desc = "LSP references" })
+map("n", "<leader>gs", "<cmd> Telescope lsp_document_symbols <CR>", {desc = "LSP document symbols" })
 
 -- telescope
 map("n", "<leader>tw", "<cmd> Telescope whop <CR>", {desc = "telescope Whop" })
