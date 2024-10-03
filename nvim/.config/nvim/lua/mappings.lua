@@ -24,7 +24,7 @@ map("n", "<C-j>", ":TmuxNavigateDown<cr>", {desc = "navigate down"})
 -- fugitive
 map("n", "<leader>gd", ":Git diff <cr>", {desc = "Git diff of the entire buffer"})
 map("n", "<leader>gl", ":Git log <cr>", {desc = "Git log"})
-map("n", "<leader>gs", ":Git <cr>", {desc = "Git status"})
+map("n", "<leader>gss", ":Git <cr>", {desc = "Git status"})
 map("n", "<leader>gbf", ":Git blame -w -M<cr>", {desc = "Git blame for the entire file"})
 map("n", "<leader>gc", ":Git commit<cr>", {desc = "Git commit"})
 map("n", "<leader>gp", ":Git push<cr>", {desc = "Git push"})
@@ -138,7 +138,7 @@ map("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", {desc = "obsidian Obsidian 
 -- use telescope for some LSP things instead of the default (quickfix window)
 map("n", "<leader>gi", "<cmd> Telescope lsp_implementations <CR>", {desc = "LSP implementations" })
 map("n", "<leader>gr", "<cmd> Telescope lsp_references <CR>", {desc = "LSP references" })
-map("n", "<leader>gs", "<cmd> Telescope lsp_document_symbols <CR>", {desc = "LSP document symbols" })
+map("n", "<leader>gsy", "<cmd> Telescope lsp_document_symbols <CR>", {desc = "LSP document symbols" })
 
 -- telescope
 map("n", "<leader>tw", "<cmd> Telescope whop <CR>", {desc = "telescope Whop" })
