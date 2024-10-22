@@ -214,6 +214,10 @@ for_window [app_id="^visor$"] {
     resize set 100 ppt 80 ppt
 }
 
+# idle configuration
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
+
 # TODO:
 # keys:
 #   Nautilus
