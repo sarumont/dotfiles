@@ -34,9 +34,6 @@ foreground = "#2E3440"
 background = "#646A76"
 foreground = "#EE5E25"
 
-[colors.search.footer_bar]
-background = "#DFE1E4"
-foreground = "#3EA1AD"
 
 [colors.search.matches]
 background = "#646A76"
