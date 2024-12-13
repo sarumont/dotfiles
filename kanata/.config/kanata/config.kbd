@@ -1,0 +1,15 @@
+(defsrc
+  caps
+)
+
+(defalias 
+  escctrl (tap-hold-press 250 100 esc lctrl)
+)
+
+(deflayer base 
+  @escctrl
+)
+
+(defcfg
+  linux-use-trackpoint-property yes
+)
