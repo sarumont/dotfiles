@@ -6,14 +6,14 @@ import:
 threaded: yes
 clutter: [ "Thumbs.DB", ".DS_Store", "*.m3u", "*.txt" ]
 
-plugins: lastgenre inline info fetchart web mbsync thumbnails lyrics xtractor
+plugins: lastgenre inline info fetchart web mbsync thumbnails lyrics xtractor copyartifacts plexupdate
 format_item: "$artist - $album - $title [$genre] [$format] [$samplerate/$bitdepth]"
 
 ui:
     color: yes
 
 copyartifacts:
-    extensions: .pdf .png .jpg .toc .log .cue
+    extensions: .pdf .log .cue .toc
     print_ignored: yes
 
 lastgenre:
@@ -30,6 +30,10 @@ paths:
     singleton: %asciify{Singletons/$artist - $title}
     comp: %asciify{$genre/$album/$track $title}
     default: %asciify{$genre/$albumartist/$album%aunique{}/%if{$multidisk,CD${disc}/}$track $title}
+    ext:log: $albumpath/$artist - $album
+    ext:cue: $albumpath/$artist - $album
+    ext:toc: $albumpath/$artist - $album
+    ext:pdf: $albumpath/liner
 
 thumbnails:
     auto: yes
