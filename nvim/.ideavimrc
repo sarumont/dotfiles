@@ -55,10 +55,6 @@ nnoremap <C-j> <C-w>j
 nnoremap [[ <Action>(MethodUp)
 nnoremap ]] <Action>(MethodDown)
 
-" Popup navigation
-inoremap <C-n> <Action>(PopupMenu-selectNext)
-inoremap <C-p> <Action>(PopupMenu-selectPrev)
-
 " Comment lines
 map <leader>/ <action>(CommentByLineComment)
 
@@ -66,7 +62,7 @@ map <leader>/ <action>(CommentByLineComment)
 map <leader>j <Plug>(easymotion-s)
 
 " Open NERDTree (use q to exit)
-nnoremap <Tab> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 
 " Window splits
 map <leader>wv <Action>(SplitVertically)
