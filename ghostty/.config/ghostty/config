@@ -1,0 +1,11 @@
+window-decoration = false
+mouse-hide-while-typing = true
+
+# Font
+font-family = "MonaspiceNe"
+font-style = Medium
+font-style-bold = Bold
+font-style-italic = Medium Italic
+font-style-bold-italic = Bold Italic
+
+theme = nord
