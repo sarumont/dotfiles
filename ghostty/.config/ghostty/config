@@ -2,7 +2,7 @@ window-decoration = false
 mouse-hide-while-typing = true
 
 # Font
-font-family = "MonaspiceNe"
+font-family = "MonaspiceNe NFM"
 font-style = Medium
 font-style-bold = Bold
 font-style-italic = Medium Italic
