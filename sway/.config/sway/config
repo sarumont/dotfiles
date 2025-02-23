@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term alacritty
+set $term ghostty
 set $menu wofi 
 
 ### KB config
@@ -207,11 +207,6 @@ smart_gaps on
 
 # use scratchpad for a visor terminal
 bindsym Ctrl+Shift+Return    scratchpad show
-for_window [app_id="^visor$"] {
-    move scratchpad
-    move absolute position 0 25
-    resize set 100 ppt 80 ppt
-}
 
 # idle configuration
 for_window [class=".*"] inhibit_idle fullscreen
@@ -226,8 +221,6 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 include *.config
 
 exec wl-paste -t text --watch clipman store
-exec --no-startup-id alacritty --class=dev
-exec --no-startup-id alacritty --class=visor
 exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 #exec wluma
 exec gammastep
