@@ -35,6 +35,9 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
     # Generate a new SSH key
     ssh-keygen -t ed25519
     # add ~/.ssh/id_ed25519.pub to Github
+    ssh-agent
+    # run commands output by ^
+    ssh-add ~/.ssh/id_ed25519
 
     mkdir ~/git/
     git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
@@ -192,9 +195,10 @@ Configure power management via the [Arch Wiki article](https://wiki.archlinux.or
 
 ### `beets`
 
+    paru -S python imagemagick
     python -m venv ~/.beets-venv
-    paru -S imagemagick
-    pip install beets pylast pyxdg httpx flask requests # TODO: not working under Python 3.12: beets-xtractor
+    source ~/.beets-venv/bin/activate
+    pip install beets pylast pyxdg httpx flask requests beets-xtractor
 
 Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
 
