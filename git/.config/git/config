@@ -1,8 +1,3 @@
-[color]
-	status = auto
-	branch = auto
-	diff = auto
-	interactive = auto
 [core]
 	excludesfile = ~/gitignore
 	autocrlf = input
@@ -13,27 +8,44 @@
 	ci = commit
 	pr = pull --rebase
   powerwash = !git up && git clean-merged
-[github]
-	user = sarumont
-[push]
-	default = simple
-[filter "media"]
-	clean = git media clean %f
-	smudge = git media smudge %f
-	required = true
-[filter "hawser"]
-	clean = git hawser clean %f
-	smudge = git hawser smudge %f
-	required = true
-[filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
-[commit]
-	gpgSign = true
+[column]
+  ui = auto
+[branch]
+  sort = -committerdate
 [tag]
+  sort = version:refname
+	gpgSign = true
+[init]
+  defaultBranch = main
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+[merge]
+  conflictstyle = zdiff3 
+
+[commit]
 	gpgSign = true
 [gpg]
   format = ssh
-[init]
-	defaultBranch = main
+
+[help]
+  autocorrect = prompt
+[commit]
+  verbose = true
+[rerere]
+  enabled = true
+  autoupdate = true
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
