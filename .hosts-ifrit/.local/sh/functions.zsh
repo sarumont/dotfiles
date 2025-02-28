@@ -3,6 +3,7 @@ update_link_galleries() {
   mkdir ~/work
   ln -sf ~/github.com/moovfinancial/* ~/work
   ln -sf ~/github.com/moov-jobs/* ~/work
+  ln -sf ~/github.com/moov-io/* ~/work
 
   rm -rf ~/git
   mkdir ~/git
