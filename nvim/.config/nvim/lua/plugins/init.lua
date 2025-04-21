@@ -51,7 +51,7 @@ local plugins = {
       inlay_hints = {
         enabled = false,
       },
-    }
+    },
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -78,13 +78,18 @@ local plugins = {
     end,
   },
   {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    opts = require "configs.conform",
+  },
+  {
     "mfussenegger/nvim-dap",
   },
   {
     "nvim-neotest/neotest",
     dependencies = {
       "nvim-neotest/nvim-nio",
-			"nvim-lua/plenary.nvim",
+      "nvim-lua/plenary.nvim",
       "nvim-neotest/neotest-go",
       "nvim-treesitter/nvim-treesitter",
     },
@@ -94,7 +99,7 @@ local plugins = {
           recursive_run = true,
         },
       },
-    }
+    },
   },
   {
     "folke/trouble.nvim",
@@ -116,7 +121,7 @@ local plugins = {
     event = "InsertEnter",
     opts = function()
       return require "configs.copilot"
-    end
+    end,
   },
   {
     "hrsh7th/nvim-cmp",
@@ -144,19 +149,19 @@ local plugins = {
   {
     "andythigpen/nvim-coverage",
     ft = "go",
-    keys = {"<leader>cl", "<leader>ct", "<leader>cs"},
+    keys = { "<leader>cl", "<leader>ct", "<leader>cs" },
     config = function()
-      require("coverage").setup({
+      require("coverage").setup {
         auto_reload = true,
-        load_coverage_cb = function (ftype)
+        load_coverage_cb = function(ftype)
           vim.notify("Loaded " .. ftype .. " coverage")
         end,
         lang = {
           go = {
-            coverage_file = "coverage.txt"
-          }
-        }
-      })
+            coverage_file = "coverage.txt",
+          },
+        },
+      }
     end,
   },
   {
@@ -165,22 +170,21 @@ local plugins = {
     dependencies = "nvim-neotest/neotest",
     config = function()
       -- get neotest namespace (api call creates or returns namespace)
-      local neotest_ns = vim.api.nvim_create_namespace("neotest")
+      local neotest_ns = vim.api.nvim_create_namespace "neotest"
       vim.diagnostic.config({
         virtual_text = {
           format = function(diagnostic)
-            local message =
-            diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+            local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
             return message
           end,
         },
       }, neotest_ns)
-      require("neotest").setup({
+      require("neotest").setup {
         -- your neotest config here
         adapters = {
-          require("neotest-go"),
+          require "neotest-go",
         },
-      })
+      }
     end,
   },
   {
@@ -189,7 +193,7 @@ local plugins = {
     dependencies = "mfussenegger/nvim-dap",
     config = function(_, opts)
       require("dap-go").setup(opts)
-    end
+    end,
   },
   {
     "olexsmir/gopher.nvim",
@@ -208,15 +212,15 @@ local plugins = {
     opts = {
       ensure_installed = {
         "gopls",
-        "goimports-reviser"
-      }
-    }
+        "goimports-reviser",
+      },
+    },
   },
 
   -- navigation
   {
     "justinmk/vim-sneak",
-    keys = {"s", "S"},
+    keys = { "s", "S" },
     init = function()
       vim.g["sneak#label"] = 1
       vim.g["sneak#use_ic_scs"] = 1
@@ -224,8 +228,8 @@ local plugins = {
   },
   {
     "nvim-tree/nvim-tree.lua",
-     config = function()
-      require("nvim-tree").setup({
+    config = function()
+      require("nvim-tree").setup {
         git = {
           enable = true,
         },
@@ -240,9 +244,8 @@ local plugins = {
         view = {
           width = 42,
         },
-
-      })
-     end,
+      }
+    end,
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -250,25 +253,25 @@ local plugins = {
       defaults = {
         mappings = {
           i = {
-            ["<C-u>"] = false
+            ["<C-u>"] = false,
           },
         },
-      }
+      },
     },
     dependencies = {
       {
         "biozz/whop.nvim",
         config = function()
-          require("whop").setup({
+          require("whop").setup {
             commands = {
               {
                 name = "JWT Decode",
                 cmd = [[%!jq -r -R 'split(".") | .[0],.[1] | @base64d | fromjson']],
               },
-            }
-          })
-        end
-      }
+            },
+          }
+        end,
+      },
     },
     keys = {
       {
@@ -276,7 +279,7 @@ local plugins = {
         "<leader>tw",
       },
     },
-    cmd = {"Telescope"}
+    cmd = { "Telescope" },
   },
   {
     "https://git.sr.ht/~swaits/scratch.nvim",
@@ -289,7 +292,7 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
-    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release'
+    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
   },
   {
     "christoomey/vim-tmux-navigator",
@@ -298,7 +301,7 @@ local plugins = {
       "TmuxNavigateRight",
       "TmuxNavigateDown",
       "TmuxNavigateUp",
-    }
+    },
   },
   {
     "christoomey/vim-tmux-runner",
@@ -310,27 +313,27 @@ local plugins = {
       "VtrFlushCommand",
       "VtrOpenRunner",
       "VtrKillRunner",
-    }
+    },
   },
 
   -- general editing
   {
     "tpope/vim-surround",
-    keys = {"cs", "ds"},
+    keys = { "cs", "ds" },
   },
   {
     "tpope/vim-repeat",
-    keys = {"."},
+    keys = { "." },
   },
   {
     "terryma/vim-expand-region",
-    keys = {"+"}
+    keys = { "+" },
   },
 
   -- git
   {
     "tpope/vim-fugitive",
-    cmd = {"Git"}
+    cmd = { "Git" },
   },
 
   -- misc
@@ -339,8 +342,8 @@ local plugins = {
     cmd = { "TZAtaraxis", "TZMinimalist" },
   },
   {
-    'ruifm/gitlinker.nvim',
-    dependencies = {'nvim-lua/plenary.nvim'},
+    "ruifm/gitlinker.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
     lazy = false,
     init = function()
       require("gitlinker").setup()
@@ -351,8 +354,8 @@ local plugins = {
   {
     "epwalsh/obsidian.nvim",
     event = {
-      "BufReadPre " .. os.getenv("OBSIDIAN_VAULT_DIR") .. "/**.md",
-      "BufNewFile " .. os.getenv("OBSIDIAN_VAULT_DIR") .. "/**.md",
+      "BufReadPre " .. os.getenv "OBSIDIAN_VAULT_DIR" .. "/**.md",
+      "BufNewFile " .. os.getenv "OBSIDIAN_VAULT_DIR" .. "/**.md",
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -360,8 +363,8 @@ local plugins = {
       "nvim-telescope/telescope.nvim",
     },
     config = function()
-      require("obsidian").setup({
-        dir = os.getenv("OBSIDIAN_VAULT_DIR"),
+      require("obsidian").setup {
+        dir = os.getenv "OBSIDIAN_VAULT_DIR",
         note_id_func = function(title)
           if title ~= nil then
             return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
@@ -382,7 +385,7 @@ local plugins = {
           subdir = "templates",
         },
         open_notes_in = "vsplit",
-      })
+      }
       vim.keymap.set("n", "<C-p>", "<cmd>ObsidianQuickSwitch<CR>")
     end,
   },
@@ -403,7 +406,7 @@ local plugins = {
       "rcarriga/nvim-notify",
     },
     config = function()
-      require("noice").setup({
+      require("noice").setup {
         lsp = {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
@@ -420,14 +423,14 @@ local plugins = {
           inc_rename = false, -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = false, -- add a border to hover docs and signature help
         },
-      })
+      }
     end,
   },
 
   -- disabled
   {
     "NvChad/nvterm",
-    enabled = false
-  }
+    enabled = false,
+  },
 }
 return plugins
