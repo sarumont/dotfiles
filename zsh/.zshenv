@@ -45,5 +45,6 @@ path+=(
     $HOME/.rvm/bin
     $HOME/.dasht/bin
     $HOME/go/bin
+    /opt/homebrew/bin
     .)
 path=($^path(N))
