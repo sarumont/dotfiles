@@ -1,24 +1,24 @@
----@type ChadrcConfig 
+---@type ChadrcConfig
 local M = {}
 
 M.funcs = {
   fileInfo = function()
     local filename = (vim.fn.expand "%" == "" and " Empty") or " %t "
     return "%#St_file_sep#█" .. "%#St_file_txt#" .. filename .. "%#St_sep_r#█ %#ST_EmptySpace#"
-  end
+  end,
 }
 
 M.base46 = {
-  theme = 'onenord',
+  theme = "onenord",
 }
 
 M.lsp = {
-  signature = false
+  signature = false,
 }
 
 M.ui = {
   tabufline = {
-    enabled = false
+    enabled = false,
   },
   statusline = {
     theme = "minimal",
