@@ -150,9 +150,14 @@ I have a private repository that is an overlay on top of this one called `privfi
 
 ## Misc
 
+    # syncthing for file synchronization
     paru -S syncthing 
     systemctl --user enable --now syncthing
 
+    # silicon for generating screenshots of code from nvim
+    paru -S silicon
+
+    # Tailscale for a private VPN
     paru -S tailscale
     sudo systemctl enable --now tailscaled
     sudo tailscale login
