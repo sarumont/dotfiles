@@ -54,3 +54,6 @@ map("n", "<leader>dsu", "<cmd> DapStepOut <CR>", { desc = "dap Step out of curre
 
 -- silicon.nvim
 map("v", "<leader>sc", "<cmd>Silicon<cr>", { desc = "Silicon Copy code screenshot to clipboard" })
+
+-- editing
+map("n", "<leader>J", "<cmd>TSJToggle<cr>", { desc = "general Split/Join line intelligently" })
