@@ -53,7 +53,9 @@ map("n", "<leader>dsi", "<cmd> DapStepInto <CR>", { desc = "dap Step into curren
 map("n", "<leader>dsu", "<cmd> DapStepOut <CR>", { desc = "dap Step out of current line" })
 
 -- silicon.nvim
-map("v", "<leader>sc", "<cmd>Silicon<cr>", { desc = "Silicon Copy code screenshot to clipboard" })
+map("v", "<leader>sc", function()
+  require("nvim-silicon").file()
+end, { desc = "Silicon Copy code screenshot to file" })
 
 -- editing
 map("n", "<leader>J", "<cmd>TSJToggle<cr>", { desc = "general Split/Join line intelligently" })
