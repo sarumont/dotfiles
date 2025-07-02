@@ -87,6 +87,7 @@ plugins=(
 
 zstyle :omz:plugins:keychain agents "ssh"
 zstyle :omz:plugins:keychain identities "id_ed25519"
+zstyle :omz:plugins:keychain options --quiet
 
 source $ZSH/oh-my-zsh.sh
 
