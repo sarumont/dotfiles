@@ -8,6 +8,7 @@ update_link_galleries() {
   rm -rf ~/git
   mkdir ~/git
   ln -sf ~/work/* ~/git
+  ln -sf ~/github.com/sarumont/* ~/git
 }
 
 moov() {
