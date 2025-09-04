@@ -99,10 +99,10 @@ I have a private repository that is an overlay on top of this one called `privfi
 
 ### Arch
     paru -S zsh starship neovim openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois gotop jq tmux direnv at keychain zoxide usbutils stow smartmontools
+            whois btop jq tmux direnv at keychain zoxide usbutils stow smartmontools
 
 ### macOS
-    sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd gotop \
+    sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd btop \
                       direnv yq pinentry-mac keychain zoxide stow
 
 ## zsh
