@@ -96,16 +96,6 @@ setopt histreduceblanks hist_ignore_dups hist_ignore_space share_history extende
 # vim mode
 bindkey -v
 
-# bind lazy loaders for version managers
-rvm() {
-    if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-        unfunction rvm 
-        . "$HOME/.rvm/scripts/rvm" && rvm $@ 
-    else
-        echo "rvm not installed"
-    fi
-}
-
 # lazily load k8s completions
 kubectl() {
     unfunction kubectl
@@ -147,9 +137,6 @@ fi
 
 typeset -U fpath
 
-export SDKMAN_DIR="${HOME}/.sdkman"
-[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
-
 fpath+=(
   "$HOME/.zfunctions"
 )
@@ -180,6 +167,8 @@ if [[ -n "$FZF_BASE" ]]; then
     source "$FZF_BASE/completion.zsh" 2> /dev/null
     source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
 fi
+
+eval "$(mise activate zsh)"
 
 # zoxide
 eval "$(zoxide init --cmd cd zsh)"

@@ -99,11 +99,12 @@ I have a private repository that is an overlay on top of this one called `privfi
 
 ### Arch
     paru -S zsh starship neovim openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois btop jq tmux direnv at keychain zoxide usbutils stow smartmontools
+            whois btop jq tmux direnv at keychain zoxide usbutils stow smartmontools mise
 
 ### macOS
     sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd btop \
                       direnv yq pinentry-mac keychain zoxide stow
+    brew install mise # not available via macports :(
 
 ## zsh
     # oh my zsh
@@ -111,9 +112,6 @@ I have a private repository that is an overlay on top of this one called `privfi
 
     # zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-    # zsh-nvm
-    git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-nvm
 
     # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
     chsh
@@ -220,10 +218,11 @@ Development tools. Season these to taste based on your needs.
 
 ### Arch
 
-    paru -S kcat-cli rubygems jwt-cli httpie aws-cli-v2-bin docker vault
+    paru -S kcat-cli jwt-cli httpie aws-cli-v2-bin docker vault
 
 ### DB
 
+    paru -S rubygems
     gem install schema-evolution-manager
 
 ### Golang
@@ -235,15 +234,6 @@ Development tools. Season these to taste based on your needs.
 #### macOS
 
     sudo port install go delve
-
-### Java
-
-    curl -s "https://get.sdkman.io" | zsh
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-    sdk i maven
-    sdk i gradle
-    sdk ls java
-    sdk i java <whatever version you want/need>
 
 ## Kubernetes
 
@@ -288,24 +278,6 @@ I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it
     }
 
 # TODO
-- [x] GDM
-- [x] wluma (need autostart)
-- [x] gammastep (need autostart)
-- [x] fprintd
-- [x] alacritty config
-- [x] missing devicons..?
-- [x] GDM fprint
-- [x] dark mode/light mode
-- [x] geoclue?
-- [x] local overrides
-- [x] privfiles (same as local overrides)
-- [x] power management
-- [x] printing
-- [x] darkman (see if it works, add config gotchas to README)
-- [x] plex (downloads)
-- [x] trackpad tap (better)
-- [x] privfiles / locals conflicting (.local/sh)
-- [x] bluetooth
 - [ ] Tailscale statusbar
 - [ ] clipman / parcellite / clipboard manager via Wofi
 - [ ] screen auto locking (w/ fprint?) https://github.com/swaywm/swaylock/issues/61#issuecomment-1409369151
