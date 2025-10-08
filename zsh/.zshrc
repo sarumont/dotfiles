@@ -110,11 +110,8 @@ docker() {
   source ~/.oh-my-zsh/plugins/docker/docker.plugin.zsh
   docker "$@"
 }
-mise() {
-  unfunction mise
-  eval "$(mise activate zsh)"
-  mise "$@"
-}
+
+eval "$(mise activate zsh)"
 
 # Keychain
 if [[ ! -S ~/.ssh/ssh_auth_sock ]] && [[ -z "$SSH_AGENT_PID" ]]; then
