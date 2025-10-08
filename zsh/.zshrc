@@ -17,24 +17,24 @@ ZSH_COMPDUMP="${ZSH_CACHE_DIR:-$ZSH/cache}/.zcompdump-${SHORT_HOST}-${ZSH_VERSIO
 
 # set TMUX session name
 if [[ -n "$TMUX" ]]; then
-    export TMUX_SESSION_NAME=$(tmux display-message -p '#S')
+  export TMUX_SESSION_NAME=$(tmux display-message -p '#S')
 fi
 
 # I either have macOS, Arch, or a Debian-based system at this point in my life
 OS="macos"
 if [[ -f "/etc/lsb-release" ]]; then
-    OS=debian
+  OS=debian
 elif [[ -f "/etc/arch-release" ]]; then 
-    OS=archlinux
+  OS=archlinux
 fi
 
 plugins=(
-    $OS
-    git
-    gitfast
-    httpie
-    sudo
-    zsh-syntax-highlighting
+  $OS
+  git
+  gitfast
+  httpie
+  sudo
+  zsh-syntax-highlighting
 )
 
 typeset -U fpath
@@ -51,7 +51,7 @@ setopt histreduceblanks hist_ignore_dups hist_ignore_space share_history extende
 bindkey -v
 
 if [[ -r ~/.local/sh/zshrc ]]; then
-    . ~/.local/sh/zshrc
+  . ~/.local/sh/zshrc
 fi
 
 # Source aliases and functions
@@ -62,9 +62,9 @@ fi
 
 # Editor setup
 if command -v nvim &> /dev/null; then
-    export EDITOR=nvim
+  export EDITOR=nvim
 elif command -v vim &> /dev/null; then
-    export EDITOR=vim
+  export EDITOR=vim
 fi
 alias vim=$EDITOR
 alias vi=$EDITOR
@@ -74,34 +74,34 @@ export PG_PAGER="$EDITOR -R -c 'set ft=dbout' -"
 # Starship
 _starship_cache="${XDG_CACHE_HOME:-$HOME/.cache}/starship-init.zsh"
 if [[ ! -f "$_starship_cache" ]] || [[ $(command -v starship) -nt "$_starship_cache" ]]; then
-    starship init zsh > "$_starship_cache"
+  starship init zsh > "$_starship_cache"
 fi
 source "$_starship_cache"
 
 # zoxide
 _zoxide_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide-init.zsh"
 if [[ ! -f "$_zoxide_cache" ]] || [[ $(command -v zoxide) -nt "$_zoxide_cache" ]]; then
-    zoxide init --cmd cd zsh > "$_zoxide_cache"
+  zoxide init --cmd cd zsh > "$_zoxide_cache"
 fi
 source "$_zoxide_cache"
 
 # direnv
 if command -v direnv &> /dev/null; then
-    _direnv_hook_cache="${XDG_CACHE_HOME:-$HOME/.cache}/direnv-hook.zsh"
-    if [[ ! -f "$_direnv_hook_cache" ]] || [[ $(command -v direnv) -nt "$_direnv_hook_cache" ]]; then
-        direnv hook zsh > "$_direnv_hook_cache"
-    fi
-    source "$_direnv_hook_cache"
+  _direnv_hook_cache="${XDG_CACHE_HOME:-$HOME/.cache}/direnv-hook.zsh"
+  if [[ ! -f "$_direnv_hook_cache" ]] || [[ $(command -v direnv) -nt "$_direnv_hook_cache" ]]; then
+    direnv hook zsh > "$_direnv_hook_cache"
+  fi
+  source "$_direnv_hook_cache"
 
 fi
 
 # fzf
 if [[ -z "$FZF_BASE" && -d "/usr/share/fzf" ]]; then
-    export FZF_BASE="/usr/share/fzf"
+  export FZF_BASE="/usr/share/fzf"
 fi
 if [[ -n "$FZF_BASE" ]]; then
-    source "$FZF_BASE/completion.zsh" 2> /dev/null
-    source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
+  source "$FZF_BASE/completion.zsh" 2> /dev/null
+  source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
 fi
 
 # Lazy-loading
