@@ -1,4 +1,4 @@
-# zmodload zsh/zprof
+#zmodload zsh/zprof
 
 # Path to oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -111,7 +111,7 @@ docker() {
   docker "$@"
 }
 
-eval "$(mise activate zsh)"
+eval "$(mise activate zsh --shims)"
 
 # Keychain
 if [[ ! -S ~/.ssh/ssh_auth_sock ]] && [[ -z "$SSH_AGENT_PID" ]]; then
@@ -127,4 +127,4 @@ zprof_on_prompt() {
   unset -f zprof_on_prompt
   precmd_functions=("${(@)precmd_functions:#zprof_on_prompt}")
 }
-# precmd_functions+=(zprof_on_prompt)
+#precmd_functions+=(zprof_on_prompt)
