@@ -1,87 +1,46 @@
-#zmodload zsh/zprof
-# Path to your oh-my-zsh installation.
+# zmodload zsh/zprof
+
+# Path to oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="honukai"
-ZSH_THEME=""
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
+# OMZ config
+DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
 HISTSIZE=50000
 SAVEHIST=50000
-
-# Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$HOME/.omz-custom
 
-get_tmux_session_name() {
-    tty=$(tty)
-    for s in $(tmux list-sessions -F '#{session_name}' 2>/dev/null); do
-        tmux list-panes -F '#{pane_tty} #{session_name}' -t "$s"
-    done | grep "$tty" | awk '{print $2}'
-}
-export TMUX_SESSION_NAME=$(get_tmux_session_name)
+# tweak compinit/compaudit
+ZSH_DISABLE_COMPFIX="true"
+ZSH_COMPDUMP="${ZSH_CACHE_DIR:-$ZSH/cache}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 
-OS=""
+# set TMUX session name
+if [[ -n "$TMUX" ]]; then
+    export TMUX_SESSION_NAME=$(tmux display-message -p '#S')
+fi
+
+# I either have macOS, Arch, or a Debian-based system at this point in my life
+OS="macos"
 if [[ -f "/etc/lsb-release" ]]; then
     OS=debian
 elif [[ -f "/etc/arch-release" ]]; then 
     OS=archlinux
 fi
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+
 plugins=(
     $OS
-    docker
-    git 
+    git
     gitfast
     httpie
-    keychain
-    kubectl
     sudo
     zsh-syntax-highlighting
 )
 
-zstyle :omz:plugins:keychain agents "ssh"
-zstyle :omz:plugins:keychain identities "id_ed25519"
-zstyle :omz:plugins:keychain options --quiet
+typeset -U fpath
+fpath+=(
+  "$HOME/.zfunctions"
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -90,35 +49,6 @@ setopt histreduceblanks hist_ignore_dups hist_ignore_space share_history extende
 
 # vim mode
 bindkey -v
-
-# lazily load k8s completions
-kubectl() {
-    unfunction kubectl
-    KUBECTL=$(which kubectl)
-    [[ -x $KUBECTL ]] && source <($KUBECTL completion zsh)
-    $KUBECTL $@
-}
-
-# lazy Terraform completion
-terraform() {
-    unfunction terraform
-    TF=$(which terraform)
-    if [[ -x $TF ]]; then
-        autoload -U +X bashcompinit && bashcompinit
-        complete -o nospace -C $TF terraform
-    fi
-    $TF $@
-}
-
-vault() {
-    unfunction vault
-    VAULT=$(which vault)
-    if [[ -x $VAULT ]]; then
-        autoload -U +X bashcompinit && bashcompinit
-        complete -o nospace -C $VAULT vault
-    fi
-    $VAULT $@
-}
 
 if [[ -r ~/.local/sh/zshrc ]]; then
     . ~/.local/sh/zshrc
@@ -130,42 +60,74 @@ fi
 
 [[ -s "${HOME}/.local/sh/iterm2_shell_integration.zsh" ]] && source "${HOME}/.local/sh/iterm2_shell_integration.zsh"
 
-typeset -U fpath
-
-fpath+=(
-  "$HOME/.zfunctions"
-)
-
 # Editor setup
-EDITOR=`which nvim`
-if [[ $? -ne 0 ]]; then
-    EDITOR=`which vim`
+if command -v nvim &> /dev/null; then
+    export EDITOR=nvim
+elif command -v vim &> /dev/null; then
+    export EDITOR=vim
 fi
-export EDITOR
 alias vim=$EDITOR
 alias vi=$EDITOR
 
 export PG_PAGER="$EDITOR -R -c 'set ft=dbout' -"
 
-eval "$(starship init zsh)"
+# Starship
+_starship_cache="${XDG_CACHE_HOME:-$HOME/.cache}/starship-init.zsh"
+if [[ ! -f "$_starship_cache" ]] || [[ $(command -v starship) -nt "$_starship_cache" ]]; then
+    starship init zsh > "$_starship_cache"
+fi
+source "$_starship_cache"
 
-DIRENV=$(which direnv)
-if [[ $? -eq 0 ]]; then
-    eval "$($DIRENV hook zsh)"
+# zoxide
+_zoxide_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide-init.zsh"
+if [[ ! -f "$_zoxide_cache" ]] || [[ $(command -v zoxide) -nt "$_zoxide_cache" ]]; then
+    zoxide init --cmd cd zsh > "$_zoxide_cache"
+fi
+source "$_zoxide_cache"
+
+# direnv
+if command -v direnv &> /dev/null; then
+    _direnv_hook_cache="${XDG_CACHE_HOME:-$HOME/.cache}/direnv-hook.zsh"
+    if [[ ! -f "$_direnv_hook_cache" ]] || [[ $(command -v direnv) -nt "$_direnv_hook_cache" ]]; then
+        direnv hook zsh > "$_direnv_hook_cache"
+    fi
+    source "$_direnv_hook_cache"
+
 fi
 
+# fzf
 if [[ -z "$FZF_BASE" && -d "/usr/share/fzf" ]]; then
     export FZF_BASE="/usr/share/fzf"
 fi
-
 if [[ -n "$FZF_BASE" ]]; then
     source "$FZF_BASE/completion.zsh" 2> /dev/null
     source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
 fi
 
-eval "$(mise activate zsh)"
+# Lazy-loading
+docker() {
+  unfunction docker
+  source ~/.oh-my-zsh/plugins/docker/docker.plugin.zsh
+  docker "$@"
+}
+mise() {
+  unfunction mise
+  eval "$(mise activate zsh)"
+  mise "$@"
+}
 
-# zoxide
-eval "$(zoxide init --cmd cd zsh)"
+# Keychain
+if [[ ! -S ~/.ssh/ssh_auth_sock ]] && [[ -z "$SSH_AGENT_PID" ]]; then
+  # First shell - run keychain
+  eval $(keychain --eval --quick --quiet id_ed25519)
+else
+  # Subsequent shells - just source the cache
+  [[ -f ~/.keychain/${HOST}-sh ]] && source ~/.keychain/${HOST}-sh
+fi
 
-#zprof
+zprof_on_prompt() {
+  zprof
+  unset -f zprof_on_prompt
+  precmd_functions=("${(@)precmd_functions:#zprof_on_prompt}")
+}
+# precmd_functions+=(zprof_on_prompt)
