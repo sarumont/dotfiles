@@ -59,3 +59,8 @@ end, { desc = "Silicon Copy code screenshot to file" })
 
 -- editing
 map("n", "<leader>J", "<cmd>TSJToggle<cr>", { desc = "general Split/Join line intelligently" })
+
+-- Code coverage
+map("n", "<leader>cl", "<cmd> Coverage <CR>", { desc = "coverage Load code coverage" })
+map("n", "<leader>ct", "<cmd> CoverageToggle <CR>", { desc = "coverage Toggle code coverage display" })
+map("n", "<leader>cs", "<cmd> CoverageSummary <CR>", { desc = "coverage Show code coverage summary" })
