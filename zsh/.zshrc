@@ -21,7 +21,7 @@ if [[ -n "$TMUX" ]]; then
 fi
 
 # I either have macOS, Arch, or a Debian-based system at this point in my life
-OS="macos"
+OS=macos
 if [[ -f "/etc/lsb-release" ]]; then
   OS=debian
 elif [[ -f "/etc/arch-release" ]]; then 
