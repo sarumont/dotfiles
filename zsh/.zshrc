@@ -35,6 +35,8 @@ plugins=(
   $OS
   git
   gitfast
+  httpie
+  kubectl
   sudo
   zsh-syntax-highlighting
 )
