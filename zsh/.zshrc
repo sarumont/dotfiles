@@ -111,7 +111,7 @@ docker() {
   docker "$@"
 }
 
-eval "$(mise activate zsh --shims)"
+eval "$(mise activate zsh)"
 
 # Keychain
 if [[ ! -S ~/.ssh/ssh_auth_sock ]] && [[ -z "$SSH_AGENT_PID" ]]; then
