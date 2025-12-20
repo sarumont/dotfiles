@@ -24,10 +24,6 @@ map(
 map("n", "<leader>vrl", ":VtrSendCommandToRunner! <cr>", { desc = "tmux Re-run last command in runner" })
 map("n", "<leader>vq", ":VtrKillRunner <cr>", { desc = "tmux Kill the runner" })
 
-map("n", "<leader>jc", function()
-  require("treesitter-context").go_to_context(vim.v.count1)
-end, { desc = "navigate to the top of the context", silent = true })
-
 -- testing
 map("n", "<leader>dn", function()
   require("neotest").run.run { strategy = "dap" }
@@ -64,3 +60,16 @@ map("n", "<leader>J", "<cmd>TSJToggle<cr>", { desc = "general Split/Join line in
 map("n", "<leader>cl", "<cmd> Coverage <CR>", { desc = "coverage Load code coverage" })
 map("n", "<leader>ct", "<cmd> CoverageToggle <CR>", { desc = "coverage Toggle code coverage display" })
 map("n", "<leader>cs", "<cmd> CoverageSummary <CR>", { desc = "coverage Show code coverage summary" })
+
+-- trouble.nvim
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
+map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
+map("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
+map(
+  "n",
+  "<leader>cl",
+  "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+  { desc = "LSP Definitions / references / ... (Trouble)" }
+)
+map("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
+map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
