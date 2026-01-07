@@ -20,7 +20,6 @@ alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
 alias bc='eva'
 alias cat='bat'
-#alias cd='cd -P' # cd to physical location, not symlink
 
 # tree navigation
 alias ls='eza --icons'
@@ -35,39 +34,32 @@ alias H='| head'
 alias T='| tail'
 alias G='| grep'
 alias L='| less'
-alias M='| most'
+alias JQ='| jq'
 alias LL=' 2>&1 | less'
-alias CA=' 2>&1 | cat -A'
 alias NE=' 2> /dev/null'
 alias NUL=' > /dev/null 2>&1'
 
-# search
-alias ag='rg'
+# suffix aliases
+alias -s md=bat
+alias -s txt=bat
+alias -s json=bat
+alias -s go=$EDITOR
+alias -s yaml=$EDITOR
 
-# SCM
-alias update_submodules='git pull --recurse-submodules && git submodule update --recursive'
-alias _git_full_log="git log --graph --oneline --decorate"
-alias _git_prunable='git branch --merged | grep -v "\*" | egrep -v "(main|master|develop)"'
-alias bump='git commit -m "⬆️"'
+# tumx
+alias tkill="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzf); do echo \$s; tmux kill-session -t \$s; done;"
+
+# Git
 alias full_pull='git pull --all --prune --rebase && git branch -d `git branch --merged | grep -v "\*" | grep -E -v "(main|master|develop|richard)"`'
-
-# OMZ overrides (mostly git)
 alias gcm='git commit -m' 
 alias glg='git log --stat --show-signature'
 alias gstl='git stash list --date=relative' # overrides OMZ default
-
 alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(main|master|develop|richard)"`'
 alias gtt='git log -1 --format=%ai '
 alias gup='git up' # defer this to ~/gitconfig
 alias st='scm_st'
 
-# NPM / lerna
-alias bootstrap='npx lerna exec npm i && npx lerna bootstrap'
-alias scrubadubdub='rm -rf package-lock.json node_modules && npm i'
-
-# notes
-alias daily='$EDITOR note:`date +%Y-%m-%d` -c ":Writemode"'
-alias yesterday='$EDITOR note:`date -v-1d +%Y-%m-%d` -c ":Writemode"'
+# TODO: these aren't universal / cross-platform
 
 # music
 alias beet="source ~/.beets-venv/bin/activate && ~/.beets-venv/bin/beet --config ~/.local/beets/config.yaml"
@@ -82,9 +74,6 @@ alias deep_work="playerctl play && at now + 90 minutes <<< 'playerctl pause && n
 
 # Sway visor terminal size and position
 alias visor_adj="swaymsg resize set 100 ppt 80 ppt && swaymsg move absolute position 0 30"
-
-# tumx
-alias tkill="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzf); do echo \$s; tmux kill-session -t \$s; done;"
 
 if [[ -r ~/.privfiles/sh/aliases.zsh ]]; then
     . ~/.privfiles/sh/aliases.zsh
