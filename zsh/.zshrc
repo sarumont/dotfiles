@@ -22,17 +22,19 @@ fi
 
 # I either have macOS, Arch, or a Debian-based system at this point in my life
 OS=macos
+COPY=pbcopy
 if [[ -f "/etc/lsb-release" ]]; then
   OS=debian
+  COPY=wl-copy
 elif [[ -f "/etc/arch-release" ]]; then 
   OS=archlinux
+  COPY=wl-copy
 fi
 
 plugins=(
   $OS
   git
   gitfast
-  httpie
   sudo
   zsh-syntax-highlighting
 )
@@ -49,6 +51,14 @@ setopt histreduceblanks hist_ignore_dups hist_ignore_space share_history extende
 
 # vim mode
 bindkey -v
+
+# copy current command to clipboard
+copy-command() {
+  echo -n $BUFFER | $COPY
+  zle -M "copied to clipboard"
+}
+zle -N copy-command
+bindkey 'c' copy-command
 
 if [[ -r ~/.local/sh/zshrc ]]; then
   . ~/.local/sh/zshrc
