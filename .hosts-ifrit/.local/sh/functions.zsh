@@ -72,3 +72,22 @@ moov() {
   echo "--------------------------------------"
   spacectl stack task --id $stack --tail "/mnt/workspace/source/scripts/kubectl-deployment.sh $cmd $pod"
 }
+
+moov_setup() {
+  PROJECT=$(docker ps --filter "label=com.docker.compose.project" --format "{{.Label \"com.docker.compose.project\"}}" | sort -u)
+  CURRENT=$(basename $(pwd))
+  if [ ! -z "$PROJECT" ]; then
+    if [[ $CURRENT != $PROJECT ]]; then
+      echo "Bringing down project: $PROJECT"
+      CURDIR=$(pwd)
+      cd ../$PROJECT
+      make teardown
+      cd $CURDIR
+    else
+      echo "$CURRENT already set up"
+      return 0
+    fi
+  fi
+  echo "Setting up $CURRENT"
+  make setup
+}
