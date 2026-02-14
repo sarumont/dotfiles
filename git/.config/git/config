@@ -18,10 +18,11 @@
 [init]
   defaultBranch = main
 [diff]
-  algorithm = histogram
-  colorMoved = plain
-  mnemonicPrefix = true
-  renames = true
+  external = difft
+  ; algorithm = histogram
+  ; colorMoved = plain
+  ; mnemonicPrefix = true
+  ; renames = true
 [difftool]
 	prompt = true
 	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
