@@ -1,6 +1,6 @@
 window-decoration = false
 mouse-hide-while-typing = true
-theme = nord
+theme = Nord Wave
 
 # Font
 font-family = "MonaspiceNe NFM"
