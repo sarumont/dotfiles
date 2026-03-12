@@ -65,6 +65,7 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Conflicts: call out; pick safer path.
 - Unrecognized changes: assume other agent; keep going; focus your changes. If it causes issues, stop + ask user.
 - Leave breadcrumb notes in thread.
+- Always distinguish between what you know (from reading code, docs, or explicit context) and what you are assuming. Mark assumptions explicitly with the prefix [assumption] so I can catch them and correct if wrong. Do not present assumptions as facts — if you haven't verified it, say so.
 
 ## Tools
 
