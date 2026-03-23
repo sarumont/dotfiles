@@ -9,6 +9,16 @@ update_link_galleries() {
   mkdir ~/git
   ln -sf ~/work/* ~/git
   ln -sf ~/github.com/sarumont/* ~/git
+
+  # Re-link worktrees created by twt
+  if [[ -d ~/worktrees ]]; then
+    for wt in ~/worktrees/*/; do
+      [[ -f "${wt}.twt-galleries" ]] || continue
+      while IFS= read -r gallery; do
+        ln -sf "$wt" "$gallery/$(basename "$wt")"
+      done < "${wt}.twt-galleries"
+    done
+  fi
 }
 
 moov() {
