@@ -1,122 +1,118 @@
 #!/bin/bash
 #
-# Attach or create tmux session named the same as current directory.
+# Attach or create tmux session named after the target directory.
 #
-# # Attach
+# Usage:
+#   ta                         attach to existing session (if not in tmux)
+#   ta --start                 generic session in current directory
+#   ta [--mode MODE] <dir>     pick project from gallery dir, optionally specify mode
+#   ta --mode MODE <path>      direct path + mode (used by scripts like twt)
 #
-# If called with --start or without a directory name ta will create a plain
-# single window layout
-# 
-# ╭──────────────────────────────────────────────────────────╮
-# │ my_project on  main [!?] via 🐍 v3.8.8 via ©conda-env   │
-# │ ❯                                                        │
-# │                                                          │  
-# │                                                          │  
-# │                                                          │  
-# │                                                          │                 
-# │                                                          │  
-# │                                                          │  
-# │                                                          │  
-# │                                                          │  
-# │                                                          │  
-# │                                                          │  
-# ╰──────────────────────────────────────────────────────────╯
-# 
-# # Split Layout
-# 
-# When called to a specific directory ta will first ask which project to open
-# then attach or create anew session split with neovim on top.
-# 
-# ╭──────────────────────────────────────────────────────────╮
-# │                                                          │  
-# │                                                          │                 
-# │                          nvim                            │  
-# │                                                          │  
-# │                                                          │  
-# ├──────────────────────────────────────────────────────────┤
-# │ my_project on  main [!?] via 🐍 v3.8.8 via ©conda-env   │
-# │ ❯                                                        │
-# │                                                          │  
-# │                                                          │  
-# │                                                          │  
-# │                                                          │  
-# ╰──────────────────────────────────────────────────────────╯
+# Modes:
+#   generic  plain shell session
+#   code     window 1: nvim
+#   ai       window 1: nvim, window 2: claude, window 3: shell
 #
 # Forked and modified from: https://github.com/WaylonWalker/devtainer/blob/main/bin/.local/bin/ta
 
-NEOVIM_CMD="nvim -c :VtrOpenRunner -c ':Telescope find_files' -c ':VtrSendCommand gup'"
+MODE=""
+DIR=""
 
 not_in_tmux() {
   [ -z "$TMUX" ]
 }
 
-DIR=$1
+# Parse args
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --start)
+      MODE="generic"
+      shift
+      ;;
+    --mode)
+      MODE="$2"
+      shift 2
+      ;;
+    *)
+      DIR="$1"
+      shift
+      ;;
+  esac
+done
 
-# If no arguments are passed in try to immediately attach or start without further input
-echo $DIR
-if [ -z "$DIR" ]; then
+# No dir and no mode: attach to existing session or fall back to generic in cwd
+if [ -z "$DIR" ] && [ -z "$MODE" ]; then
   if not_in_tmux; then
-    tmux attach -d && exit 1 || DIR="--start"
+    tmux attach -d && exit 0
+    # attach failed (no sessions) — start generic in cwd
+    MODE="generic"
   else
     exit 1
   fi
 fi
 
-# If --start was passed in immediately start a new session based on the current directory
-if [ "$DIR" == "--start" ]; then
-  echo "starting"
-  path_name="$(basename "$PWD" | tr . -)"
-  session_name=${path_name//./_}
+# Mode set but no dir: use cwd
+if [ -z "$DIR" ]; then
+  DIR="$PWD"
+fi
+
+# Determine if DIR is a direct project path or a gallery to pick from
+is_project_dir() {
+  [ -e "$1/.git" ]
+}
+
+if is_project_dir "$DIR"; then
+  path_name="$DIR"
 else
-  # ask the user which directory to start in
-  _session_name=$(cd $DIR && ls -d */ | sed  "s|/||g" | fzf --reverse --header="Select project from $(basename $DIR) >")
-  session_name=${_session_name//./_}
-  path_name=$DIR/$_session_name
+  # Gallery: fzf pick project
+  _session_name=$(cd "$DIR" && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select project from $(basename "$DIR") >")
+  [ -z "$_session_name" ] && exit 1
+  path_name="$DIR/$_session_name"
 fi
 
+# Resolve symlinks
 if [ -L "$path_name" ]; then
-  path_name=$(readlink $path_name)
+  path_name=$(realpath "$path_name")
 fi
-echo session name is \"$session_name\"
-echo path name is $path_name
 
-if [ -z "$session_name" ]; then
-  # operation cancelled by user
-  exit 1
+# Prompt for mode if not set
+if [ -z "$MODE" ]; then
+  MODE=$(printf 'code\nai\ngeneric' | fzf --reverse --header="Select session mode >")
+  [ -z "$MODE" ] && exit 1
 fi
+
+session_name=$(basename "$path_name" | tr './' '--')
 
 session_exists() {
-  # checks if the $session_name exists
-  tmux has-session -t "=$session_name"
+  tmux has-session -t "=$session_name" 2>/dev/null
 }
 
 create_detached_session() {
-  if [ "$DIR" == "--start" ]; then
-    echo "creating new session in $path_name"
-    (TMUX='' 
-    tmux new-session -Ad -s "$session_name" -c $PWD)
-  else
-    echo "creating new session in $path_name with nvim"
-    (TMUX='' 
-    tmux new-session -Ad -s "$session_name" -c $path_name
-    tmux send-keys -t "$session_name" "$NEOVIM_CMD" Enter)
-  fi
+  TMUX='' tmux new-session -Ad -s "$session_name" -c "$path_name" -n "nvim"
+
+  case "$MODE" in
+    generic)
+      tmux rename-window -t "$session_name:nvim" "shell"
+      ;;
+    code)
+      tmux send-keys -t "$session_name:nvim" "nvim" Enter
+      ;;
+    ai)
+      tmux send-keys -t "$session_name:nvim" "nvim" Enter
+      tmux new-window -t "$session_name" -c "$path_name" -n "claude"
+      tmux send-keys -t "$session_name:claude" "claude" Enter
+      tmux new-window -t "$session_name" -c "$path_name" -n "shell"
+      tmux select-window -t "$session_name:nvim"
+      ;;
+  esac
 }
 
-create_if_needed_and_attach() {
-  if ! session_exists; then
-    create_detached_session
-  fi
-  if not_in_tmux; then
-    tmux attach -d -t "$session_name"
-  else
-    tmux switch-client -t "$session_name"
-  fi
-}
+if ! session_exists; then
+  create_detached_session
+fi
 
-attach_to_first_session() {
-  tmux attach -d -t $(tmux list-sessions -F "${session_name}" | head -n 1)
-  tmux choose-tree -Z
-}
-
-create_if_needed_and_attach || attach_to_first_session
+if not_in_tmux; then
+  tmux attach -d -t "$session_name"
+else
+  tmux switch-client -t "$session_name"
+fi
