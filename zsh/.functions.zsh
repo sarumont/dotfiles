@@ -7,34 +7,6 @@ track_lengths() {
     done
 }
 
-# run git status or svn status as apropriate
-scm_st() {
-    dir=`pwd`
-    cmd='echo "Could not find SCM repository"'
-    until test -z $dir; do
-        if test -d ${dir}/.svn; then
-            cmd="svn status"
-            break
-        fi
-        if test -d ${dir}/.git; then
-            cmd="git status"
-            break
-        fi
-        dir=${dir%/*}
-    done
-    eval $cmd
-}
-
-git_svn_version() {
-    if [[ -d .svn ]]; then
-        echo `command svnversion`
-    else
-        base=`git svn info | grep "Last Changed Rev" | awk '{print $4}'`
-        mod=`(git st | grep "modified:\|added:\|deleted:" -q) && echo "M"`
-        echo $base$mod
-    fi
-}
-
 all() {
     case $1 in 
         status)
