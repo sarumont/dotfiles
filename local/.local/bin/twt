@@ -3,78 +3,86 @@
 # twt - tmux worktree manager
 #
 # Usage:
-#   twt [ticket]    create a new git worktree for a Linear ticket
+#   twt [ticket]    create a new worktree (must be in the main repo)
+#   twt --pick      pick repo + ticket interactively from any tmux session
 #   twt --remove    interactively remove a worktree and clean up galleries
 #
 # Worktrees are stored in ~/worktrees/<repo>-<branch>.
-# Gallery symlinks are tracked in each worktree's .twt-galleries file
-# so they survive update_link_galleries rebuilds.
+# Gallery symlinks are tracked per-worktree in .twt-galleries so they
+# survive update_link_galleries rebuilds.
 
 set -e
 
 WORKTREES_DIR="$HOME/worktrees"
-GALLERIES=(~/git ~/work)
 
-# Verify inside a git repo
-if ! git rev-parse --is-inside-work-tree &>/dev/null; then
-  echo "Error: not in a git repository" >&2
+# Prefer a standalone gibr binary; fall back to uvx
+if command -v gibr &>/dev/null; then
+  GIBR="gibr"
+elif command -v uvx &>/dev/null; then
+  GIBR="uvx gibr"
+else
+  echo "Error: gibr not found (install gibr or uv)" >&2
   exit 1
 fi
 
-repo_root=$(git rev-parse --show-toplevel)
-repo_name=$(basename "$repo_root")
+# ── helpers ───────────────────────────────────────────────────────────────────
 
-# Verify we're in the main worktree, not a branch worktree
-main_worktree=$(git worktree list --porcelain | awk '/^worktree /{print $2; exit}')
-if [ "$main_worktree" != "$repo_root" ]; then
-  echo "Error: must be run from the main worktree" >&2
-  echo "  main:    $main_worktree" >&2
-  echo "  current: $repo_root" >&2
-  exit 1
-fi
-
-# Detect which galleries contain a symlink resolving to repo_root
-detect_galleries() {
-  local repo_abs
-  repo_abs=$(cd "$repo_root" && pwd -P)
-  local found=()
-  for gallery in "${GALLERIES[@]}"; do
-    [ -d "$gallery" ] || continue
-    while IFS= read -r link; do
-      target=$(realpath "$link" 2>/dev/null) || continue
-      if [ "$target" = "$repo_abs" ]; then
-        found+=("$gallery")
-        break
-      fi
-    done < <(find "$gallery" -maxdepth 1 -type l)
-  done
-  printf '%s\n' "${found[@]}"
+# Sets globals: repo_root, repo_name, main_worktree
+# Exits if not in a git repo or not in the main worktree.
+_assert_main_worktree() {
+  if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+    echo "Error: not in a git repository" >&2
+    exit 1
+  fi
+  repo_root=$(git rev-parse --show-toplevel)
+  repo_name=$(basename "$repo_root")
+  main_worktree=$(git worktree list --porcelain | awk '/^worktree /{print $2; exit}')
+  if [[ "$main_worktree" != "$repo_root" ]]; then
+    echo "Error: must be run from the main worktree" >&2
+    echo "  main:    $main_worktree" >&2
+    echo "  current: $repo_root" >&2
+    exit 1
+  fi
 }
 
-do_create() {
+_detect_galleries() {
+  local repo_abs
+  repo_abs=$(cd "$repo_root" && pwd -P)
+  for gallery in ~/git ~/work; do
+    [[ -d "$gallery" ]] || continue
+    while IFS= read -r link; do
+      local target
+      target=$(realpath "$link" 2>/dev/null) || continue
+      [[ "$target" == "$repo_abs" ]] && echo "$gallery" && break
+    done < <(find "$gallery" -maxdepth 1 -type l)
+  done
+}
+
+# Core create logic; expects repo_root/repo_name set by _assert_main_worktree
+_create() {
   local ticket="$1"
   local current_branch
   current_branch=$(git branch --show-current)
 
-  # Run gibr to create + checkout the new branch
-  if [ -n "$ticket" ]; then
-    gibr create "$ticket"
-  else
-    gibr create
+  if [[ -z "$ticket" ]]; then
+    printf "Ticket number: "
+    read -r ticket
+    [[ -z "$ticket" ]] && exit 1
   fi
+
+  $GIBR create "$ticket"
 
   local new_branch
   new_branch=$(git branch --show-current)
 
-  if [ "$new_branch" = "$current_branch" ]; then
+  if [[ "$new_branch" == "$current_branch" ]]; then
     echo "Error: no branch change detected — did gibr succeed?" >&2
     exit 1
   fi
 
-  # Return to original branch; the new branch will live in the worktree
+  # Move new branch to worktree; return main checkout to original branch
   git checkout "$current_branch"
 
-  # Sanitize branch name for use as a directory/session name
   local safe_branch="${new_branch//\//-}"
   local wt_name="${repo_name}-${safe_branch}"
   local wt_path="$WORKTREES_DIR/$wt_name"
@@ -82,11 +90,10 @@ do_create() {
   mkdir -p "$WORKTREES_DIR"
   git worktree add "$wt_path" "$new_branch"
 
-  # Detect galleries and write metadata
   local galleries
-  galleries=$(detect_galleries)
+  galleries=$(_detect_galleries)
 
-  if [ -n "$galleries" ]; then
+  if [[ -n "$galleries" ]]; then
     echo "$galleries" > "$wt_path/.twt-galleries"
     while IFS= read -r gallery; do
       ln -sf "$wt_path" "$gallery/$wt_name"
@@ -98,21 +105,48 @@ do_create() {
   ta --mode ai "$wt_path"
 }
 
+# ── commands ──────────────────────────────────────────────────────────────────
+
+do_create() {
+  _assert_main_worktree
+  _create "${1:-}"
+}
+
+do_pick() {
+  # Build repo list from ~/git, excluding worktree entries, show basenames
+  local selected
+  selected=$(
+    find ~/git -maxdepth 1 -type l 2>/dev/null | sort | while IFS= read -r link; do
+      local target
+      target=$(realpath "$link" 2>/dev/null) || continue
+      [[ "$target" == "$WORKTREES_DIR/"* ]] && continue
+      printf '%s\t%s\n' "$(basename "$link")" "$target"
+    done | fzf --reverse --header="Select repo >" --with-nth=1 --delimiter=$'\t'
+  )
+  [[ -z "$selected" ]] && exit 1
+
+  local path_name
+  path_name=$(printf '%s' "$selected" | cut -f2)
+
+  cd "$path_name" || exit 1
+  _assert_main_worktree
+  _create "$ticket"
+}
+
 do_remove() {
-  if [ ! -d "$WORKTREES_DIR" ] || [ -z "$(ls -A "$WORKTREES_DIR" 2>/dev/null)" ]; then
+  if [[ ! -d "$WORKTREES_DIR" ]] || [[ -z "$(ls -A "$WORKTREES_DIR" 2>/dev/null)" ]]; then
     echo "No worktrees found in $WORKTREES_DIR"
     exit 0
   fi
 
   local selected
   selected=$(ls "$WORKTREES_DIR" | fzf --reverse --header="Select worktree to remove >")
-  [ -z "$selected" ] && exit 1
+  [[ -z "$selected" ]] && exit 1
 
   local wt_path="$WORKTREES_DIR/$selected"
-
-  # Warn if a tmux session exists for this worktree
-  local session_name="${selected//[.\\/]/- }"
+  local session_name
   session_name=$(echo "$selected" | tr './' '--')
+
   if tmux has-session -t "=$session_name" 2>/dev/null; then
     echo "Warning: tmux session '$session_name' is still active"
     printf "Continue? [y/N] "
@@ -120,34 +154,35 @@ do_remove() {
     [[ "$confirm" =~ ^[Yy]$ ]] || exit 1
   fi
 
-  # Remove gallery symlinks
-  if [ -f "$wt_path/.twt-galleries" ]; then
+  if [[ -f "$wt_path/.twt-galleries" ]]; then
     while IFS= read -r gallery; do
       local link="$gallery/$selected"
-      if [ -L "$link" ]; then
+      if [[ -L "$link" ]]; then
         rm "$link"
         echo "Removed symlink: $link"
       fi
     done < "$wt_path/.twt-galleries"
   fi
 
-  # Remove the git worktree (prompt to force if dirty)
-  if ! git -C "$main_worktree" worktree remove "$wt_path" 2>/dev/null; then
+  # Find main worktree via git, then remove from there
+  local main_wt
+  main_wt=$(git -C "$wt_path" worktree list --porcelain | awk '/^worktree /{print $2; exit}')
+
+  if ! git -C "$main_wt" worktree remove "$wt_path" 2>/dev/null; then
     echo "Worktree has uncommitted changes."
     printf "Force remove? [y/N] "
     read -r confirm
     [[ "$confirm" =~ ^[Yy]$ ]] || exit 1
-    git -C "$main_worktree" worktree remove "$wt_path" --force
+    git -C "$main_wt" worktree remove "$wt_path" --force
   fi
 
   echo "Removed worktree: $selected"
 }
 
+# ── main ──────────────────────────────────────────────────────────────────────
+
 case "${1:-}" in
-  --remove)
-    do_remove
-    ;;
-  *)
-    do_create "${1:-}"
-    ;;
+  --pick)   do_pick ;;
+  --remove) do_remove ;;
+  *)        do_create "${1:-}" ;;
 esac
