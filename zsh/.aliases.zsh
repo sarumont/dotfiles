@@ -57,7 +57,7 @@ alias gstl='git stash list --date=relative' # overrides OMZ default
 alias gprune='git branch -d `git branch --merged | grep -v "\*" | egrep -v "(main|master|develop|richard)"`'
 alias gtt='git log -1 --format=%ai '
 alias gup='git up' # defer this to ~/gitconfig
-alias st='scm_st'
+alias st='git status'
 
 # TODO: these aren't universal / cross-platform
 
