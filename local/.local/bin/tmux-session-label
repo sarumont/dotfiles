@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# tmux-session-label - format a tmux session name for the status bar
+#
+# For worktree sessions (<repo>-<TICKET-123>-<title>), outputs:
+#   repo · TICKET-123 · ticket title
+#
+# Falls back to the raw session name for non-worktree sessions.
+
+session="${1:-}"
+[[ -z "$session" ]] && exit 0
+
+# Anchor on the Linear ticket pattern [A-Z]+-[0-9]+
+if [[ "$session" =~ ^(.+)-([A-Z]+-[0-9]+)-(.+)$ ]]; then
+  repo="${BASH_REMATCH[1]}"
+  ticket="${BASH_REMATCH[2]}"
+  title="${BASH_REMATCH[3]//-/ }"
+  [[ ${#title} -gt 25 ]] && title="${title:0:24}…"
+  printf '%s · %s · %s' "$repo" "$ticket" "$title"
+elif [[ "$session" =~ ^(.+)-([A-Z]+-[0-9]+)$ ]]; then
+  repo="${BASH_REMATCH[1]}"
+  ticket="${BASH_REMATCH[2]}"
+  printf '%s · %s' "$repo" "$ticket"
+else
+  printf '%s' "$session"
+fi

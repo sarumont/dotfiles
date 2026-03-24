@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# tmux-right-status - right-justified date for tmux status bar
+#
+# Outputs exactly STATUS_WIDTH chars with the date right-justified,
+# balancing tmux-session-label on the left so the window list stays centered.
+
+STATUS_WIDTH=38
+
+printf '%*s' "$STATUS_WIDTH" "$(date +'%a %b %d  %H:%M')"
