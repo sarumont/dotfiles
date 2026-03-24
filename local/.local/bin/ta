@@ -77,7 +77,7 @@ fi
 
 # Prompt for mode if not set
 if [ -z "$MODE" ]; then
-  MODE=$(printf 'code\nai\ngeneric' | fzf --reverse --header="Select session mode >")
+  MODE=$(printf 'ai\ncode\ngeneric' | fzf --reverse --header="Select session mode >")
   [ -z "$MODE" ] && exit 1
 fi
 

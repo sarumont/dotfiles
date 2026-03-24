@@ -13,8 +13,13 @@ post](https://waylonwalker.com/tmux-nav-2021/). Generally:
 3. I have a "visor" terminal (iTerm2 on mac, another Ghostty on Linux) that I
    summon from the top of my screen attached to a scratch tmux session for
    non-project stuff (updating packages, dotfiles, etc.)
-4. Each project tmux session will generally have the following windows:
-    1. neovim (probably with a horizontal split for running shell commands via
-       christoomey/vim-tmux-runner)
-    2. Claude Code or Codex
-    3. maybe a utility terminal, depending on what I'm doing
+4. Each project tmux session is created by `ta` with one of three modes:
+    - `generic` — plain shell (default `--start` behavior)
+    - `code` — window 1: neovim
+    - `ai` — window 1: neovim, window 2: Claude Code (`claude`), window 3: shell
+5. New worktree-based projects are spun up with `twt [ticket]`, which:
+    - Uses `gibr` to generate a branch name from a Linear ticket number
+    - Creates a git worktree at `~/worktrees/<repo>-<branch>`
+    - Symlinks it into the same galleries (`~/git`, `~/work`) as the parent repo
+    - Opens a new `ai`-mode tmux session for the worktree
+    - `twt --remove` tears it all down interactively
