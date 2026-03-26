@@ -47,6 +47,13 @@ map("n", "<leader>dr", "<cmd> DapToggleRepl <CR>", { desc = "dap Open Debugging 
 map("n", "<leader>dso", "<cmd> DapStepOver <CR>", { desc = "dap Step over current line" })
 map("n", "<leader>dsi", "<cmd> DapStepInto <CR>", { desc = "dap Step into current line" })
 map("n", "<leader>dsu", "<cmd> DapStepOut <CR>", { desc = "dap Step out of current line" })
+map("n", "<leader>dC", "<cmd> DapContinue <CR>", { desc = "dap Continue" })
+map("n", "<leader>du", function()
+  require("dapui").toggle {}
+end, { desc = "dap Open Debugging UI" })
+map("n", "<leader>de", function()
+  require("dapui").eval()
+end, { desc = "dap Eval" })
 
 -- silicon.nvim
 map("v", "<leader>sc", function()
