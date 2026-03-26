@@ -15,9 +15,10 @@ post](https://waylonwalker.com/tmux-nav-2021/). Generally:
    non-project stuff (updating packages, dotfiles, etc.)
 4. Each project tmux session is created by `ta` with one of three modes:
     - `generic` — plain shell (default `--start` behavior)
-    - `code` — window 1: neovim
+    - `code` — window 1: neovim with VtrOpenRunner
     - `ai` — window 1: neovim, window 2: Claude Code (`claude`), window 3: shell
 5. New worktree-based projects are spun up with `twt [ticket]`, which:
+    - Pulls latest on the main branch (`git up`) before branching
     - Uses `gibr` to generate a branch name from a Linear ticket number
     - Creates a git worktree at `~/worktrees/<repo>-<branch>`
     - Symlinks it into the same galleries (`~/git`, `~/work`) as the parent repo
