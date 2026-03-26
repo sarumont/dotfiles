@@ -42,7 +42,12 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
     mkdir ~/git/
     git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
     cd ~/git/dotfiles
+
+    # install stow:
     paru -S stow
+    sudo port install stow
+    nix-env -iA nixpkgs.stow
+    
     make # installs all links
 
 ## add user to useful groups (linux)
@@ -106,6 +111,10 @@ I have a private repository that is an overlay on top of this one called `privfi
                       direnv yq pinentry-mac keychain zoxide stow
     brew install mise # not available via macports :(
 
+### SteamOS (nix)
+    nix-env -iA nixpkgs.cmake
+
+
 ## zsh
     # oh my zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -125,7 +134,7 @@ I have a private repository that is an overlay on top of this one called `privfi
 ## GUI
 
     paru -S sway waybar swaylock swaybg wob \
-            alacritty firefox man-db gammastep adw-gtk-theme \
+            ghostty firefox man-db gammastep adw-gtk-theme \
             polkit playerctl grimshot xorg-xwayland \
             yubioath-desktop yubikey-manager \
             imv mpv nautilus udevil devmon cifs-utils evince neofetch \
@@ -133,11 +142,6 @@ I have a private repository that is an overlay on top of this one called `privfi
     systemctl --user enable --now playerctld
     systemctl --user enable --now devmon
     systemctl --user enable --now darkman
-
-### alacritty
-
-    mkdir -p ~/.config/alacritty/themes
-    git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 
 ### Fonts
     paru -S noto-fonts-cjk noto-fonts-emoji noto-fonts \
