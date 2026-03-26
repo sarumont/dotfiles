@@ -70,6 +70,9 @@ _create() {
     [[ -z "$ticket" ]] && exit 1
   fi
 
+  echo "Updating main branch..."
+  git up
+
   $GIBR create "$ticket"
 
   local new_branch
