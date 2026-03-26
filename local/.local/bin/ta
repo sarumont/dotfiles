@@ -97,7 +97,7 @@ create_detached_session() {
       tmux rename-window -t "$session_name:nvim" "shell"
       ;;
     code)
-      tmux send-keys -t "$session_name:nvim" "nvim" Enter
+      tmux send-keys -t "$session_name:nvim" "nvim -c VtrOpenRunner" Enter
       ;;
     ai)
       tmux send-keys -t "$session_name:nvim" "nvim" Enter
