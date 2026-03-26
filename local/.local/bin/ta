@@ -17,6 +17,7 @@
 
 MODE=""
 DIR=""
+DIRECT=0
 
 not_in_tmux() {
   [ -z "$TMUX" ]
@@ -27,6 +28,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --start)
       MODE="generic"
+      DIRECT=1
       shift
       ;;
     --mode)
@@ -61,7 +63,7 @@ is_project_dir() {
   [ -e "$1/.git" ]
 }
 
-if is_project_dir "$DIR"; then
+if [ "$DIRECT" = "1" ] || is_project_dir "$DIR"; then
   path_name="$DIR"
 else
   # Gallery: fzf pick project
