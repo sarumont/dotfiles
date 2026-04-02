@@ -1,6 +1,7 @@
 [core]
 	excludesfile = ~/gitignore
 	autocrlf = input
+  pager = less -RFX
 [alias]
 	st = status
 	co = checkout
@@ -17,15 +18,14 @@
 	gpgSign = true
 [init]
   defaultBranch = main
-[diff]
-  external = difft
-  ; algorithm = histogram
-  ; colorMoved = plain
-  ; mnemonicPrefix = true
-  ; renames = true
 [difftool]
-	prompt = true
-	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+  prompt = false
+[diff]
+  tool = difftastic
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = true
 [push]
   default = simple
   autoSetupRemote = true
