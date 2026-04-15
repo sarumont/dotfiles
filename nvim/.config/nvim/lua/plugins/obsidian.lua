@@ -24,6 +24,8 @@ return {
         return tostring(os.time()) .. "-" .. suffix
       end,
 
+      legacy_commands = false,
+
       -- drop daily notes into a subdirectory
       daily_notes = {
         folder = "daily",
