@@ -60,6 +60,22 @@ map("v", "<leader>sc", function()
   require("nvim-silicon").file()
 end, { desc = "Silicon Copy code screenshot to file" })
 
+-- treesitter: jump to enclosing block (if → if line, function body → func line, etc.)
+map("n", "[b", function()
+  local node = vim.treesitter.get_node()
+  if not node then return end
+  local cursor_row = vim.api.nvim_win_get_cursor(0)[1] - 1
+  local current = node:parent()
+  while current do
+    local start_row, start_col = current:start()
+    if start_row < cursor_row then
+      vim.api.nvim_win_set_cursor(0, { start_row + 1, start_col })
+      return
+    end
+    current = current:parent()
+  end
+end, { desc = "treesitter Go to enclosing block start" })
+
 -- editing
 map("n", "<leader>J", "<cmd>TSJToggle<cr>", { desc = "general Split/Join line intelligently" })
 
