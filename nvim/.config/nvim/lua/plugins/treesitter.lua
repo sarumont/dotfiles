@@ -2,97 +2,81 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    branch = "master",
+    branch = "main",
+    lazy = false,
     config = function()
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = {
-          -- vim
-          "vim",
-          "lua",
+      -- Disable treesitter highlight for html and large files
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "html",
+        callback = function(args)
+          vim.treesitter.stop(args.buf)
+        end,
+      })
+      vim.api.nvim_create_autocmd("BufReadPost", {
+        callback = function(args)
+          local max_filesize = 500 * 1024
+          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+          if ok and stats and stats.size > max_filesize then
+            vim.notify(
+              "File larger than 500KB, treesitter disabled for performance",
+              vim.log.levels.WARN,
+              { title = "Treesitter" }
+            )
+            vim.treesitter.stop(args.buf)
+          end
+        end,
+      })
 
-          -- web
-          "html",
-          "css",
-          "json",
-          "javascript",
-          "typescript",
+      require("nvim-treesitter").install {
+        -- vim
+        "vim",
+        "lua",
 
-          -- markup
-          "comment",
-          "markdown",
-          "markdown_inline",
-          "yaml",
+        -- web
+        "html",
+        "css",
+        "json",
+        "javascript",
+        "typescript",
 
-          -- real languages
-          "go",
-          "gomod",
-          "gowork",
-          "gosum",
-          "java",
-          "kotlin",
-          "cmake",
+        -- markup
+        "comment",
+        "markdown",
+        "markdown_inline",
+        "yaml",
 
-          -- utils
-          "bash",
-          "dockerfile",
-          "terraform",
-        },
+        -- real languages
+        "go",
+        "gomod",
+        "gowork",
+        "gosum",
+        "java",
+        "kotlin",
+        "cmake",
 
-        -- Install parsers synchronously (only applied to `ensure_installed`)
-        sync_install = false,
-
-        -- Automatically install missing parsers when entering buffer
-        -- Recommendation: set to false if you don"t have `tree-sitter` CLI installed locally
-        auto_install = true,
-
-        indent = {
-          enable = true,
-        },
-
-        highlight = {
-          -- `false` will disable the whole extension
-          enable = true,
-          disable = function(lang, buf)
-            if lang == "html" then
-              print "disabled"
-              return true
-            end
-
-            local max_filesize = 500 * 1024 -- 500 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              vim.notify(
-                "File larger than 500KB treesitter disabled for performance",
-                vim.log.levels.WARN,
-                { title = "Treesitter" }
-              )
-              return true
-            end
-          end,
-          additional_vim_regex_highlighting = { "markdown" },
-        },
+        -- utils
+        "bash",
+        "dockerfile",
+        "terraform",
       }
     end,
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    after = "nvim-treesitter/nvim-treesitter",
     lazy = false,
     config = function()
       require("treesitter-context").setup {
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        multiwindow = false, -- Enable multiwindow support.
-        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        enable = true,
+        multiwindow = false,
+        max_lines = 0,
+        min_window_height = 0,
         line_numbers = true,
-        multiline_threshold = 20, -- Maximum number of lines to show for a single context
-        trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
-        -- Separator between context and content. Should be a single character string, like '-'.
-        -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+        multiline_threshold = 20,
+        trim_scope = "outer",
+        mode = "cursor",
         separator = nil,
-        zindex = 20, -- The Z-index of the context window
-        on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+        zindex = 20,
+        on_attach = nil,
       }
     end,
   },
