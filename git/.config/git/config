@@ -3,11 +3,12 @@
 	autocrlf = input
   pager = less -RFX
 [alias]
-	st = status
-	co = checkout
-	up = !git fetch && git rebase --autostash FETCH_HEAD
 	ci = commit
+	co = checkout
 	pr = pull --rebase
+	st = status
+	up = !git fetch && git rebase --autostash FETCH_HEAD
+  dlog = -c diff.external=difft log --ext-diff
   powerwash = !git up && git clean-merged
 [column]
   ui = auto
@@ -21,7 +22,7 @@
 [difftool]
   prompt = false
 [diff]
-  tool = difftastic
+  external = difft
 [difftool "difftastic"]
   cmd = difft "$LOCAL" "$REMOTE"
 [pager]
