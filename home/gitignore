@@ -3,8 +3,7 @@
 *.un~
 libpeerconnection.log
 
-# OS X stuff
-#
+# macOS stuff
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -27,3 +26,6 @@ Temporary Items
 .apdisk
 
 .twt-galleries
+
+# Local AI agent configs
+.claude/settings.local.json
