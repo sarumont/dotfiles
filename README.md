@@ -205,7 +205,7 @@ Configure power management via the [Arch Wiki article](https://wiki.archlinux.or
     paru -S python imagemagick
     python -m venv ~/.beets-venv
     source ~/.beets-venv/bin/activate
-    pip install beets pylast pyxdg httpx flask requests beets-xtractor beets-copyartifacts
+    pip install beets pylast pyxdg httpx flask requests beets-xtractor beets-copyartifacts3
 
 Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
 
