@@ -3,6 +3,7 @@ mouse-hide-while-typing = true
 theme = Nord Wave
 
 # Font
+font-size = 14
 font-family = "MonaspiceNe NFM"
 font-style = Medium
 font-style-bold = Bold
