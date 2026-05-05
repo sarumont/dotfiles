@@ -18,6 +18,7 @@ return {
     opts = function(_, opts)
       opts.adapters = opts.adapters or {}
       opts.adapters["neotest-golang"] = {
+        warn_test_name_dupes = false,
         go_test_args = {
           "-v",
           "-race",
