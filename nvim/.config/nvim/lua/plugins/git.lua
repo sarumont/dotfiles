@@ -8,6 +8,25 @@ return {
     end,
   },
   {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewToggleFiles",
+      "DiffviewFocusFiles",
+      "DiffviewFileHistory",
+    },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diff working tree" },
+      { "<leader>gD", "<cmd>DiffviewOpen origin/main<cr>", desc = "Diff vs origin/main" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
+      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Repo history" },
+      { "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "Close diffview" },
+    },
+    opts = {},
+  },
+  {
     "tpope/vim-fugitive",
     keys = {
       { "<leader>gd", ":Git diff<cr>", desc = "Git diff of the entire buffer" },
