@@ -63,7 +63,9 @@ end, { desc = "Silicon Copy code screenshot to file" })
 -- treesitter: jump to enclosing block (if → if line, function body → func line, etc.)
 map("n", "[b", function()
   local node = vim.treesitter.get_node()
-  if not node then return end
+  if not node then
+    return
+  end
   local cursor_row = vim.api.nvim_win_get_cursor(0)[1] - 1
   local current = node:parent()
   while current do
@@ -96,3 +98,21 @@ map(
 )
 map("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
 map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
+
+-- review.nvim
+map("n", "<leader>rc", function()
+  require("review").add_comment()
+end, { desc = "review Add a comment" })
+map("n", "<leader>ro", function()
+  require("review").open_review()
+end, { desc = "review Open .review.md" })
+map("n", "<leader>rs", function()
+  require("review").show_comments()
+end, { desc = "review Refresh review comments" })
+
+-- diffview.nvim
+map("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Diff working tree" })
+map("n", "<leader>gD", "<cmd>DiffviewOpen origin/main<cr>", { desc = "Diff vs origin/main" })
+map("n", "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", { desc = "File history" })
+map("n", "<leader>gH", "<cmd>DiffviewFileHistory<cr>", { desc = "Repo history" })
+map("n", "<leader>gx", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" })
