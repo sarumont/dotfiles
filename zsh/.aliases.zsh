@@ -59,6 +59,9 @@ alias gtt='git log -1 --format=%ai '
 alias gup='git up' # defer this to ~/gitconfig
 alias st='git status'
 
+# AI tooling
+alias claude='claude --enable-auto-mode'
+
 # TODO: these aren't universal / cross-platform
 
 # music

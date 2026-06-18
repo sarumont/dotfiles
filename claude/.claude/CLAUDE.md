@@ -30,7 +30,7 @@ installing it via Homebrew before proceeding with an inferior alternative.
 
 ### Search
 - **ripgrep (rg)** — fast file content search, use before Edit to confirm
-  exact match strings
+  exact match strings. Use instead of `grep`
   - Check: `which rg`
   - Install: `brew install ripgrep`
 
