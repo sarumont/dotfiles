@@ -54,3 +54,7 @@
   autoSquash = true
   autoStash = true
   updateRefs = true
+[url "git@github.com:"]
+  # Always use SSH for GitHub, including go module fetches (go get builds
+  # https:// URLs from module paths and would otherwise prompt for creds).
+  insteadOf = https://github.com/
