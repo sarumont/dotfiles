@@ -69,6 +69,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Active PR: `gh pr view --json number,title,url --jq '"PR #\\(.number): \\(.title)\\n\\(.url)"'`.
 - PR comments: `gh pr view …` + `gh api …/comments --paginate`.
 - Replies: cite fix + file/line; resolve threads only after fix lands.
+- Slack review requests: include both GitHub and Graphite links for each PR, prefixed exactly with `:github:` and `:graphite:`.
 - When merging a PR: thank the contributor in `CHANGELOG.md`.
 
 ### Git
