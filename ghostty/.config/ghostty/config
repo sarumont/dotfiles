@@ -10,3 +10,5 @@ font-style-bold = Bold
 font-style-italic = Medium Italic
 font-style-bold-italic = Bold Italic
 keybind = shift+enter=text:\x1b\r
+
+config-file = ?config-macos
