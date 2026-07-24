@@ -1,0 +1,58 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+a"
+
+# status-bar toggle equivalent (tmux: bind-key s set-option status)
+# settings moved off 's' to make room
+toggle_sidebar = "prefix+s"
+settings = "prefix+shift+s"
+
+# match vanilla tmux detach (prefix+d); herdr defaults to prefix+q
+detach = "prefix+d"
+
+# last-session toggle (tmux: bind C-b / C-B switch-client -l)
+# ctrl+b is free now that prefix moved to ctrl+a
+previous_workspace = "prefix+ctrl+b"
+
+# Workspace navigation is handled by the fzf popup below.
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+
+# Disable the built-in scrolling workspace picker.
+workspace_picker = ""
+
+# Workspace creation workflows
+# Disable the built-in binding; prefix+shift+n uses the named-root prompt below.
+new_workspace = ""
+
+# Match tmux split keys: % creates side-by-side panes; " creates stacked panes.
+split_vertical = "prefix+%"
+split_horizontal = 'prefix+"'
+
+# Custom workspace commands
+[[keys.command]]
+key = "prefix+w"
+type = "popup"
+command = "herdr-workspace-switch"
+
+[[keys.command]]
+key = "prefix+shift+n"
+type = "popup"
+command = "herdr-workspace-new"
+
+[[keys.command]]
+key = "prefix+ctrl+w"
+type = "popup"
+command = "herdr-workspace-pick"
+
+# Everything else (focus_pane_h/j/k/l, zoom=z, reload_config=shift+r)
+# already matches the tmux config's intent under herdr's defaults — left unset.
+
+[ui]
+# skip the name prompt when creating a tab (prefix+c); auto-generate instead
+prompt_new_tab_name = false
+
+[theme]
+name = "one-dark"
+auto_switch = false

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -eu
+
+selected=$(
+	herdr workspace list |
+		jq -r '.result.workspaces[] | [.workspace_id, .label, .number, .pane_count, .tab_count] | @tsv' |
+		fzf --reverse --with-nth=2.. --delimiter='\t' --prompt='Workspace> '
+) || exit 0
+
+[ -n "$selected" ] || exit 0
+workspace_id=$(printf '%s\n' "$selected" | cut -f1)
+exec herdr workspace focus "$workspace_id"

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -eu
+
+root="$HOME/github.com/moovfinancial"
+selected=$(
+	find "$root" -mindepth 1 -maxdepth 1 -type d -print |
+		fzf --reverse --prompt='Workspace> '
+) || exit 0
+
+[ -n "$selected" ] || exit 0
+label=${selected##*/}
+exec herdr workspace create --cwd "$selected" --label "$label" --focus
