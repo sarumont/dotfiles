@@ -3,21 +3,45 @@
 set -eu
 
 root="$HOME/git"
-printf 'Task name: ' >&2
-IFS= read -r task_name || exit 0
-[ -n "$task_name" ] || exit 0
 
-selected=$(
+list_repos() {
 	for repo in "$root"/*; do
 		[ -d "$repo" ] && basename "$repo"
-	done |
-		fzf --multi --reverse --prompt='Repositories> ' \
-			--header='Tab to select repositories, Enter to create task workspace'
+	done
+}
+
+mode=$(
+	printf '%s\n' single-repo multi-repo |
+		fzf --reverse --prompt='Workflow> ' \
+			--header='Choose a single-repo or multi-repo task'
 ) || exit 0
 
-[ -n "$selected" ] || exit 0
+case "$mode" in
+single-repo)
+	selected=$(list_repos | fzf --reverse --prompt='Repository> ') || exit 0
+	[ -n "$selected" ] || exit 0
+	task_name=$selected
+	workspace_cwd="$root/$selected"
+	;;
+multi-repo)
+	printf 'Task name: ' >&2
+	IFS= read -r task_name || exit 0
+	[ -n "$task_name" ] || exit 0
 
-herdr workspace create --cwd "$root" --label "$task_name" --focus >/dev/null
+	selected=$(
+		list_repos |
+			fzf --multi --reverse --prompt='Repositories> ' \
+				--header='Tab to select repositories, Enter to create task workspace'
+	) || exit 0
+	[ -n "$selected" ] || exit 0
+	workspace_cwd="$root"
+	;;
+*)
+	exit 0
+	;;
+esac
+
+herdr workspace create --cwd "$workspace_cwd" --label "$task_name" --focus >/dev/null
 workspace_id=$(
 	herdr workspace list |
 		jq -r --arg label "$task_name" '.result.workspaces[] | select(.focused == true and .label == $label) | .workspace_id' |
