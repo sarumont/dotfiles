@@ -82,4 +82,6 @@ printf '%s\n' "$selected" | while IFS= read -r repo_name; do
 	herdr pane split "$nvim_pane" --direction down --ratio 0.7 --cwd "$repo" --no-focus >/dev/null
 done
 
+nohup python3 -c 'import os, sys; os.setsid(); os.execvp(sys.argv[1], sys.argv[1:])' \
+	herdr-workspace-git-status "$workspace_id" >/dev/null 2>&1 </dev/null &
 herdr tab focus "$initial_tab"
