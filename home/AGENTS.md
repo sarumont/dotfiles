@@ -66,9 +66,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ## 5. Tools
 
 ### Github PR Feedback
+- Never merge pull requests. Agents may create and update PRs, but merging always remains a human action.
 - Active PR: `gh pr view --json number,title,url --jq '"PR #\\(.number): \\(.title)\\n\\(.url)"'`.
 - PR comments: `gh pr view …` + `gh api …/comments --paginate`.
-- Replies: cite fix + file/line; resolve threads only after fix lands.
+- Replies: cite fix + file/line. Only auto-resolve threads from @sarumont or bots after the fix lands; do not auto-resolve threads opened by other humans.
 - Slack review requests: include both GitHub and Graphite links for each PR, prefixed exactly with `:github:` and `:graphite:`.
 - When merging a PR: thank the contributor in `CHANGELOG.md`.
 
@@ -83,6 +84,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     - format commit messages as per Conventional Commits
     - prefer small, atomic commits
 - Prefer to use Graphite (`gt` CLI tool) and PR stacking
+- Create PRs as drafts unless explicitly instructed to publish them.
 - If not using Graphite:
     - Create branches using `gibr`, if available. Prompt for ticket number from user.
     - If user types a command (“pull and push”), that’s consent for that command.
