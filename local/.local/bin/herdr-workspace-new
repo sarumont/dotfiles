@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -eu
+
+root="$HOME/github.com/moovfinancial"
+printf 'Workspace name: ' >&2
+IFS= read -r name || exit 0
+[ -n "$name" ] || exit 0
+
+exec herdr workspace create --cwd "$root" --label "$name" --focus
