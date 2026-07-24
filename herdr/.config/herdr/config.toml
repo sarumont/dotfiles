@@ -64,6 +64,27 @@ tabs = "cmd"
 # skip the name prompt when creating a tab (prefix+c); auto-generate instead
 prompt_new_tab_name = false
 
+# Show one custom Git-status row per repository in task workspaces.
+[ui.sidebar.spaces]
+rows = [
+  ["state_icon", "workspace"],
+  ["branch", "git_status"],
+  ["$repo_01_status", { token = "$repo_01_sync", fg = "#f38ba8" }],
+  ["$repo_02_status", { token = "$repo_02_sync", fg = "#f38ba8" }],
+  ["$repo_03_status", { token = "$repo_03_sync", fg = "#f38ba8" }],
+  ["$repo_04_status", { token = "$repo_04_sync", fg = "#f38ba8" }],
+  ["$repo_05_status", { token = "$repo_05_sync", fg = "#f38ba8" }],
+  ["$repo_06_status", { token = "$repo_06_sync", fg = "#f38ba8" }],
+  ["$repo_07_status", { token = "$repo_07_sync", fg = "#f38ba8" }],
+  ["$repo_08_status", { token = "$repo_08_sync", fg = "#f38ba8" }],
+  ["$repo_09_status", { token = "$repo_09_sync", fg = "#f38ba8" }],
+  ["$repo_10_status", { token = "$repo_10_sync", fg = "#f38ba8" }],
+  ["$repo_11_status", { token = "$repo_11_sync", fg = "#f38ba8" }],
+  ["$repo_12_status", { token = "$repo_12_sync", fg = "#f38ba8" }],
+  ["$repo_13_status", { token = "$repo_13_sync", fg = "#f38ba8" }],
+  ["$repo_14_status", { token = "$repo_14_sync", fg = "#f38ba8" }],
+]
+
 [theme]
 name = "one-dark"
 auto_switch = false
