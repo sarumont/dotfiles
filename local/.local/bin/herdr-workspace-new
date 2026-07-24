@@ -2,7 +2,7 @@
 
 set -eu
 
-root="$HOME/github.com/moovfinancial"
+root="$HOME/git"
 printf 'Workspace name: ' >&2
 IFS= read -r name || exit 0
 [ -n "$name" ] || exit 0

@@ -19,6 +19,9 @@ previous_workspace = "prefix+ctrl+b"
 navigate_workspace_up = "k"
 navigate_workspace_down = "j"
 
+# Tab switching: both prefix+1..9 and direct macOS cmd+1..9.
+switch_tab = "prefix+1..9"
+
 # Disable the built-in scrolling workspace picker.
 workspace_picker = ""
 
@@ -39,15 +42,23 @@ command = "herdr-workspace-switch"
 [[keys.command]]
 key = "prefix+shift+n"
 type = "popup"
-command = "herdr-workspace-new"
+command = "herdr-workspace-task"
 
 [[keys.command]]
 key = "prefix+ctrl+w"
 type = "popup"
 command = "herdr-workspace-pick"
 
+[[keys.command]]
+key = "prefix+shift+o"
+type = "popup"
+command = "herdr-agent-waiting"
+
 # Everything else (focus_pane_h/j/k/l, zoom=z, reload_config=shift+r)
 # already matches the tmux config's intent under herdr's defaults — left unset.
+
+[keys.indexed]
+tabs = "cmd"
 
 [ui]
 # skip the name prompt when creating a tab (prefix+c); auto-generate instead

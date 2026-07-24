@@ -2,12 +2,14 @@
 
 set -eu
 
-root="$HOME/github.com/moovfinancial"
+root="$HOME/git"
 selected=$(
-	find "$root" -mindepth 1 -maxdepth 1 -type d -print |
+	for repo in "$root"/*; do
+		[ -d "$repo" ] && basename "$repo"
+	done |
 		fzf --reverse --prompt='Workspace> '
 ) || exit 0
 
 [ -n "$selected" ] || exit 0
-label=${selected##*/}
-exec herdr workspace create --cwd "$selected" --label "$label" --focus
+label=$selected
+exec herdr workspace create --cwd "$root/$label" --label "$label" --focus
