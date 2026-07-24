@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -eu
+
+agents=$(herdr agent list)
+workspaces=$(herdr workspace list)
+tabs=$(herdr tab list)
+
+selected=$(
+	printf '%s\n' "$agents" |
+		jq -r \
+			--argjson workspaces "$workspaces" \
+			--argjson tabs "$tabs" '
+				.result.agents[]
+				| select(.agent_status == "blocked" or .agent_status == "done")
+				| . as $agent
+				| ($workspaces.result.workspaces[] | select(.workspace_id == $agent.workspace_id) | .label) as $workspace
+				| ($tabs.result.tabs[] | select(.tab_id == $agent.tab_id) | .label) as $tab
+				| [$agent.pane_id, $agent.agent_status, $agent.agent, $workspace, $tab, $agent.cwd]
+				| @tsv
+			' |
+		awk -F '\t' '{printf "%s\t%-8s %-10s %-28s %-16s %s\n", $1, $2, $3, $4, $5, $6}' |
+		fzf --reverse --with-nth=2.. --delimiter='\t' \
+			--header='STATUS   AGENT      WORKSPACE                     TAB              CWD' \
+			--no-info --prompt='Waiting> '
+) || exit 0
+
+[ -n "$selected" ] || exit 0
+pane_id=$(printf '%s\n' "$selected" | cut -f1)
+exec herdr agent focus "$pane_id"

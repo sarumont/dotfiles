@@ -5,7 +5,10 @@ set -eu
 selected=$(
 	herdr workspace list |
 		jq -r '.result.workspaces[] | [.workspace_id, .label, .number, .pane_count, .tab_count] | @tsv' |
-		fzf --reverse --with-nth=2.. --delimiter='\t' --prompt='Workspace> '
+		awk -F '\t' '{printf "%s\t%-28s %3s  %5s  %4s\n", $1, $2, $3, $4, $5}' |
+		fzf --reverse --with-nth=2.. --delimiter='\t' \
+			--header='WORKSPACE                     #  PANES  TABS' \
+			--no-info --prompt='Workspace> '
 ) || exit 0
 
 [ -n "$selected" ] || exit 0
