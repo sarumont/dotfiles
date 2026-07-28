@@ -140,3 +140,8 @@ zprof_on_prompt() {
   precmd_functions=("${(@)precmd_functions:#zprof_on_prompt}")
 }
 #precmd_functions+=(zprof_on_prompt)
+
+# Keep Herdr tab indices and multi-repo Git status synchronized globally.
+if command -v herdr-workspace-git-status &> /dev/null; then
+  herdr-workspace-git-status >/dev/null 2>&1 &!
+fi

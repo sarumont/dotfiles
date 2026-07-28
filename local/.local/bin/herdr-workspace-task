@@ -82,6 +82,10 @@ printf '%s\n' "$selected" | while IFS= read -r repo_name; do
 	herdr pane split "$nvim_pane" --direction down --ratio 0.7 --cwd "$repo" --no-focus >/dev/null
 done
 
-nohup python3 -c 'import os, sys; os.setsid(); os.execvp(sys.argv[1], sys.argv[1:])' \
-	herdr-workspace-git-status "$workspace_id" >/dev/null 2>&1 </dev/null &
+herdr tab list --workspace "$workspace_id" |
+	jq -r '.result.tabs[] | [.number, .tab_id, .label] | @tsv' |
+	while IFS="$(printf '\t')" read -r number tab_id label; do
+		herdr tab rename "$tab_id" "$number: $label"
+	done
+
 herdr tab focus "$initial_tab"

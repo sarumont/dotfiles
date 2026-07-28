@@ -8,9 +8,13 @@
     "gpt-5.6*",
     "claude-*"
   ],
-  "lastChangelogVersion": "0.80.6",
+  "lastChangelogVersion": "0.82.1",
   "packages": [
     "https://github.com/umputun/revdiff",
-    "npm:pi-graphite"
+    "npm:pi-graphite",
+    "npm:pi-herdr-subagents"
+  ],
+  "skills": [
+    "~/github.com/moovfinancial/agent-skills"
   ]
 }
