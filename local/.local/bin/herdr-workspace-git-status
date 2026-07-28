@@ -1,17 +1,37 @@
 #!/bin/sh
 
-set -eu
+set -u
 
-workspace_id=$1
-source="herdr-task-git:$workspace_id"
+lock="${TMPDIR:-/tmp}/herdr-workspace-git-status.lock"
+if ! mkdir "$lock" 2>/dev/null; then
+	exit 0
+fi
+trap 'rmdir "$lock"' EXIT HUP INT TERM
+printf '%s\n' "$$" >"$lock/pid"
 
-while herdr workspace get "$workspace_id" >/dev/null 2>&1; do
+sync_workspace() {
+	workspace_id=$1
+
+	herdr tab list --workspace "$workspace_id" 2>/dev/null |
+		jq -r '.result.tabs | to_entries[] | [(.key + 1), .value.tab_id, .value.label] | @tsv' |
+		while IFS="$(printf '\t')" read -r number tab_id label; do
+			base_label=$(printf '%s\n' "$label" | sed -E 's/^[0-9]+: //')
+			desired="$number: $base_label"
+			[ "$label" = "$desired" ] || herdr tab rename "$tab_id" "$desired" >/dev/null 2>&1
+		done
+
+	repos=$(herdr pane list --workspace "$workspace_id" 2>/dev/null |
+		jq -r '.result.panes[].cwd' |
+		while IFS= read -r repo; do
+			git -C "$repo" rev-parse --show-toplevel 2>/dev/null
+		done | sort -u)
+	repo_count=$(printf '%s\n' "$repos" | awk 'NF { count++ } END { print count + 0 }')
+	[ "$repo_count" -ge 2 ] || return
+
 	index=1
 	while IFS= read -r repo; do
 		[ -n "$repo" ] || continue
-		top=$(git -C "$repo" rev-parse --show-toplevel 2>/dev/null) || continue
-
-		repo_name=$(basename "$top")
+		repo_name=$(basename "$repo")
 		dirty=$(git -C "$repo" status --porcelain 2>/dev/null)
 		counts=$(git -C "$repo" rev-list --left-right --count HEAD...@{upstream} 2>/dev/null || true)
 		ahead=$(printf '%s\n' "$counts" | awk '{print $1 + 0}')
@@ -30,22 +50,31 @@ while herdr workspace get "$workspace_id" >/dev/null 2>&1; do
 
 		if [ -n "$sync" ]; then
 			herdr workspace report-metadata "$workspace_id" \
-				--source "$source" \
+				--source "herdr-task-git:global" \
 				--token "$status_key=$status" \
 				--token "$sync_key=$sync" \
-				--ttl-ms 15000 >/dev/null
+				--ttl-ms 15000 >/dev/null 2>&1
 		else
 			herdr workspace report-metadata "$workspace_id" \
-				--source "$source" \
+				--source "herdr-task-git:global" \
 				--clear-token "$sync_key" \
 				--token "$status_key=$status" \
-				--ttl-ms 15000 >/dev/null
+				--ttl-ms 15000 >/dev/null 2>&1
 		fi
+
 		index=$((index + 1))
 		[ "$index" -le 14 ] || break
 	done <<EOF
-$(herdr pane list --workspace "$workspace_id" | jq -r '.result.panes[].cwd' | sort -u)
+$repos
 EOF
+}
 
+while :; do
+	workspace_ids=$(herdr workspace list 2>/dev/null |
+		jq -r '.result.workspaces[].workspace_id' 2>/dev/null || true)
+	printf '%s\n' "$workspace_ids" | while IFS= read -r workspace_id; do
+		[ -n "$workspace_id" ] || continue
+		sync_workspace "$workspace_id"
+	done
 	sleep 5
 done
