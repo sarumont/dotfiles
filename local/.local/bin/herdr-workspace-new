@@ -7,4 +7,43 @@ printf 'Workspace name: ' >&2
 IFS= read -r name || exit 0
 [ -n "$name" ] || exit 0
 
-exec herdr workspace create --cwd "$root" --label "$name" --focus
+ticket=$(printf '%s\n' "$name" | grep -Eo '[[:alpha:]]+-[[:digit:]]+' | head -n 1 || true)
+
+herdr workspace create --cwd "$root" --label "$name" --focus >/dev/null
+workspace_id=$(
+	herdr workspace list |
+		jq -r --arg label "$name" '.result.workspaces[] | select(.focused == true and .label == $label) | .workspace_id' |
+		head -n 1
+)
+[ -n "$workspace_id" ] || exit 1
+
+pi_tab=$(
+	herdr tab list --workspace "$workspace_id" |
+		jq -r '.result.tabs[0].tab_id'
+)
+herdr tab rename "$pi_tab" pi
+
+pi_pane=$(
+	herdr pane list --workspace "$workspace_id" |
+		jq -r --arg tab "$pi_tab" '.result.panes[] | select(.tab_id == $tab) | .pane_id' |
+		head -n 1
+)
+herdr pane run "$pi_pane" pi
+
+if [ -n "$ticket" ]; then
+	herdr pane split "$pi_pane" \
+		--direction right \
+		--ratio 0.7 \
+		--cwd "$root" \
+		--no-focus >/dev/null
+	ticket_pane=$(
+		herdr pane list --workspace "$workspace_id" |
+			jq -r --arg tab "$pi_tab" --arg original "$pi_pane" \
+				'.result.panes[] | select(.tab_id == $tab and .pane_id != $original) | .pane_id' |
+			head -n 1
+	)
+	[ -n "$ticket_pane" ] || exit 1
+	herdr pane run "$ticket_pane" linear i v "$ticket"
+fi
+
+herdr tab focus "$pi_tab"
