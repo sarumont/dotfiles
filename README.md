@@ -239,6 +239,32 @@ Development tools. Season these to taste based on your needs.
 
     sudo port install go delve
 
+### Zoekt + Pi agents
+
+[Zoekt](https://github.com/sourcegraph/zoekt) provides fast cross-repository code search. Install its Go commands into Pi's existing bin directory, and install Universal Ctags for symbol-aware ranking:
+
+    brew install universal-ctags
+    GOBIN="$HOME/.pi/agent/bin" go install \\
+      github.com/sourcegraph/zoekt/cmd/zoekt@latest \\
+      github.com/sourcegraph/zoekt/cmd/zoekt-git-index@latest \\
+      github.com/sourcegraph/zoekt/cmd/zoekt-local-sync@latest
+
+Index all local repositories under `~/github.com`:
+
+    zoekt-local-sync -index "$HOME/.zoekt" -f "$HOME/github.com"
+
+Use `-f` only to apply the sync; omitting it previews changes. The supplied roots are the complete desired set, so repositories no longer found below them are removed from the index. Search examples:
+
+    zoekt -index_dir "$HOME/.zoekt" -r -l 'WalletService GetDefault'
+    zoekt -index_dir "$HOME/.zoekt" -jsonl 'wallet file:*.go'
+    zoekt -index_dir "$HOME/.zoekt" 'wallet repo:transfers-config'
+
+Refresh the index after pulling or creating repositories:
+
+    zoekt-local-sync -index "$HOME/.zoekt" -f "$HOME/github.com"
+
+For Pi agents, add a global skill at `~/.pi/agent/skills/zoekt/SKILL.md` explaining that Zoekt is for broad, read-only discovery and that `rg`/file reads must verify current working-tree results. Start a new Pi session after adding the skill.
+
 ## Kubernetes
 
     paru -S kubectl terragrunt helm telepresence2

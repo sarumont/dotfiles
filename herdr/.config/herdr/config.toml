@@ -35,7 +35,7 @@ split_horizontal = 'prefix+"'
 
 # Custom workspace commands
 [[keys.command]]
-key = "prefix+w"
+key = "prefix+ctrl+o"
 type = "popup"
 command = "herdr-workspace-switch"
 
