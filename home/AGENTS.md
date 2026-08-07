@@ -70,7 +70,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Active PR: `gh pr view --json number,title,url --jq '"PR #\\(.number): \\(.title)\\n\\(.url)"'`.
 - PR comments: `gh pr view …` + `gh api …/comments --paginate`.
 - Replies: cite fix + file/line. Only auto-resolve threads from @sarumont or bots after the fix lands; do not auto-resolve threads opened by other humans.
-- Slack review requests: include both GitHub and Graphite links for each PR, prefixed exactly with `:github:` and `:graphite:`.
+- Slack review requests: post only the links, nothing else — no preamble, summary, or commentary. For each PR emit exactly two lines: `:github:` + the GitHub PR URL (bare), then `:graphite:` + the Graphite PR URL wrapped in angle brackets `<…>` so Slack shows only one preview. Multiple PRs = repeat the pair per PR.
 - When merging a PR: thank the contributor in `CHANGELOG.md`.
 
 ### Git
@@ -104,3 +104,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ### gh
 - GitHub CLI for PRs/CI/releases. Given issue/PR URL (or `/pull/5`): use `gh`, not web search.
 - Examples: `gh issue view <url> --comments -R owner/repo`, `gh pr view <url> --comments --files -R owner/repo`.
+
+## Languages
+
+### Go
+
+- use `new()` to create pointers from values (new syntax in 1.26) instead of
+  custom helper functions
