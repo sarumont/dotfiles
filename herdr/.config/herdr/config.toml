@@ -88,3 +88,7 @@ rows = [
 [theme]
 name = "one-dark"
 auto_switch = false
+
+[session]
+# Resume supported AI-agent panes after Herdr restores the workspace layout.
+resume_agents_on_restore = true
