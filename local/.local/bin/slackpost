@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# slackpost <channel-id-or-#name> <message...>
+# Posts to Slack as your user via browser session tokens. Link previews are
+# suppressed (unfurl_links/unfurl_media=false).
+#
+# Requires (from ~/.local/sh/moov.zshenv):
+#   SLACK_WEB_TOKEN      xoxc-... (web token, from localStorage localConfig_v2)
+#   SLACK_SESSION_TOKEN  xoxd-... (the `d` session cookie value)
+set -euo pipefail
+
+: "${SLACK_WEB_TOKEN:?set SLACK_WEB_TOKEN (xoxc-...) in ~/.local/sh/moov.zshenv}"
+: "${SLACK_SESSION_TOKEN:?set SLACK_SESSION_TOKEN (xoxd-...) in ~/.local/sh/moov.zshenv}"
+
+if [ "$#" -lt 2 ]; then
+  echo "usage: slackpost <channel-id-or-#name> <message...>" >&2
+  exit 2
+fi
+
+channel="$1"; shift
+
+curl -sS https://slack.com/api/chat.postMessage \
+  -H "Authorization: Bearer ${SLACK_WEB_TOKEN}" \
+  -H "Cookie: d=${SLACK_SESSION_TOKEN}" \
+  -H 'Content-type: application/json; charset=utf-8' \
+  --data "$(jq -n --arg c "$channel" --arg t "$*" \
+    '{channel:$c, text:$t, unfurl_links:false, unfurl_media:false}')" \
+| jq -r 'if .ok then "posted to \(.channel) @ \(.ts)" else "slack error: \(.error)" end'
