@@ -9,9 +9,15 @@ while [[ -h "$SOURCE" ]]; do
 done
 
 DOTFILES_DIR="$(cd -- "$(dirname -- "$SOURCE")/../../.." && pwd)"
-SKILLS_DIR="$HOME/github.com/moovfinancial/agent-skills"
-ZOEKT_INDEX="$HOME/.zoekt"
-ZOEKT_ROOT="$HOME/github.com"
+
+[ -r "$HOME/.local/sh/dirs.env" ] && . "$HOME/.local/sh/dirs.env"
+host_name=$(hostname -s)
+host_dirs="$HOME/.local/sh/dirs-$host_name.env"
+[ -r "$host_dirs" ] && . "$host_dirs"
+: "${PI_BIN_DIR:=$HOME/.pi/agent/bin}"
+: "${ZOEKT_INDEX_DIR:=$HOME/.zoekt}"
+: "${REPO_ROOT:=$HOME/github.com}"
+: "${SKILLS_DIRS:=}"
 
 echo "Dotfiles: $DOTFILES_DIR"
 cd "$DOTFILES_DIR"
@@ -31,20 +37,26 @@ printf '%s\n' '==> Restowing host-specific configuration'
 make host
 
 printf '%s\n' '==> Updating Zoekt binaries'
-GOBIN="$HOME/.pi/agent/bin" go install \
+GOBIN="$PI_BIN_DIR" go install \
   github.com/sourcegraph/zoekt/cmd/zoekt@latest \
   github.com/sourcegraph/zoekt/cmd/zoekt-git-index@latest \
   github.com/sourcegraph/zoekt/cmd/zoekt-local-sync@latest
 
 printf '%s\n' '==> Refreshing Zoekt index'
-zoekt-local-sync -index "$ZOEKT_INDEX" -f "$ZOEKT_ROOT"
+zoekt-local-sync -index "$ZOEKT_INDEX_DIR" -f "$REPO_ROOT"
 
-if [[ -d "$SKILLS_DIR/.git" ]]; then
-  printf '%s\n' '==> Updating external Moov skills'
-  git -C "$SKILLS_DIR" pull --ff-only
-else
-  printf '==> Skipping external Moov skills: %s is not a Git checkout\n' "$SKILLS_DIR"
-fi
+old_ifs=$IFS
+IFS=:
+for skills_dir in $SKILLS_DIRS; do
+  [ -n "$skills_dir" ] || continue
+  if [[ -d "$skills_dir/.git" ]]; then
+    printf '==> Updating skills: %s\n' "$skills_dir"
+    git -C "$skills_dir" pull --ff-only
+  else
+    printf '==> Skipping skills: %s is not a Git checkout\n' "$skills_dir"
+  fi
+done
+IFS=$old_ifs
 
 printf '%s\n' '==> Validating and reloading Herdr'
 HERDR_CONFIG_PATH="$DOTFILES_DIR/herdr/.config/herdr/config.toml" herdr config check

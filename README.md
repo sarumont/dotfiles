@@ -50,6 +50,14 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
     
     make # installs all links
 
+### Shared directory definitions
+
+Shell scripts source the POSIX-compatible `~/.local/sh/dirs.env` contract. It defines
+`REPO_ROOT`, `REPO_GALLERY_DIR`, `WORK_GALLERY_DIR`, `WORKTREES_DIR`, `PI_AGENT_DIR`,
+`PI_BIN_DIR`, and `ZOEKT_INDEX_DIR`. Host-specific overrides use
+`~/.local/sh/dirs-$(hostname -s).env`; `SKILLS_DIRS` is defined there as a
+colon-separated list of skill repositories.
+
 ## add user to useful groups (linux)
 
     sudo gpasswd -a $(whoami) disk
