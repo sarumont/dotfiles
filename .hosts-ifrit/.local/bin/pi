@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -eu
+
+real_pi="${PI_REAL_BIN:-/opt/homebrew/bin/pi}"
+default_model="${PI_DEFAULT_MODEL:-}"
+
+# Keep Pi management commands and explicit model/provider selections unchanged.
+case "${1:-}" in
+  auth|config|install|list|remove|uninstall|update|completion|help|--help|-h|--version|-v)
+    exec "$real_pi" "$@"
+    ;;
+esac
+
+for arg in "$@"; do
+  case "$arg" in
+    --model|--model=*|--provider|--provider=*)
+      exec "$real_pi" "$@"
+      ;;
+  esac
+done
+
+if [ -n "$default_model" ]; then
+  exec "$real_pi" --model "$default_model" "$@"
+fi
+
+exec "$real_pi" "$@"
