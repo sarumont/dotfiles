@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SOURCE="${BASH_SOURCE[0]}"
+while [[ -h "$SOURCE" ]]; do
+  SOURCE_DIR="$(cd -- "$(dirname -- "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" = /* ]] || SOURCE="$SOURCE_DIR/$SOURCE"
+done
+
+DOTFILES_DIR="$(cd -- "$(dirname -- "$SOURCE")/../../.." && pwd)"
+SKILLS_DIR="$HOME/github.com/moovfinancial/agent-skills"
+ZOEKT_INDEX="$HOME/.zoekt"
+ZOEKT_ROOT="$HOME/github.com"
+
+echo "Dotfiles: $DOTFILES_DIR"
+cd "$DOTFILES_DIR"
+
+printf '%s\n' '==> Updating Homebrew'
+brew update
+brew upgrade
+
+printf '%s\n' '==> Updating Herdr'
+herdr update --handoff
+
+printf '%s\n' '==> Updating Pi extensions and model catalogs'
+pi update --models
+pi update --extensions
+
+printf '%s\n' '==> Restowing host-specific configuration'
+make host
+
+printf '%s\n' '==> Updating Zoekt binaries'
+GOBIN="$HOME/.pi/agent/bin" go install \
+  github.com/sourcegraph/zoekt/cmd/zoekt@latest \
+  github.com/sourcegraph/zoekt/cmd/zoekt-git-index@latest \
+  github.com/sourcegraph/zoekt/cmd/zoekt-local-sync@latest
+
+printf '%s\n' '==> Refreshing Zoekt index'
+zoekt-local-sync -index "$ZOEKT_INDEX" -f "$ZOEKT_ROOT"
+
+if [[ -d "$SKILLS_DIR/.git" ]]; then
+  printf '%s\n' '==> Updating external Moov skills'
+  git -C "$SKILLS_DIR" pull --ff-only
+else
+  printf '==> Skipping external Moov skills: %s is not a Git checkout\n' "$SKILLS_DIR"
+fi
+
+printf '%s\n' '==> Validating and reloading Herdr'
+HERDR_CONFIG_PATH="$DOTFILES_DIR/herdr/.config/herdr/config.toml" herdr config check
+herdr server reload-config
+
+printf '%s\n' 'Maintenance complete.'

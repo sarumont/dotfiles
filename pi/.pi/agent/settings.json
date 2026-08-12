@@ -12,7 +12,8 @@
   "packages": [
     "https://github.com/umputun/revdiff",
     "npm:pi-graphite",
-    "npm:pi-herdr-subagents"
+    "npm:pi-herdr-subagents",
+    "npm:pi-mcp-adapter"
   ],
   "skills": [
     "~/github.com/moovfinancial/agent-skills"
