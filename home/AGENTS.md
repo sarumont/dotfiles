@@ -65,6 +65,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## 5. Tools
 
+### Code Search
+- For broad cross-repository discovery, use `zoekt` first when the local index is available.
+- Verify results against the current working tree with `rg` and file reads; Zoekt indexes may be stale.
+- Use `zoekt-local-sync -index ~/.zoekt -f ~/github.com` after substantial repository changes.
+
 ### Github PR Feedback
 - Never merge pull requests. Agents may create and update PRs, but merging always remains a human action.
 - Active PR: `gh pr view --json number,title,url --jq '"PR #\\(.number): \\(.title)\\n\\(.url)"'`.
