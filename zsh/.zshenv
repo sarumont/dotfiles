@@ -16,6 +16,14 @@ path[1,0]=(
     /snap/bin
 )
 
+# source shared directory definitions
+if [[ -r ~/.local/sh/dirs.env ]]; then
+    . ~/.local/sh/dirs.env
+fi
+for f in ~/.local/sh/dirs-*.env(N); do
+    . "$f"
+done
+
 # source private shared shit
 if [[ -r ~/.privfiles/sh/zshenv ]]; then
     . ~/.privfiles/sh/zshenv

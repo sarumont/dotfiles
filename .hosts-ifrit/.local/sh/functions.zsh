@@ -1,18 +1,18 @@
 update_link_galleries() {
-  rm -rf ~/work
-  mkdir ~/work
-  ln -sf ~/github.com/moovfinancial/* ~/work
-  ln -sf ~/github.com/moov-jobs/* ~/work
-  ln -sf ~/github.com/moov-io/* ~/work
+  rm -rf "$WORK_GALLERY_DIR"
+  mkdir "$WORK_GALLERY_DIR"
+  ln -sf $REPO_ROOT/moovfinancial/* $WORK_GALLERY_DIR
+  ln -sf $REPO_ROOT/moov-jobs/* $WORK_GALLERY_DIR
+  ln -sf $REPO_ROOT/moov-io/* $WORK_GALLERY_DIR
 
-  rm -rf ~/git
-  mkdir ~/git
-  ln -sf ~/work/* ~/git
-  ln -sf ~/github.com/sarumont/* ~/git
+  rm -rf "$REPO_GALLERY_DIR"
+  mkdir "$REPO_GALLERY_DIR"
+  ln -sf "$WORK_GALLERY_DIR"/* "$REPO_GALLERY_DIR"
+  ln -sf $REPO_ROOT/sarumont/* "$REPO_GALLERY_DIR"
 
   # Re-link worktrees created by twt
-  if [[ -d ~/worktrees ]]; then
-    for wt in ~/worktrees/*/; do
+  if [[ -d "$WORKTREES_DIR" ]]; then
+    for wt in "$WORKTREES_DIR"/*/; do
       [[ -f "${wt}.twt-galleries" ]] || continue
       while IFS= read -r gallery; do
         ln -sf "$wt" "$gallery/$(basename "$wt")"

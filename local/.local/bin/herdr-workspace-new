@@ -2,7 +2,12 @@
 
 set -eu
 
-root="$HOME/git"
+[ -r "$HOME/.local/sh/dirs.env" ] && . "$HOME/.local/sh/dirs.env"
+host_name=$(hostname -s)
+host_dirs="$HOME/.local/sh/dirs-$host_name.env"
+[ -r "$host_dirs" ] && . "$host_dirs"
+: "${REPO_GALLERY_DIR:=$HOME/git}"
+root="$REPO_GALLERY_DIR"
 printf 'Workspace name: ' >&2
 IFS= read -r name || exit 0
 [ -n "$name" ] || exit 0

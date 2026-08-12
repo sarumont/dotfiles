@@ -13,7 +13,13 @@
 
 set -e
 
-WORKTREES_DIR="$HOME/worktrees"
+[ -r "$HOME/.local/sh/dirs.env" ] && . "$HOME/.local/sh/dirs.env"
+host_name=$(hostname -s)
+host_dirs="$HOME/.local/sh/dirs-$host_name.env"
+[ -r "$host_dirs" ] && . "$host_dirs"
+: "${REPO_GALLERY_DIR:=$HOME/git}"
+: "${WORK_GALLERY_DIR:=$HOME/work}"
+: "${WORKTREES_DIR:=$HOME/worktrees}"
 
 # Prefer a standalone gibr binary; fall back to uvx
 if command -v gibr &>/dev/null; then
@@ -48,7 +54,7 @@ _assert_main_worktree() {
 _detect_galleries() {
   local repo_abs
   repo_abs=$(cd "$repo_root" && pwd -P)
-  for gallery in ~/git ~/work; do
+  for gallery in "$REPO_GALLERY_DIR" "$WORK_GALLERY_DIR"; do
     [[ -d "$gallery" ]] || continue
     while IFS= read -r link; do
       local target
@@ -119,7 +125,7 @@ do_pick() {
   # Build repo list from ~/git, excluding worktree entries, show basenames
   local selected
   selected=$(
-    find ~/git -maxdepth 1 -type l 2>/dev/null | sort | while IFS= read -r link; do
+    find "$REPO_GALLERY_DIR" -maxdepth 1 -type l 2>/dev/null | sort | while IFS= read -r link; do
       local target
       target=$(realpath "$link" 2>/dev/null) || continue
       [[ "$target" == "$WORKTREES_DIR/"* ]] && continue
