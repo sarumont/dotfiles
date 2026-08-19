@@ -45,6 +45,11 @@ type = "popup"
 command = "herdr-workspace-task"
 
 [[keys.command]]
+key = "prefix+shift+c"
+type = "popup"
+command = "herdr-workspace-tab-repo"
+
+[[keys.command]]
 key = "prefix+ctrl+w"
 type = "popup"
 command = "herdr-workspace-pick"

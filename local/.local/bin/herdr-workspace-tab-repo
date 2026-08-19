@@ -1,0 +1,55 @@
+#!/bin/sh
+
+set -eu
+
+[ -r "$HOME/.local/sh/dirs.env" ] && . "$HOME/.local/sh/dirs.env"
+host_name=$(hostname -s)
+host_dirs="$HOME/.local/sh/dirs-$host_name.env"
+[ -r "$host_dirs" ] && . "$host_dirs"
+: "${REPO_GALLERY_DIR:=$HOME/git}"
+root="$REPO_GALLERY_DIR"
+
+selected=$(
+	for repo in "$root"/*; do
+		[ -d "$repo" ] && basename "$repo"
+	done |
+		fzf --reverse --prompt='Repository> '
+) || exit 0
+
+[ -n "$selected" ] || exit 0
+repo="$root/$selected"
+
+workspace_id=$(
+	herdr workspace list |
+		jq -r '.result.workspaces[] | select(.focused == true) | .workspace_id' |
+		head -n 1
+)
+[ -n "$workspace_id" ] || exit 1
+
+herdr tab create --workspace "$workspace_id" --cwd "$repo" --label "$selected" --no-focus >/dev/null
+repo_tab=$(
+	herdr tab list --workspace "$workspace_id" |
+		jq -r --arg label "$selected" '.result.tabs | map(select(.label == $label)) | max_by(.number) | .tab_id'
+)
+[ -n "$repo_tab" ] || exit 1
+
+repo_pane=$(
+	herdr pane list --workspace "$workspace_id" |
+		jq -r --arg tab "$repo_tab" '.result.panes[] | select(.tab_id == $tab) | .pane_id' |
+		head -n 1
+)
+[ -n "$repo_pane" ] || exit 1
+
+herdr pane run "$repo_pane" nvim
+herdr pane split "$repo_pane" \
+	--direction down \
+	--ratio 0.7 \
+	--cwd "$repo" \
+	--no-focus >/dev/null
+
+tab_number=$(
+	herdr tab list --workspace "$workspace_id" |
+		jq -r --arg tab "$repo_tab" '.result.tabs[] | select(.tab_id == $tab) | .number'
+)
+herdr tab rename "$repo_tab" "$tab_number: $selected"
+herdr tab focus "$repo_tab"
