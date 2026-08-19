@@ -102,6 +102,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ### Notion
 
 - use `ntn` for interacting with Notion documents
+- **Editing pages must preserve comments.** Comments anchor to block IDs. `replace_content` (full-page markdown replace) deletes + recreates every block → detaches ALL comments. NEVER use it to update a page that has comments.
+- Use `update_content` (targeted `old_str`→`new_str` array via `PATCH /v1/pages/{id}/markdown`): it edits blocks IN PLACE, so comments on untouched blocks survive automatically, and comments on an edited block survive too if the anchor is kept.
+- Comment anchors appear in the page markdown as `<span discussion-urls="discussion://…">text</span>`. When editing a commented block: fetch its exact markdown (spans included), match the exact spanned `old_str`, and KEEP the `<span discussion-urls=…>` in `new_str`.
+- If a commented block's exact text must change, preserve the original (with its anchor span) using **strikethrough** and append the new version behind it — e.g. ``~~<span discussion-urls="…">`old`</span>~~ `new` ``.
+- Treat the working doc (e.g. Obsidian) as source of truth; sync to Notion with targeted `update_content` ops, never full-page replaces. Verify comments survived after each sync (`GET /v1/comments?block_id=…`).
 
 ### Linear
 
@@ -111,6 +116,21 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ### gh
 - GitHub CLI for PRs/CI/releases. Given issue/PR URL (or `/pull/5`): use `gh`, not web search.
 - Examples: `gh issue view <url> --comments -R owner/repo`, `gh pr view <url> --comments --files -R owner/repo`.
+
+## 6. Ticket Creation & Pointing
+
+- Draft tickets in the working doc (Obsidian/Notion) first. Do NOT create in Linear until explicitly asked; use `linear` to file.
+- Use the `writing-linear-tickets` skill for content: one clear outcome, scope, done condition, explicit non-scope; spike/decision tickets when the work is a decision, not code.
+- Titles: append points after an em-dash, invariant unit `pt` (e.g. `— 2 pt`).
+
+**Pointing calibration (transfers/ledger/bff domain — adjust per team):**
+- First question: "is there an existing flow/template this mirrors?" If yes, breadth of touchpoints ≠ complexity — cap low.
+- **1 pt** — additive / pattern-following: add an enum, a switch arm, validation following conventions, dep-bump+verify, exposing an already-modeled type. Net-new is still 1 when there's a clear template.
+- **2 pt** — bounded implementation mirroring an existing flow, with its own tests (e.g. a new refund path that mirrors an existing one, a new event-router arm).
+- **3 pt** — genuine breadth or unresolved decisions: many independent call sites needing per-site judgment, or lifecycle work carrying an open question.
+- **5+ pt** — template-less work / real unknowns only. If everything mirrors an existing analog, nothing should be a 5.
+- Points track **number of independent decisions / open questions**, not files or lines touched. Spikes cost real points.
+- Bias check: my estimates have run ~40% high by over-weighting novelty. Discount hard for "we have a template" — the thing I already documented as mirroring an existing flow is usually a 1–2, not a 5.
 
 ## Languages
 
