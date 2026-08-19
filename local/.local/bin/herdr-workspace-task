@@ -16,9 +16,9 @@ list_repos() {
 }
 
 mode=$(
-	printf '%s\n' single-repo multi-repo |
+	printf '%s\n' single-repo multi-repo ticket |
 		fzf --reverse --prompt='Workflow> ' \
-			--header='Choose a single-repo or multi-repo task'
+			--header='Choose a single-repo, multi-repo, or ticket task'
 ) || exit 0
 
 case "$mode" in
@@ -40,6 +40,29 @@ multi-repo)
 	) || exit 0
 	[ -n "$selected" ] || exit 0
 	workspace_cwd="$root"
+	;;
+ticket)
+	printf 'Ticket: ' >&2
+	IFS= read -r ticket || exit 0
+	ticket=$(printf '%s\n' "$ticket" | grep -Eo '[[:alpha:]]+-[[:digit:]]+' | head -n 1 || true)
+	[ -n "$ticket" ] || exit 0
+
+	labels=$(linear issue view "$ticket" --json --no-comments | jq -r '.labels.nodes[]?.name')
+	repos=$(list_repos)
+	selected=$(
+		while IFS= read -r label; do
+			[ -n "$label" ] || continue
+			printf '%s\n' "$repos" | grep -Fx "$label" || true
+		done <<EOF
+$labels
+EOF
+	)
+	[ -n "$selected" ] || {
+		printf 'No repository labels matched ticket %s\n' "$ticket" >&2
+		exit 1
+	}
+
+	exec herdr-workspace-new "$ticket" "$selected"
 	;;
 *)
 	exit 0
