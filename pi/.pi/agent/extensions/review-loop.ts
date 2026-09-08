@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { closeSync, existsSync, lstatSync, mkdirSync, mkdtempSync, openSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { gzipSync, gunzipSync } from "node:zlib";
@@ -22,7 +22,12 @@ type ReviewCheckpoint = {
 type ReviewMode = "full" | "next";
 
 function run(command: string, args: string[], cwd: string): string {
-	return execFileSync(command, args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+	return execFileSync(command, args, {
+		cwd,
+		encoding: "utf8",
+		maxBuffer: 100 * 1024 * 1024,
+		stdio: ["ignore", "pipe", "pipe"],
+	});
 }
 
 function git(cwd: string, args: string[]): string {
@@ -111,7 +116,12 @@ function writeTree(root: string, files: Record<string, string | null>): void {
 function archiveHead(cwd: string, target: string, sha: string | null): void {
 	if (sha == null) return;
 	const archive = join(target, ".review-head.tar");
-	writeFileSync(archive, execFileSync("git", ["archive", sha], { cwd }));
+	const archiveFd = openSync(archive, "w");
+	try {
+		execFileSync("git", ["archive", sha], { cwd, stdio: ["ignore", archiveFd, "inherit"] });
+	} finally {
+		closeSync(archiveFd);
+	}
 	execFileSync("tar", ["-xf", archive, "-C", target]);
 	rmSync(archive, { force: true });
 }
@@ -200,8 +210,23 @@ function parseAnnotationCount(output: string): number {
 
 function resolveReviewRoot(baseCwd: string, rawPath: string): string {
 	const requested = rawPath.trim();
-	const candidate = requested ? resolve(baseCwd, requested) : baseCwd;
-	return repoRoot(candidate);
+	if (!requested) return repoRoot(baseCwd);
+
+	const candidates = [
+		resolve(baseCwd, requested),
+		resolve(baseCwd, "..", requested),
+		process.env.REPO_GALLERY_DIR ? resolve(process.env.REPO_GALLERY_DIR, requested) : null,
+	].filter((candidate): candidate is string => candidate != null);
+	let lastError: unknown;
+	for (const candidate of [...new Set(candidates)]) {
+		if (!existsSync(candidate)) continue;
+		try {
+			return repoRoot(candidate);
+		} catch (error) {
+			lastError = error;
+		}
+	}
+	throw lastError ?? new Error(`Repository not found: ${requested}`);
 }
 
 async function launchReview(
