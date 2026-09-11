@@ -12,7 +12,7 @@ selected=$(
 			--argjson workspaces "$workspaces" \
 			--argjson tabs "$tabs" '
 				.result.agents[]
-				| select(.agent_status == "blocked" or .agent_status == "done")
+				| select(.agent_status == "blocked" or .agent_status == "done" or .agent_status == "idle")
 				| . as $agent
 				| ($workspaces.result.workspaces[] | select(.workspace_id == $agent.workspace_id) | .label) as $workspace
 				| ($tabs.result.tabs[] | select(.tab_id == $agent.tab_id) | .label) as $tab
