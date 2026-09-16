@@ -12,19 +12,23 @@ selected=$(
 			--argjson workspaces "$workspaces" \
 			--argjson tabs "$tabs" '
 				.result.agents[]
-				| select(.agent_status == "blocked" or .agent_status == "done" or .agent_status == "idle")
+				| select(.agent_status == "blocked" or .agent_status == "done" )
 				| . as $agent
 				| ($workspaces.result.workspaces[] | select(.workspace_id == $agent.workspace_id) | .label) as $workspace
 				| ($tabs.result.tabs[] | select(.tab_id == $agent.tab_id) | .label) as $tab
-				| [$agent.pane_id, $agent.agent_status, $agent.agent, $workspace, $tab, $agent.cwd]
+				| [$agent.pane_id, $agent.workspace_id, $agent.tab_id, $agent.agent_status, $agent.agent, $workspace, $tab, $agent.cwd]
 				| @tsv
 			' |
-		awk -F '\t' '{printf "%s\t%-8s %-10s %-28s %-16s %s\n", $1, $2, $3, $4, $5, $6}' |
-		fzf --reverse --with-nth=2.. --delimiter='\t' \
+		awk -F '\t' '{printf "%s\t%s\t%s\t%-8s %-10s %-28s %-16s %s\n", $1, $2, $3, $4, $5, $6, $7, $8}' |
+		fzf --reverse --with-nth=4.. --delimiter='\t' \
 			--header='STATUS   AGENT      WORKSPACE                     TAB              CWD' \
 			--no-info --prompt='Waiting> '
 ) || exit 0
 
 [ -n "$selected" ] || exit 0
 pane_id=$(printf '%s\n' "$selected" | cut -f1)
-exec herdr agent focus "$pane_id"
+workspace_id=$(printf '%s\n' "$selected" | cut -f2)
+tab_id=$(printf '%s\n' "$selected" | cut -f3)
+herdr agent focus "$pane_id" >/dev/null
+herdr workspace focus "$workspace_id" >/dev/null
+exec herdr tab focus "$tab_id"
