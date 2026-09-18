@@ -76,7 +76,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - PR comments: `gh pr view …` + `gh api …/comments --paginate`.
 - Replies: cite fix + file/line. Only auto-resolve threads from @sarumont or bots after the fix lands; do not auto-resolve threads opened by other humans.
 - When you've addressed an issue from another human's review, comment `fixed` and leave the thread open for them to resolve — never resolve another human's thread yourself.
-- Slack review requests: post only the links, nothing else — no preamble, summary, or commentary. For each PR emit exactly two lines: `:github:` + the GitHub PR URL (bare), then `:graphite:` + the Graphite PR URL (bare). Multiple PRs = repeat the pair per PR.
+- Slack review requests: post only the links, nothing else — no preamble, summary, or commentary.
 - Post to Slack with `slackpost <channel-id-or-#name> <message>` (`~/.local/bin/slackpost`; posts as you via session tokens, suppresses link previews).
 - When merging a PR: thank the contributor in `CHANGELOG.md`.
 
@@ -90,9 +90,13 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - commits:
     - format commit messages as per Conventional Commits
     - prefer small, atomic commits
-- Prefer to use Graphite (`gt` CLI tool) and PR stacking
+- Prefer GitHub's stacked PR workflow via `gh stack` for dependent changes:
+    - Initialize with `gh stack init`; add dependent branches with `gh stack add`.
+    - Inspect and navigate with `gh stack view`, `gh stack up`, and `gh stack down`.
+    - Push and create/update stacked PRs with `gh stack push` and `gh stack submit`.
+    - Sync and rebase with `gh stack sync` and `gh stack rebase`.
 - Create PRs as drafts unless explicitly instructed to publish them.
-- If not using Graphite:
+- If not using `gh stack`:
     - Create branches using `gibr`, if available. Prompt for ticket number from user.
     - If user types a command (“pull and push”), that’s consent for that command.
     - No amend unless asked.
