@@ -16,9 +16,9 @@ list_repos() {
 }
 
 mode=$(
-	printf '%s\n' single-repo multi-repo ticket |
+	printf '%s\n' single-repo multi-repo ticket generic |
 		fzf --reverse --prompt='Workflow> ' \
-			--header='Choose a single-repo, multi-repo, or ticket task'
+			--header='Choose a single-repo, multi-repo, ticket, or generic task'
 ) || exit 0
 
 case "$mode" in
@@ -63,6 +63,13 @@ EOF
 	}
 
 	exec herdr-workspace-new "$ticket" "$selected"
+	;;
+generic)
+	printf 'Workspace name: ' >&2
+	IFS= read -r task_name || exit 0
+	[ -n "$task_name" ] || exit 0
+	workspace_cwd="$REPO_ROOT"
+	selected=
 	;;
 *)
 	exit 0
