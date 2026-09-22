@@ -97,7 +97,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     - Sync and rebase with `gh stack sync` and `gh stack rebase`.
 - Create PRs as drafts unless explicitly instructed to publish them.
 - If not using `gh stack`:
-    - Create branches using `gibr`, if available. Prompt for ticket number from user.
+    - Create branches using `gibr`, if available; if unavailable, use `uvx gibr`. Prompt for ticket number from user.
     - If user types a command (“pull and push”), that’s consent for that command.
     - No amend unless asked.
 - When responding to PR comments, always sign the comment indicating it was
