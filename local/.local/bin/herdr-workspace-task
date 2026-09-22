@@ -7,6 +7,7 @@ host_name=$(hostname -s)
 host_dirs="$HOME/.local/sh/dirs-$host_name.env"
 [ -r "$host_dirs" ] && . "$host_dirs"
 : "${REPO_GALLERY_DIR:=$HOME/git}"
+: "${HERDR_AGENT_HARNESS:=pi}"
 root="$REPO_GALLERY_DIR"
 
 list_repos() {
@@ -88,14 +89,14 @@ initial_tab=$(
 	herdr tab list --workspace "$workspace_id" |
 		jq -r '.result.tabs[0].tab_id'
 )
-herdr tab rename "$initial_tab" pi
+herdr tab rename "$initial_tab" "$HERDR_AGENT_HARNESS"
 
 pi_pane=$(
 	herdr pane list --workspace "$workspace_id" |
 		jq -r --arg tab "$initial_tab" '.result.panes[] | select(.tab_id == $tab) | .pane_id' |
 		head -n 1
 )
-herdr pane run "$pi_pane" pi
+herdr pane run "$pi_pane" "$HERDR_AGENT_HARNESS"
 
 printf '%s\n' "$selected" | while IFS= read -r repo_name; do
 	[ -n "$repo_name" ] || continue
