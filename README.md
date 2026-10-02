@@ -139,6 +139,47 @@ I have a private repository that is an overlay on top of this one called `privfi
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
     # start tmux and run <prefix>I to install all plugins
 
+## Herdr pane navigation
+
+Herdr has a built-in plugin manager, so no TPM equivalent is needed. Install the
+Herdr half of [nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation)
+on each machine:
+
+    herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator
+
+The Herdr keybindings and Neovim lazy.nvim setup are tracked in this repo:
+
+- `herdr/.config/herdr/config.toml` binds `ctrl+h/j/k/l` to the plugin and
+  disables Herdr's direct pane-focus bindings.
+- `nvim/.config/nvim/lua/plugins/herdr.lua` loads the Neovim half only inside
+  Herdr. The existing `vim-tmux-navigator` setup remains active outside Herdr.
+
+After stowing the dotfiles, sync Neovim plugins and reload Herdr's config:
+
+    make
+    nvim --headless "+Lazy! sync" +qa
+    herdr server reload-config
+
+Herdr plugins are installed per user, outside Stow. To update this plugin, run
+`herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`
+again; Herdr does not have a separate plugin-update command.
+
+### Copy text with herdr-fingers
+
+Install [herdr-fingers](https://github.com/nathan-poncet/herdr-fingers) on each
+machine. Installation builds the plugin, so a Rust toolchain is required:
+
+    herdr plugin install nathan-poncet/herdr-fingers
+
+The Herdr config binds `prefix+f` to the plugin. With this repo's `ctrl+a`
+prefix, press Ctrl+A, then F. Type a hint to copy the matched text. Shift+hint
+pastes it into the pane, and Ctrl+hint opens it. Press Tab to select multiple
+matches, then Tab or Enter to copy them together.
+
+Reload Herdr's config after installing the plugin:
+
+    herdr server reload-config
+
 ## GUI
 
     paru -S sway waybar swaylock swaybg wob \

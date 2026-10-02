@@ -3,6 +3,12 @@ onboarding = false
 [keys]
 prefix = "ctrl+a"
 
+# pane navigation
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
+
 # status-bar toggle equivalent (tmux: bind-key s set-option status)
 # settings moved off 's' to make room
 toggle_sidebar = "prefix+s"
@@ -100,3 +106,35 @@ resume_agents_on_restore = true
 
 [ui.toast]
 delivery = "herdr"
+
+# pane navigation
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "local.vim-navigator.left"
+description = "Vim-aware pane left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "local.vim-navigator.down"
+description = "Vim-aware pane down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "local.vim-navigator.up"
+description = "Vim-aware pane up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "local.vim-navigator.right"
+description = "Vim-aware pane right"
+
+# Fast-copy hints for text visible in the focused pane.
+[[keys.command]]
+key = "prefix+f"
+type = "plugin_action"
+command = "nathan-poncet.herdr-fingers.start"
+description = "Copy text with hints"
