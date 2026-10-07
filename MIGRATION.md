@@ -412,6 +412,9 @@ the same thing. Prefer OS/omarchy gating for portable config and hostname
 gating only for truly machine-specific values (paths, monitors).
 
 - [x] **Decision (M17):** keep shiva + ifrit; DISCARD mesafi, yuffie, steamdeck.
+- [x] Done: mesafi/yuffie/steamdeck removed; shell files migrated in M1.
+      Remaining host files move with their modules: `tmux.local.conf` (M3),
+      `.pi/...` and ifrit's `bin/pi` (M15).
 - [ ] Sub-decision: shiva/ifrit content — keep as host-gated files / fold into
       OS-conditional templates (decide per file during migration)
 
