@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SOURCE="${BASH_SOURCE[0]}"
-while [[ -h "$SOURCE" ]]; do
-  SOURCE_DIR="$(cd -- "$(dirname -- "$SOURCE")" && pwd)"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ "$SOURCE" = /* ]] || SOURCE="$SOURCE_DIR/$SOURCE"
-done
-
-DOTFILES_DIR="$(cd -- "$(dirname -- "$SOURCE")/../../.." && pwd)"
-
 [ -r "$HOME/.local/sh/dirs.env" ] && . "$HOME/.local/sh/dirs.env"
 host_name=$(hostname -s)
 host_dirs="$HOME/.local/sh/dirs-$host_name.env"
@@ -18,13 +9,13 @@ host_dirs="$HOME/.local/sh/dirs-$host_name.env"
 : "${ZOEKT_INDEX_DIR:=$HOME/.zoekt}"
 : "${REPO_ROOT:=$HOME/github.com}"
 : "${SKILLS_DIRS:=}"
+export PATH="$PI_BIN_DIR:$HOME/.local/share/mise/shims:$PATH"
 
-echo "Dotfiles: $DOTFILES_DIR"
-cd "$DOTFILES_DIR"
-
-printf '%s\n' '==> Updating Homebrew'
-brew update
-brew upgrade
+if command -v brew >/dev/null 2>&1; then
+  printf '%s\n' '==> Updating Homebrew'
+  brew update
+  brew upgrade
+fi
 
 printf '%s\n' '==> Updating Herdr'
 herdr update --handoff
@@ -33,8 +24,8 @@ printf '%s\n' '==> Updating Pi extensions and model catalogs'
 pi update --models
 pi update --extensions
 
-printf '%s\n' '==> Restowing host-specific configuration'
-make host
+printf '%s\n' '==> Updating dotfiles (chezmoi)'
+chezmoi update
 
 printf '%s\n' '==> Updating Zoekt binaries'
 GOBIN="$PI_BIN_DIR" go install \
@@ -59,7 +50,7 @@ done
 IFS=$old_ifs
 
 printf '%s\n' '==> Validating and reloading Herdr'
-HERDR_CONFIG_PATH="$DOTFILES_DIR/herdr/.config/herdr/config.toml" herdr config check
+herdr config check
 herdr server reload-config
 
 printf '%s\n' 'Maintenance complete.'

@@ -1,0 +1,18 @@
+#!/bin/sh
+# Merge the keys these dotfiles own into pi's settings.json, leaving keys
+# written by pi (lastChangelogVersion) and Omarchy (theme) alone.
+set -eu
+current=$(cat)
+[ -n "$current" ] || current='{}'
+printf '%s' "$current" | jq --indent 2 --argjson want '{{ dict
+  "defaultProvider" "anthropic"
+  "defaultModel" "claude-opus-5-5"
+  "enabledModels" (list
+    "anthropic/claude-sonnet-5" "anthropic/claude-fable-5" "anthropic/claude-fable-5-1"
+    "anthropic/claude-opus-4-6" "anthropic/claude-opus-4-7" "anthropic/claude-opus-4-8"
+    "anthropic/claude-opus-5" "anthropic/claude-opus-5-5" "anthropic/claude-sonnet-4-6"
+    "openai/gpt-5.6-luna" "openai/gpt-5.6-sol" "openai/gpt-5.6-terra"
+    "openai/gpt-6-luna" "openai/gpt-6-sol" "openai/gpt-6.1-sol" "openai/gpt-6-astra")
+  "packages" (list "https://github.com/umputun/revdiff" "npm:pi-herdr-subagents" "npm:pi-mcp-adapter")
+  "extensions" (list "-builtin:mcp")
+  | toJson }}' '. * $want{{ if eq .chezmoi.hostname "ifrit" }} | .skills = ["~/github.com/moovfinancial/agent-skills"]{{ end }}{{ if not .omarchy }} | .theme = "dark"{{ end }}'

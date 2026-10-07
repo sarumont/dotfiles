@@ -5,6 +5,7 @@
 .config/tmux/tmux.shiva.conf
 {{ end }}
 {{ if ne .chezmoi.hostname "ifrit" }}
+.local/bin/pi
 .local/sh/ifrit.*
 .local/sh/dirs-ifrit.env
 .config/tmux/tmux.ifrit.conf
@@ -27,4 +28,9 @@
 {{ end }}
 {{ if ne .chezmoi.hostname "shiva" }}
 .config/hypr/monitors.lua
+{{ end }}
+
+# codemod isn't packaged for Arch; Linux gets a uvx wrapper
+{{ if eq .chezmoi.os "darwin" }}
+.local/bin/codemod
 {{ end }}

@@ -382,31 +382,40 @@ Development tools. Season these to taste based on your needs.
 
     sudo port install go delve
 
-### Zoekt + Pi agents
+### AI agents (Claude Code, Codex, pi)
 
-[Zoekt](https://github.com/sourcegraph/zoekt) provides fast cross-repository code search. Install its Go commands into Pi's existing bin directory, and install Universal Ctags for symbol-aware ranking:
+- `~/AGENTS.md` is shared; `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`
+  import it. `CLAUDE.md` is templated so tool installs say `brew` on macOS and
+  `yay` on Arch.
+- pi: `~/.pi/agent/settings.json` is merged, not replaced
+  (`modify_settings.json.tmpl` uses `jq`), so pi's own keys and Omarchy's
+  `theme` survive. Skills from the work repo are ifrit-only. pi itself comes
+  from mise; on ifrit `~/.local/bin/pi` wraps it with `$PI_DEFAULT_MODEL`.
+- `pi-herdr-subagents` model assignments are per host (templated
+  `config.json` inside its `node_modules`; `chezmoi apply` restores it if a
+  reinstall removes it).
+- `codemod` isn't packaged for Arch: `~/.local/bin/codemod` runs `uvx codemod`.
 
-    brew install universal-ctags
-    GOBIN="$HOME/.pi/agent/bin" go install \\
-      github.com/sourcegraph/zoekt/cmd/zoekt@latest \\
-      github.com/sourcegraph/zoekt/cmd/zoekt-git-index@latest \\
-      github.com/sourcegraph/zoekt/cmd/zoekt-local-sync@latest
+### Zoekt
 
-Index all local repositories under `~/github.com`:
+[Zoekt](https://github.com/sourcegraph/zoekt) gives fast cross-repo code
+search. `run_onchange_after_zoekt.sh` installs `zoekt`, `zoekt-git-index` and
+`zoekt-local-sync` into `$PI_BIN_DIR` (`~/.pi/agent/bin`, on PATH via
+`.zshenv`); `pi-maintenance` updates them and refreshes the index. Universal
+Ctags adds symbol-aware ranking and `sym:` queries (optional, manual):
 
-    zoekt-local-sync -index "$HOME/.zoekt" -f "$HOME/github.com"
+    yay -S ctags                     # Arch (universal-ctags)
+    brew install universal-ctags     # macOS
 
-Use `-f` only to apply the sync; omitting it previews changes. The supplied roots are the complete desired set, so repositories no longer found below them are removed from the index. Search examples:
+Index everything under `~/github.com`, then search:
 
-    zoekt -index_dir "$HOME/.zoekt" -r -l 'WalletService GetDefault'
-    zoekt -index_dir "$HOME/.zoekt" -jsonl 'wallet file:*.go'
-    zoekt -index_dir "$HOME/.zoekt" 'wallet repo:transfers-config'
+    zoekt-local-sync -index ~/.zoekt -f ~/github.com
+    zoekt -index_dir ~/.zoekt -r -l 'WalletService GetDefault'
 
-Refresh the index after pulling or creating repositories:
-
-    zoekt-local-sync -index "$HOME/.zoekt" -f "$HOME/github.com"
-
-For Pi agents, add a global skill at `~/.pi/agent/skills/zoekt/SKILL.md` explaining that Zoekt is for broad, read-only discovery and that `rg`/file reads must verify current working-tree results. Start a new Pi session after adding the skill.
+Omit `-f` to preview; the roots given are the complete set, so repos no longer
+found under them are dropped from the index. The pi skill
+(`~/.pi/agent/skills/zoekt/SKILL.md`) tells agents to use Zoekt for discovery
+and verify with `rg`/file reads.
 
 ## Kubernetes
 

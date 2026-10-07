@@ -52,6 +52,7 @@ fi
 
 # path append
 path+=(
+    $PI_BIN_DIR
     $HOME/go/bin
 {{- if eq .chezmoi.os "darwin" }}
     /opt/homebrew/bin

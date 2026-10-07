@@ -1,0 +1,3 @@
+#!/bin/sh
+# codemod isn't packaged for Arch; run it via uvx (uv comes from mise)
+exec uvx codemod "$@"

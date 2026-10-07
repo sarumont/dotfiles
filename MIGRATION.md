@@ -397,17 +397,30 @@ Applied on shiva and verified (`rg` honors the ignore file and `--hidden`).
       which edits shell rc files). Dropped ifrit's `avante` alias (M5).
 - `local/` stow package is now empty and removed.
 
-### M15. AI agents (`claude/`, `codex/`, `pi/`, `.hosts-{shiva,ifrit}/.pi`)
+### M15. AI agents — DONE
 
-- `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.pi/agent/{settings.json,
-  extensions/review-loop.ts, skills/zoekt/SKILL.md}`.
-- Shiva conflict: `~/.pi/agent/settings.json` already exists.
-- The tracked `node_modules/.../pi-herdr-subagents/config.json` → move to a
-  template or a `run_onchange_` that writes it after `npm install`.
-- `.hosts-ifrit/.local/bin/pi` wrapper → GATE ifrit.
-- Zoekt install (`go install …zoekt…`) → `run_onchange_` script; indexing stays
-  a manual or periodic command, not a chezmoi hook.
-- [ ] **Decision (M15):** ___
+- `CLAUDE.md`: templated install hints (brew on macOS, yay on Arch, `go-yq`;
+  codemod via a Linux-only `uvx` wrapper since Arch doesn't package it);
+  `@RTK.md` dropped. Content trim (approval/pre-approval wording, moot under
+  auto mode) — **pending your answer**. No Claude `settings.json` allowlist
+  (auto mode covers it).
+- `~/.codex/AGENTS.md`: `RTK.md` import dropped.
+- pi: `modify_settings.json.tmpl` merges owned keys via `jq` (pi keeps
+  `lastChangelogVersion`, Omarchy keeps `theme`; macOS gets `theme: dark`);
+  `skills` ifrit-only. `pi = "latest"` added to mise so Omarchy's pi launcher
+  (`mise use -g pi`) doesn't cause drift.
+- `pi-herdr-subagents/config.json`: per-host template. shiva: default
+  `claude-sonnet-5-5`, planner/reviewer `claude-opus-5-5`, scout/worker/
+  visual-tester `claude-sonnet-5` (IDs not verified against pi's catalog yet —
+  check in a real pi session).
+- ifrit `~/.local/bin/pi` wrapper gated to ifrit (shiva keeps Omarchy's).
+- review-loop extension + zoekt skill: all hosts. Zoekt installed via
+  `run_onchange_after_zoekt.sh` into `$PI_BIN_DIR` (now on PATH). ctags is a
+  manual install.
+- `pi-maintenance` fixed for chezmoi (`chezmoi update` instead of
+  `make host`, brew only when present, live herdr config check, PATH). Full
+  cross-OS maintenance routine still deferred.
+- `.hosts-*` directories are now gone entirely.
 
 ### M16. Root `.config/` (never stowed)
 

@@ -1,47 +1,46 @@
 @~/AGENTS.md
-@RTK.md
 
 # Global Claude Code Instructions
 
-## Preferred Tools & Auto-Install via Homebrew
+## Preferred Tools & Auto-Install via {{ if eq .chezmoi.os "darwin" }}Homebrew{{ else }}yay{{ end }}
 
 Before falling back to Python scripts or sed for file manipulation, check
 for and prefer these tools. If a preferred tool is not installed, suggest
-installing it via Homebrew before proceeding with an inferior alternative.
+installing it via {{ if eq .chezmoi.os "darwin" }}Homebrew{{ else }}yay{{ end }} before proceeding with an inferior alternative.
 
 ### File Editing
 - **Edit tool** — always first choice for single precise edits
 - **codemod** — bulk pattern replacement across files
   - Check: `which codemod`
-  - Install: `brew install codemod`
+  - Install: {{ if eq .chezmoi.os "darwin" }}`brew install codemod`{{ else }}already provided by `~/.local/bin/codemod` (runs `uvx codemod`){{ end }}
   - Run directly: `codemod 'pattern' 'replacement' dir/` — do NOT wrap in
     shell scaffolding (2>&1, echo exit codes, etc.) as this breaks pre-approval
 
 ### Data Formats
 - **jq** — JSON querying and manipulation
   - Check: `which jq`
-  - Install: `brew install jq`
+  - Install: `{{ if eq .chezmoi.os "darwin" }}brew install jq{{ else }}yay -S jq{{ end }}`
 - **yq** — YAML querying and manipulation
   - Check: `which yq`
-  - Install: `brew install yq`
+  - Install: `{{ if eq .chezmoi.os "darwin" }}brew install yq{{ else }}yay -S go-yq{{ end }}`
 - **yamllint** — YAML validation and linting; always use instead of Python for YAML validation
   - Check: `which yamllint`
-  - Install: `brew install yamllint`
+  - Install: `{{ if eq .chezmoi.os "darwin" }}brew install yamllint{{ else }}yay -S yamllint{{ end }}`
 
 ### Search
 - **ripgrep (rg)** — fast file content search, use before Edit to confirm
   exact match strings. Use instead of `grep`
   - Check: `which rg`
-  - Install: `brew install ripgrep`
+  - Install: `{{ if eq .chezmoi.os "darwin" }}brew install ripgrep{{ else }}yay -S ripgrep{{ end }}`
 
 ### Text Replacement
 - **sd** — modern sed alternative with sane regex syntax, pre-approved in settings.json
   - Check: `which sd`
-  - Install: `brew install sd`
+  - Install: `{{ if eq .chezmoi.os "darwin" }}brew install sd{{ else }}yay -S sd{{ end }}`
 
 ### Behavior
 - If a preferred tool is missing, say so and offer to install it via
-  Homebrew before falling back to Python or sed
+  {{ if eq .chezmoi.os "darwin" }}Homebrew{{ else }}yay{{ end }} before falling back to Python or sed
 - Never write a temporary Python script solely to edit or transform files
   when the above tools are available
 - Never use sed — use sd instead (it is pre-approved and will not prompt)
