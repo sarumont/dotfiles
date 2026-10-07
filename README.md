@@ -147,7 +147,9 @@ On macOS, chezmoi downloads oh-my-zsh into `~/.oh-my-zsh` (see
 `brew install zsh-syntax-highlighting` or `sudo port install zsh-syntax-highlighting`.
 
 `chezmoi apply` switches the login shell to zsh if needed
-(`run_once_after_chsh-zsh.sh`).
+(`run_once_after_chsh-zsh.sh`). If the shell changes while you're logged into
+a desktop session, log out and back in: terminals take `$SHELL` from the
+session, which is set at login.
 
 ## `tmux`
 
@@ -155,46 +157,26 @@ On macOS, chezmoi downloads oh-my-zsh into `~/.oh-my-zsh` (see
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
     # start tmux and run <prefix>I to install all plugins
 
-## Herdr pane navigation
+## herdr
 
-Herdr has a built-in plugin manager, so no TPM equivalent is needed. Install the
-Herdr half of [nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation)
-on each machine:
+Config: `home/dot_config/herdr/config.toml.tmpl`. On Omarchy it uses the
+`terminal` theme so herdr follows Omarchy theme switches; macOS uses
+`one-dark` and adds `cmd+1..9` tab switching.
 
-    herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator
+Plugins are listed in `home/.chezmoidata/herdr.yaml` and installed by
+`run_onchange_after_herdr-plugins.sh` whenever that list changes (add `ref:`
+to pin a commit). herdr has no plugin-update command: to update, re-run
+`chezmoi state delete-bucket --bucket=scriptState` and `chezmoi apply`, or run
+`herdr plugin install <repo> --yes` by hand.
 
-The Herdr keybindings and Neovim lazy.nvim setup are tracked in this repo:
-
-- `herdr/.config/herdr/config.toml` binds `ctrl+h/j/k/l` to the plugin and
-  disables Herdr's direct pane-focus bindings.
-- `nvim/.config/nvim/lua/plugins/herdr.lua` loads the Neovim half only inside
-  Herdr. The existing `vim-tmux-navigator` setup remains active outside Herdr.
-
-After stowing the dotfiles, sync Neovim plugins and reload Herdr's config:
-
-    make
-    nvim --headless "+Lazy! sync" +qa
-    herdr server reload-config
-
-Herdr plugins are installed per user, outside Stow. To update this plugin, run
-`herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`
-again; Herdr does not have a separate plugin-update command.
-
-### Copy text with herdr-fingers
-
-Install [herdr-fingers](https://github.com/nathan-poncet/herdr-fingers) on each
-machine. Installation builds the plugin, so a Rust toolchain is required:
-
-    herdr plugin install nathan-poncet/herdr-fingers
-
-The Herdr config binds `prefix+f` to the plugin. With this repo's `ctrl+a`
-prefix, press Ctrl+A, then F. Type a hint to copy the matched text. Shift+hint
-pastes it into the pane, and Ctrl+hint opens it. Press Tab to select multiple
-matches, then Tab or Enter to copy them together.
-
-Reload Herdr's config after installing the plugin:
-
-    herdr server reload-config
+- [nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation)
+  (`local.vim-navigator`): `ctrl+h/j/k/l` move between herdr panes and Neovim
+  splits. The Neovim half is in `nvim/.config/nvim/lua/plugins/herdr.lua` and
+  only loads inside herdr; `vim-tmux-navigator` stays active outside it.
+- [herdr-fingers](https://github.com/nathan-poncet/herdr-fingers): `prefix+f`
+  (Ctrl+A, then F) labels paths, URLs, hashes and more; type a label to copy,
+  Shift+label to paste, Ctrl+label to open, Tab to select several. Built with
+  cargo, so Rust comes from mise (`~/.config/mise/config.toml`).
 
 ## GUI
 

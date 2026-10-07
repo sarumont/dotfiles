@@ -1,0 +1,10 @@
+#!/bin/sh
+# Install herdr plugins listed in .chezmoidata/herdr.yaml (re-runs when the list changes).
+set -eu
+command -v herdr >/dev/null 2>&1 || { echo "herdr not installed; skipping plugins" >&2; exit 0; }
+# cargo comes from mise; make sure its shims are on PATH for non-interactive runs
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+{{ range .herdr.plugins -}}
+herdr plugin install {{ .repo | quote }} --yes{{ with get . "ref" }} --ref {{ . | quote }}{{ end }}
+{{ end -}}
+herdr server reload-config >/dev/null 2>&1 || true

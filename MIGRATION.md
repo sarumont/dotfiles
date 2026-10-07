@@ -252,16 +252,19 @@ Each module: what exists, what's live on shiva, recommendation, decision.
 - [ ] Is tmux still used day to day, or herdr only? ___
 - [ ] **Decision (M3):** KEEP / MERGE / ADOPT / DISCARD
 
-### M4. herdr (`herdr/`)
+### M4. herdr — DONE
 
-- Repo `config.toml` vs Omarchy-written `~/.config/herdr/config.toml` (Omarchy
-  ships herdr by default).
-- README steps → hooks:
-  - `herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`
-    and `herdr plugin install nathan-poncet/herdr-fingers` →
-    `run_onchange_after_herdr-plugins.sh` (needs Rust: add to mise).
-  - `herdr server reload-config` → same script, guarded by "server running".
-- [ ] **Decision (M4):** MERGE (recommended) / KEEP / ADOPT
+- Base: repo config. Omarchy-written config was the untouched default.
+- Theme: `terminal` + `panel_bg = "black"` + `accent = "blue"` on Omarchy
+  (follows Omarchy themes); `one-dark` elsewhere.
+- `[keys.indexed] tabs = "cmd"` gated to darwin (Super belongs to Hyprland).
+- Taken from Omarchy: `new_cwd = "follow"`, `window_title`,
+  `confirm_close = false`, `mouse_capture`, `tab_bar_right` (zoom + hostname),
+  `pane_gaps`/`pane_outer_borders`/`pane_scrollbars = false`.
+- Plugins: `.chezmoidata/herdr.yaml` + `run_onchange_after_herdr-plugins.sh`
+  (`herdr plugin install <repo> --yes`, repo must come before flags).
+  Installed on shiva: `local.vim-navigator`, `nathan-poncet.herdr-fingers`;
+  action IDs match the bindings. Config reload: no diagnostics.
 
 ### M5. Neovim (`nvim/`, `.nvim-nvchad/`)
 
@@ -428,6 +431,15 @@ gating only for truly machine-specific values (paths, monitors).
   `personal`); (c) both.
 - [ ] What's in privfiles today? ___
 - [ ] **Decision (M18):** a / b / c
+
+### M19. mise (new) — DONE
+
+- Adopted `~/.config/mise/config.toml` (claude, codex, gh, node, plus
+  `rust = "latest"` for herdr-fingers). Rust via mise rather than Omarchy's
+  `omarchy-install-dev-env rust`, which runs rustup without
+  `--no-modify-path` and would edit the chezmoi-managed shell rc files.
+- ifrit cutover: merge ifrit's mise tools before applying (template if they
+  differ per machine).
 
 ---
 
