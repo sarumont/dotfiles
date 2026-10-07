@@ -57,6 +57,7 @@ alias gup='git up' # defer this to ~/gitconfig
 alias st='git status'
 
 # AI tooling
+alias gibr='uvx gibr'  # no Python env to manage
 alias claude='claude --enable-auto-mode'
 
 if [[ -r ~/.privfiles/sh/aliases.zsh ]]; then

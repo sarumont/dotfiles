@@ -5,6 +5,7 @@ gh = "latest"
 go = "latest"
 node = "26.8.2"
 rust = "latest"
+uv = "latest"
 
 [settings.upgrade]
 auto_prune = false

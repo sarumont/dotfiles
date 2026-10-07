@@ -1,7 +1,0 @@
-#!/bin/sh
-
-alacritty --class=visor --command="ta" &
-sleep .3
-swaymsg scratchpad show
-tmux new-window 'visor_ad'
-swaymsg scratchpad show

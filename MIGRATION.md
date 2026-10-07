@@ -381,20 +381,21 @@ Each module: what exists, what's live on shiva, recommendation, decision.
 
 Applied on shiva and verified (`rg` honors the ignore file and `--hidden`).
 
-### M14. Scripts (`local/.local/bin`, `local/.local/sh/dirs.env`, `local/.local/misc`)
+### M14. Scripts — DONE
 
-Proposed triage (confirm or override each):
-
-| Likely KEEP | Likely DISCARD (sway/X11-era or stale) | Ask |
-|---|---|---|
-| `git-attic`, `git-clean-merged`, `git-neck`, `git-trail` | `reload_xsettings`, `set_dpi`, `display_switch`, `screen_it.sh`, `visor` | `theme` (clashes with Omarchy theming?) |
-| `herdr-*` (8 scripts) | `256colors2.pl`, `lsiommu.sh` | `beersmith`, `batch_scan`, `split2flac` |
-| `ta`, `tmux_attach`, `tmux-right-status`, `tmux-session-label` (if M3 keeps tmux) | `add_javadoc_docset`, `slackpost` | `devterm`, `get_profile`, `get_session_type` |
-| `pi-maintenance`, `chlog`, `rgb_to_hex`, `timepoint` | | `twt`, `eds-query.py` |
-
-- `dirs.env` + `dirs-<host>.env` → KEEP; host files become host-gated.
-- Mark executables with the `executable_` prefix.
-- [ ] **Decision (M14):** ___
+- [x] KEPT → `home/dot_local/bin/executable_*` (history kept via `git mv`):
+      `git-{attic,clean-merged,neck,trail}`, `herdr-*` (8), `ta`, `twt`,
+      `tmux-right-status`, `tmux-session-label`, `pi-maintenance`, `slackpost`,
+      `chlog`, `rgb_to_hex`.
+- [x] DISCARDED: `devterm`, `tmux_attach`, `visor`, `display_switch`,
+      `reload_xsettings`, `set_dpi`, `screen_it.sh`, `get_profile`,
+      `get_session_type`, `theme`, `beersmith`, `eds-query.py`,
+      `add_javadoc_docset`, `batch_scan`, `split2flac`, `lsiommu.sh`,
+      `256colors2.pl`, `timepoint`, `misc/tomato.png`, `misc/link_success`.
+- [x] gibr runs via `uvx` everywhere: shared `alias gibr='uvx gibr'`, `twt`
+      always uses `uvx gibr`; `uv` added to mise (not Astral's curl installer,
+      which edits shell rc files). Dropped ifrit's `avante` alias (M5).
+- `local/` stow package is now empty and removed.
 
 ### M15. AI agents (`claude/`, `codex/`, `pi/`, `.hosts-{shiva,ifrit}/.pi`)
 

@@ -266,7 +266,7 @@ owned by `omarchy-theme-set`, so Neovim follows Omarchy themes live; elsewhere
 `theme.lua` sets onenord. `run_onchange_after_nvim-lazy-sync.sh` runs
 `Lazy! sync` whenever `lazyvim.json` or a plugin spec changes.
 
-Language tooling comes from mise (`go`, `rust`, `node` in
+Language tooling comes from mise (`go`, `rust`, `node`, `uv` in
 `~/.config/mise/config.toml`) and Mason (gopls, delve, formatters, linters;
 installed on first use).
 

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/termite --name=dev --exec="$HOME/.my/bin/tmux_attach dev"
