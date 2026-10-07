@@ -451,25 +451,45 @@ gating only for truly machine-specific values (paths, monitors).
 - [ ] Sub-decision: shiva/ifrit content — keep as host-gated files / fold into
       OS-conditional templates (decide per file during migration)
 
-### M18. privfiles
+### M18. privfiles — IN PROGRESS (user working through secrets)
 
-- Separate private stow overlay today.
-- Options: (a) secrets → Proton Pass template functions (`protonPass`,
-  `protonPassJSON`, `protonPassAttachment`), with share/item IDs kept in the
-  local `chezmoi.toml`, not the repo; (b) private non-secret config → pull
-  privfiles in with `.chezmoiexternal.toml` (type `git-repo` over SSH, gated
-  `personal`); (c) both.
-- [ ] What's in privfiles today? ___
-- [ ] **Decision (M18):** a / b / c
+Clone: `~/Work/privfiles` (private repo). It stowed into `~/.local/sh/` and
+`~/.ssh/`; the old `~/.privfiles/sh/*` hooks in zsh were dead and are removed.
 
-### M19. mise (new) — DONE
+Done:
+- [x] Public keys → repo (`home/private_dot_ssh/`): all `*.pub`,
+      `barret_host_keys` (fingerprints), `authorized_keys` (0600). `~/.ssh`
+      is now 0700. sshd is disabled on shiva, so `authorized_keys` is inert
+      there.
+- [x] `allowed_signers` → `~/.config/git/allowed_signers` (full list from
+      privfiles, plus this machine's key appended if missing).
+- [x] Secrets backend per machine: `.secrets` in chezmoi data
+      (`protonpass` on shiva, `1password` on ifrit, `none`). Helper:
+      `home/.chezmoitemplates/secret`:
 
-- Adopted `~/.config/mise/config.toml` (claude, codex, gh, node, plus
-  `rust = "latest"` for herdr-fingers). Rust via mise rather than Omarchy's
-  `omarchy-install-dev-env rust`, which runs rustup without
-  `--no-modify-path` and would edit the chezmoi-managed shell rc files.
-- ifrit cutover: merge ifrit's mise tools before applying (template if they
-  differ per machine).
+          export AWS_SECRET_ACCESS_KEY='{{ template "secret" (list .secrets "pass://SHARE/ITEM/FIELD" "op://VAULT/ITEM/FIELD") }}'
+
+      Keep references out of the public repo if you'd rather: put them in
+      `~/.config/chezmoi/chezmoi.toml` under `[data.refs]` and use
+      `.refs.aws_secret` etc. ifrit needs `op` signed in before `chezmoi apply`.
+
+Worksheet (remaining privfiles files):
+
+| privfiles file | Target | Contents | Plan | Watch out for |
+|---|---|---|---|---|
+| `sh/.local/sh/private.zshenv` | `~/.local/sh/private.zshenv` (private_, .tmpl) | secret env vars (AWS, ...) | secret template | name matches the `*.zshenv` loader already |
+| `sh/.local/sh/homelab-prod.env`, `homelab-tn.env` | `~/.local/sh/` (private_, .tmpl) | homelab secrets | secret templates, personal only | not auto-sourced (sourced on demand?) |
+| `docker-config.json` | `~/.docker/config.json` | registry auth | secret template | Docker rewrites this file (credsStore etc.): consider `modify_` + jq like pi |
+| `home/.npmrc` | `~/.npmrc` | npm token | secret template | |
+| `smb/.smb.conf` | `~/.smb.conf` | SMB credentials | secret template, personal only | |
+| `ssh/.ssh/config` | `~/.ssh/config` + `~/.ssh/config.d/private` | hosts/IPs/users | public base with `Include ~/.ssh/config.d/*`; host entries from a Pass/1P note | ifrit vs shiva host sets may differ |
+| `sh/.local/sh/aliases.zsh`, `functions.zsh` | `~/.local/sh/private.aliases.zsh`, `private.functions.zsh` | private-ish shell | template from notes, or public if harmless | must not use the unmanaged `aliases.zsh`/`functions.zsh` names |
+| `sh/.local/sh/functions-shiva.zsh` | merge into `~/.local/sh/shiva.functions.zsh` | | | old name isn't sourced by the new loader |
+| `sh/.local/sh/shiva.zshenv` | merge into the managed `shiva.zshenv` (template) | | | **collides** with the managed file |
+| `ssh/.ssh/*.pub`, `authorized_keys`, `allowed_signers` | — | | moved (above) | delete from privfiles |
+| `Makefile`, `README.md`, `.gitignore` | — | | drop | |
+
+Then: archive the privfiles repo on GitHub.
 
 ---
 

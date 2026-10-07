@@ -1,1 +1,12 @@
-{{ .email }} {{ output "cat" (joinPath .chezmoi.homeDir ".ssh/id_ed25519.pub") | trim }}
+richard@moov.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIk9E9mVlymsOcI08db2wzSlCzg0vQZ/QHFt1fRKqhuy richard@ifrit
+richard@sigil.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIk9E9mVlymsOcI08db2wzSlCzg0vQZ/QHFt1fRKqhuy richard@ifrit
+richard@sigil.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUq3MbHSJkXoLfrmN5FqRLwDof3od8HdcrAp5H5/jMq sarumont@dadfi
+richard@sigil.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDv1RHtLpClEPWJ8FreQLFbpppks08xMM0stmDz+EbEO sarumont@shiva
+richard@sigil.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILW2gupN2NkVZzuiHjbZ9kcQW7+aiFXYyY3zKyZVhkSX sarumont@yuffie-sshfs
+sarubot@sigil.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPTWEOFXS3JraO8Ewry76WIJ7jl2Oq7uuVsRTJeTCicr sarumont@jarvis
+{{- /* append this machine's key if it isn't listed above (new machines) */ -}}
+{{- $local := output "cat" (joinPath .chezmoi.homeDir ".ssh/id_ed25519.pub") | trim -}}
+{{- $key := index (splitList " " $local) 1 }}
+{{- if not (contains $key (include "dot_config/git/allowed_signers.tmpl")) }}
+{{ .email }} {{ $local }}
+{{- end }}

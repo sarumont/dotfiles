@@ -60,10 +60,6 @@ alias st='git status'
 alias gibr='uvx gibr'  # no Python env to manage
 alias claude='claude --enable-auto-mode'
 
-if [[ -r ~/.privfiles/sh/aliases.zsh ]]; then
-    . ~/.privfiles/sh/aliases.zsh
-fi
-
 # machine-specific: <host>.aliases.zsh is managed, aliases.zsh is local-only
 for f in ~/.local/sh/*.aliases.zsh(N); do
     . $f

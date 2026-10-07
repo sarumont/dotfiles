@@ -77,10 +77,6 @@ fetch_gh_latest() {
     curl -L $(curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r '.assets[] | select(.browser_download_url | contains("linux")) | .browser_download_url') | tar zx
 }
 
-if [[ -r ~/.privfiles/sh/functions.zsh ]]; then
-    . ~/.privfiles/sh/functions.zsh
-fi
-
 # machine-specific: <host>.functions.zsh is managed, functions.zsh is local-only
 for f in ~/.local/sh/*.functions.zsh(N); do
     . $f

@@ -32,15 +32,6 @@ for f in ~/.local/sh/dirs-*.env(N); do
     . "$f"
 done
 
-# source private shared shit
-if [[ -r ~/.privfiles/sh/zshenv ]]; then
-    . ~/.privfiles/sh/zshenv
-fi
-
-for f in ~/.privfiles/sh/*.zshenv(N); do
-    . $f
-done
-
 # source machine-specific code: <host>.zshenv is managed, zshenv is local-only
 for f in ~/.local/sh/*.zshenv(N); do
     . $f
