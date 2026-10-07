@@ -338,34 +338,28 @@ Each module: what exists, what's live on shiva, recommendation, decision.
 - Validated: `hyprctl reload` + `hyprctl configerrors` clean.
 - README: "Day-to-day with chezmoi" (add/re-add/merge/template/gating).
 
-### M9. Sway stack (`sway/`, `waybar/`, `systemd/` sway units, `.hosts-steamdeck`)
+### M9. Sway stack — DONE
 
-- `sway/` (sway, swaylock, wofi, gammastep), `waybar/` (incl.
-  `style.old.css`), `systemd/` `sway-session.target`, `swaybg.service`,
-  `swayidle.service` (`.hosts-steamdeck` is already DISCARD per M17).
-- None installed. Omarchy replaces all of it (Hyprland, quickshell,
-  hyprsunset, hyprlock/idle). No current host runs sway.
-- [ ] Will any future generic-Arch machine run sway? ___
-- [ ] **Decision (M9):** DISCARD (recommended) / GATE `arch`
+- [x] DISCARDED `sway/`, `waybar/`, `systemd` swaybg/swayidle/sway-session.
 
-### M10. macOS window managers (`aerospace/`, `omniwm/`)
+### M10. macOS window managers — DONE
 
-- Both macOS only. `omniwm` has recent commits; is `aerospace` still used?
-- [ ] **Decision (M10):** GATE darwin both / GATE darwin omniwm + DISCARD aerospace
+- [x] omniwm → `~/.config/omniwm/settings.toml`, darwin-only. aerospace DISCARDED.
 
-### M11. kanata (`kanata/`, `systemd/kanata.service`)
+### M11. kanata — DONE
 
-- Not installed on shiva. Needs the `input` group (README group step).
-- [ ] **Decision (M11):** KEEP everywhere / GATE / DISCARD
+- [x] DISCARDED (with `kanata.service`). Replaced by **keyd** on shiva; keyd
+      lives in `/etc` — **to document** (README "Machine changes outside
+      `$HOME`").
 
-### M12. Audio and music (`audio/`, root `.config/{beets,mpd,ncmpcpp,pipewire}`, `systemd/{mpd,playerctld}.service`)
+### M12. Audio and music — DONE
 
-- easyeffects presets + IRS files, beets config (×2 copies; the mesafi/yuffie
-  host copies are DISCARD per M17), mpd, ncmpcpp,
-  pipewire drop-in, mpd/playerctld user units. Nothing installed on shiva.
-  Omarchy ships `mpv-mpris`; `playerctld` may be unnecessary.
-- [ ] Still using easyeffects? beets? mpd/ncmpcpp? ___
-- [ ] **Decision (M12):** GATE `personal` / DISCARD parts: ___
+- [x] PipeWire drop-in (allowed sample rates up to 384 kHz) kept → Linux-only
+      `~/.config/pipewire/pipewire.conf.d/pipewire.conf`. Takes effect after
+      `systemctl --user restart pipewire pipewire-pulse wireplumber`.
+- [x] DISCARDED easyeffects presets/IRS (recoverable from history), beets
+      configs (beets runs on the music-tools VM), mpd, ncmpcpp, `mpd` and
+      `playerctld` units.
 
 ### M13. Small home files (`home/`) — DONE
 
@@ -422,21 +416,13 @@ Applied on shiva and verified (`rg` honors the ignore file and `--hidden`).
   cross-OS maintenance routine still deferred.
 - `.hosts-*` directories are now gone entirely.
 
-### M16. Root `.config/` (never stowed)
+### M16. Root `.config/` (never stowed) — DONE
 
-| Path | Notes | Recommendation |
-|---|---|---|
-| `aacs/KEYDB.cfg` | 24 MB, public Blu-ray key DB | DISCARD; if needed, `.chezmoiexternal` download from its source |
-| `emoji-keyboard.json` | | ask |
-| `libinput-gestures.conf` | Hyprland has native gestures | DISCARD |
-| `parcellite/` | clipboard manager, Omarchy has its own | DISCARD |
-| `mako/` | not installed; Omarchy uses quickshell notifications | DISCARD |
-| `fontconfig/conf.d/{15-custom,69-aliases}.conf` | Omarchy has its own fontconfig | MERGE or DISCARD |
-| `pgcli/`, `http-prompt/` | not installed | ask |
-| `spicy/` | SPICE client | ask |
-| `beets/`, `mpd/`, `ncmpcpp/`, `pipewire/` | see M12 | M12 |
-
-- [ ] **Decision (M16):** per row
+- [x] DISCARDED all of it: `aacs/KEYDB.cfg`, libinput-gestures, parcellite,
+      mako, emoji-keyboard, pgcli, http-prompt, spicy, fontconfig aliases
+      (Omarchy's `omarchy-font-set` owns monospace), mpd/ncmpcpp/beets.
+      PipeWire moved per M12. Also DISCARDED `devmon` and `geoclue-agent`
+      units (Omarchy has udiskie and hyprsunset).
 
 ### M17. Host overlays (`.hosts-*`)
 

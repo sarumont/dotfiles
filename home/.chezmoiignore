@@ -34,3 +34,11 @@
 {{ if eq .chezmoi.os "darwin" }}
 .local/bin/codemod
 {{ end }}
+
+# macOS-only apps / Linux-only audio
+{{ if ne .chezmoi.os "darwin" }}
+.config/omniwm
+{{ end }}
+{{ if eq .chezmoi.os "darwin" }}
+.config/pipewire
+{{ end }}
