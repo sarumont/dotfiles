@@ -270,20 +270,33 @@ Each module: what exists, what's live on shiva, recommendation, decision.
   Installed on shiva: `local.vim-navigator`, `nathan-poncet.herdr-fingers`;
   action IDs match the bindings. Config reload: no diagnostics.
 
-### M5. Neovim (`nvim/`, `.nvim-nvchad/`)
+### M5. Neovim — DONE (shiva)
 
-- Repo `nvim/`: NvChad 2.5 config. `.nvim-nvchad/`: an older NvChad copy
-  (has `configs/*.lua` the current one dropped) — stale.
-- Shiva: LazyVim from the `omarchy-nvim` package. Omarchy theme switching
-  drives the nvim colorscheme through LazyVim; NvChad loses that.
-- Hooks: `nvim --headless "+Lazy! sync" +qa` → `run_onchange_after_` keyed on
-  the hash of `lazy-lock.json` (track the lockfile if you aren't).
-  Formatters/LSPs (`stylua`, `yamlfmt`, `gopls`, `kotlin-language-server`,
-  `go`, `silicon`) → package list or Mason.
-- [ ] `.nvim-nvchad/` — DISCARD (recommended)
-- [ ] **Decision (M5):** KEEP NvChad everywhere / ADOPT LazyVim (port your
-      plugins/mappings onto it) / GATE (LazyVim on Omarchy, NvChad on Mac — not
-      recommended, two configs to maintain)
+- [x] Decision: **ADOPT LazyVim everywhere**, leader `,`. NvChad config and
+      `.nvim-nvchad/` removed. Keymap decisions: `docs/nvim-keymaps.md`.
+- Base: Omarchy's LazyVim files (init, lazy.lua, remote_clipboard, news/scroll
+  tweaks). Omarchy-only (`all-themes`, `omarchy-theme-hotreload`,
+  `transparency`) gated to Omarchy; `theme.lua` is left to Omarchy's symlink on
+  Omarchy and is onenord elsewhere.
+- Extras: ai.copilot (Go only), dap.core, editor.neo-tree, lang.go,
+  lang.kotlin, lang.yaml, test.core, ui.treesitter-context, util.chezmoi.
+- Dropped: avante, telescope (+ fzf-native), nvim-cmp/copilot-cmp, fidget,
+  gitlinker, nvim-tree, sneak, zen-mode, vim-tmux-navigator's default maps
+  inside herdr, NvChad terminals. whop now runs via `:Whop` (snacks picker).
+- Kept as custom specs: fugitive, diffview, gitsigns (`<leader>h*`, `]h`),
+  vim-surround, vim-repeat, expand-region, treesj, whop, coverage
+  (`<leader>tc*`), review.nvim, silicon, tmux navigator/runner, herdr
+  navigation, obsidian (now blink + snacks picker).
+- Fixed along the way: `<leader>cl`/`<leader>cs` double-binding; obsidian
+  `<C-p>` used a legacy command with `legacy_commands = false`; vim-surround
+  only lazy-loaded on `cs`/`ds` (now also `ys`).
+- Go installed via mise (`go = "latest"`, Omarchy's method) so Mason can build
+  gopls, delve, gofumpt, goimports, gomodifytags, impl.
+- Verified headless on shiva: all mappings resolve, gopls attaches, no errors.
+- Open: Kotlin LSP needs a JDK (none on shiva); vim-surround's visual `S`
+  vs flash's visual `S` (flash wins) — revisit if missed.
+- ifrit cutover: remove NvChad state first (`~/.local/share/nvim`,
+  `~/.local/state/nvim`, `~/.cache/nvim`), then apply; run `Copilot auth`.
 
 ### M6. Starship (`starship/`)
 

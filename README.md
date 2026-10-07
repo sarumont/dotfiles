@@ -113,7 +113,9 @@ Machine-specific shell files live in `~/.local/sh/`:
 
 ## obsidian.nvim
 
-You can set `OBSIDIAN_VAULT_DIR` in your `~/.local/sh/zshenv` to point to an Obsidian Vault. This allows [`obsidian.nvim`](https://github.com/epwalsh/obsidian.nvim) to utilize it. It defaults to `~/notes`
+Set `OBSIDIAN_VAULT_DIR` (e.g. in `~/.local/sh/<host>.zshenv`) to point
+[obsidian.nvim](https://github.com/obsidian-nvim/obsidian.nvim) at a vault.
+It defaults to `~/notes`.
 
 ## Privfiles
 
@@ -186,6 +188,23 @@ to pin a commit). herdr has no plugin-update command: to update, re-run
   (Ctrl+A, then F) labels paths, URLs, hashes and more; type a label to copy,
   Shift+label to paste, Ctrl+label to open, Tab to select several. Built with
   cargo, so Rust comes from mise (`~/.config/mise/config.toml`).
+
+## Neovim
+
+LazyVim, with `,` as leader. Config: `home/dot_config/nvim/` (extras in
+`lazyvim.json`, overrides in `lua/plugins/`); keymaps and the reasoning behind
+them: `docs/nvim-keymaps.md`. On Omarchy, `lua/plugins/theme.lua` is a symlink
+owned by `omarchy-theme-set`, so Neovim follows Omarchy themes live; elsewhere
+`theme.lua` sets onenord. `run_onchange_after_nvim-lazy-sync.sh` runs
+`Lazy! sync` whenever `lazyvim.json` or a plugin spec changes.
+
+Language tooling comes from mise (`go`, `rust`, `node` in
+`~/.config/mise/config.toml`) and Mason (gopls, delve, formatters, linters;
+installed on first use).
+
+Manual, once per machine:
+
+    nvim +"Copilot auth"     # GitHub Copilot sign-in (Copilot is enabled for Go only)
 
 ## GUI
 

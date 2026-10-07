@@ -1,0 +1,18 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.ai.copilot",
+    "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.editor.neo-tree",
+    "lazyvim.plugins.extras.lang.go",
+    "lazyvim.plugins.extras.lang.kotlin",
+    "lazyvim.plugins.extras.lang.yaml",
+    "lazyvim.plugins.extras.test.core",
+    "lazyvim.plugins.extras.ui.treesitter-context",
+    "lazyvim.plugins.extras.util.chezmoi"
+  ],
+  "install_version": 8,
+  "news": {
+    "NEWS.md": "10960"
+  },
+  "version": 8
+}

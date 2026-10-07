@@ -1,0 +1,9 @@
+#!/bin/sh
+# Install/update Neovim plugins when the plugin set changes.
+# lazyvim.json: {{ include "dot_config/nvim/lazyvim.json" | sha256sum }}
+{{- range (glob (joinPath .chezmoi.sourceDir "dot_config/nvim/lua/plugins/*.lua")) }}
+# {{ base . }}: {{ include . | sha256sum }}
+{{- end }}
+set -eu
+command -v nvim >/dev/null 2>&1 || exit 0
+nvim --headless "+Lazy! sync" +qa
