@@ -153,9 +153,18 @@ session, which is set at login.
 
 ## `tmux`
 
-    # install tmux plugin manager (tpm)
-    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-    # start tmux and run <prefix>I to install all plugins
+Config: `home/dot_config/tmux/tmux.conf.tmpl` (workflow notes in
+`docs/tmux.md`). chezmoi clones tpm into `~/.config/tmux/plugins/tpm` (a
+weekly-refreshed external) and `run_onchange_after_tmux-plugins.sh` installs
+the `@plugin` list whenever `tmux.conf` changes, using a private tmux server so
+running sessions aren't affected. `<prefix> I` / `<prefix> U` still work for
+manual installs and updates.
+
+Per-host bindings live in `~/.config/tmux/tmux.<host>.conf` (managed);
+`~/.config/tmux/tmux.local.conf` is unmanaged and loads last.
+
+Running tmux servers keep their old config until you reload it
+(`<prefix> R`) or restart them.
 
 ## herdr
 
@@ -166,7 +175,7 @@ Config: `home/dot_config/herdr/config.toml.tmpl`. On Omarchy it uses the
 Plugins are listed in `home/.chezmoidata/herdr.yaml` and installed by
 `run_onchange_after_herdr-plugins.sh` whenever that list changes (add `ref:`
 to pin a commit). herdr has no plugin-update command: to update, re-run
-`chezmoi state delete-bucket --bucket=scriptState` and `chezmoi apply`, or run
+`chezmoi state delete-bucket --bucket=entryState` and `chezmoi apply`, or run
 `herdr plugin install <repo> --yes` by hand.
 
 - [nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation)

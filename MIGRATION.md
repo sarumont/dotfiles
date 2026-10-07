@@ -238,19 +238,23 @@ Each module: what exists, what's live on shiva, recommendation, decision.
   `~/.gnupg` with a YubiKey stub; to be removed.) GPG/smartcard keys are no
   longer used: one key per machine instead.
 
-### M3. tmux (`tmux/`, `.hosts-*/.config/tmux/tmux.local.conf`)
+### M3. tmux — DONE
 
-- Repo: `tmux.conf`, `tmux.linux.conf`, `tmux.macos.conf`, host-local files.
-  Plugins via tpm (`tmux-sensible`, `vim-tmux-navigator`, `tmux-yank`,
-  `tmux-fpp`, `tmux-fastcopy`).
-- Shiva: Omarchy wrote `~/.config/tmux/tmux.conf`; tpm not installed.
-- Recommendation: decide first whether tmux is still primary now that herdr
-  (M4) is. If kept: tpm → `.chezmoiexternal.toml`; plugin install →
-  `run_onchange_` (`~/.config/tmux/plugins/tpm/bin/install_plugins`);
-  `tmux.linux.conf`/`tmux.macos.conf` + host files → one template or keep the
-  `source-file` pattern with OS-gated files.
-- [ ] Is tmux still used day to day, or herdr only? ___
-- [ ] **Decision (M3):** KEEP / MERGE / ADOPT / DISCARD
+- Still in daily use; repo config wins (Omarchy-written config was the
+  untouched default with a `C-Space` prefix).
+- Added from Omarchy: `set-clipboard on`, `extended-keys` (csi-u),
+  `detach-on-destroy off`, `set-titles` (`#h:#W`).
+- `tmux.linux.conf`/`tmux.macos.conf` → one templated fastcopy line.
+- Host files → `tmux.<host>.conf` (gated in `.chezmoiignore`), sourced with
+  `source-file -q`; `tmux.local.conf` stays the unmanaged override.
+- tpm → chezmoi external (`git-repo`, weekly). Plugins →
+  `run_onchange_after_tmux-plugins.sh`, keyed on the tmux.conf hash, running
+  tpm's installer against a private tmux server.
+- `TMUX_PLUGIN_MANAGER_PATH` set explicitly to silence tpm's startup message
+  on tmux 3.7.
+- `tmux/README.md` → `docs/tmux.md` (stow would have linked it to `~/README.md`).
+- Scripts (`ta`, `tmux_attach`, `tmux-right-status`, `tmux-session-label`)
+  are handled in M14.
 
 ### M4. herdr — DONE
 

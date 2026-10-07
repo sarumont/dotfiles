@@ -1,0 +1,12 @@
+#!/bin/sh
+# Install tmux plugins declared in tmux.conf; re-runs when tmux.conf changes.
+# tmux.conf hash: {{ include "dot_config/tmux/tmux.conf.tmpl" | sha256sum }}
+set -eu
+command -v tmux >/dev/null 2>&1 || { echo "tmux not installed; skipping plugins" >&2; exit 0; }
+# tpm's installer queries the tmux server, so use a private one with this config
+# rather than whatever server (and config) the user has running.
+sock="chezmoi-tpm-$$"
+tmux -L "$sock" -f "$HOME/.config/tmux/tmux.conf" new-session -d -s tpm
+trap 'tmux -L "$sock" kill-server 2>/dev/null || true' EXIT
+TMUX="$(tmux -L "$sock" display-message -p '#{socket_path}'),0,0" \
+  "$HOME/.config/tmux/plugins/tpm/bin/install_plugins"

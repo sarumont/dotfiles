@@ -2,8 +2,10 @@
 {{ if ne .chezmoi.hostname "shiva" }}
 .local/sh/shiva.*
 .local/sh/dirs-shiva.env
+.config/tmux/tmux.shiva.conf
 {{ end }}
 {{ if ne .chezmoi.hostname "ifrit" }}
 .local/sh/ifrit.*
 .local/sh/dirs-ifrit.env
+.config/tmux/tmux.ifrit.conf
 {{ end }}
