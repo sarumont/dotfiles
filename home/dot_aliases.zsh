@@ -1,6 +1,4 @@
 # editor aliases
-alias vi=$EDITOR
-alias vim=$EDITOR
 alias viup='nvim --headless "+Lazy! sync" +qa'
 
 # job management
@@ -18,7 +16,6 @@ alias 9='fg %9'
 # general aliases
 alias grep='grep --color'
 alias ugrep='ps aux | grep $USER | grep '
-alias bc='eva'
 alias cat='bat'
 
 # tree navigation
@@ -62,25 +59,14 @@ alias st='git status'
 # AI tooling
 alias claude='claude --enable-auto-mode'
 
-# TODO: these aren't universal / cross-platform
-
-# music
-alias beet="source ~/.beets-venv/bin/activate && ~/.beets-venv/bin/beet --config ~/.local/beets/config.yaml"
-
-# mounts
-alias mymounts="tree -L 1 /media/$USER"
-
-# productivity
-alias pomodoro="playerctl play && at now + 25 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
-alias super_pom="playerctl play && at now + 50 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
-alias deep_work="playerctl play && at now + 90 minutes <<< 'playerctl pause && notify-send -i ~/Drive/misc/tomato.png -u normal \"Take a break and do some burpees\"'"
-
-# Sway visor terminal size and position
-alias visor_adj="swaymsg resize set 100 ppt 80 ppt && swaymsg move absolute position 0 30"
-
 if [[ -r ~/.privfiles/sh/aliases.zsh ]]; then
     . ~/.privfiles/sh/aliases.zsh
 fi
+
+# machine-specific: <host>.aliases.zsh is managed, aliases.zsh is local-only
+for f in ~/.local/sh/*.aliases.zsh(N); do
+    . $f
+done
 
 if [[ -r ~/.local/sh/aliases.zsh ]]; then
     . ~/.local/sh/aliases.zsh

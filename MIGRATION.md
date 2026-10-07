@@ -185,34 +185,37 @@ Workflow for every module below: `git mv` into `home/` → adjust names/template
 
 Each module: what exists, what's live on shiva, recommendation, decision.
 
-### M1. zsh (`zsh/`)
+### M1. zsh — DONE
 
-- Repo: `.zshrc`, `.zshenv`, `.zlogin`, `.aliases.zsh`, `.functions.zsh`,
-  `.omz-custom/mygit.zsh`. Local overrides via `~/.local/sh/*`.
-- Shiva: zsh installed and is the login shell; **oh-my-zsh not installed**.
-- **Omarchy gotcha:** Omarchy's environment (`OMARCHY_PATH`, `EDITOR`,
-  `BROWSER`, `MANPAGER`, `~/.local/bin` on PATH, locale fix) lives in
-  `/usr/share/omarchy/default/bash/{env-bootstrap,envs}`, which only bash
-  sources. zsh needs an `{{ if .omarchy }}` block that sources `env-bootstrap`
-  and sets the pieces of `envs` you want. Omarchy aliases/functions in
-  `default/bash/{aliases,functions}` are worth reviewing for anything to port.
-- Dependencies → hooks:
-  - oh-my-zsh, zsh-syntax-highlighting → `.chezmoiexternal.toml` (`git-repo`,
-    refreshed weekly). Replaces the README `curl | sh` step.
-  - `chsh` → `run_once_` script that checks `$SHELL` first.
-- Sub-decisions:
-  - [ ] **keychain** — not needed on shiva (no agent in use; see M2). On
-        macOS, `ssh-agent` plus `UseKeychain yes`/`AddKeysToAgent yes` in
-        `~/.ssh/config` covers it if ifrit's key has a passphrase →
-        DISCARD everywhere (recommended) / GATE darwin
-  - [ ] `GPG_TTY` export in `.zshenv` — DISCARD (gpg no longer used)
-  - [ ] **direnv** — install + keep / DISCARD (mise can do env per dir)
-  - [ ] **eva** (bc replacement) — install / DISCARD (Omarchy ships `omacalc`)
-  - [ ] OMZ plugin list — drop `debian`; `archlinux` gated to Linux, `macos` to darwin
-  - [ ] oh-my-zsh itself — KEEP / replace with a lighter plugin manager (later, separate change)
-  - [ ] iTerm2 integration line — DISCARD (Ghostty on Mac?) / KEEP
-  - [ ] `build()` and its shortcuts (Gradle/Maven/Ant/lerna) — still used?
-- [ ] **Decision (M1):** ___
+- oh-my-zsh: Linux uses `oh-my-zsh-git` (AUR, `/usr/share/oh-my-zsh`); macOS
+  uses a chezmoi external (archive) at `~/.oh-my-zsh`. `ZSH_CACHE_DIR` moved to
+  `~/.cache/oh-my-zsh`; `ZSH_CUSTOM` / `~/.omz-custom` dropped.
+- zsh-syntax-highlighting: sourced directly from the package (pacman / brew /
+  ports) at the end of `.zshrc`, no longer an OMZ plugin.
+- `chsh` → `run_once_after_chsh-zsh.sh`.
+- `.zshenv`: dropped `GPG_TTY`, `MOZ_ENABLE_WAYLAND`, `.` and dead PATH entries
+  (`/snap/bin`, `/opt/bin`, Android/gcloud/Heroku/rvm/dasht); MacPorts and
+  Homebrew paths gated to darwin; Omarchy's `BROWSER`, `BAT_THEME`, bat man
+  pager added on Omarchy. Managed host `*.zshenv` now load before the
+  unmanaged `~/.local/sh/zshenv`, so local wins.
+- `.zshrc`: OS detection → template (`archlinux`/`macos` plugin,
+  `wl-copy`/`pbcopy`); kept `httpie`, `kubectl`; dropped iTerm2 line,
+  keychain, `mygit.zsh`. `EDITOR=nvim` (overrides Omarchy's). Aliases and
+  functions now load after `EDITOR` is set.
+- Omarchy ports (Omarchy only): `ff`, `eff`, `open`, `mup`; herdr layouts
+  `hdl`/`hds`/`hdlm`/`hsl` sourced from Omarchy's file under `emulate ksh`
+  (stays in sync with Omarchy). Not ported: `ga`/`gd` (OMZ git aliases win),
+  `c`/`n`/`t`/`h`, `compress`.
+- Aliases dropped: `bc`, `visor_adj`, `mymounts`, `pomodoro`, `super_pom`,
+  `deep_work`. `beet` → shiva-only function running on the `music-tools` VM.
+- Functions dropped: `all`, `set_version`, `track_lengths`.
+- Hosts: `.hosts-{shiva,ifrit}/.local/sh/*` → `~/.local/sh/<host>.*` and
+  `dirs-<host>.env`, gated via `home/.chezmoiignore`. Unmanaged
+  `~/.local/sh/{zshenv,zshrc,zlogin,aliases.zsh,functions.zsh}` stay as the
+  local escape hatch. `dirs.env` moved here from `local/`.
+- ifrit cutover notes: install zsh-syntax-highlighting via brew/ports; the
+  existing `~/.oh-my-zsh` git clone is replaced by the external (exact);
+  delete `~/.omz-custom`.
 
 ### M2. git — DONE
 
@@ -475,6 +478,8 @@ gating only for truly machine-specific values (paths, monitors).
 
 - Rewrite history to drop large blobs (Phase 0.3).
 - Move ifrit from MacPorts + Homebrew to Homebrew only.
+- Work out a regular Omarchy maintenance routine (e.g. `mup` for mise tools,
+  system/AUR updates, Omarchy updates) and document it in the README.
 - Other machines with keys on GitHub (left in place on purpose):
   - `dadfi` — still in use; its dotfiles are out of date. Bring it onto
     chezmoi (it isn't one of the two managed hosts yet: decide its gating).

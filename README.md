@@ -102,13 +102,14 @@ Local overrides are managed via `stow` using the `make host` command. This looks
 
 ## shell
 
-The following local zsh overrides are supported:
+Machine-specific shell files live in `~/.local/sh/`:
 
- - `.aliases.zsh` -> `.local/sh/aliases.zsh`
- - `.functions.zsh` -> `.local/sh/functions.zsh`
- - `.zlogin` -> `.local/sh/zlogin`
- - `.zshenv` -> `.local/sh/zshenv` && `.local/sh/*.zshenv`
- - `.zshrc` -> `.local/sh/zshrc`
+- `<host>.zshenv`, `<host>.aliases.zsh`, `<host>.functions.zsh`,
+  `dirs-<host>.env`: managed by chezmoi, only installed on that host
+  (gated in `home/.chezmoiignore`).
+- `zshenv`, `zshrc`, `zlogin`, `aliases.zsh`, `functions.zsh`: not managed;
+  use them for settings that stay on one machine. They are sourced after the
+  managed files, so they win.
 
 ## obsidian.nvim
 
@@ -136,14 +137,17 @@ I have a private repository that is an overlay on top of this one called `privfi
 
 
 ## zsh
-    # oh my zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-    # zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+Linux uses packaged oh-my-zsh and zsh-syntax-highlighting:
 
-    # change shell to zsh (Arch: /usr/bin/zsh, macOS: /bin/zsh)
-    chsh
+    yay -S zsh oh-my-zsh-git zsh-syntax-highlighting
+
+On macOS, chezmoi downloads oh-my-zsh into `~/.oh-my-zsh` (see
+`home/.chezmoiexternal.toml.tmpl`); install the highlighter with
+`brew install zsh-syntax-highlighting` or `sudo port install zsh-syntax-highlighting`.
+
+`chezmoi apply` switches the login shell to zsh if needed
+(`run_once_after_chsh-zsh.sh`).
 
 ## `tmux`
 

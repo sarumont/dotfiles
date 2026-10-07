@@ -1,0 +1,9 @@
+# Host-specific files: each host only gets its own <host>.* files.
+{{ if ne .chezmoi.hostname "shiva" }}
+.local/sh/shiva.*
+.local/sh/dirs-shiva.env
+{{ end }}
+{{ if ne .chezmoi.hostname "ifrit" }}
+.local/sh/ifrit.*
+.local/sh/dirs-ifrit.env
+{{ end }}

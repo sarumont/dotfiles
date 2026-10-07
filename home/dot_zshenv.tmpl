@@ -3,17 +3,25 @@ typeset -U path
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
-export GPG_TTY=$(tty)
-export MOZ_ENABLE_WAYLAND=1
 export OBSIDIAN_VAULT_DIR=$HOME/notes
+{{- if .omarchy }}
+
+# Omarchy's interactive env from /usr/share/omarchy/default/bash/envs, which
+# only bash sources. (OMARCHY_PATH, PATH and TERMINAL come from the uwsm
+# session; EDITOR is set in .zshrc.)
+export BROWSER="${BROWSER:-omarchy-launch-browser}"
+export BAT_THEME=ansi
+export MANROFFOPT="-c"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+{{- end }}
 
 # path prepend
 path[1,0]=(
     $HOME/.local/bin
-    /opt/bin 
+{{- if eq .chezmoi.os "darwin" }}
     /opt/local/bin
     /opt/local/sbin
-    /snap/bin
+{{- end }}
 )
 
 # source shared directory definitions
@@ -33,26 +41,20 @@ for f in ~/.privfiles/sh/*.zshenv(N); do
     . $f
 done
 
-# source machine-specific code
-if [[ -r ~/.local/sh/zshenv ]]; then
-    . ~/.local/sh/zshenv
-fi
-
+# source machine-specific code: <host>.zshenv is managed, zshenv is local-only
 for f in ~/.local/sh/*.zshenv(N); do
     . $f
 done
 
+if [[ -r ~/.local/sh/zshenv ]]; then
+    . ~/.local/sh/zshenv
+fi
+
 # path append
-# FOO_HOME will always be set in .local if they exist
-# and '.' is always at the end
 path+=(
-    $ANDROID_HOME/platform-tools
-    $ANDROID_HOME/tools
-    $GCLOUD_HOME/bin
-    $HEROKU_HOME/bin
-    $HOME/.rvm/bin
-    $HOME/.dasht/bin
     $HOME/go/bin
+{{- if eq .chezmoi.os "darwin" }}
     /opt/homebrew/bin
-    .)
+{{- end }}
+)
 path=($^path(N))

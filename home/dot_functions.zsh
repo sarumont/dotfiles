@@ -1,53 +1,3 @@
-track_lengths() {
-    for x in *.flac; do 
-        metaflac --show-total-samples --show-sample-rate $x |\
-            tr '\n' ' ' |\
-            awk '{print $1/$2}' |\
-            awk '{printf int($1/60) ":%02.0f\n", $1%60 }'
-    done
-}
-
-all() {
-    case $1 in 
-        status)
-            GIT_CMD="git status"
-            SVN_CMD="svn status"
-            ;;
-        pull)
-            GIT_CMD="git pull --rebase"
-            SVN_CMD="svn up"
-            ;;
-        push)
-            GIT_CMD="git push"
-            SVN_CMD=""
-            ;;
-        full)
-            GIT_CMD="git fetch --all --prune && git pull --rebase"
-            SVN_CMD=""
-            ;;
-        stashes)
-            GIT_CMD="git --no-pager stash list"
-            SVN_CMD=""
-            ;;
-        *)
-            echo "Unknown command: $1"
-            return 1
-    esac
-
-    for x in $(command ls -d */); do 
-        cd $x
-        echo "\n$fg[blue]$x:\e[0m"
-        if [[ -d .git ]]; then 
-            eval $GIT_CMD
-        elif [[ -d .svn ]]; then
-            eval $SVN_CMD
-        else
-            echo "No supported SCM detected"
-        fi
-        cd ..
-    done
-}
-
 build() {
     dir=`pwd`
     cmd='echo "Could not find buildfile"'
@@ -119,10 +69,6 @@ clp() {
     cl package $@
 }
 
-set_version() {
-    mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$1
-}
-
 fetch_gh_latest() {
     if [[ $# -ne 1 ]]; then
         echo "Usage: $0 <user/repo>"
@@ -134,6 +80,11 @@ fetch_gh_latest() {
 if [[ -r ~/.privfiles/sh/functions.zsh ]]; then
     . ~/.privfiles/sh/functions.zsh
 fi
+
+# machine-specific: <host>.functions.zsh is managed, functions.zsh is local-only
+for f in ~/.local/sh/*.functions.zsh(N); do
+    . $f
+done
 
 if [[ -r ~/.local/sh/functions.zsh ]]; then
     . ~/.local/sh/functions.zsh
