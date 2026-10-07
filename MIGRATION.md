@@ -324,15 +324,19 @@ Each module: what exists, what's live on shiva, recommendation, decision.
 - [x] Alacritty config DISCARDED. Omarchy's alacritty/kitty/foot configs stay
       unmanaged.
 
-### M8. Hyprland + Omarchy user config (new, nothing in repo yet)
+### M8. Hyprland + Omarchy user config — DONE
 
-- Shiva: `~/.config/hypr/*.lua` (bindings, input, monitors, looknfeel,
-  autostart), `~/.config/omarchy/` (themes, hooks, extensions, `shell.json`).
-- Recommendation: ADOPT the files you've changed or will change, GATE
-  `omarchy`. `monitors.lua` is per host → host-gated or templated.
-- [ ] Which files to track: bindings / input / looknfeel / autostart /
-      monitors / omarchy hooks / omarchy themes / all of `~/.config/hypr`
-- [ ] **Decision (M8):** ___
+- Customized vs Omarchy defaults: `looknfeel.lua` (scrolling layout,
+  `fullscreen_on_one_column`, gaps 2, rounding 8, dim inactive 0.15),
+  `input.lua` (trackpoint sensitivity), `monitors.lua` (scale 1.25,
+  GDK_SCALE 1), `omarchy/defaults/agent` (`claude`).
+- [x] ADOPTED those plus `bindings.lua` and `hyprsunset.conf` (to be
+      customized). All gated to Omarchy; `monitors.lua` gated to shiva; the
+      trackpoint block in `input.lua.tmpl` is shiva-only.
+- Left unmanaged: `hyprland.lua`, `autostart.lua`, `xdph.conf`, `shell.json`,
+  menu extensions, branding, Omarchy's installer hooks.
+- Validated: `hyprctl reload` + `hyprctl configerrors` clean.
+- README: "Day-to-day with chezmoi" (add/re-add/merge/template/gating).
 
 ### M9. Sway stack (`sway/`, `waybar/`, `systemd/` sway units, `.hosts-steamdeck`)
 

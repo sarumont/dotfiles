@@ -19,3 +19,12 @@
 .config/nvim/lua/plugins/omarchy-theme-hotreload.lua
 .config/nvim/plugin/after/transparency.lua
 {{ end }}
+
+# Hyprland/Omarchy user config only on Omarchy; display scaling is per machine.
+{{ if not .omarchy }}
+.config/hypr
+.config/omarchy
+{{ end }}
+{{ if ne .chezmoi.hostname "shiva" }}
+.config/hypr/monitors.lua
+{{ end }}

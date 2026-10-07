@@ -68,6 +68,50 @@ Shell scripts source the POSIX-compatible `~/.local/sh/dirs.env` contract. It de
 `~/.local/sh/dirs-$(hostname -s).env`; `SKILLS_DIRS` is defined there as a
 colon-separated list of skill repositories.
 
+## Day-to-day with chezmoi
+
+The source of truth is `home/` in this repo (`~/Work/dotfiles`, set as
+`sourceDir` in `~/.config/chezmoi/chezmoi.toml`). chezmoi copies files into
+`$HOME`; it does not symlink, so edits to live files must be brought back.
+
+    chezmoi status                 # what differs between repo and $HOME
+    chezmoi diff [path]            # show the differences
+    chezmoi apply [path]           # write repo state into $HOME (runs scripts too)
+    chezmoi managed                # list managed paths
+
+Changing a managed file:
+
+    chezmoi edit ~/.config/foo     # edit the source, then: chezmoi apply
+    # or, after editing the live file directly:
+    chezmoi re-add ~/.config/foo   # plain files: copy the live file back
+    chezmoi merge ~/.config/foo    # templates (*.tmpl): 3-way merge into the source
+
+Adding a new file:
+
+    chezmoi add ~/.config/foo/bar.conf             # plain file
+    chezmoi add --template ~/.config/foo/bar.conf  # will contain {{ }} logic
+    chezmoi chattr +template ~/.config/foo/bar.conf  # turn an existing one into a template
+
+`chezmoi add` keeps file modes (`private_`, `executable_` prefixes). Then
+decide where it should apply:
+
+- One OS / Omarchy only: add the path to `home/.chezmoiignore` inside
+  `{{ if ne .chezmoi.os "darwin" }}`, `{{ if not .omarchy }}`, and so on
+  (see the existing blocks).
+- One host only: name it per host where possible (`~/.local/sh/<host>.*`,
+  `~/.config/tmux/tmux.<host>.conf`) and add it to that host's block in
+  `.chezmoiignore`; otherwise gate a section inside a template with
+  `{{ if eq .chezmoi.hostname "shiva" }}`.
+- Template data available: `.chezmoi.os`, `.chezmoi.hostname`, `.omarchy`,
+  `.personal`, `.email` (`chezmoi data` shows everything).
+
+Don't add files that Omarchy owns as symlinks or regenerates (for example
+`~/.config/nvim/lua/plugins/theme.lua`, `~/.local/state/omarchy/*`).
+
+Committing: `chezmoi cd` opens a shell in the repo (or `cd ~/Work/dotfiles`);
+commit and push as usual. On another machine: `chezmoi update` (git pull +
+apply).
+
 ## add user to useful groups (linux)
 
     sudo gpasswd -a $(whoami) disk
@@ -202,6 +246,16 @@ font family and theme: the template renders the font from
 
     # macOS
     brew install --cask ghostty font-monaspace-nerd-font
+
+## Hyprland / Omarchy
+
+Only customized files are managed (Omarchy-only): `~/.config/hypr/`
+`looknfeel.lua`, `input.lua` (shiva trackpoint section templated),
+`bindings.lua`, `hyprsunset.conf`, `monitors.lua` (shiva only), and
+`~/.config/omarchy/defaults/agent`. Everything else stays Omarchy's default;
+`chezmoi add` a file when you start customizing it. After changes:
+`hyprctl reload && hyprctl configerrors`; `hyprsunset.conf` needs
+`omarchy restart hyprsunset`.
 
 ## Neovim
 
