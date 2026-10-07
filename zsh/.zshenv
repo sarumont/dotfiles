@@ -2,7 +2,7 @@ typeset -U path
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export RIPGREP_CONFIG_PATH=$HOME/.rgrc
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 export GPG_TTY=$(tty)
 export MOZ_ENABLE_WAYLAND=1
 export OBSIDIAN_VAULT_DIR=$HOME/notes

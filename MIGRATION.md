@@ -327,18 +327,19 @@ Each module: what exists, what's live on shiva, recommendation, decision.
 - [ ] Still using easyeffects? beets? mpd/ncmpcpp? ___
 - [ ] **Decision (M12):** GATE `personal` / DISCARD parts: ___
 
-### M13. Small home files (`home/`)
+### M13. Small home files (`home/`) — DONE
 
-| File | Notes | Decision |
+| File | Decision | Result |
 |---|---|---|
-| `.bcrc` | bc not installed; Omarchy has `omacalc` | |
-| `.myclirc` | mycli not installed | |
-| `.psqlrc` | psql present (postgresql-libs) | |
-| `.rgignore`, `.rgrc` | rg installed | |
-| `AGENTS.md` | `~/AGENTS.md` | |
-| `gitignore` | see M2 | |
+| `.bcrc` | DISCARD | removed |
+| `.myclirc` | DISCARD | removed |
+| `.psqlrc` | DISCARD | removed |
+| `.rgrc` | KEEP, moved | `~/.config/ripgrep/config` (template; `--ignore-file` needs an absolute path). `RIPGREP_CONFIG_PATH` in `zsh/.zshenv` updated |
+| `.rgignore` | KEEP, moved | `~/.config/ripgrep/ignore`, loaded via `--ignore-file`. Now applies to every search, not just under `~` |
+| `AGENTS.md` | KEEP | `~/AGENTS.md` (pulled in by `~/.claude/CLAUDE.md`) |
+| `gitignore` | KEEP as-is | `~/gitignore`, still referenced by `core.excludesfile`. Revisit in M2 |
 
-- [ ] **Decision (M13):** per row above
+Applied on shiva and verified (`rg` honors the ignore file and `--hidden`).
 
 ### M14. Scripts (`local/.local/bin`, `local/.local/sh/dirs.env`, `local/.local/misc`)
 
