@@ -116,6 +116,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 - use `linear` for interacting with Linear tickets. These will be of the format
   FOO-123
+- When starting a ticket, always set its status to `In Progress` and assign it to Richard (@sarumont).
 
 ### gh
 - GitHub CLI for PRs/CI/releases. Given issue/PR URL (or `/pull/5`): use `gh`, not web search.
