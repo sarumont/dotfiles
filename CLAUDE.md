@@ -148,7 +148,7 @@ The configuration uses modern CLI replacements:
 
 ## Notes
 
-- The configuration supports both macOS (MacPorts preferred) and Arch Linux (paru/pacman)
+- The configuration supports both macOS (MacPorts preferred) and Arch Linux (yay/pacman; always use `yay`, never `paru`, in instructions and scripts)
 - zsh plugins: OS-specific (macos/archlinux/debian), git, gitfast, httpie, sudo, zsh-syntax-highlighting
 - vim mode is enabled in zsh (`bindkey -v`)
 - Starship prompt is used

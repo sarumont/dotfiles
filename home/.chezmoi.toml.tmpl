@@ -1,0 +1,13 @@
+{{- /* Per-machine config. Rendered once by `chezmoi init`; answers are cached in ~/.config/chezmoi/chezmoi.toml. */ -}}
+{{- $omarchy := false -}}
+{{- if stat "/usr/share/omarchy" -}}
+{{-   $omarchy = true -}}
+{{- end -}}
+{{- $personal := promptBoolOnce . "personal" "Personal machine" -}}
+{{- $email := promptStringOnce . "email" "Git email" -}}
+sourceDir = {{ .chezmoi.workingTree | quote }}
+
+[data]
+  omarchy  = {{ $omarchy }}
+  personal = {{ $personal }}
+  email    = {{ $email | quote }}

@@ -169,8 +169,11 @@ Workflow for every module below: `git mv` into `home/` → adjust names/template
 → `chezmoi diff` → resolve per decision (`chezmoi merge <file>` for MERGE,
 `chezmoi add <file>` for ADOPT) → `chezmoi apply <path>` → commit.
 
-- [ ] Decision: package helper on generic Arch — `yay` (Omarchy ships it; one
-      tool everywhere, recommended) / `paru`
+- [x] Decision: AUR helper — **`yay` everywhere on Linux** (Omarchy's default).
+      Every committed Arch/Omarchy instruction, README or chezmoi script, uses
+      `yay`; generic Arch bootstraps `yay` instead of `paru`.
+- [x] Installed on shiva: chezmoi 2.72.1 (`extra`), `proton-pass-cli-bin`
+      2.4.2 (AUR); `pass-cli login` done.
 - [x] Decision: macOS package manager — **ifrit uses both MacPorts and
       Homebrew; support both for now.** The package bootstrap needs a `port`
       list and a `brew` list on darwin.
@@ -422,7 +425,8 @@ gating only for truly machine-specific values (paths, monitors).
 | README step | New home | Notes |
 |---|---|---|
 | Arch install article, create user, sudoers | README (manual) | Pre-chezmoi |
-| Install paru | `run_once_before_` (arch only, skip if `yay`/`paru` exists) | Omarchy has yay |
+| Install paru | Install **yay** instead: `run_once_before_` (Linux only, skip if `yay` exists) | Omarchy ships yay; generic Arch builds it from the AUR (`git clone https://aur.archlinux.org/yay-bin.git && makepkg -si`) |
+| Every `paru -S …` line | `yay -S --needed …` | Applies to README text and scripts |
 | MacPorts / Homebrew | README one-liners for both | Pre-chezmoi. ifrit uses both; Homebrew-only is deferred |
 | ssh-keygen + add to GitHub | README (manual) | Or init over HTTPS, switch remote later |
 | Clone + `make` | `sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply sarumont` | Plus `sourceDir` if not default |
