@@ -201,10 +201,11 @@ Each module: what exists, what's live on shiva, recommendation, decision.
     refreshed weekly). Replaces the README `curl | sh` step.
   - `chsh` → `run_once_` script that checks `$SHELL` first.
 - Sub-decisions:
-  - [ ] **keychain** — DISCARD on Linux (an agent already works on shiva; confirm
-        with `echo $SSH_AUTH_SOCK` in a terminal). On macOS, `ssh-agent` plus
-        `UseKeychain yes`/`AddKeysToAgent yes` in `~/.ssh/config` covers it too →
+  - [ ] **keychain** — not needed on shiva (no agent in use; see M2). On
+        macOS, `ssh-agent` plus `UseKeychain yes`/`AddKeysToAgent yes` in
+        `~/.ssh/config` covers it if ifrit's key has a passphrase →
         DISCARD everywhere (recommended) / GATE darwin
+  - [ ] `GPG_TTY` export in `.zshenv` — DISCARD (gpg no longer used)
   - [ ] **direnv** — install + keep / DISCARD (mise can do env per dir)
   - [ ] **eva** (bc replacement) — install / DISCARD (Omarchy ships `omacalc`)
   - [ ] OMZ plugin list — drop `debian`; `archlinux` gated to Linux, `macos` to darwin
@@ -227,8 +228,12 @@ Each module: what exists, what's live on shiva, recommendation, decision.
 - [x] README: SSH key + `gh` registration (auth + signing) comes first; the
       `url.insteadOf` SSH rewrite stays.
 - Applied on shiva; difftastic installed; signed test commit verified. Shiva key is registered on GitHub for auth + signing.
-- Note: shiva's running SSH agent is gpg-agent serving a smartcard RSA key,
-  not `id_ed25519` (which has no passphrase). Revisit in M1 (keychain).
+- SSH agent finding: none is in use. `id_ed25519` has no passphrase, so ssh
+  and git signing read it directly. `gpg-agent-ssh.socket` listens only
+  because Arch's `gnupg` enables its user sockets globally; nothing sets
+  `SSH_AUTH_SOCK` to it. (A probe during M2 started gpg-agent and created
+  `~/.gnupg` with a YubiKey stub; to be removed.) GPG/smartcard keys are no
+  longer used: one key per machine instead.
 
 ### M3. tmux (`tmux/`, `.hosts-*/.config/tmux/tmux.local.conf`)
 
@@ -470,6 +475,11 @@ gating only for truly machine-specific values (paths, monitors).
 
 - Rewrite history to drop large blobs (Phase 0.3).
 - Move ifrit from MacPorts + Homebrew to Homebrew only.
+- Other machines with keys on GitHub (left in place on purpose):
+  - `dadfi` — still in use; its dotfiles are out of date. Bring it onto
+    chezmoi (it isn't one of the two managed hosts yet: decide its gating).
+  - `mesafi` — may still be in use. Decide: onboard, or remove its GitHub key
+    (`gh ssh-key delete 117524922`).
 
 ## Suggested order
 

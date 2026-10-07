@@ -87,6 +87,15 @@ same key. No manual `git config` steps are needed.
 `~/.gitconfig` is not managed and is read after the global config, so use it
 for per-machine overrides.
 
+## Machine changes outside `$HOME`
+
+Changes made to a machine beyond the files chezmoi writes. Automated ones run
+from `home/.chezmoiscripts/`; manual ones must be run by hand on a new machine.
+
+| Change | OS | How | Undo |
+|---|---|---|---|
+| Mask gpg-agent sockets (`gpg-agent`, `-ssh`, `-extra`, `-browser`). GPG and smartcard SSH keys are no longer used; Arch's `gnupg` enables these sockets globally. | Linux | Automated: `run_once_after_mask-gpg-agent.sh` | `systemctl --user unmask gpg-agent.socket gpg-agent-ssh.socket gpg-agent-extra.socket gpg-agent-browser.socket` |
+
 # Local overrides
 
 Local overrides are managed via `stow` using the `make host` command. This looks for a dir called `.hosts-$(hostname)` and applies that as a vault. This applies side-by-side, so it does *not* support overwriting.

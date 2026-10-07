@@ -1,0 +1,8 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# GPG and smartcard SSH keys are no longer used (one ed25519 key per machine).
+# Arch's gnupg enables these user sockets globally; mask them so nothing
+# socket-activates gpg-agent. Undo: systemctl --user unmask <sockets>
+set -eu
+systemctl --user mask gpg-agent.socket gpg-agent-ssh.socket gpg-agent-extra.socket gpg-agent-browser.socket
+{{ end -}}
