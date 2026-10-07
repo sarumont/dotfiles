@@ -298,10 +298,14 @@ Each module: what exists, what's live on shiva, recommendation, decision.
 - ifrit cutover: remove NvChad state first (`~/.local/share/nvim`,
   `~/.local/state/nvim`, `~/.cache/nvim`), then apply; run `Copilot auth`.
 
-### M6. Starship (`starship/`)
+### M6. Starship — DONE
 
-- Repo `starship.toml` vs Omarchy-written `~/.config/starship.toml` (768 bytes).
-- [ ] **Decision (M6):** KEEP / MERGE / ADOPT
+- [x] MERGE: repo's two-line, contextual module list + Omarchy's styling
+      (ANSI cyan so it follows the theme, 2-level directory truncation with
+      repo-root highlight, compact git symbols, `command_timeout = 200`).
+- Dropped `$time` and `$memory_usage` (disabled by default in starship).
+- Added `$ahead_behind` to the git status format (Omarchy defines the
+  symbols but never renders them) and kept the branch symbol.
 
 ### M7. Terminals (`ghostty/`, `.macos/.config/ghostty/config-macos`, `alacritty/`)
 
