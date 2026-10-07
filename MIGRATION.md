@@ -307,17 +307,22 @@ Each module: what exists, what's live on shiva, recommendation, decision.
 - Added `$ahead_behind` to the git status format (Omarchy defines the
   symbols but never renders them) and kept the branch symbol.
 
-### M7. Terminals (`ghostty/`, `.macos/.config/ghostty/config-macos`, `alacritty/`)
+### M7. Terminals — DONE (Ghostty install pending on shiva)
 
-- Shiva: Omarchy's default terminal is **foot** (`xdg-terminal-exec`). Configs
-  exist for alacritty, ghostty, kitty, foot; only **foot** is installed.
-- Omarchy themes write terminal colors into per-terminal includes; any config
-  you keep for an Omarchy terminal must keep those include lines.
-- Ghostty on the Mac: `.macos/` overlay → template with `{{ if eq .chezmoi.os "darwin" }}`
-  or a darwin-gated `config-macos` include.
-- [ ] Linux terminal — foot (Omarchy default) / ghostty / alacritty / kitty
-- [ ] `alacritty/` (onenord themes) — DISCARD (recommended) / KEEP
-- [ ] **Decision (M7):** ___
+- [x] Ghostty on both machines (shiva: `omarchy-install-terminal ghostty`,
+      which also makes it Omarchy's default terminal).
+- [x] One template, `home/dot_config/ghostty/config.tmpl`:
+  - shared: mouse-hide, block cursor, `no-cursor,ssh-env` shell integration,
+    CSI-u for Shift+Enter / Alt+Shift+Enter, Medium/Bold font styles.
+  - Omarchy: font family rendered from `omarchy-font-current` (Omarchy owns
+    it; `omarchy-font-set` edits the same line, so no drift), size 9, live
+    theme include, padding, flat GTK toolbar, `async-backend = epoll`,
+    Shift/Ctrl+Insert, split-resize binds, no decorations.
+  - macOS: MonaspiceNe NFM 15, `theme = Nord Wave`, decorations on, Cmd+1..9
+    unbound for herdr. Replaces the `.macos/` overlay (removed).
+- [x] Font on shiva: `otf-monaspace-nerd` + `omarchy-font-set "MonaspiceNe Nerd Font Mono"`.
+- [x] Alacritty config DISCARDED. Omarchy's alacritty/kitty/foot configs stay
+      unmanaged.
 
 ### M8. Hyprland + Omarchy user config (new, nothing in repo yet)
 

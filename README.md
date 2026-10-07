@@ -189,6 +189,20 @@ to pin a commit). herdr has no plugin-update command: to update, re-run
   Shift+label to paste, Ctrl+label to open, Tab to select several. Built with
   cargo, so Rust comes from mise (`~/.config/mise/config.toml`).
 
+## Terminal (Ghostty)
+
+Config: `home/dot_config/ghostty/config.tmpl`. On Omarchy, Omarchy owns the
+font family and theme: the template renders the font from
+`omarchy-font-current`, so `omarchy-font-set` never causes drift.
+
+    # Omarchy: install and make it the default terminal, then set the font
+    omarchy-install-terminal ghostty
+    yay -S otf-monaspace-nerd
+    omarchy-font-set "MonaspiceNe Nerd Font Mono"
+
+    # macOS
+    brew install --cask ghostty font-monaspace-nerd-font
+
 ## Neovim
 
 LazyVim, with `,` as leader. Config: `home/dot_config/nvim/` (extras in
