@@ -395,8 +395,8 @@ Applied on shiva and verified (`rg` honors the ignore file and `--hidden`).
 
 - `CLAUDE.md`: templated install hints (brew on macOS, yay on Arch, `go-yq`;
   codemod via a Linux-only `uvx` wrapper since Arch doesn't package it);
-  `@RTK.md` dropped. Content trim (approval/pre-approval wording, moot under
-  auto mode) — **pending your answer**. No Claude `settings.json` allowlist
+  `@RTK.md` dropped. Approval/pre-approval wording trimmed (moot under
+  auto mode); tool preferences and Edit-first rules kept. No Claude `settings.json` allowlist
   (auto mode covers it).
 - `~/.codex/AGENTS.md`: `RTK.md` import dropped.
 - pi: `modify_settings.json.tmpl` merges owned keys via `jq` (pi keeps
