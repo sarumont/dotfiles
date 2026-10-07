@@ -2,30 +2,60 @@
 
 set -u
 
-lock="${TMPDIR:-/tmp}/herdr-workspace-git-status.lock"
+poll_interval=30
+metadata_ttl_ms=90000
+
+# Use one per-user lock across shells with different TMPDIR values.
+lock="/tmp/herdr-workspace-git-status-$(id -u).lock"
 if ! mkdir "$lock" 2>/dev/null; then
-	lock_pid=$(cat "$lock/pid" 2>/dev/null || true)
+	# Wait for a concurrent starter to publish its PID before reaping the lock.
+	lock_pid=""
+	attempt=0
+	while [ "$attempt" -lt 20 ]; do
+		lock_pid=$(cat "$lock/pid" 2>/dev/null || true)
+		[ -n "$lock_pid" ] && break
+		[ -d "$lock" ] || break
+		sleep 0.1
+		attempt=$((attempt + 1))
+	done
 	if [ -n "$lock_pid" ] && kill -0 "$lock_pid" 2>/dev/null; then
 		exit 0
 	fi
-	rm -f "$lock/pid"
-	rmdir "$lock" 2>/dev/null || exit 0
+	mkdir "$lock/recover" 2>/dev/null || exit 0
+	lock_pid=$(cat "$lock/pid" 2>/dev/null || true)
+	if [ -n "$lock_pid" ] && kill -0 "$lock_pid" 2>/dev/null; then
+		rmdir "$lock/recover" 2>/dev/null || true
+		exit 0
+	fi
+	stale_lock="${lock}.stale.$$"
+	mv "$lock" "$stale_lock" 2>/dev/null || exit 0
+	rm -f "$stale_lock/pid"
+	rmdir "$stale_lock/recover" 2>/dev/null || true
+	rmdir "$stale_lock" 2>/dev/null || exit 0
 	mkdir "$lock" 2>/dev/null || exit 0
 fi
-trap 'rmdir "$lock"' EXIT HUP INT TERM
+cleanup_lock() {
+	rm -f "$lock/pid"
+	rmdir "$lock" 2>/dev/null || true
+}
+trap cleanup_lock EXIT
+trap 'exit 0' HUP INT TERM
 printf '%s\n' "$$" >"$lock/pid"
 
 clear_status_tokens() {
 	workspace_id=$1
 	index=1
 	while [ "$index" -le 14 ]; do
-		status_key=$(printf 'repo_%02d_status' "$index")
-		sync_key=$(printf 'repo_%02d_sync' "$index")
+		set --
+		batch_end=$((index + 7))
+		while [ "$index" -le "$batch_end" ] && [ "$index" -le 14 ]; do
+			status_key=$(printf 'repo_%02d_status' "$index")
+			sync_key=$(printf 'repo_%02d_sync' "$index")
+			set -- "$@" --clear-token "$status_key" --clear-token "$sync_key"
+			index=$((index + 1))
+		done
 		herdr workspace report-metadata "$workspace_id" \
-			--source "herdr-task-git:global" \
-			--clear-token "$status_key" \
-			--clear-token "$sync_key" >/dev/null 2>&1
-		index=$((index + 1))
+			--source "herdr-task-git:global" "$@" >/dev/null 2>&1
 	done
 }
 
@@ -40,8 +70,9 @@ sync_workspace() {
 			[ "$label" = "$desired" ] || herdr tab rename "$tab_id" "$desired" >/dev/null 2>&1
 		done
 
-	repos=$(herdr pane list --workspace "$workspace_id" 2>/dev/null |
-		jq -r '.result.panes[].cwd' |
+	panes=$(herdr pane list --workspace "$workspace_id" 2>/dev/null || true)
+	repos=$(printf '%s\n' "$panes" |
+		jq -r '.result.panes[].cwd' | sort -u |
 		while IFS= read -r repo; do
 			git -C "$repo" rev-parse --show-toplevel 2>/dev/null
 		done | sort -u)
@@ -53,8 +84,9 @@ sync_workspace() {
 	if [ "$repo_count" -eq 1 ]; then
 		active_tab_id=$(herdr workspace get "$workspace_id" 2>/dev/null |
 			jq -r '.result.workspace.active_tab_id // empty')
-		active_repo=$(herdr pane list --workspace "$workspace_id" 2>/dev/null |
+		active_repo=$(printf '%s\n' "$panes" |
 			jq -r --arg tab "$active_tab_id" '.result.panes[] | select(.tab_id == $tab) | .cwd' |
+			sort -u |
 			while IFS= read -r repo; do
 				git -C "$repo" rev-parse --show-toplevel 2>/dev/null
 			done | sort -u)
@@ -64,6 +96,7 @@ sync_workspace() {
 		fi
 	fi
 
+	set --
 	index=1
 	while IFS= read -r repo; do
 		[ -n "$repo" ] || continue
@@ -84,33 +117,50 @@ sync_workspace() {
 		status_key=$(printf 'repo_%02d_status' "$index")
 		sync_key=$(printf 'repo_%02d_sync' "$index")
 
+		set -- "$@" --token "$status_key=$status"
 		if [ -n "$sync" ]; then
-			herdr workspace report-metadata "$workspace_id" \
-				--source "herdr-task-git:global" \
-				--token "$status_key=$status" \
-				--token "$sync_key=$sync" \
-				--ttl-ms 15000 >/dev/null 2>&1
+			set -- "$@" --token "$sync_key=$sync"
 		else
-			herdr workspace report-metadata "$workspace_id" \
-				--source "herdr-task-git:global" \
-				--clear-token "$sync_key" \
-				--token "$status_key=$status" \
-				--ttl-ms 15000 >/dev/null 2>&1
+			set -- "$@" --clear-token "$sync_key"
 		fi
 
+		if [ "$index" -eq 8 ]; then
+			herdr workspace report-metadata "$workspace_id" \
+				--source "herdr-task-git:global" "$@" --ttl-ms "$metadata_ttl_ms" >/dev/null 2>&1
+			set --
+		fi
 		index=$((index + 1))
 		[ "$index" -le 14 ] || break
 	done <<EOF
 $repos
 EOF
+
+	if [ "$#" -gt 0 ]; then
+		herdr workspace report-metadata "$workspace_id" \
+			--source "herdr-task-git:global" "$@" --ttl-ms "$metadata_ttl_ms" >/dev/null 2>&1
+	fi
+	while [ "$index" -le 14 ]; do
+		set --
+		batch_end=$((index + 7))
+		while [ "$index" -le "$batch_end" ] && [ "$index" -le 14 ]; do
+			status_key=$(printf 'repo_%02d_status' "$index")
+			sync_key=$(printf 'repo_%02d_sync' "$index")
+			set -- "$@" --clear-token "$status_key" --clear-token "$sync_key"
+			index=$((index + 1))
+		done
+		herdr workspace report-metadata "$workspace_id" \
+			--source "herdr-task-git:global" "$@" >/dev/null 2>&1
+	done
 }
 
 while :; do
 	workspace_ids=$(herdr workspace list 2>/dev/null |
 		jq -r '.result.workspaces[].workspace_id' 2>/dev/null || true)
-	printf '%s\n' "$workspace_ids" | while IFS= read -r workspace_id; do
+	while IFS= read -r workspace_id; do
 		[ -n "$workspace_id" ] || continue
 		sync_workspace "$workspace_id"
-	done
-	sleep 5
+	done <<EOF
+$workspace_ids
+EOF
+	sleep "$poll_interval"
 done
