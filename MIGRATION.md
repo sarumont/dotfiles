@@ -213,23 +213,22 @@ Each module: what exists, what's live on shiva, recommendation, decision.
   - [ ] `build()` and its shortcuts (Gradle/Maven/Ant/lerna) — still used?
 - [ ] **Decision (M1):** ___
 
-### M2. git (`git/`)
+### M2. git — DONE
 
-- Repo `git/.config/git/config`: pager, difftastic aliases, ssh signing
-  (`gpg.format = ssh`, `gpgSign = true`), autocorrect, rerere.
-- Shiva `~/.config/git/config` (Omarchy-written, yours now): aliases
-  `co/br/ci/st`, `defaultBranch = master`, `pull.rebase`, `push.autoSetupRemote`,
-  `diff.algorithm = histogram`, `colorMoved`, `mnemonicPrefix`,
-  `branch.sort`, `tag.sort`, `column.ui`, rerere + autoupdate,
-  **user.name / user.email**.
-- Recommendation: **MERGE** into a template. Name/email from `.email` data.
-  `user.signingkey` and `~/.ssh/allowed_signers` generated from
-  `~/.ssh/id_ed25519.pub` (public, safe), replacing the README's manual
-  `git config --global` steps. `difftastic` → package list.
-- `home/gitignore` — check it's the global excludes file and move it to
-  `~/.config/git/ignore` (git reads that path by default).
-- [ ] `init.defaultBranch` — `main` / `master`
-- [ ] **Decision (M2):** ___
+- [x] MERGE of repo config + Omarchy-written `~/.config/git/config` →
+      `home/dot_config/git/config.tmpl`. Conflicts resolved:
+      `init.defaultBranch = main`, `tag.sort = version:refname` (oldest first).
+      Dropped: `pr` alias (use `gup` / `full_pull`), `push.default = simple`
+      (git default), duplicate `[commit]`, `core.excludesfile`.
+- [x] Signing: `user.signingkey` = `~/.ssh/id_ed25519.pub` (same filename on
+      ifrit); `~/.config/git/allowed_signers` generated from it.
+- [x] `gitignore` → `~/.config/git/ignore.tmpl` (git's default path); macOS
+      patterns gated to darwin; add host blocks as needed.
+- [x] README: SSH key + `gh` registration (auth + signing) comes first; the
+      `url.insteadOf` SSH rewrite stays.
+- Applied on shiva; difftastic installed; signed test commit verified. Shiva key is registered on GitHub for auth + signing.
+- Note: shiva's running SSH agent is gpg-agent serving a smartcard RSA key,
+  not `id_ed25519` (which has no passphrase). Revisit in M1 (keychain).
 
 ### M3. tmux (`tmux/`, `.hosts-*/.config/tmux/tmux.local.conf`)
 

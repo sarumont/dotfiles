@@ -3,6 +3,7 @@
 *.un~
 libpeerconnection.log
 
+{{ if eq .chezmoi.os "darwin" -}}
 # macOS stuff
 .DS_Store
 .AppleDouble
@@ -24,6 +25,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+{{ end -}}
 
 .twt-galleries
 

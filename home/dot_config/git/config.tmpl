@@ -1,0 +1,67 @@
+[user]
+	name = Richard Kolkovich
+	email = {{ .email }}
+	signingkey = {{ .chezmoi.homeDir }}/.ssh/id_ed25519.pub
+[core]
+	autocrlf = input
+	pager = less -RFX
+[alias]
+	br = branch
+	ci = commit
+	co = checkout
+	st = status
+	up = !git fetch && git rebase --autostash FETCH_HEAD
+	dlog = -c diff.external=difft log --ext-diff
+	powerwash = !git up && git clean-merged
+[init]
+	defaultBranch = main
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+	gpgSign = true
+[commit]
+	gpgSign = true
+	verbose = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+[diff]
+	external = difft
+	# Still used by --no-ext-diff, log -p and add -p
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+	difftool = true
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+	followTags = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[merge]
+	conflictstyle = zdiff3
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[help]
+	autocorrect = prompt
+[url "git@github.com:"]
+	# Always use SSH for GitHub, including go module fetches (go get builds
+	# https:// URLs from module paths and would otherwise prompt for creds).
+	insteadOf = https://github.com/

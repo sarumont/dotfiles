@@ -32,12 +32,22 @@ MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local po
 
 ## Dotfiles setup
 
-    # Generate a new SSH key
+Do this first: the git config rewrites `https://github.com/` URLs to SSH, so
+clones (including chezmoi externals) fail until the key is on GitHub.
+
+    # Generate a new SSH key (no other keys are expected; the git config signs with this one)
     ssh-keygen -t ed25519
-    # add ~/.ssh/id_ed25519.pub to Github
-    ssh-agent
-    # run commands output by ^
-    ssh-add ~/.ssh/id_ed25519
+
+    # Install the GitHub CLI
+    yay -S github-cli          # Arch / Omarchy
+    brew install gh            # macOS
+
+    # Log in, then register the key for both auth and commit signing
+    gh auth login --git-protocol ssh --skip-ssh-key --web \
+      --scopes admin:public_key,admin:ssh_signing_key
+    gh ssh-key add ~/.ssh/id_ed25519.pub --type authentication --title "$(uname -n)"
+    gh ssh-key add ~/.ssh/id_ed25519.pub --type signing --title "$(uname -n) signing"
+    ssh -T git@github.com      # should greet you by username
 
     mkdir ~/git/
     git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
@@ -69,20 +79,13 @@ colon-separated list of skill repositories.
 
 ## Local git configuration
 
-This repo stores global git configuration in `~/.config/git/config`. This leaves `~/.gitconfig` for local overrides. You can set your name and email:
+Global git configuration lives in `~/.config/git/config`, rendered by chezmoi.
+It sets your email from chezmoi's per-machine data, signs commits and tags with
+`~/.ssh/id_ed25519.pub`, and generates `~/.config/git/allowed_signers` from the
+same key. No manual `git config` steps are needed.
 
-    git config --global user.name Zaphod Beeblebrox
-    git config --global user.email zaphod@heartofgold.com
-
-### Signing git commits with your SSH key
-
-We need to configure `git` to use your SSH key as the signing key. There should only be one key in your keyring if you've followed these instructions. If you have multiple keys, copy-paste the one you want to use rather than using the `ssh-add -L` command below.
-
-    git config --global user.signingkey "$(ssh-add -L)"
-    git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
-    echo EMAIL $(ssh-add -L) > ~/.ssh/allowed_signers
-
-Note that these commands need to be run after installing `keychain`
+`~/.gitconfig` is not managed and is read after the global config, so use it
+for per-machine overrides.
 
 # Local overrides
 
