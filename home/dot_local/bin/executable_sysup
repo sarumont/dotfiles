@@ -68,7 +68,13 @@ chezmoi update
 # 4. Tools
 if have herdr; then
   step "herdr + plugins"
-  herdr update --handoff
+  # Self-update only a user-installed herdr; pacman/Homebrew installs are
+  # updated in step 1 (herdr update would overwrite a package-owned binary).
+  herdr_bin=$(command -v herdr)
+  case "$herdr_bin" in
+    "$HOME"/*) herdr update --handoff ;;
+    *) echo "herdr is package-managed ($herdr_bin); updated with system packages" ;;
+  esac
   chezmoi data --format json | jq -r '.herdr.plugins[].repo' | while read -r repo; do
     herdr plugin install "$repo" --yes
   done
