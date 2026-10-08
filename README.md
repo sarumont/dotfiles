@@ -302,6 +302,37 @@ defaults to `~/notes`.
 - `codemod` isn't packaged for Arch: `~/.local/bin/codemod` runs `uvx codemod`.
   `gibr` always runs through `uvx` too.
 
+## Docker
+
+Omarchy enables the Docker daemon (`docker.socket`) but deliberately does not
+add the user to the `docker` group: membership is root-equivalent (any process
+running as you could `docker run -v /:/host`). Current choice on shiva: **plain
+`sudo docker`**. Docker isn't used much here, so nothing in these dotfiles
+configures it.
+
+Consequence: `sudo docker login` stores registry credentials in root's
+`~/.docker/config.json` (base64, plaintext). Fine for occasional use; revisit
+if Docker becomes part of the daily loop.
+
+Options for later:
+
+| Option | How | Security | Credentials |
+|---|---|---|---|
+| `sudo docker` (current) | nothing | root only via sudo | root's plaintext config |
+| Sudoless Docker | `omarchy-setup-security-sudoless-docker` (Setup > Security > Sudoless Docker); undo by removing yourself from `docker` | root-equivalent for anything running as you | can use GNOME Keyring: `yay -S docker-credential-secretservice-git`, `"credsStore": "secretservice"` in `~/.docker/config.json`, then `docker login` |
+| Rootless Docker | per-user daemon, socket in `$XDG_RUNTIME_DIR` | no root-equivalence | GNOME Keyring as above |
+
+Rootless costs: slower user-mode networking, ports below 1024 need a sysctl, a
+separate image store, and tools must point `DOCKER_HOST` at the user socket.
+Note that Omarchy's default keyring is passwordless by design, so "in the
+keyring" means plaintext on disk protected by LUKS. On macOS, Docker Desktop
+already keeps credentials in the Keychain.
+
+If you switch to a non-sudo option, record it in
+[Machine changes outside `$HOME`](#machine-changes-outside-home) and manage
+only the `credsStore` key (a `modify_` script with `jq`, as for pi's settings),
+since Docker writes to `config.json` itself.
+
 ## Zoekt
 
 [Zoekt](https://github.com/sourcegraph/zoekt) gives fast cross-repo code

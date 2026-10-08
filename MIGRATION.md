@@ -479,7 +479,7 @@ Worksheet (remaining privfiles files):
 |---|---|---|---|---|
 | `sh/.local/sh/private.zshenv` | `~/.local/sh/private.zshenv` (private_, .tmpl) | secret env vars (AWS, ...) | secret template | name matches the `*.zshenv` loader already |
 | `sh/.local/sh/homelab-prod.env`, `homelab-tn.env` | `~/.local/sh/` (private_, .tmpl) | homelab secrets | secret templates, personal only | not auto-sourced (sourced on demand?) |
-| `docker-config.json` | `~/.docker/config.json` | registry auth | secret template | Docker rewrites this file (credsStore etc.): consider `modify_` + jq like pi |
+| `docker-config.json` | — | registry auth | **not migrated**: `sudo docker` for now (README "Docker") | re-evaluate later |
 | `home/.npmrc` | `~/.npmrc` | npm token | secret template | |
 | `smb/.smb.conf` | `~/.smb.conf` | SMB credentials | secret template, personal only | |
 | `ssh/.ssh/config` | `~/.ssh/config` + `~/.ssh/config.d/private` | hosts/IPs/users | public base with `Include ~/.ssh/config.d/*`; host entries from a Pass/1P note | ifrit vs shiva host sets may differ |
@@ -525,17 +525,6 @@ Then: archive the privfiles repo on GitHub.
 5. Confirm `archive/master` and `archive/stow` exist on the remote, then delete
    the `stow` and `master` branches (and the demo branches, per Phase 0).
 
-## Pinned (after relogin)
-
-- Docker (privfiles `docker-config.json`), option a — no secrets in files:
-  `sudo usermod -aG docker $USER` (not done yet), log out/in,
-  `yay -S docker-credential-secretservice-git`, manage only
-  `"credsStore": "secretservice"` in `~/.docker/config.json` (modify_ + jq),
-  then `docker login ghcr.io` / Docker Hub once per machine (credentials land
-  in GNOME Keyring). ifrit: Docker Desktop's keychain store, same pattern.
-  Note: Omarchy's default keyring is passwordless by design (plaintext on
-  disk, protected by LUKS).
-
 ## Deferred (after cutover)
 
 - Rewrite history to drop large blobs (Phase 0.3).
@@ -547,6 +536,9 @@ Then: archive the privfiles repo on GitHub.
   chezmoi-managed file (`chezmoi status` → `re-add` / `merge` / revert), and
   how to fold that into the maintenance routine.
 - Document keyd (`/etc/keyd/default.conf`) in README "Machine changes".
+- Docker access: staying on `sudo docker` (Omarchy default) for now; options
+  (sudoless via Omarchy, rootless, keyring credsStore) documented in README
+  "Docker" for re-evaluation. privfiles' `docker-config.json` is not migrated.
 - Other machines with keys on GitHub (left in place on purpose):
   - `dadfi` — still in use; its dotfiles are out of date. Bring it onto
     chezmoi (it isn't one of the two managed hosts yet: decide its gating).
