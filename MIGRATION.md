@@ -600,7 +600,9 @@ Do these in order on ifrit.
 - Docker access: staying on `sudo docker` (Omarchy default) for now; options
   (sudoless via Omarchy, rootless, keyring credsStore) documented in README
   "Docker" for re-evaluation. privfiles' `docker-config.json` is not migrated.
-- `dadfi` — the only server to cut over. Plain Arch: README step 1 (yay,
+- [x] `dadfi` — **DONE 2026-10-08** (needed a full `pacman -Syu` first: the
+  stale system hit split-package file conflicts; the package script now uses
+  `-Syu` on plain Arch, and installs `tree-sitter-cli` there). Plain Arch: README step 1 (yay,
   Color, avahi), then `chezmoi init` with Desktop = no (CLI + `arch_only`
   packages, no Ghostty/PipeWire/keyd). Personal = yes adds Proton Pass CLI,
   syncthing, tailscale; pick the secrets backend accordingly.
