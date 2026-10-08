@@ -41,7 +41,7 @@ packages:
     - lazygit
     - btop
     - mise
-    - herdr
+    # herdr: official installer (run_once_before_15-herdr) for handoff
     - tree-sitter-cli  # nvim-treesitter (main branch) compiles parsers with it
   # personal Linux machines (.personal)
   linux_personal:
@@ -58,7 +58,6 @@ packages:
     - jq
     - universal-ctags
     - zsh-syntax-highlighting
-    - herdr
     - tree-sitter-cli
     - direnv
     - httpie

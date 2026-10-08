@@ -1,0 +1,9 @@
+{{- if not .omarchy -}}
+#!/bin/sh
+# Non-Omarchy: install herdr with its official installer (~/.local/bin, no sudo,
+# no rc edits) so `herdr update --handoff` (sysup) can self-update with live
+# handoff. Omarchy ships herdr as a package; keep that one there.
+set -eu
+[ -x "$HOME/.local/bin/herdr" ] && exit 0
+curl -fsSL https://herdr.dev/install.sh | sh
+{{ end -}}

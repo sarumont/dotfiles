@@ -566,6 +566,9 @@ Do these in order on ifrit.
 10. **`pi` wrapper**: `~/.local/bin/pi` execs `${PI_REAL_BIN:-/opt/homebrew/bin/pi}`.
     The repo now installs pi via mise; if ifrit should too, point
     `PI_REAL_BIN` at the mise shim (or drop the brew pi), otherwise keep brew's.
+    **herdr**: off Omarchy it comes from the official installer into
+    `~/.local/bin` (for `--handoff`). If ifrit already has that, the script is
+    a no-op; if a brew herdr exists, `brew uninstall herdr`.
 11. **Apply**: `chezmoi apply`. Then: new terminal (zsh, starship, OMZ from
     `~/.oh-my-zsh`, syntax highlighting from brew/ports), `git commit -S` in a
     scratch repo, tmux + herdr, `nvim` (first start syncs plugins), Copilot
@@ -600,6 +603,9 @@ Do these in order on ifrit.
 - Docker access: staying on `sudo docker` (Omarchy default) for now; options
   (sudoless via Omarchy, rootless, keyring credsStore) documented in README
   "Docker" for re-evaluation. privfiles' `docker-config.json` is not migrated.
+- [ ] dadfi follow-up: herdr moved to the official installer off Omarchy.
+  Pull + `chezmoi apply` installs `~/.local/bin/herdr`; then
+  `sudo pacman -R herdr` and restart the herdr server once.
 - [x] `dadfi` — **DONE 2026-10-08** (needed a full `pacman -Syu` first: the
   stale system hit split-package file conflicts; the package script now uses
   `-Syu` on plain Arch, and installs `tree-sitter-cli` there). Plain Arch: README step 1 (yay,

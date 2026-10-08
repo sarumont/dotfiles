@@ -208,6 +208,7 @@ are split); on Omarchy it runs `yay -S --needed` and leaves full upgrades to
 | Script | When | Does |
 |---|---|---|
 | `run_onchange_before_10-install-packages` | `packages.yaml` changes | install packages |
+| `run_once_before_15-herdr` | once (not Omarchy) | install herdr from herdr.dev into `~/.local/bin` |
 | `run_once_after_chsh-zsh` | once | make zsh the login shell |
 | `run_once_after_20-services` | once (personal Linux) | enable syncthing (user) and tailscaled |
 | `run_once_after_30-omarchy-defaults` | once (Omarchy) | Ghostty as default terminal, Monaspace font |
@@ -298,6 +299,14 @@ servers keep their old config until you reload it (`<prefix> R`).
 Config: `home/dot_config/herdr/config.toml.tmpl`. On Omarchy it uses the
 `terminal` theme so herdr follows Omarchy theme switches; macOS uses
 `one-dark` and adds `cmd+1..9` tab switching.
+
+Install: on Omarchy, herdr is Omarchy's package (updated by `omarchy update`;
+restart the server afterwards). Everywhere else, `run_once_before_15-herdr`
+uses the official installer (`curl -fsSL https://herdr.dev/install.sh | sh`,
+into `~/.local/bin`, no sudo), because only a self-managed binary supports
+`herdr update --handoff` (live handoff without dropping sessions), which `sysup`
+runs. If a package-manager herdr is also installed there, remove it
+(`sudo pacman -R herdr` / `brew uninstall herdr`) so it can't shadow or confuse.
 
 Plugins are listed in `home/.chezmoidata/herdr.yaml` and installed by
 `run_onchange_after_herdr-plugins.sh` whenever that list changes (add `ref:`
