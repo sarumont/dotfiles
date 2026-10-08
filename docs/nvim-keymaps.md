@@ -24,9 +24,9 @@ LazyVim's defaults apply unless listed here
 | `<C-s>` | save | |
 | `<C-c>` | copy whole file | |
 | `<leader>/` | toggle comment (normal + visual) | LazyVim's grep moved to `<leader>fw` / `<leader>sg` |
-| `s` / `S` | flash jump / flash treesitter | replaces vim-sneak |
+| `s` / `S` | flash jump / flash treesitter (normal, op-pending) | replaces vim-sneak |
 | `+` / `_` | expand / shrink region | `<C-space>` (repeat to grow, `<BS>` to shrink) also works |
-| `cs` / `ds` / `ys` | vim-surround | |
+| `cs` / `ds` / `ys`, `S` (visual) | vim-surround | visual `S` taken back from flash |
 | `<leader>J` | split/join (treesj) | |
 | `[b` | jump to enclosing block start | buffers: `<S-h>` / `<S-l>` |
 | `<A-j>` / `<A-k>` | move line/selection | LazyVim |

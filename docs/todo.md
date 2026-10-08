@@ -27,5 +27,3 @@ history: `git log --all -- MIGRATION.md`.
       `--handoff`, restart after `omarchy update`). Switch to the official
       installer only if that becomes a pain.
 - [ ] **`sysup` name:** looking for something snarkier.
-- [ ] **Neovim visual `S`:** flash's treesitter select wins over vim-surround's
-      visual surround. Revisit if missed.

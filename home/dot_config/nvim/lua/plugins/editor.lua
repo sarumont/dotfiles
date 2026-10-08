@@ -3,6 +3,8 @@ return {
   {
     "folke/flash.nvim",
     opts = { modes = { char = { keys = { "f", "F", "t", "T" } } } },
+    -- visual S belongs to vim-surround; flash treesitter keeps S in normal/op-pending
+    keys = { { "S", mode = "x", false } },
   },
   -- signature help stays on gK; <C-k> is insert-mode cursor movement
   {
@@ -23,7 +25,7 @@ return {
     opts = { bigfile = { size = 500 * 1024 } },
   },
 
-  { "tpope/vim-surround", keys = { "cs", "ds", "ys" } },
+  { "tpope/vim-surround", keys = { "cs", "ds", "ys", { "S", mode = "x" } } },
   { "tpope/vim-repeat", event = "VeryLazy" },
   -- "+" expands (and "_" shrinks); LazyVim's <C-space> treesitter selection also works
   { "terryma/vim-expand-region", keys = { { "+", mode = { "n", "x" } }, { "_", mode = "x" } } },
