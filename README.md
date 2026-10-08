@@ -5,7 +5,7 @@ machine, plus the reference for how things fit together.
 
 The chezmoi source state lives in [`home/`](home) (`.chezmoiroot`). Other
 docs: [`docs/nvim-keymaps.md`](docs/nvim-keymaps.md),
-[`docs/tmux.md`](docs/tmux.md).
+[`docs/tmux.md`](docs/tmux.md), [`docs/todo.md`](docs/todo.md) (open items).
 
 # New machine
 

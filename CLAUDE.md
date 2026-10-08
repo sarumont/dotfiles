@@ -17,8 +17,9 @@ MacPorts), and plain Arch. Per-machine data comes from `home/.chezmoi.toml.tmpl`
 dadfi — gate GUI apps/config on it), `.personal`, `.email`, `.secrets` (`protonpass` | `1password` | `none`), plus
 `.chezmoi.os` and `.chezmoi.hostname`.
 
-`README.md` is the user-facing setup guide and reference; `MIGRATION.md` (while
-it exists) records the stow → chezmoi migration and the deferred TODO list.
+`README.md` is the user-facing setup guide and reference; `docs/todo.md` holds
+open items. The stow → chezmoi migration log (`MIGRATION.md`) lives in git
+history.
 
 ## Layout and conventions
 
