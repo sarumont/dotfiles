@@ -2,7 +2,7 @@
 # which re-runs whenever this file changes. Linux uses `yay -S --needed`;
 # macOS uses Homebrew and MacPorts (Homebrew-only is a deferred cleanup).
 packages:
-  # every Linux machine (Omarchy and plain Arch)
+  # every Linux machine, desktop or server (CLI only)
   linux:
     - zsh
     - oh-my-zsh-git
@@ -13,15 +13,18 @@ packages:
     - go-yq
     - yamllint
     - ctags            # universal-ctags, for zoekt symbol ranking
-    - silicon          # nvim-silicon (<leader>sc)
-    - ghostty
-    - otf-monaspace-nerd
     - direnv
     - httpie
     - hexyl
     - kubectl
     - terragrunt
     - helm
+  # Linux desktops only (.desktop): GUI apps, fonts, input remapping
+  linux_desktop:
+    - ghostty
+    - otf-monaspace-nerd
+    - silicon          # nvim-silicon (<leader>sc) screenshots
+    - keyd             # Caps Lock remap, config in system/etc/keyd
   # plain Arch only: Omarchy already ships these (some under other names,
   # e.g. mise-bin, so installing them on Omarchy would conflict)
   arch_only:

@@ -1,0 +1,18 @@
+{{- if and (eq .chezmoi.os "linux") .desktop -}}
+{{- $conf := joinPath .chezmoi.workingTree "system/etc/keyd/default.conf" -}}
+#!/bin/sh
+# Install the keyd config from system/etc/keyd/ (Linux desktops) and make sure
+# keyd runs. Re-runs when the config changes. hash: {{ include $conf | sha256sum }}
+set -eu
+command -v keyd >/dev/null 2>&1 || { echo "keyd not installed; skipping" >&2; exit 0; }
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+cat > "$tmp" <<'KEYD'
+{{ include $conf -}}
+KEYD
+if ! cmp -s "$tmp" /etc/keyd/default.conf; then
+  sudo install -D -m 644 "$tmp" /etc/keyd/default.conf
+  sudo keyd reload
+fi
+systemctl is-enabled --quiet keyd || sudo systemctl enable --now keyd
+{{ end -}}

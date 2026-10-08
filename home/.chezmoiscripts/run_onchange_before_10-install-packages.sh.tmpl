@@ -6,6 +6,7 @@ set -eu
 command -v yay >/dev/null 2>&1 || { echo "yay not found; install it first (see README)" >&2; exit 1; }
 yay -S --needed --noconfirm
 {{- range .packages.linux }} {{ . }}{{ end }}
+{{- if .desktop }}{{ range .packages.linux_desktop }} {{ . }}{{ end }}{{ end }}
 {{- if not .omarchy }}{{ range .packages.arch_only }} {{ . }}{{ end }}{{ end }}
 {{- if .personal }}{{ range .packages.linux_personal }} {{ . }}{{ end }}{{ end }}
 {{- else if eq .chezmoi.os "darwin" -}}

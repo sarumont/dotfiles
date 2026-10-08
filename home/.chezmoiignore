@@ -42,3 +42,9 @@
 {{ if eq .chezmoi.os "darwin" }}
 .config/pipewire
 {{ end }}
+
+# GUI-only config on servers (no desktop session)
+{{ if not .desktop }}
+.config/ghostty
+.config/pipewire
+{{ end }}

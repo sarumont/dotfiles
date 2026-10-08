@@ -1,0 +1,12 @@
+#!/bin/bash
+# Runs during `omarchy update`, right after Omarchy's migrations: report any
+# chezmoi-managed files they changed. Changes nothing; resolve per README "Drift".
+command -v chezmoi >/dev/null 2>&1 || exit 0
+drift=$(chezmoi status --exclude=scripts 2>/dev/null | awk 'substr($0, 1, 1) != " "')
+[[ -z $drift ]] && exit 0
+
+echo -e "\e[33mOmarchy update changed chezmoi-managed files:\e[0m"
+echo "$drift"
+echo "Resolve with chezmoi diff/re-add/merge/apply (README \"Drift\"); sysup stops until then."
+omarchy-notification-send -u critical "Dotfiles drift" \
+  "Omarchy update changed $(echo "$drift" | wc -l) managed file(s). Run chezmoi status." 2>/dev/null || true

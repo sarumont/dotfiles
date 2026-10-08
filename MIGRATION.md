@@ -577,13 +577,16 @@ Do these in order on ifrit.
 
 - Rewrite history to drop large blobs (Phase 0.3).
 - Move ifrit from MacPorts + Homebrew to Homebrew only.
-- Work out a regular maintenance routine for both OSes (Omarchy/system/AUR
-  updates, `mup` for mise, herdr, pi, Mason/Lazy, Zoekt, `chezmoi update`) —
-  likely by generalizing `pi-maintenance` — and document it in the README.
-- Drift protocol: what to do when an Omarchy update (or an app) changes a
-  chezmoi-managed file (`chezmoi status` → `re-add` / `merge` / revert), and
-  how to fold that into the maintenance routine.
-- Document keyd (`/etc/keyd/default.conf`) in README "Machine changes".
+- [x] Maintenance routine: `sysup` (replaces `pi-maintenance`), README
+  "Maintenance". Name may change (looking for something snarkier).
+- [x] Drift protocol: `sysup` drift gate + Omarchy `post-update.d` hook,
+  README "Drift".
+- [x] keyd: `system/etc/keyd/default.conf` + `run_onchange_after_40-keyd`
+  (Linux desktops), README "Machine changes".
+- [x] Desktop vs. server classifier: `.desktop` (GUI packages in
+  `linux_desktop`; Ghostty/PipeWire config ignored on servers). dadfi is a
+  server.
+- [x] Kotlin JDK: skipped (not writing Kotlin now; `lang.kotlin` extra stays).
 - Docker access: staying on `sudo docker` (Omarchy default) for now; options
   (sudoless via Omarchy, rootless, keyring credsStore) documented in README
   "Docker" for re-evaluation. privfiles' `docker-config.json` is not migrated.

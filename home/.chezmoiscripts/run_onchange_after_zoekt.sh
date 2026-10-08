@@ -1,5 +1,5 @@
 #!/bin/sh
-# Install Zoekt into pi's bin dir (on PATH via .zshenv). Updates: pi-maintenance.
+# Install Zoekt into pi's bin dir (on PATH via .zshenv). Updates: sysup.
 set -eu
 . "$HOME/.local/sh/dirs.env"
 export PATH="$HOME/.local/share/mise/shims:$PATH"

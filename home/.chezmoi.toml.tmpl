@@ -3,6 +3,11 @@
 {{- if stat "/usr/share/omarchy" -}}
 {{-   $omarchy = true -}}
 {{- end -}}
+{{- /* desktop = has a GUI session; Omarchy and macOS always do, servers don't */ -}}
+{{- $desktop := true -}}
+{{- if not (or $omarchy (eq .chezmoi.os "darwin")) -}}
+{{-   $desktop = promptBoolOnce . "desktop" "Desktop machine (GUI)" -}}
+{{- end -}}
 {{- $personal := promptBoolOnce . "personal" "Personal machine" -}}
 {{- $email := promptStringOnce . "email" "Git email" -}}
 {{- $secrets := promptChoiceOnce . "secrets" "Secrets backend" (list "protonpass" "1password" "none") -}}
@@ -10,6 +15,7 @@ sourceDir = {{ .chezmoi.workingTree | quote }}
 
 [data]
   omarchy  = {{ $omarchy }}
+  desktop  = {{ $desktop }}
   personal = {{ $personal }}
   email    = {{ $email | quote }}
   # protonpass (pass-cli) | 1password (op) | none; picks the lookup in secret templates

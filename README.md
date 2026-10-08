@@ -62,6 +62,7 @@ It asks three things once (answers live in `~/.config/chezmoi/chezmoi.toml`):
 
 | Prompt | Meaning |
 |---|---|
+| Desktop machine (GUI) | plain Arch only (Omarchy and macOS are always desktops): GUI apps, fonts, keyd, Ghostty/PipeWire config |
 | Personal machine | personal-only packages and config (Proton Pass, syncthing, tailscale) |
 | Git email | commit identity for this machine |
 | Secrets backend | `protonpass` (`pass-cli`), `1password` (`op`) or `none` |
@@ -117,8 +118,9 @@ decide where it should apply:
   `~/.config/tmux/tmux.<host>.conf`) and add it to that host's block in
   `.chezmoiignore`; otherwise gate a section inside a template with
   `{{ if eq .chezmoi.hostname "shiva" }}`.
-- Template data: `.chezmoi.os`, `.chezmoi.hostname`, `.omarchy`, `.personal`,
-  `.email`, `.secrets` (`chezmoi data` shows everything).
+- Template data: `.chezmoi.os`, `.chezmoi.hostname`, `.omarchy`, `.desktop`,
+  `.personal`, `.email`, `.secrets` (`chezmoi data` shows everything). GUI
+  things belong behind `.desktop`, so servers (e.g. dadfi) only get the CLI set.
 
 Files that an app also writes to (pi's `settings.json`) are managed with a
 `modify_` script that merges only our keys with `jq`, instead of replacing the
@@ -147,10 +149,53 @@ SSH: `~/.ssh/config` (public) includes `~/.ssh/config.d/*` first and ends with
 `Host *` defaults, so per-host settings win. Private host entries come from the
 `ssh/dot_config` note into `~/.ssh/config.d/private`.
 
+## Maintenance: `sysup`
+
+`sysup` (in `~/.local/bin`) updates everything, in this order:
+
+1. **System**: `omarchy update` on Omarchy (snapshot, system packages, Omarchy
+   migrations, AUR, `mise up`, orphans); `yay -Syu` + `mise up` on plain Arch;
+   `brew update/upgrade`, `port selfupdate/upgrade outdated`, `mise up` on macOS.
+2. **Drift gate**: stops if any managed file changed outside chezmoi (see
+   [Drift](#drift)). Re-run with `sysup --tools` once resolved.
+3. **Dotfiles**: `chezmoi update` (pull + apply).
+4. **Tools**: herdr (`update --handoff` + plugins), tmux plugins, Neovim
+   `Lazy! sync`, pi models/extensions, Zoekt binaries + index, skills repos.
+5. **Validate**: `herdr config check`, `hyprctl configerrors`.
+
+`sysup --tools` skips step 1. Mason-installed tools (gopls etc.) update from
+within Neovim (`:Mason`, `U`).
+
+## Drift
+
+Drift is a managed file that changed since chezmoi last wrote it: an Omarchy
+migration, an app rewriting its config, or a hand edit. `chezmoi status` shows
+it in the **first** column (`MM file`); a change that only exists in the repo
+shows as ` M` and is just pending `apply`.
+
+Detection: `sysup` refuses to continue while there is drift, and on Omarchy a
+`post-update` hook (`~/.config/omarchy/hooks/post-update.d/chezmoi-drift.hook`)
+reports it right after `omarchy update`'s migrations, with a notification.
+
+Resolve each file:
+
+    chezmoi diff <file>      # what changed (repo vs. live)
+
+| You want | Plain file | Template (`*.tmpl`) |
+|---|---|---|
+| keep the outside change | `chezmoi re-add <file>`, commit | `chezmoi merge <file>`, commit |
+| keep ours, discard theirs | `chezmoi apply <file>` | `chezmoi apply <file>` |
+| some of each | `chezmoi merge <file>`, commit | `chezmoi merge <file>`, commit |
+| stop managing it | `chezmoi forget <file>`, commit | same |
+
+For Omarchy migrations, read the change first: they usually carry fixes for new
+Omarchy versions, so keeping or merging is the common answer.
+
 ## Packages
 
-`home/.chezmoidata/packages.yaml` lists packages per OS (`linux`, `arch_only`
-for things Omarchy already ships, `linux_personal`, `darwin_*`).
+`home/.chezmoidata/packages.yaml` lists packages per OS (`linux` for CLI on
+every Linux box, `linux_desktop` for GUI, `arch_only` for things Omarchy
+already ships, `linux_personal`, `darwin_*`).
 `run_onchange_before_10-install-packages.sh` installs them whenever the file
 changes. Language runtimes and agent CLIs come from mise
 (`~/.config/mise/config.toml`: claude, codex, gh, go, node, pi, rust, uv).
@@ -163,6 +208,7 @@ changes. Language runtimes and agent CLIs come from mise
 | `run_once_after_chsh-zsh` | once | make zsh the login shell |
 | `run_once_after_20-services` | once (personal Linux) | enable syncthing (user) and tailscaled |
 | `run_once_after_30-omarchy-defaults` | once (Omarchy) | Ghostty as default terminal, Monaspace font |
+| `run_onchange_after_40-keyd` | `system/etc/keyd/default.conf` changes (Linux desktops) | install the keyd config into `/etc`, reload, enable keyd |
 | `run_once_after_mask-gpg-agent` | once (Linux) | mask gpg-agent sockets |
 | `run_onchange_after_tmux-plugins` | `tmux.conf` changes | install tpm plugins |
 | `run_onchange_after_herdr-plugins` | `herdr.yaml` changes | install herdr plugins |
@@ -183,7 +229,7 @@ Changes beyond the files chezmoi writes. Automated ones run from
 | Mask gpg-agent sockets (`gpg-agent`, `-ssh`, `-extra`, `-browser`). GPG and smartcard SSH keys are no longer used; Arch's `gnupg` enables these sockets globally. | Linux | Automated: `run_once_after_mask-gpg-agent.sh` | `systemctl --user unmask gpg-agent.socket gpg-agent-ssh.socket gpg-agent-extra.socket gpg-agent-browser.socket` |
 | Enable `tailscaled` | personal Linux | Automated: `run_once_after_20-services.sh` | `sudo systemctl disable --now tailscaled` |
 | `pacman.conf` `Color`, avahi | plain Arch | Manual (step 1) | revert the line / disable the service |
-| keyd (Caps Lock remap) | shiva | Manual, `/etc/keyd/default.conf` — TODO: document | `sudo systemctl disable --now keyd` |
+| keyd: Caps Lock = Ctrl when held, Esc when tapped, all keyboards. Overrides Omarchy's Caps-as-Compose, so there is no Compose key. | Linux desktops | Automated: config in `system/etc/keyd/default.conf`, installed by `run_onchange_after_40-keyd.sh` | `sudo systemctl disable --now keyd` (and `yay -R keyd`) |
 
 # Reference
 
@@ -345,7 +391,7 @@ since Docker writes to `config.json` itself.
 [Zoekt](https://github.com/sourcegraph/zoekt) gives fast cross-repo code
 search. `run_onchange_after_zoekt.sh` installs `zoekt`, `zoekt-git-index` and
 `zoekt-local-sync` into `$PI_BIN_DIR` (`~/.pi/agent/bin`, on PATH via
-`.zshenv`); `pi-maintenance` updates them and refreshes the index. Universal
+`.zshenv`); `sysup` updates them and refreshes the index. Universal
 Ctags (installed from `packages.yaml`) adds symbol-aware ranking and `sym:`
 queries.
 
