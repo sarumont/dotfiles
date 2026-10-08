@@ -77,6 +77,40 @@ fetch_gh_latest() {
     curl -L $(curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r '.assets[] | select(.browser_download_url | contains("linux")) | .browser_download_url') | tar zx
 }
 
+# Rebuild the symlink galleries from $REPO_ROOT/<owner>/* (dirs.env):
+# $WORK_GALLERY_DIR gets $WORK_GALLERY_OWNERS; $REPO_GALLERY_DIR gets the work
+# gallery plus $REPO_GALLERY_OWNERS; twt worktrees are re-linked.
+update_link_galleries() {
+  : "${WORK_GALLERY_DIR:?}" "${REPO_GALLERY_DIR:?}" "${REPO_ROOT:?}"
+  local owner wt gallery
+  local -a repos
+
+  rm -rf "$WORK_GALLERY_DIR" "$REPO_GALLERY_DIR"
+  mkdir -p "$WORK_GALLERY_DIR" "$REPO_GALLERY_DIR"
+
+  for owner in ${=WORK_GALLERY_OWNERS}; do
+    repos=("$REPO_ROOT/$owner"/*(N))
+    (( $#repos )) && ln -sf "${repos[@]}" "$WORK_GALLERY_DIR"
+  done
+
+  repos=("$WORK_GALLERY_DIR"/*(N))
+  (( $#repos )) && ln -sf "${repos[@]}" "$REPO_GALLERY_DIR"
+  for owner in ${=REPO_GALLERY_OWNERS}; do
+    repos=("$REPO_ROOT/$owner"/*(N))
+    (( $#repos )) && ln -sf "${repos[@]}" "$REPO_GALLERY_DIR"
+  done
+
+  # Re-link worktrees created by twt
+  if [[ -d "$WORKTREES_DIR" ]]; then
+    for wt in "$WORKTREES_DIR"/*/(N); do
+      [[ -f "${wt}.twt-galleries" ]] || continue
+      while IFS= read -r gallery; do
+        ln -sf "$wt" "$gallery/$(basename "$wt")"
+      done < "${wt}.twt-galleries"
+    done
+  fi
+}
+
 # machine-specific: <host>.functions.zsh is managed, functions.zsh is local-only
 for f in ~/.local/sh/*.functions.zsh(N); do
     . $f

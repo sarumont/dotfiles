@@ -5,6 +5,7 @@ packages:
   # every Linux machine, desktop or server (CLI only)
   linux:
     - inetutils        # `hostname` (scripts use `hostname -s`; not in base)
+    - ghq              # clones to ~/github.com/<owner>/<repo> ($REPO_ROOT)
     - zsh
     - oh-my-zsh-git
     - zsh-syntax-highlighting
@@ -60,6 +61,7 @@ packages:
     - universal-ctags
     - zsh-syntax-highlighting
     - tree-sitter-cli
+    - ghq
     - direnv
     - httpie
     - kubernetes-cli

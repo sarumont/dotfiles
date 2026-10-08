@@ -5,7 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Overview
 
 Personal dotfiles managed with **chezmoi**. The source state is in `home/`
-(`.chezmoiroot`); this checkout (`~/Work/dotfiles`) is chezmoi's `sourceDir`.
+(`.chezmoiroot`); this checkout (`~/github.com/sarumont/dotfiles`, also
+`~/git/dotfiles` via the gallery) is chezmoi's `sourceDir`. Repos live at
+`$REPO_ROOT/<owner>/<repo>` (`~/github.com/...`, cloned with `ghq get`).
 chezmoi **copies** files into `$HOME` (no symlinks), so a source edit does
 nothing until `chezmoi apply`, and a live-file edit must be brought back with
 `chezmoi re-add` (plain files) or `chezmoi merge` (templates).

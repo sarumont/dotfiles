@@ -56,7 +56,11 @@ signatures) once the repo is cloned.
 
 ## 3. chezmoi
 
-    chezmoi init --source ~/Work/dotfiles --apply git@github.com:sarumont/dotfiles.git
+    chezmoi init --source ~/github.com/sarumont/dotfiles --apply git@github.com:sarumont/dotfiles.git
+
+Any path works (`sourceDir` follows the checkout); this one matches the repo
+layout below. To move it later: move the checkout, then
+`chezmoi init --source <new path>`.
 
 It asks three things once (answers live in `~/.config/chezmoi/chezmoi.toml`):
 
@@ -85,7 +89,7 @@ Ghostty the default terminal with the Monaspace font. Scripts live in
 
 # Day-to-day with chezmoi
 
-The source of truth is `home/` in this repo (`~/Work/dotfiles`, set as
+The source of truth is `home/` in this repo (`~/github.com/sarumont/dotfiles`, set as
 `sourceDir` in `~/.config/chezmoi/chezmoi.toml`). chezmoi copies files into
 `$HOME`; it does not symlink, so edits to live files must be brought back.
 
@@ -129,7 +133,7 @@ file.
 Don't add files that Omarchy owns as symlinks or regenerates (for example
 `~/.config/nvim/lua/plugins/theme.lua`, `~/.local/state/omarchy/*`).
 
-Committing: `chezmoi cd` opens a shell in the repo (or `cd ~/Work/dotfiles`);
+Committing: `chezmoi cd` opens a shell in the repo (or `cd ~/git/dotfiles`);
 commit and push as usual.
 
 ## Secrets
@@ -266,7 +270,8 @@ Machine-specific shell files live in `~/.local/sh/`:
 
 Shell scripts source the POSIX-compatible `~/.local/sh/dirs.env` contract:
 `REPO_ROOT`, `REPO_GALLERY_DIR`, `WORK_GALLERY_DIR`, `WORKTREES_DIR`,
-`PI_AGENT_DIR`, `PI_BIN_DIR`, `ZOEKT_INDEX_DIR`. Host overrides go in
+`PI_AGENT_DIR`, `PI_BIN_DIR`, `ZOEKT_INDEX_DIR`, `REPO_GALLERY_OWNERS`,
+`WORK_GALLERY_OWNERS`. Host overrides go in
 `~/.local/sh/dirs-<host>.env`, including `SKILLS_DIRS` (colon-separated skill
 repositories).
 
@@ -421,21 +426,26 @@ found under them are dropped from the index. The pi skill
 (`~/.pi/agent/skills/zoekt/SKILL.md`) tells agents to use Zoekt for discovery
 and verify with `rg`/file reads.
 
-## Symlink gallery
+## Repos and the symlink gallery
 
-From [Waylon Walker](https://waylonwalker.com/symlink-gallery/): directories
-of symlinks to projects (`$WORK_GALLERY_DIR`, `$REPO_GALLERY_DIR`) that the
-tmux pickers (`C-a C-g`, `C-a C-w`) and `ta` browse. Keep a function like this
-in `~/.local/sh/<host>.functions.zsh` (ifrit has the real one) and run it when
-repos change:
+Every clone lives at `$REPO_ROOT/<owner>/<repo>` (`~/github.com/...`): no
+name collisions, predictable paths, and Zoekt indexes the whole tree. `ghq`
+(with `ghq.root = ~` in the git config) clones straight into it:
 
-    update_link_galleries() {
-      rm -rf "$WORK_GALLERY_DIR" && mkdir "$WORK_GALLERY_DIR"
-      ln -sf "$REPO_ROOT"/myorganization/* "$WORK_GALLERY_DIR"
+    ghq get sarumont/dotfiles        # -> ~/github.com/sarumont/dotfiles
+    ghq list                         # everything under $REPO_ROOT
 
-      rm -rf "$REPO_GALLERY_DIR" && mkdir "$REPO_GALLERY_DIR"
-      ln -sf "$WORK_GALLERY_DIR"/* "$REPO_GALLERY_DIR"
-    }
+The galleries (from [Waylon Walker](https://waylonwalker.com/symlink-gallery/))
+are flat directories of symlinks over that tree, browsed by `ta`, the tmux
+pickers (`C-a C-g`, `C-a C-w`) and the herdr workspace pickers:
+
+- `$WORK_GALLERY_DIR` (`~/work`): repos of the owners in `$WORK_GALLERY_OWNERS`
+  (set per host in `dirs-<host>.env`; ifrit: the work orgs).
+- `$REPO_GALLERY_DIR` (`~/git`): the work gallery plus `$REPO_GALLERY_OWNERS`
+  (default `sarumont`).
+
+Run `update_link_galleries` (in `~/.functions.zsh`) after cloning; it also
+re-links `twt` worktrees.
 
 ----
 

@@ -61,6 +61,9 @@
 	autoupdate = true
 [help]
 	autocorrect = prompt
+[ghq]
+	# `ghq get owner/repo` clones to ~/github.com/owner/repo ($REPO_ROOT)
+	root = {{ .chezmoi.homeDir }}
 [url "git@github.com:"]
 	# Always use SSH for GitHub, including go module fetches (go get builds
 	# https:// URLs from module paths and would otherwise prompt for creds).
