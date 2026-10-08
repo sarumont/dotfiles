@@ -489,7 +489,7 @@ Worksheet (remaining privfiles files):
 | `ssh/.ssh/*.pub`, `authorized_keys`, `allowed_signers` | — | | moved (above) | delete from privfiles |
 | `Makefile`, `README.md`, `.gitignore` | — | | drop | |
 
-Remaining: archive the privfiles repo on GitHub (`gh repo archive sarumont/privfiles`) once ifrit no longer stows it (Phase 4).
+privfiles archived on GitHub.
 
 ---
 
@@ -514,16 +514,64 @@ Remaining: archive the privfiles repo on GitHub (`gh repo archive sarumont/privf
 
 ## Phase 4 — Cutover
 
-1. **shiva**: `chezmoi diff` is clean except intended changes → `chezmoi apply`
-   → open new terminal, tmux/herdr, nvim; check `git commit -S` works.
-2. Remove `Makefile`, delete any remaining stow package dirs, update
-   `CLAUDE.md` and `README.md`, delete this file. Commit on `main`.
-3. Switch GitHub default branch to `main`.
-4. **ifrit (Mac)**: `stow` cleanup first (`make delete` from the old checkout,
-   which removes the symlinks), then `chezmoi init --apply`, review
-   `chezmoi diff` before applying.
-5. Confirm `archive/master` and `archive/stow` exist on the remote, then delete
-   the `stow` and `master` branches (and the demo branches, per Phase 0).
+### shiva — DONE
+
+- [x] All modules applied and verified on shiva; `chezmoi status` clean.
+- [x] `Makefile` removed; no stow package dirs left; README and repo
+      `CLAUDE.md` rewritten for chezmoi.
+- [x] GitHub default branch is `main`.
+- [x] privfiles archived on GitHub (ifrit never used it).
+
+### ifrit (work MacBook) — checklist
+
+Do these in order on ifrit.
+
+1. **Back up** what chezmoi will touch, in case something needs recovering:
+   `tar czf ~/pre-chezmoi-$(date +%F).tgz ~/.zshrc ~/.zshenv ~/.zlogin ~/.aliases.zsh ~/.functions.zsh ~/.config ~/.local/sh ~/.local/bin ~/.ssh/config ~/.pi/agent/settings.json ~/.claude/CLAUDE.md ~/.codex/AGENTS.md 2>/dev/null`
+2. **Remove the stow links first**, from the existing checkout while it is
+   still on the `stow` branch (`main` has no Makefile):
+   `make delete` (removes base, host and macOS links). Then `git switch main`
+   or move the old checkout aside.
+3. **Remove NvChad state**: `rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim`.
+4. **Remove leftovers chezmoi replaces**: `~/.omz-custom` (the oh-my-zsh
+   external replaces the `~/.oh-my-zsh` git clone; `exact` means it will
+   delete the old clone's extra files, including `.git`).
+5. **Install chezmoi and tools**: `brew install chezmoi` (and `gh` if missing).
+6. **mise tools**: compare ifrit's `~/.config/mise/config.toml` with the repo's
+   (`claude codex gh go node pi rust uv`). If ifrit needs different tools,
+   turn `home/dot_config/mise/config.toml` into a template first (on shiva or
+   ifrit) and commit before applying.
+7. **Init** (source in the same place as shiva):
+   `chezmoi init --source ~/Work/dotfiles git@github.com:sarumont/dotfiles.git`
+   Prompts: Personal machine = **no**; Git email = the one ifrit commits with
+   (`allowed_signers` lists both `richard@moov.io` and `richard@sigil.org` for
+   ifrit's key); Secrets backend = **1password**.
+8. **Review before applying**: `chezmoi diff | less`. Expect: zsh files
+   (Homebrew/MacPorts paths, `macos` plugin, pbcopy), git config, Ghostty
+   (MonaspiceNe NFM 15, Nord Wave), herdr (`one-dark`, `cmd+1..9`), tmux,
+   LazyVim, omniwm, `~/.local/bin/pi` wrapper, `~/.local/sh/ifrit.*`.
+9. **Check the package lists** in `home/.chezmoidata/packages.yaml`
+   (`darwin_brew`, `darwin_cask`, `darwin_port`) against what ifrit has
+   (`brew leaves`, `port installed requested`), fix, commit. The install
+   script runs on apply (`brew`, `sudo port`).
+10. **`pi` wrapper**: `~/.local/bin/pi` execs `${PI_REAL_BIN:-/opt/homebrew/bin/pi}`.
+    The repo now installs pi via mise; if ifrit should too, point
+    `PI_REAL_BIN` at the mise shim (or drop the brew pi), otherwise keep brew's.
+11. **Apply**: `chezmoi apply`. Then: new terminal (zsh, starship, OMZ from
+    `~/.oh-my-zsh`, syntax highlighting from brew/ports), `git commit -S` in a
+    scratch repo, tmux + herdr, `nvim` (first start syncs plugins), Copilot
+    auth (`nvim +"Copilot auth"`).
+12. **1Password**: `op signin` (only needed once a template has a 1Password
+    ref; none do yet). SSH private hosts: create an equivalent 1Password item
+    and fill `secretRefs.sshConfig.onepassword` if ifrit needs them.
+13. Commit anything fixed along the way, push.
+
+### After ifrit
+
+- Delete the `stow` branch on GitHub (`git push origin --delete stow`; the
+  `archive/stow` tag keeps it) and locally.
+- Move the Deferred list below to a permanent home (e.g. `docs/todo.md`) and
+  delete this file.
 
 ## Deferred (after cutover)
 

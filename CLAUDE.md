@@ -4,154 +4,96 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is a personal dotfiles repository using **GNU Stow** for symlink management. The repository is organized into self-contained "packages" (directories) that stow symlinks into `$HOME`. The design supports both shared configuration and host-specific overrides.
+Personal dotfiles managed with **chezmoi**. The source state is in `home/`
+(`.chezmoiroot`); this checkout (`~/Work/dotfiles`) is chezmoi's `sourceDir`.
+chezmoi **copies** files into `$HOME` (no symlinks), so a source edit does
+nothing until `chezmoi apply`, and a live-file edit must be brought back with
+`chezmoi re-add` (plain files) or `chezmoi merge` (templates).
 
-## Core Architecture
+Targets: **shiva** (Omarchy, Linux), **ifrit** (work MacBook, Homebrew +
+MacPorts), and plain Arch. Per-machine data comes from `home/.chezmoi.toml.tmpl`
+(answers cached in `~/.config/chezmoi/chezmoi.toml`): `.omarchy` (auto-detected),
+`.personal`, `.email`, `.secrets` (`protonpass` | `1password` | `none`), plus
+`.chezmoi.os` and `.chezmoi.hostname`.
 
-### Stow-based Package System
+`README.md` is the user-facing setup guide and reference; `MIGRATION.md` (while
+it exists) records the stow → chezmoi migration and the deferred TODO list.
 
-Each top-level directory (except `.hosts-*`, `.git`, and hidden directories) is a stow package that mirrors the target directory structure starting from `$HOME`. For example:
-- `nvim/.config/nvim/init.lua` → `~/.config/nvim/init.lua`
-- `zsh/.zshrc` → `~/.zshrc`
-- `tmux/.config/tmux/tmux.conf` → `~/.config/tmux/tmux.conf`
+## Layout and conventions
 
-Key packages:
-- `nvim/` - Neovim configuration (NvChad-based)
-- `zsh/` - Zsh shell configuration with oh-my-zsh
-- `tmux/` - tmux configuration with tpm plugins
-- `git/` - Global git configuration
-- `sway/` - Sway window manager (Linux)
-- `alacritty/` - Alacritty terminal emulator
-- `local/` - Local scripts and binaries in `.local/bin/`
+- chezmoi naming: `dot_` → `.`, `private_` → mode 0600/0700, `executable_`,
+  `.tmpl` → Go template, `modify_` → script that merges into an existing file
+  (stdin → stdout), `run_once_` / `run_onchange_` scripts in
+  `home/.chezmoiscripts/`.
+- Gating: whole paths per OS/host/Omarchy in `home/.chezmoiignore`; sections
+  inside templates with `{{ if eq .chezmoi.os "darwin" }}`, `{{ if .omarchy }}`,
+  `{{ if eq .chezmoi.hostname "shiva" }}`.
+- Host-specific files are named per host: `~/.local/sh/<host>.{zshenv,aliases.zsh,functions.zsh}`,
+  `~/.local/sh/dirs-<host>.env`, `~/.config/tmux/tmux.<host>.conf`.
+  Unprefixed `~/.local/sh/{zshenv,zshrc,zlogin,aliases.zsh,functions.zsh}` and
+  `~/.config/tmux/tmux.local.conf` are deliberately **unmanaged** local overrides.
+- Data files: `home/.chezmoidata/packages.yaml` (package lists per OS),
+  `herdr.yaml` (herdr plugins), `secrets.yaml` (secret **references**, not
+  secrets).
+- Externals (`home/.chezmoiexternal.toml.tmpl`): tpm (all), oh-my-zsh (macOS
+  only; Linux uses the `oh-my-zsh-git` package).
+- Docs: `docs/nvim-keymaps.md`, `docs/tmux.md`.
 
-### Host-Specific Overrides
+## Rules
 
-Host-specific configurations are stored in `.hosts-$(hostname)/` directories. These apply side-by-side with base packages (no file overwriting). The hostname is determined by `uname -n`.
+- **Never put secrets in this repo** (public), encrypted or not. Use the
+  `secret` template (`home/.chezmoitemplates/secret`) with a reference in
+  `secrets.yaml`, or an app's own credential store. When inspecting secret
+  items (`pass-cli`, `op`), print only an allowlist of non-secret fields
+  (ids, titles, field names); never print values.
+- **Omarchy-owned files**: don't manage files Omarchy regenerates or symlinks
+  (e.g. `~/.config/nvim/lua/plugins/theme.lua`, `~/.local/state/omarchy/*`).
+  For files both an app and these dotfiles write (pi `settings.json`), use a
+  `modify_` script that merges only our keys with `jq`. Ghostty's font family on
+  Omarchy is rendered from `omarchy-font-current` so `omarchy-font-set` causes no
+  drift. Only customized Hyprland files are managed. Never edit
+  `/usr/share/omarchy/` (reading is fine).
+- **Packages**: Linux uses `yay` (never `paru`). Things Omarchy already ships go
+  in `arch_only`, not `linux`. Language runtimes and agent CLIs come from mise
+  (`~/.config/mise/config.toml`), not curl installers that edit shell rc files.
+  Python CLIs run via `uvx` (e.g. `gibr`, `codemod`).
+- **Changes outside `$HOME`** (systemd, `/etc`, groups) must be recorded in the
+  README table "Machine changes outside `$HOME`", automated in a script where
+  possible.
+- Workflow per change: edit source → `chezmoi diff` → `chezmoi apply <path>` →
+  verify → commit (commits are SSH-signed) → push.
 
-### Local Overrides (Not Committed)
-
-The shell sources these local override files if they exist:
-- `~/.local/sh/aliases.zsh` - Local aliases
-- `~/.local/sh/functions.zsh` - Local functions
-- `~/.local/sh/zshrc` - Additional zshrc configuration
-- `~/.local/sh/zshenv` - Environment variables
-- `~/.local/sh/*.zshenv` - Additional environment files
-
-Also supports a private overlay repository called `privfiles` for secrets.
-
-## Common Commands
-
-### Stow Management
+## Common commands
 
 ```bash
-# Install/update all symlinks
-make
-
-# Install base packages only
-make base
-
-# Install host-specific overrides
-make host
-
-# Remove all symlinks
-make delete
-
-# Remove base package symlinks
-make delete-base
-
-# Remove host-specific symlinks
-make delete-host
+chezmoi status / diff / apply [path] / managed / data
+chezmoi add [--template] <path>        # start managing a file
+chezmoi re-add <path>                  # pull a live edit back (plain files)
+chezmoi merge <path>                   # pull a live edit back (templates)
+chezmoi execute-template < file.tmpl   # render a template (add --override-data '{...}' to test other OSes/hosts)
+chezmoi cat <target>                   # rendered content for this machine
+chezmoi state delete-bucket --bucket=entryState   # re-run run_onchange_ scripts
 ```
 
-The Makefile uses: `stow --verbose --no-folding --target=$HOME`
+Validation after changes:
+- Hyprland: `hyprctl reload && hyprctl configerrors`
+- herdr: `herdr server reload-config` (look for empty `diagnostics`)
+- tmux: start a throwaway server (`tmux -L test -f ~/.config/tmux/tmux.conf new -d`)
+  and check `show-messages`; never touch the user's running sessions
+- Neovim: headless runs need `doautocmd User VeryLazy` before checking keymaps
+- zsh: `zsh -n` on rendered files, `zsh -i -c exit` for errors
 
-### Neovim
+## Notable pieces
 
-- Update plugins: `viup` (alias for `nvim --headless "+Lazy! sync" +qa`)
-- The configuration uses NvChad v2.5 with lazy.nvim
-- Custom plugins are in `nvim/.config/nvim/lua/plugins/*.lua`
-- LSP servers configured: `gopls`, `kotlin_language_server`
-- Formatters via conform.nvim: `stylua` (Lua), `gofmt`/`goimports`/`goimports-reviser` (Go), `yamlfmt` (YAML)
-- Format on save is enabled with async and LSP fallback
-
-### Git
-
-Global git configuration is in `git/.config/git/config`. Local overrides (name, email, signing key) go in `~/.gitconfig`.
-
-Custom git commands in `local/.local/bin/`:
-- `git-clean-merged` - Clean up merged branches
-- `git-attic` - View deleted branches
-- `git-neck` - Show commit graph
-- `git-trail` - Show commit history
-
-Useful aliases:
-- `gup` → `git up` (fetch + rebase with autostash)
-- `full_pull` → Pull with --all --prune --rebase and clean merged branches
-- `gprune` → Delete merged branches (except main/master/develop/richard)
-
-### tmux
-
-- Session picker scripts are bound to prefix keys:
-  - `C-a C-g` - Pick from `~/git` (symlink gallery)
-  - `C-a C-w` - Pick from `~/work` (symlink gallery)
-  - `C-a C-o` - Switch between existing sessions
-  - `C-a C-b` / `C-a C-B` - Previous session
-- `ta` script (`local/.local/bin/ta`) - Attach or create tmux sessions
-  - `ta ~/git` - Select and open a project with nvim in split layout
-  - `ta --start` - Create simple session in current directory
-- Plugins managed via tpm (tmux plugin manager)
-
-### Shell Functions
-
-The `build()` function intelligently detects build systems (Gradle, Maven, Ant, npm, lerna) by walking up the directory tree and runs appropriate commands. Shortcuts:
-- `b` - Build
-- `c` - Compile
-- `cl` - Clean and build
-- `bi` - Build install
-- `clb` - Clean and build
-- `cli` - Clean and install
-
-## Development Workflow
-
-### Symlink Gallery Pattern
-
-The "symlink gallery" pattern creates directories of symlinks to projects for quick tmux navigation. Example from README (intended to be placed in `~/.local/sh/functions.zsh`):
-
-```zsh
-update_link_galleries() {
-  rm -rf ~/work
-  mkdir ~/work
-  ln -sf ~/github.com/myorganization/* ~/work
-
-  rm -rf ~/git
-  mkdir ~/git
-  ln -sf ~/work/* ~/git
-}
-```
-
-This integrates with tmux keybindings (`C-w` for work gallery, etc.).
-
-### Environment Variables
-
-- `OBSIDIAN_VAULT_DIR` - Set in `~/.local/sh/zshenv` to point to Obsidian vault (defaults to `~/notes`)
-- `EDITOR` - Auto-detected (nvim → vim priority)
-
-### Shell Tools
-
-The configuration uses modern CLI replacements:
-- `eza` instead of `ls` (aliases: `l`, `ll`, `la`, `ltr`, `tree`)
-- `bat` instead of `cat`
-- `rg` (ripgrep) instead of `ag`/`grep`
-- `eva` instead of `bc`
-- `zoxide` for directory jumping (aliased to `cd`)
-- `mise` for language version management (activated with shims)
-
-## Notes
-
-- The configuration supports both macOS (MacPorts preferred) and Arch Linux (yay/pacman; always use `yay`, never `paru`, in instructions and scripts)
-- zsh plugins: OS-specific (macos/archlinux/debian), git, gitfast, httpie, sudo, zsh-syntax-highlighting
-- vim mode is enabled in zsh (`bindkey -v`)
-- Starship prompt is used
-- keychain is used for SSH key management
-- direnv is loaded if available
-- Docker plugin is lazy-loaded on first use
+- **zsh** + oh-my-zsh; `.zshenv` adds Omarchy's bash-only env on Omarchy;
+  `.zshrc` ports some Omarchy helpers (`ff`, `eff`, `open`, `mup`, herdr layouts
+  via `emulate ksh`). `build()` detects Gradle/Maven/Ant/npm.
+- **Neovim**: LazyVim, leader `,`; extras in `lazyvim.json`, overrides in
+  `lua/plugins/`, keymaps in `lua/config/keymaps.lua` (see docs).
+- **tmux** (tpm) and **herdr** (plugins via data file) both in daily use;
+  helper scripts in `~/.local/bin` (`ta`, `twt`, `herdr-*`, `tmux-*`).
+- **Git**: config template with SSH signing; `allowed_signers` lists all
+  machines' keys; custom commands `git-attic`, `git-clean-merged`, `git-neck`,
+  `git-trail`.
+- **Agents**: `~/AGENTS.md` shared; `CLAUDE.md`/`AGENTS.md` for Claude Code and
+  Codex; pi settings merged via `jq`; Zoekt installed into `$PI_BIN_DIR`.
