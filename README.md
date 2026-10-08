@@ -145,6 +145,12 @@ the machine's backend at apply time:
 backend has no reference for a secret renders it empty. Prefer an app's own
 credential store where one exists.
 
+If the backend isn't logged in (`pass-cli login` / `op signin`), chezmoi warns
+and skips the secret-backed files, leaving the existing copies untouched, and
+applies everything else. The check is `home/.chezmoitemplates/secrets-ready`;
+the skipped files are listed in `home/.chezmoiignore`, so **add every new
+secret-backed target there**.
+
 SSH: `~/.ssh/config` (public) includes `~/.ssh/config.d/*` first and ends with
 `Host *` defaults, so per-host settings win. Private host entries come from the
 `ssh/dot_config` note into `~/.ssh/config.d/private`.

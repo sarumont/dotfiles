@@ -52,7 +52,10 @@ it exists) records the stow → chezmoi migration and the deferred TODO list.
   `secret` template (`home/.chezmoitemplates/secret`) with a reference in
   `secrets.yaml`, or an app's own credential store. When inspecting secret
   items (`pass-cli`, `op`), print only an allowlist of non-secret fields
-  (ids, titles, field names); never print values.
+  (ids, titles, field names); never print values. Every target rendered with
+  the `secret` helper must also be listed in the secrets block of
+  `home/.chezmoiignore`, so it's skipped (not failed) when the backend has no
+  session.
 - **Omarchy-owned files**: don't manage files Omarchy regenerates or symlinks
   (e.g. `~/.config/nvim/lua/plugins/theme.lua`, `~/.local/state/omarchy/*`).
   For files both an app and these dotfiles write (pi `settings.json`), use a

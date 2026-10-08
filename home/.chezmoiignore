@@ -48,3 +48,15 @@
 .config/ghostty
 .config/pipewire
 {{ end }}
+
+# Secret-backed files: skip (leave the existing file untouched) when the
+# secrets backend has no session, so everything else still applies.
+# List every target whose template uses the "secret" helper here.
+{{ if ne .secrets "none" }}
+{{   if ne (includeTemplate "secrets-ready" .secrets) "true" }}
+{{     warnf "%s is not logged in: skipping secret-backed files (log in, then chezmoi apply)" .secrets }}
+.ssh/config.d/private
+{{   end }}
+{{ else }}
+.ssh/config.d/private
+{{ end }}

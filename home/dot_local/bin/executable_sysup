@@ -22,6 +22,16 @@ export PATH="$PI_BIN_DIR:$HOME/.local/share/mise/shims:$PATH"
 skip_system=false
 [ "${1:-}" = "--tools" ] && skip_system=true
 
+# pi-herdr-subagents only reads config.json from its own package dir, which
+# `pi update --extensions` recreates (deleting our managed file). Restore it
+# instead of treating it as drift.
+pi_subagents_cfg="$HOME/.pi/agent/npm/node_modules/pi-herdr-subagents/config.json"
+restore_pi_subagents_cfg() {
+  if [ -d "${pi_subagents_cfg%/*}" ]; then
+    chezmoi apply --force "$pi_subagents_cfg"
+  fi
+}
+
 # 1. System packages (and mise, which Omarchy's update includes)
 if ! $skip_system; then
   if have omarchy; then
@@ -49,6 +59,7 @@ fi
 # 2. Drift gate: stop if anything changed a managed file behind chezmoi's back
 #    (first status column = changed since chezmoi last wrote it).
 step "Checking dotfiles drift"
+restore_pi_subagents_cfg
 drift=$(chezmoi status --exclude=scripts | awk 'substr($0, 1, 1) != " "' || true)
 if [ -n "$drift" ]; then
   warn "These managed files changed outside chezmoi (Omarchy migration, app, or hand edit):"
@@ -99,6 +110,7 @@ if have pi; then
   step "pi models and extensions"
   pi update --models
   pi update --extensions
+  restore_pi_subagents_cfg
 fi
 
 if have go; then
