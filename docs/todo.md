@@ -19,6 +19,25 @@ history: `git log --all -- MIGRATION.md`.
         skipped, not failed, when `op` isn't signed in.
       - `secretRefs.sshConfig` is unused there (no private SSH hosts).
 
+## Hyprland workspaces (shiva)
+
+Named workspaces live in `home/dot_config/hypr/bindings.lua`.
+
+- [ ] **Move-to-named-workspace keys.** `SUPER+SHIFT+<letter>` (sway-style)
+      is taken by Omarchy launchers (D Docker, W Omawrite, C Calendar,
+      M Music, N Editor); `SUPER+ALT+D/W/I/M/N` are all free.
+- [ ] **Music:** pick an app, rebind `SUPER+SHIFT+M` (currently Omarchy's
+      Spotify launcher; Spotify isn't installed) and add a `name:music`
+      window rule.
+- [ ] **Signal:** install `signal-desktop` (extra; Omarchy launches it on
+      `SUPER+SHIFT+G`). Its comms rule is already in place. If it should be
+      in `packages.yaml`, that needs a desktop+personal list (`linux_personal`
+      also reaches the dadfi server).
+- [ ] **Verify window classes** the first time each app opens (`hyprctl
+      clients`): Obsidian (`obsidian` / `md.obsidian.Obsidian`), Discord web
+      app (`chrome-discord.com__…`), Signal (`signal` / `Signal` /
+      `signal-desktop`). Rules match those; fix the regex if one differs.
+
 ## Decisions parked
 
 - [ ] **Docker access** stays on `sudo docker`. Options and tradeoffs: README

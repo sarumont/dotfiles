@@ -52,6 +52,9 @@ end
 -- Omarchy's rule, which hides it).
 o.window({ class = "^firefox$", title = "negative:.*is sharing.*" }, { workspace = "name:www" })
 o.window("^(obsidian|md\\.obsidian\\.Obsidian)$", { workspace = "name:notes" })
+-- Discord is an Omarchy web app (Chromium --app: class chrome-<host>__<path>-Default);
+-- Signal is the native signal-desktop.
+o.window("^(chrome-discord\\.com__.*|[Ss]ignal|signal-desktop)$", { workspace = "name:comms" })
 
 -- Calendar: Google Calendar instead of HEY.
 hl.unbind("SUPER + SHIFT + C")
