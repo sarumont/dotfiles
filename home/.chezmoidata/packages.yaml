@@ -42,6 +42,7 @@ packages:
     - btop
     - mise
     - herdr
+    - tree-sitter-cli  # nvim-treesitter (main branch) compiles parsers with it
   # personal Linux machines (.personal)
   linux_personal:
     - proton-pass-cli-bin
@@ -58,6 +59,7 @@ packages:
     - universal-ctags
     - zsh-syntax-highlighting
     - herdr
+    - tree-sitter-cli
     - direnv
     - httpie
     - kubernetes-cli
