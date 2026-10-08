@@ -1,5 +1,9 @@
 # Migration plan: stow → chezmoi
 
+> **History rewritten on 2026-10-08** (Phase 0.3). Commit hashes quoted in this
+> file refer to the pre-rewrite history; the full original repo is in
+> `~/dotfiles-pre-rewrite-2026-10-08.tar.gz` (mirror + bundle).
+
 Status: **draft**. Every module below has a decision point. Nothing moves until
 the decision for that module is recorded in its `Decision:` line.
 
@@ -79,9 +83,14 @@ git push origin --delete master
 - [x] Decision: `05-07-demo_*` branches (Graphite demo) — **delete without
       archiving.**
 
-### 0.3 Deferred: history rewrite
+### 0.3 History rewrite — DONE (2026-10-08)
 
-**Decision: not now.** Kept here in case repo size becomes a problem later.
+`git filter-repo --strip-blobs-bigger-than 1M` on a fresh mirror: 43 MiB →
+2.6 MiB, 1209 → 1199 commits (10 became empty). `main`'s tree unchanged
+(`a160e6e`). filter-repo strips signatures; the 29 migration-era commits on
+`main` were re-signed with shiva's key (authors and dates kept); older history
+is unsigned. All branches and tags force-pushed. Backup tarball in `~`.
+GitHub may keep old objects reachable via cached PR refs until its GC.
 
 Purge `KEYDB.cfg` and the old `bin/`/`.my/bin/` binaries with `git filter-repo`
 (roughly 43 MiB → a few MiB). **Rewrites every SHA**: the Mac clone must be
@@ -575,7 +584,8 @@ Do these in order on ifrit.
 
 ## Deferred (after cutover)
 
-- Rewrite history to drop large blobs (Phase 0.3).
+- [x] History rewrite (Phase 0.3) — done 2026-10-08. **ifrit must re-clone**
+  (or `git fetch && git reset --hard origin/stow`) before any further push.
 - Move ifrit from MacPorts + Homebrew to Homebrew only.
 - [x] Maintenance routine: `sysup` (replaces `pi-maintenance`), README
   "Maintenance". Name may change (looking for something snarkier).
