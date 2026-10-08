@@ -33,7 +33,7 @@ Targets: `darwin` (ifrit, work MBP), `omarchy` (shiva), `arch` (generic Arch, no
 - Existing tags: `legacy` (`90320ca`, 2018-10-11, 720 commits behind
   `master`'s tip) and `goodbye_xorg`.
 - **Done 2026-10-07:** `archive/master` (→ `d4f47e1`) and `archive/stow`
-  (→ `7f63106`) created and pushed; `main` created from `stow` and set as the
+  (→ `7f63106`, moved on 2026-10-08 to `2d67576` to include ifrit's last three `stow` commits) created and pushed; `main` created from `stow` and set as the
   GitHub default; `master` and the `05-07-demo_*` branches deleted on the
   remote. `stow` stays until Phase 4.
 - Pack size 43 MiB. Biggest blobs in history: `.config/aacs/KEYDB.cfg` (24 MB,
