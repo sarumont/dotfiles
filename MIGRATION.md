@@ -451,7 +451,7 @@ gating only for truly machine-specific values (paths, monitors).
 - [ ] Sub-decision: shiva/ifrit content — keep as host-gated files / fold into
       OS-conditional templates (decide per file during migration)
 
-### M18. privfiles — IN PROGRESS (user working through secrets)
+### M18. privfiles — DONE
 
 Clone: `~/Work/privfiles` (private repo). It stowed into `~/.local/sh/` and
 `~/.ssh/`; the old `~/.privfiles/sh/*` hooks in zsh were dead and are removed.
@@ -477,19 +477,19 @@ Worksheet (remaining privfiles files):
 
 | privfiles file | Target | Contents | Plan | Watch out for |
 |---|---|---|---|---|
-| `sh/.local/sh/private.zshenv` | `~/.local/sh/private.zshenv` (private_, .tmpl) | secret env vars (AWS, ...) | secret template | name matches the `*.zshenv` loader already |
-| `sh/.local/sh/homelab-prod.env`, `homelab-tn.env` | `~/.local/sh/` (private_, .tmpl) | homelab secrets | secret templates, personal only | not auto-sourced (sourced on demand?) |
+| `sh/.local/sh/private.zshenv` | — | secret env vars | **DROPPED** (deprecated) | |
+| `sh/.local/sh/homelab-prod.env`, `homelab-tn.env` | — | homelab secrets | **DROPPED** (deprecated) | |
 | `docker-config.json` | — | registry auth | **not migrated**: `sudo docker` for now (README "Docker") | re-evaluate later |
 | `home/.npmrc` | — | npm tokens | **SKIPPED** (auth is changing upstream; old token revoked) | |
 | `smb/.smb.conf` + mount/unmount functions | — | SMB credentials | **DROPPED**: mount NAS shares via the Files app (`gvfs-smb`, credentials in GNOME Keyring) or `gio mount smb://host/share`; mounts appear under `/run/user/$UID/gvfs/` | |
 | `ssh/.ssh/config` | `~/.ssh/config` + `~/.ssh/config.d/private` | hosts/IPs/users | **DONE**: public base (Include first, `Host *` defaults last: Compression, ServerAlive 60/3, `StrictHostKeyChecking accept-new`); host entries from Proton Pass note `dotfiles/ssh/dot_config` | remove the leftover `Host *` block from the note; ifrit needs a 1Password ref in `secrets.yaml` |
-| `sh/.local/sh/aliases.zsh`, `functions.zsh` | `~/.local/sh/private.aliases.zsh`, `private.functions.zsh` | private-ish shell | template from notes, or public if harmless | must not use the unmanaged `aliases.zsh`/`functions.zsh` names |
-| `sh/.local/sh/functions-shiva.zsh` | merge into `~/.local/sh/shiva.functions.zsh` | | | old name isn't sourced by the new loader |
-| `sh/.local/sh/shiva.zshenv` | merge into the managed `shiva.zshenv` (template) | | | **collides** with the managed file |
+| `sh/.local/sh/aliases.zsh`, `functions.zsh` | — | private shell (incl. samba mount functions) | **DROPPED** (deprecated) | |
+| `sh/.local/sh/functions-shiva.zsh` | — | | **DROPPED** (deprecated) | |
+| `sh/.local/sh/shiva.zshenv` | — | | **DROPPED** (deprecated) | |
 | `ssh/.ssh/*.pub`, `authorized_keys`, `allowed_signers` | — | | moved (above) | delete from privfiles |
 | `Makefile`, `README.md`, `.gitignore` | — | | drop | |
 
-Then: archive the privfiles repo on GitHub.
+Remaining: archive the privfiles repo on GitHub (`gh repo archive sarumont/privfiles`) once ifrit no longer stows it (Phase 4).
 
 ---
 
