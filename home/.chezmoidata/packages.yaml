@@ -4,6 +4,7 @@
 packages:
   # every Linux machine, desktop or server (CLI only)
   linux:
+    - inetutils        # `hostname` (scripts use `hostname -s`; not in base)
     - zsh
     - oh-my-zsh-git
     - zsh-syntax-highlighting
