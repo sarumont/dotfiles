@@ -600,11 +600,13 @@ Do these in order on ifrit.
 - Docker access: staying on `sudo docker` (Omarchy default) for now; options
   (sudoless via Omarchy, rootless, keyring credsStore) documented in README
   "Docker" for re-evaluation. privfiles' `docker-config.json` is not migrated.
-- Other machines with keys on GitHub (left in place on purpose):
-  - `dadfi` — still in use; its dotfiles are out of date. Bring it onto
-    chezmoi (it isn't one of the two managed hosts yet: decide its gating).
-  - `mesafi` — may still be in use. Decide: onboard, or remove its GitHub key
-    (`gh ssh-key delete 117524922`).
+- `dadfi` — the only server to cut over. Plain Arch? `chezmoi init` with
+  Desktop = no (CLI packages only, no Ghostty/PipeWire/keyd); its stale stow
+  links need `make delete` from its old checkout first (re-clone after, history
+  was rewritten).
+- `mesafi` — not being migrated. Its GitHub auth key (117524922) stays until
+  you decide to remove it (`gh ssh-key delete 117524922`).
+- `sysup` name: keep until something snarkier comes along.
 
 ## Suggested order
 
