@@ -59,6 +59,14 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+### Testing
+
+- Start with the narrowest test that exercises the change. Expand to package or repo suites when the focused test fails, the change crosses boundaries, or CI/the user requires it. Don't rerun an unchanged passing suite.
+- Trace a failing test's call path before changing shared fixtures, mocks, or environment config. Add only dependencies that path actually exercises; don't change global setup just to silence an unrelated failure.
+- Prefer extending the closest existing flow test to assert its side effects, such as emitted events or webhooks, instead of duplicating setup in a separate test.
+- Keep tests direct. Reuse established fixtures; use table-driven cases when the scenarios share setup and assertions. Add helpers or harness layers only when they reduce repetition without hiding setup or behavior.
+- For opt-in integration prototypes against seeded environments, use a separate entrypoint rather than changing the default test suite unless asked.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
