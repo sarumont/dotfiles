@@ -197,7 +197,10 @@ Omarchy versions, so keeping or merging is the common answer.
 every Linux box, `linux_desktop` for GUI, `arch_only` for things Omarchy
 already ships, `linux_personal`, `darwin_*`).
 `run_onchange_before_10-install-packages.sh` installs them whenever the file
-changes. Language runtimes and agent CLIs come from mise
+changes. On plain Arch it runs `yay -Syu --needed`, so a stale machine is fully
+upgraded rather than partially (which fails with file conflicts when packages
+are split); on Omarchy it runs `yay -S --needed` and leaves full upgrades to
+`omarchy update`. Language runtimes and agent CLIs come from mise
 (`~/.config/mise/config.toml`: claude, codex, gh, go, node, pi, rust, uv).
 
 ## What runs automatically

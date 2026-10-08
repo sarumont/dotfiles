@@ -4,7 +4,9 @@
 set -eu
 {{ if eq .chezmoi.os "linux" -}}
 command -v yay >/dev/null 2>&1 || { echo "yay not found; install it first (see README)" >&2; exit 1; }
-yay -S --needed --noconfirm
+{{- /* Plain Arch: full upgrade in the same transaction, so a stale system never
+       gets a partial upgrade. Omarchy: `omarchy update` owns full upgrades. */}}
+yay {{ if .omarchy }}-S{{ else }}-Syu{{ end }} --needed --noconfirm
 {{- range .packages.linux }} {{ . }}{{ end }}
 {{- if .desktop }}{{ range .packages.linux_desktop }} {{ . }}{{ end }}{{ end }}
 {{- if not .omarchy }}{{ range .packages.arch_only }} {{ . }}{{ end }}{{ end }}
