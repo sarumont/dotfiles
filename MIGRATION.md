@@ -480,8 +480,8 @@ Worksheet (remaining privfiles files):
 | `sh/.local/sh/private.zshenv` | `~/.local/sh/private.zshenv` (private_, .tmpl) | secret env vars (AWS, ...) | secret template | name matches the `*.zshenv` loader already |
 | `sh/.local/sh/homelab-prod.env`, `homelab-tn.env` | `~/.local/sh/` (private_, .tmpl) | homelab secrets | secret templates, personal only | not auto-sourced (sourced on demand?) |
 | `docker-config.json` | — | registry auth | **not migrated**: `sudo docker` for now (README "Docker") | re-evaluate later |
-| `home/.npmrc` | `~/.npmrc` | npm token | secret template | |
-| `smb/.smb.conf` | `~/.smb.conf` | SMB credentials | secret template, personal only | |
+| `home/.npmrc` | — | npm tokens | **SKIPPED** (auth is changing upstream; old token revoked) | |
+| `smb/.smb.conf` + mount/unmount functions | — | SMB credentials | **DROPPED**: mount NAS shares via the Files app (`gvfs-smb`, credentials in GNOME Keyring) or `gio mount smb://host/share`; mounts appear under `/run/user/$UID/gvfs/` | |
 | `ssh/.ssh/config` | `~/.ssh/config` + `~/.ssh/config.d/private` | hosts/IPs/users | **DONE**: public base (Include first, `Host *` defaults last: Compression, ServerAlive 60/3, `StrictHostKeyChecking accept-new`); host entries from Proton Pass note `dotfiles/ssh/dot_config` | remove the leftover `Host *` block from the note; ifrit needs a 1Password ref in `secrets.yaml` |
 | `sh/.local/sh/aliases.zsh`, `functions.zsh` | `~/.local/sh/private.aliases.zsh`, `private.functions.zsh` | private-ish shell | template from notes, or public if harmless | must not use the unmanaged `aliases.zsh`/`functions.zsh` names |
 | `sh/.local/sh/functions-shiva.zsh` | merge into `~/.local/sh/shiva.functions.zsh` | | | old name isn't sourced by the new loader |
