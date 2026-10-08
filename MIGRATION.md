@@ -600,8 +600,10 @@ Do these in order on ifrit.
 - Docker access: staying on `sudo docker` (Omarchy default) for now; options
   (sudoless via Omarchy, rootless, keyring credsStore) documented in README
   "Docker" for re-evaluation. privfiles' `docker-config.json` is not migrated.
-- `dadfi` — the only server to cut over. Plain Arch? `chezmoi init` with
-  Desktop = no (CLI packages only, no Ghostty/PipeWire/keyd); its stale stow
+- `dadfi` — the only server to cut over. Plain Arch: README step 1 (yay,
+  Color, avahi), then `chezmoi init` with Desktop = no (CLI + `arch_only`
+  packages, no Ghostty/PipeWire/keyd). Personal = yes adds Proton Pass CLI,
+  syncthing, tailscale; pick the secrets backend accordingly. Its stale stow
   links need `make delete` from its old checkout first (re-clone after, history
   was rewritten).
 - `mesafi` — not being migrated. Its GitHub auth key (117524922) stays until
