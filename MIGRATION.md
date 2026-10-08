@@ -469,9 +469,9 @@ Done:
 
           export AWS_SECRET_ACCESS_KEY='{{ template "secret" (list .secrets "pass://SHARE/ITEM/FIELD" "op://VAULT/ITEM/FIELD") }}'
 
-      Keep references out of the public repo if you'd rather: put them in
-      `~/.config/chezmoi/chezmoi.toml` under `[data.refs]` and use
-      `.refs.aws_secret` etc. ifrit needs `op` signed in before `chezmoi apply`.
+      References (IDs, not secrets) live in `home/.chezmoidata/secrets.yaml`
+      under `secretRefs.<name>.{protonpass,onepassword}`. Proton Pass vault:
+      `dotfiles`. ifrit needs `op` signed in before `chezmoi apply`.
 
 Worksheet (remaining privfiles files):
 
@@ -482,7 +482,7 @@ Worksheet (remaining privfiles files):
 | `docker-config.json` | — | registry auth | **not migrated**: `sudo docker` for now (README "Docker") | re-evaluate later |
 | `home/.npmrc` | `~/.npmrc` | npm token | secret template | |
 | `smb/.smb.conf` | `~/.smb.conf` | SMB credentials | secret template, personal only | |
-| `ssh/.ssh/config` | `~/.ssh/config` + `~/.ssh/config.d/private` | hosts/IPs/users | public base with `Include ~/.ssh/config.d/*`; host entries from a Pass/1P note | ifrit vs shiva host sets may differ |
+| `ssh/.ssh/config` | `~/.ssh/config` + `~/.ssh/config.d/private` | hosts/IPs/users | **DONE**: public base (Include first, `Host *` defaults last: Compression, ServerAlive 60/3, `StrictHostKeyChecking accept-new`); host entries from Proton Pass note `dotfiles/ssh/dot_config` | remove the leftover `Host *` block from the note; ifrit needs a 1Password ref in `secrets.yaml` |
 | `sh/.local/sh/aliases.zsh`, `functions.zsh` | `~/.local/sh/private.aliases.zsh`, `private.functions.zsh` | private-ish shell | template from notes, or public if harmless | must not use the unmanaged `aliases.zsh`/`functions.zsh` names |
 | `sh/.local/sh/functions-shiva.zsh` | merge into `~/.local/sh/shiva.functions.zsh` | | | old name isn't sourced by the new loader |
 | `sh/.local/sh/shiva.zshenv` | merge into the managed `shiva.zshenv` (template) | | | **collides** with the managed file |

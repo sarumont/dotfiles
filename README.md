@@ -137,8 +137,15 @@ the machine's backend at apply time:
 
     {{ template "secret" (list .secrets "pass://SHARE/ITEM/FIELD" "op://VAULT/ITEM/FIELD") }}
 
-(`home/.chezmoitemplates/secret`). Prefer an app's own credential store where
-one exists (e.g. Docker's `credsStore` with GNOME Keyring / macOS Keychain).
+(`home/.chezmoitemplates/secret`). References (item IDs, not secrets) live in
+`home/.chezmoidata/secrets.yaml` as `secretRefs.<name>.protonpass` /
+`.onepassword`; Proton Pass items are in the `dotfiles` vault. A machine whose
+backend has no reference for a secret renders it empty. Prefer an app's own
+credential store where one exists.
+
+SSH: `~/.ssh/config` (public) includes `~/.ssh/config.d/*` first and ends with
+`Host *` defaults, so per-host settings win. Private host entries come from the
+`ssh/dot_config` note into `~/.ssh/config.d/private`.
 
 ## Packages
 

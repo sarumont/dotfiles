@@ -1,0 +1,12 @@
+# Private host entries, rendered from the secrets backend (see README "Secrets")
+Include ~/.ssh/config.d/*
+
+# Defaults for every host. ssh uses the first value it finds for each option,
+# so these come last and per-host settings above win.
+Host *
+  Compression yes
+  # keep idle sessions alive through NAT/Wi-Fi changes; drop dead ones in ~3 min
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  # trust new hosts automatically, still refuse changed host keys
+  StrictHostKeyChecking accept-new
