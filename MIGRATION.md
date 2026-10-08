@@ -603,9 +603,17 @@ Do these in order on ifrit.
 - `dadfi` — the only server to cut over. Plain Arch: README step 1 (yay,
   Color, avahi), then `chezmoi init` with Desktop = no (CLI + `arch_only`
   packages, no Ghostty/PipeWire/keyd). Personal = yes adds Proton Pass CLI,
-  syncthing, tailscale; pick the secrets backend accordingly. Its stale stow
-  links need `make delete` from its old checkout first (re-clone after, history
-  was rewritten).
+  syncthing, tailscale; pick the secrets backend accordingly.
+  dadfi's `$HOME` *is* an old (pre-stow) checkout of this repo. Cutover:
+  1. `cd ~ && git status --short --ignored` — untracked/ignored = real data.
+  2. Backup outside `$HOME`: `tar czf /var/tmp/dadfi-home-$(date +%F).tgz -C ~ .`
+  3. Remove only repo files: `git ls-files -z | xargs -0 rm -f && rm -rf ~/.git`;
+     keep `~/.ssh` and data.
+  4. README step 1, `yay -S chezmoi github-cli`, `chezmoi init --source
+     ~/Work/dotfiles git@github.com:sarumont/dotfiles.git`.
+  5. `chezmoi diff`, then `chezmoi apply` with a second SSH session open.
+     Access is only from shiva, whose key is in the managed
+     `authorized_keys`, so no lockout.
 - `mesafi` — not being migrated. Its GitHub auth key (117524922) stays until
   you decide to remove it (`gh ssh-key delete 117524922`).
 - `sysup` name: keep until something snarkier comes along.
