@@ -9,17 +9,15 @@ history: `git log --all -- MIGRATION.md`.
 - [ ] **ifrit: Homebrew only.** It uses both MacPorts and Homebrew; move the
       `darwin_port` list in `home/.chezmoidata/packages.yaml` to Homebrew and
       drop MacPorts (also the MacPorts paths in `.zshenv` and `sysup`).
-- [ ] **ifrit: private SSH hosts.** `secretRefs.sshConfig.onepassword` in
-      `home/.chezmoidata/secrets.yaml` is empty, so `~/.ssh/config.d/private`
-      renders empty there. Create the 1Password item and fill in the `op://`
-      reference if ifrit needs those hosts.
-- [ ] **dadfi: herdr follow-up.** herdr now comes from the official installer
-      off Omarchy; after `chezmoi apply`, `sudo pacman -R herdr` and restart the
-      herdr server once (skip if already done).
-- [ ] **mesafi:** not migrated. Decide whether to remove its GitHub auth key:
-      `gh ssh-key delete 117524922`.
-- [ ] Archive `~/dotfiles-pre-rewrite-2026-10-08.tar.gz` (shiva) somewhere
-      safe: the repo's pre-rewrite history (mirror + bundle).
+- [ ] **ifrit: environment secrets → 1Password** (migrate on ifrit). Pattern:
+      - one template, e.g. `home/dot_local/sh/private_ifrit.secrets.zshenv.tmpl`
+        (`private_` → 0600; the `*.zshenv` loader picks it up, and the
+        existing `.local/sh/ifrit.*` ignore rule keeps it off other hosts);
+      - each line `export FOO='{{ template "secret" (list .secrets "" "op://VAULT/ITEM/FIELD") }}'`,
+        or iterate one item's fields (`onepassword "item"` → `.fields`);
+      - add the target to the secrets block in `home/.chezmoiignore` so it's
+        skipped, not failed, when `op` isn't signed in.
+      - `secretRefs.sshConfig` is unused there (no private SSH hosts).
 
 ## Decisions parked
 
@@ -31,12 +29,3 @@ history: `git log --all -- MIGRATION.md`.
 - [ ] **`sysup` name:** looking for something snarkier.
 - [ ] **Neovim visual `S`:** flash's treesitter select wins over vim-surround's
       visual surround. Revisit if missed.
-- [ ] **Kotlin LSP** needs a JDK (e.g. `java = "temurin-21"` in mise). Skipped
-      while not writing Kotlin; the `lang.kotlin` extra stays.
-
-## Verify
-
-- [ ] Next time the Proton Pass session is gone, confirm `chezmoi status`
-      prints the "not logged in: skipping secret-backed files" warning
-      (`.chezmoitemplates/secrets-ready` assumes `pass-cli vault list` fails
-      without a session).
