@@ -1,0 +1,82 @@
+# Installed by .chezmoiscripts/run_onchange_before_10-install-packages.sh.tmpl,
+# which re-runs whenever this file changes. Linux uses `yay -S --needed`;
+# macOS uses Homebrew and MacPorts (Homebrew-only is a deferred cleanup).
+packages:
+  # every Linux machine (Omarchy and plain Arch)
+  linux:
+    - zsh
+    - oh-my-zsh-git
+    - zsh-syntax-highlighting
+    - chezmoi
+    - difftastic
+    - sd
+    - go-yq
+    - yamllint
+    - ctags            # universal-ctags, for zoekt symbol ranking
+    - silicon          # nvim-silicon (<leader>sc)
+    - ghostty
+    - otf-monaspace-nerd
+    - direnv
+    - httpie
+    - hexyl
+    - kubectl
+    - terragrunt
+    - helm
+  # plain Arch only: Omarchy already ships these (some under other names,
+  # e.g. mise-bin, so installing them on Omarchy would conflict)
+  arch_only:
+    - neovim
+    - tmux
+    - starship
+    - eza
+    - bat
+    - fd
+    - fzf
+    - ripgrep
+    - zoxide
+    - jq
+    - lazygit
+    - btop
+    - mise
+    - herdr
+  # personal Linux machines (.personal)
+  linux_personal:
+    - proton-pass-cli-bin
+    - syncthing
+    - tailscale
+  # macOS: verify against ifrit at cutover
+  darwin_brew:
+    - mise
+    - chezmoi
+    - difftastic
+    - sd
+    - yamllint
+    - jq
+    - universal-ctags
+    - zsh-syntax-highlighting
+    - herdr
+    - direnv
+    - httpie
+    - kubernetes-cli
+    - terragrunt
+    - helm
+  darwin_cask:
+    - ghostty
+    - font-monaspace-nerd-font
+    - 1password-cli
+  darwin_personal_cask:
+    - syncthing
+    - tailscale
+  darwin_port:
+    - starship
+    - neovim
+    - tmux
+    - tmux-pasteboard
+    - eza
+    - bat
+    - hexyl
+    - ripgrep
+    - fd
+    - btop
+    - yq
+    - zoxide

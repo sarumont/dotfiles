@@ -1,0 +1,17 @@
+#!/bin/sh
+# Install the package lists in .chezmoidata/packages.yaml.
+# packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+set -eu
+{{ if eq .chezmoi.os "linux" -}}
+command -v yay >/dev/null 2>&1 || { echo "yay not found; install it first (see README)" >&2; exit 1; }
+yay -S --needed --noconfirm
+{{- range .packages.linux }} {{ . }}{{ end }}
+{{- if not .omarchy }}{{ range .packages.arch_only }} {{ . }}{{ end }}{{ end }}
+{{- if .personal }}{{ range .packages.linux_personal }} {{ . }}{{ end }}{{ end }}
+{{- else if eq .chezmoi.os "darwin" -}}
+brew install {{ range .packages.darwin_brew }} {{ . }}{{ end }}
+brew install --cask {{ range .packages.darwin_cask }} {{ . }}{{ end }}{{ if .personal }}{{ range .packages.darwin_personal_cask }} {{ . }}{{ end }}{{ end }}
+if command -v port >/dev/null 2>&1; then
+  sudo port install {{ range .packages.darwin_port }} {{ . }}{{ end }}
+fi
+{{- end }}

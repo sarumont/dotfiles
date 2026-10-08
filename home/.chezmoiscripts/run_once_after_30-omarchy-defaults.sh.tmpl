@@ -1,0 +1,12 @@
+#!/bin/sh
+# One-time Omarchy choices: Ghostty as default terminal, Monaspace as the font.
+set -eu
+{{ if .omarchy -}}
+if [ "$(omarchy-default-terminal 2>/dev/null)" != "ghostty" ]; then
+  omarchy-install-terminal ghostty
+fi
+case "$(omarchy-font-current)" in
+  MonaspiceNe*) ;;
+  *) omarchy-font-set "MonaspiceNe Nerd Font Mono" ;;
+esac
+{{- end }}

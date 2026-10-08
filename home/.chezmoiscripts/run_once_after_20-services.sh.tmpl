@@ -1,0 +1,8 @@
+#!/bin/sh
+# One-time service setup for packages from packages.yaml.
+set -eu
+{{ if and (eq .chezmoi.os "linux") .personal -}}
+systemctl --user enable --now syncthing.service
+sudo systemctl enable --now tailscaled.service
+echo "tailscale: run 'sudo tailscale up --operator=$USER --accept-routes' to log in" >&2
+{{- end }}

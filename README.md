@@ -1,74 +1,88 @@
-My dotfiles. The current iteration utilizes [GNU Stow](https://www.gnu.org/software/stow/) via `make`. This setup is inspired by [this post](https://venthur.de/2021-12-19-managing-dotfiles-with-stow.html).
+My dotfiles, managed with [chezmoi](https://www.chezmoi.io/). They target
+three kinds of machine: Omarchy (shiva), plain Arch, and macOS (ifrit, the work
+MacBook). This README is meant to be a near lights-out setup guide for a new
+machine, plus the reference for how things fit together.
 
-This `README` is designed to be almost a lights-out installation and setup guide for new machines, too.
+The chezmoi source state lives in [`home/`](home) (`.chezmoiroot`). Other
+docs: [`docs/nvim-keymaps.md`](docs/nvim-keymaps.md),
+[`docs/tmux.md`](docs/tmux.md).
 
-# Machine Setup
+# New machine
 
-## Installation
+## 1. Base system
 
-Base installation process follows [this article](https://www.walian.co.uk/arch-install-with-secure-boot-btrfs-tpm2-luks-encryption-unified-kernel-images.html) for Arch (btw).
+- **Omarchy**: install Omarchy; it brings `yay`, Hyprland and most CLI tools.
+- **Plain Arch**: base install per
+  [this guide](https://www.walian.co.uk/arch-install-with-secure-boot-btrfs-tpm2-luks-encryption-unified-kernel-images.html),
+  a user in `wheel` with sudo, then:
 
-## Prerequisites
+      # yay (AUR helper; also what Omarchy uses)
+      sudo pacman -S --needed base-devel git
+      git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+      (cd /tmp/yay-bin && makepkg -si)
 
-1. Create a user
-1. Add user to `sudoers`
-1. Install package manager
+      # colored pacman/yay output: uncomment "Color" in /etc/pacman.conf
+      sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
 
-## Packager manager
+      # mDNS (.local names, printers)
+      sudo pacman -S --needed avahi nss-mdns
+      sudo systemctl enable --now avahi-daemon.service
 
-### paru (Arch Linux)
+- **macOS**: install [Homebrew](https://brew.sh/) and
+  [MacPorts](https://www.macports.org/) (`sudo port selfupdate` to refresh).
+  Moving fully to Homebrew is a pending cleanup.
 
-    sudo pacman -Syu
-    sudo pacman -S --needed base-devel git
-    git clone https://aur.archlinux.org/paru.git
-    cd paru
-    makepkg -si
-    cd ~
-    rm -rf paru
+## 2. SSH key and GitHub
 
-### macports
+Do this before cloning: the git config rewrites `https://github.com/` to SSH,
+so clones (including chezmoi externals) fail until the key is on GitHub.
 
-MacPorts is assumed for macOS. Use `sudo port selfupdate` to update the local ports tree.
-
-## Dotfiles setup
-
-Do this first: the git config rewrites `https://github.com/` URLs to SSH, so
-clones (including chezmoi externals) fail until the key is on GitHub.
-
-    # Generate a new SSH key (no other keys are expected; the git config signs with this one)
+    # One key per machine, no passphrase (disk encryption protects it at rest).
+    # git signs commits with this same key.
     ssh-keygen -t ed25519
 
-    # Install the GitHub CLI
-    yay -S github-cli          # Arch / Omarchy
-    brew install gh            # macOS
+    yay -S github-cli chezmoi          # Arch / Omarchy
+    brew install gh chezmoi            # macOS
 
-    # Log in, then register the key for both auth and commit signing
     gh auth login --git-protocol ssh --skip-ssh-key --web \
       --scopes admin:public_key,admin:ssh_signing_key
     gh ssh-key add ~/.ssh/id_ed25519.pub --type authentication --title "$(uname -n)"
     gh ssh-key add ~/.ssh/id_ed25519.pub --type signing --title "$(uname -n) signing"
-    ssh -T git@github.com      # should greet you by username
+    ssh -T git@github.com              # should greet you by username
 
-    mkdir ~/git/
-    git clone git@github.com:sarumont/dotfiles.git ~/git/dotfiles
-    cd ~/git/dotfiles
+Add the new key to `home/private_dot_ssh/<host>.pub` (and to
+`home/dot_config/git/allowed_signers.tmpl` so other machines can verify its
+signatures) once the repo is cloned.
 
-    # install stow:
-    paru -S stow
-    sudo port install stow
-    nix-env -iA nixpkgs.stow
-    
-    make # installs all links
+## 3. chezmoi
 
-### Shared directory definitions
+    chezmoi init --source ~/Work/dotfiles --apply git@github.com:sarumont/dotfiles.git
 
-Shell scripts source the POSIX-compatible `~/.local/sh/dirs.env` contract. It defines
-`REPO_ROOT`, `REPO_GALLERY_DIR`, `WORK_GALLERY_DIR`, `WORKTREES_DIR`, `PI_AGENT_DIR`,
-`PI_BIN_DIR`, and `ZOEKT_INDEX_DIR`. Host-specific overrides use
-`~/.local/sh/dirs-$(hostname -s).env`; `SKILLS_DIRS` is defined there as a
-colon-separated list of skill repositories.
+It asks three things once (answers live in `~/.config/chezmoi/chezmoi.toml`):
 
-## Day-to-day with chezmoi
+| Prompt | Meaning |
+|---|---|
+| Personal machine | personal-only packages and config (Proton Pass, syncthing, tailscale) |
+| Git email | commit identity for this machine |
+| Secrets backend | `protonpass` (`pass-cli`), `1password` (`op`) or `none` |
+
+`apply` installs packages (`yay`/`brew`/`port`, needs sudo), switches the login
+shell to zsh, installs plugins (tmux, herdr, Neovim), Zoekt, and on Omarchy makes
+Ghostty the default terminal with the Monaspace font. Scripts live in
+`home/.chezmoiscripts/`; see [What runs automatically](#what-runs-automatically).
+
+## 4. Manual steps
+
+- Log out and back in (new login shell, new groups).
+- Secrets: `pass-cli login` (Proton Pass) or `op signin` (1Password), then
+  `chezmoi apply` again for anything that reads secrets.
+- `nvim +"Copilot auth"` (Copilot is enabled for Go only).
+- `sudo tailscale up --operator=$USER --accept-routes` (personal machines).
+- Linux audio: `systemctl --user restart pipewire pipewire-pulse wireplumber`
+  to pick up the sample-rate drop-in.
+- Zoekt index: `zoekt-local-sync -index ~/.zoekt -f ~/github.com`.
+
+# Day-to-day with chezmoi
 
 The source of truth is `home/` in this repo (`~/Work/dotfiles`, set as
 `sourceDir` in `~/.config/chezmoi/chezmoi.toml`). chezmoi copies files into
@@ -78,6 +92,7 @@ The source of truth is `home/` in this repo (`~/Work/dotfiles`, set as
     chezmoi diff [path]            # show the differences
     chezmoi apply [path]           # write repo state into $HOME (runs scripts too)
     chezmoi managed                # list managed paths
+    chezmoi update                 # git pull + apply (other machines)
 
 Changing a managed file:
 
@@ -88,8 +103,8 @@ Changing a managed file:
 
 Adding a new file:
 
-    chezmoi add ~/.config/foo/bar.conf             # plain file
-    chezmoi add --template ~/.config/foo/bar.conf  # will contain {{ }} logic
+    chezmoi add ~/.config/foo/bar.conf               # plain file
+    chezmoi add --template ~/.config/foo/bar.conf    # will contain {{ }} logic
     chezmoi chattr +template ~/.config/foo/bar.conf  # turn an existing one into a template
 
 `chezmoi add` keeps file modes (`private_`, `executable_` prefixes). Then
@@ -102,102 +117,114 @@ decide where it should apply:
   `~/.config/tmux/tmux.<host>.conf`) and add it to that host's block in
   `.chezmoiignore`; otherwise gate a section inside a template with
   `{{ if eq .chezmoi.hostname "shiva" }}`.
-- Template data available: `.chezmoi.os`, `.chezmoi.hostname`, `.omarchy`,
-  `.personal`, `.email` (`chezmoi data` shows everything).
+- Template data: `.chezmoi.os`, `.chezmoi.hostname`, `.omarchy`, `.personal`,
+  `.email`, `.secrets` (`chezmoi data` shows everything).
+
+Files that an app also writes to (pi's `settings.json`) are managed with a
+`modify_` script that merges only our keys with `jq`, instead of replacing the
+file.
 
 Don't add files that Omarchy owns as symlinks or regenerates (for example
 `~/.config/nvim/lua/plugins/theme.lua`, `~/.local/state/omarchy/*`).
 
 Committing: `chezmoi cd` opens a shell in the repo (or `cd ~/Work/dotfiles`);
-commit and push as usual. On another machine: `chezmoi update` (git pull +
-apply).
+commit and push as usual.
 
-## add user to useful groups (linux)
+## Secrets
 
-    sudo gpasswd -a $(whoami) disk
-    sudo gpasswd -a $(whoami) storage
-    sudo gpasswd -a $(whoami) users
-    sudo gpasswd -a $(whoami) input
-    sudo gpasswd -a $(whoami) audio
-    sudo gpasswd -a $(whoami) video
+No secrets are stored in this repo, encrypted or not. Templates read them from
+the machine's backend at apply time:
 
-## Local git configuration
+    {{ template "secret" (list .secrets "pass://SHARE/ITEM/FIELD" "op://VAULT/ITEM/FIELD") }}
 
-Global git configuration lives in `~/.config/git/config`, rendered by chezmoi.
-It sets your email from chezmoi's per-machine data, signs commits and tags with
-`~/.ssh/id_ed25519.pub`, and generates `~/.config/git/allowed_signers` from the
-same key. No manual `git config` steps are needed.
+(`home/.chezmoitemplates/secret`). Prefer an app's own credential store where
+one exists (e.g. Docker's `credsStore` with GNOME Keyring / macOS Keychain).
 
-`~/.gitconfig` is not managed and is read after the global config, so use it
-for per-machine overrides.
+## Packages
+
+`home/.chezmoidata/packages.yaml` lists packages per OS (`linux`, `arch_only`
+for things Omarchy already ships, `linux_personal`, `darwin_*`).
+`run_onchange_before_10-install-packages.sh` installs them whenever the file
+changes. Language runtimes and agent CLIs come from mise
+(`~/.config/mise/config.toml`: claude, codex, gh, go, node, pi, rust, uv).
+
+## What runs automatically
+
+| Script | When | Does |
+|---|---|---|
+| `run_onchange_before_10-install-packages` | `packages.yaml` changes | install packages |
+| `run_once_after_chsh-zsh` | once | make zsh the login shell |
+| `run_once_after_20-services` | once (personal Linux) | enable syncthing (user) and tailscaled |
+| `run_once_after_30-omarchy-defaults` | once (Omarchy) | Ghostty as default terminal, Monaspace font |
+| `run_once_after_mask-gpg-agent` | once (Linux) | mask gpg-agent sockets |
+| `run_onchange_after_tmux-plugins` | `tmux.conf` changes | install tpm plugins |
+| `run_onchange_after_herdr-plugins` | `herdr.yaml` changes | install herdr plugins |
+| `run_onchange_after_nvim-lazy-sync` | Neovim plugin specs change | `Lazy! sync` |
+| `run_onchange_after_zoekt` | script changes | install Zoekt into `$PI_BIN_DIR` |
+
+`run_onchange_` state is in chezmoi's `entryState` bucket, `run_once_` in
+`scriptState`; delete a bucket (`chezmoi state delete-bucket --bucket=...`) to
+force a re-run.
 
 ## Machine changes outside `$HOME`
 
-Changes made to a machine beyond the files chezmoi writes. Automated ones run
-from `home/.chezmoiscripts/`; manual ones must be run by hand on a new machine.
+Changes beyond the files chezmoi writes. Automated ones run from
+`home/.chezmoiscripts/`; manual ones must be redone by hand on a new machine.
 
 | Change | OS | How | Undo |
 |---|---|---|---|
 | Mask gpg-agent sockets (`gpg-agent`, `-ssh`, `-extra`, `-browser`). GPG and smartcard SSH keys are no longer used; Arch's `gnupg` enables these sockets globally. | Linux | Automated: `run_once_after_mask-gpg-agent.sh` | `systemctl --user unmask gpg-agent.socket gpg-agent-ssh.socket gpg-agent-extra.socket gpg-agent-browser.socket` |
+| Enable `tailscaled` | personal Linux | Automated: `run_once_after_20-services.sh` | `sudo systemctl disable --now tailscaled` |
+| `pacman.conf` `Color`, avahi | plain Arch | Manual (step 1) | revert the line / disable the service |
+| keyd (Caps Lock remap) | shiva | Manual, `/etc/keyd/default.conf` — TODO: document | `sudo systemctl disable --now keyd` |
 
-# Local overrides
+# Reference
 
-Local overrides are managed via `stow` using the `make host` command. This looks for a dir called `.hosts-$(hostname)` and applies that as a vault. This applies side-by-side, so it does *not* support overwriting.
+## Shell (zsh)
 
-## shell
+oh-my-zsh and zsh-syntax-highlighting come from packages on Linux
+(`/usr/share/oh-my-zsh`); on macOS chezmoi downloads oh-my-zsh into
+`~/.oh-my-zsh` (`home/.chezmoiexternal.toml.tmpl`). If the login shell changes
+while you're in a desktop session, log out and back in: terminals take
+`$SHELL` from the session.
+
+On Omarchy, `.zshenv` adds the bits of Omarchy's bash environment that zsh
+doesn't get from the session (`BROWSER`, `BAT_THEME`, bat as man pager), and
+`.zshrc` ports a few Omarchy helpers (`ff`, `eff`, `open`, `mup`, herdr layouts
+`hdl`/`hds`/`hdlm`/`hsl`).
 
 Machine-specific shell files live in `~/.local/sh/`:
 
 - `<host>.zshenv`, `<host>.aliases.zsh`, `<host>.functions.zsh`,
-  `dirs-<host>.env`: managed by chezmoi, only installed on that host
-  (gated in `home/.chezmoiignore`).
+  `dirs-<host>.env`: managed by chezmoi, only installed on that host.
 - `zshenv`, `zshrc`, `zlogin`, `aliases.zsh`, `functions.zsh`: not managed;
-  use them for settings that stay on one machine. They are sourced after the
-  managed files, so they win.
+  for settings that stay on one machine. Sourced after the managed files, so
+  they win.
 
-## obsidian.nvim
+Shell scripts source the POSIX-compatible `~/.local/sh/dirs.env` contract:
+`REPO_ROOT`, `REPO_GALLERY_DIR`, `WORK_GALLERY_DIR`, `WORKTREES_DIR`,
+`PI_AGENT_DIR`, `PI_BIN_DIR`, `ZOEKT_INDEX_DIR`. Host overrides go in
+`~/.local/sh/dirs-<host>.env`, including `SKILLS_DIRS` (colon-separated skill
+repositories).
 
-Set `OBSIDIAN_VAULT_DIR` (e.g. in `~/.local/sh/<host>.zshenv`) to point
-[obsidian.nvim](https://github.com/obsidian-nvim/obsidian.nvim) at a vault.
-It defaults to `~/notes`.
+`build` (and `b`, `c`, `cl`, `bi`, `clb`, `cli`, `clp`) walks up the tree to
+find Gradle, Maven, Ant or npm/lerna and runs the right command.
 
-## Privfiles
+## Git
 
-I have a private repository that is an overlay on top of this one called `privfiles`. I now manage it the same way (with `stow`) and use it to store e.g. secrets and configurations which I do not want to be public knowledge.
+`~/.config/git/config` is rendered by chezmoi: email from chezmoi data, commits
+and tags signed with `~/.ssh/id_ed25519.pub`, and
+`~/.config/git/allowed_signers` listing every machine's signing key (the local
+key is appended if missing). `diff.external` is difftastic. `~/.gitconfig` is
+unmanaged and read after the global config, so use it for per-machine
+overrides. Global ignores: `~/.config/git/ignore` (macOS patterns only on
+macOS).
 
-# Additional Software
+Custom commands in `~/.local/bin`: `git attic`, `git clean-merged`,
+`git neck`, `git trail`. Aliases: `gup` (`git up`: fetch + rebase with
+autostash), `full_pull`, `gprune`, `powerwash`.
 
-## basic utilities
-
-### Arch
-    paru -S zsh starship neovim openssh go-yq exa eva bat hexyl zip unzip fzf ripgrep fd \
-            whois btop jq tmux direnv at keychain zoxide usbutils stow smartmontools mise
-
-### macOS
-    sudo port install starship neovim tmux tmux-pasteboard exa bat hexyl ripgrep fd btop \
-                      direnv yq pinentry-mac keychain zoxide stow
-    brew install mise # not available via macports :(
-
-### SteamOS (nix)
-    nix-env -iA nixpkgs.cmake
-
-
-## zsh
-
-Linux uses packaged oh-my-zsh and zsh-syntax-highlighting:
-
-    yay -S zsh oh-my-zsh-git zsh-syntax-highlighting
-
-On macOS, chezmoi downloads oh-my-zsh into `~/.oh-my-zsh` (see
-`home/.chezmoiexternal.toml.tmpl`); install the highlighter with
-`brew install zsh-syntax-highlighting` or `sudo port install zsh-syntax-highlighting`.
-
-`chezmoi apply` switches the login shell to zsh if needed
-(`run_once_after_chsh-zsh.sh`). If the shell changes while you're logged into
-a desktop session, log out and back in: terminals take `$SHELL` from the
-session, which is set at login.
-
-## `tmux`
+## tmux
 
 Config: `home/dot_config/tmux/tmux.conf.tmpl` (workflow notes in
 `docs/tmux.md`). chezmoi clones tpm into `~/.config/tmux/plugins/tpm` (a
@@ -207,10 +234,8 @@ running sessions aren't affected. `<prefix> I` / `<prefix> U` still work for
 manual installs and updates.
 
 Per-host bindings live in `~/.config/tmux/tmux.<host>.conf` (managed);
-`~/.config/tmux/tmux.local.conf` is unmanaged and loads last.
-
-Running tmux servers keep their old config until you reload it
-(`<prefix> R`) or restart them.
+`~/.config/tmux/tmux.local.conf` is unmanaged and loads last. Running tmux
+servers keep their old config until you reload it (`<prefix> R`).
 
 ## herdr
 
@@ -220,36 +245,27 @@ Config: `home/dot_config/herdr/config.toml.tmpl`. On Omarchy it uses the
 
 Plugins are listed in `home/.chezmoidata/herdr.yaml` and installed by
 `run_onchange_after_herdr-plugins.sh` whenever that list changes (add `ref:`
-to pin a commit). herdr has no plugin-update command: to update, re-run
-`chezmoi state delete-bucket --bucket=entryState` and `chezmoi apply`, or run
-`herdr plugin install <repo> --yes` by hand.
+to pin a commit). To update them, delete the `entryState` bucket and apply, or
+run `herdr plugin install <repo> --yes` by hand.
 
 - [nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation)
   (`local.vim-navigator`): `ctrl+h/j/k/l` move between herdr panes and Neovim
-  splits. The Neovim half is in `nvim/.config/nvim/lua/plugins/herdr.lua` and
-  only loads inside herdr; `vim-tmux-navigator` stays active outside it.
+  splits. The Neovim half is `home/dot_config/nvim/lua/plugins/herdr.lua` and
+  only loads inside herdr; `vim-tmux-navigator` handles tmux outside it.
 - [herdr-fingers](https://github.com/nathan-poncet/herdr-fingers): `prefix+f`
-  (Ctrl+A, then F) labels paths, URLs, hashes and more; type a label to copy,
-  Shift+label to paste, Ctrl+label to open, Tab to select several. Built with
-  cargo, so Rust comes from mise (`~/.config/mise/config.toml`).
+  labels paths, URLs, hashes and more; type a label to copy, Shift+label to
+  paste, Ctrl+label to open, Tab to select several. Built with cargo (Rust
+  from mise).
 
 ## Terminal (Ghostty)
 
-Config: `home/dot_config/ghostty/config.tmpl`. On Omarchy, Omarchy owns the
-font family and theme: the template renders the font from
-`omarchy-font-current`, so `omarchy-font-set` never causes drift.
-
-    # Omarchy: install and make it the default terminal, then set the font
-    omarchy-install-terminal ghostty
-    yay -S otf-monaspace-nerd
-    omarchy-font-set "MonaspiceNe Nerd Font Mono"
-
-    # macOS
-    brew install --cask ghostty font-monaspace-nerd-font
+Config: `home/dot_config/ghostty/config.tmpl`, shared by both OSes. On
+Omarchy, Omarchy owns the font family and theme: the template renders the font
+from `omarchy-font-current`, so `omarchy-font-set` never causes drift.
 
 ## Hyprland / Omarchy
 
-Only customized files are managed (Omarchy-only): `~/.config/hypr/`
+Only customized files are managed (Omarchy only): `~/.config/hypr/`
 `looknfeel.lua`, `input.lua` (shiva trackpoint section templated),
 `bindings.lua`, `hyprsunset.conf`, `monitors.lua` (shiva only), and
 `~/.config/omarchy/defaults/agent`. Everything else stays Omarchy's default;
@@ -261,153 +277,39 @@ Only customized files are managed (Omarchy-only): `~/.config/hypr/`
 
 LazyVim, with `,` as leader. Config: `home/dot_config/nvim/` (extras in
 `lazyvim.json`, overrides in `lua/plugins/`); keymaps and the reasoning behind
-them: `docs/nvim-keymaps.md`. On Omarchy, `lua/plugins/theme.lua` is a symlink
-owned by `omarchy-theme-set`, so Neovim follows Omarchy themes live; elsewhere
-`theme.lua` sets onenord. `run_onchange_after_nvim-lazy-sync.sh` runs
-`Lazy! sync` whenever `lazyvim.json` or a plugin spec changes.
+them: [`docs/nvim-keymaps.md`](docs/nvim-keymaps.md). On Omarchy,
+`lua/plugins/theme.lua` is a symlink owned by `omarchy-theme-set`, so Neovim
+follows Omarchy themes live; elsewhere `theme.lua` sets onenord.
 
-Language tooling comes from mise (`go`, `rust`, `node`, `uv` in
-`~/.config/mise/config.toml`) and Mason (gopls, delve, formatters, linters;
-installed on first use).
+Language tooling comes from mise and Mason (gopls, delve, formatters, linters;
+installed on first use). Set `OBSIDIAN_VAULT_DIR` (e.g. in
+`~/.local/sh/<host>.zshenv`) to point
+[obsidian.nvim](https://github.com/obsidian-nvim/obsidian.nvim) at a vault; it
+defaults to `~/notes`.
 
-Manual, once per machine:
-
-    nvim +"Copilot auth"     # GitHub Copilot sign-in (Copilot is enabled for Go only)
-
-## GUI
-
-    paru -S sway waybar swaylock swaybg wob \
-            ghostty firefox man-db gammastep adw-gtk-theme \
-            polkit playerctl grimshot xorg-xwayland \
-            yubioath-desktop yubikey-manager \
-            imv mpv nautilus udevil devmon cifs-utils evince neofetch \
-            wl-clipboard xdg-desktop-portal-wlr darkman
-    systemctl --user enable --now playerctld
-    systemctl --user enable --now devmon
-    systemctl --user enable --now darkman
-
-### Fonts
-    paru -S noto-fonts-cjk noto-fonts-emoji noto-fonts \
-            otf-firamono-nerd otf-fira-mono-italic-git \
-            ttf-dejavu \
-            ttf-ubuntu-nerd ttf-ubuntu-mono-nerd ttf-roboto \
-            ttf-roboto-mono ttf-ms-fonts
-
-## Misc
-
-    # syncthing for file synchronization
-    paru -S syncthing 
-    systemctl --user enable --now syncthing
-
-    # silicon for generating screenshots of code from nvim
-    paru -S silicon
-
-    # Tailscale for a private VPN
-    paru -S tailscale
-    sudo systemctl enable --now tailscaled
-    sudo tailscale login
-    sudo tailscale up --operator=$(whoami) --accept-routes
-
-## Laptop
-
-    paru -S battop wluma light tlp 
-
-Configure power management via the [Arch Wiki article](https://wiki.archlinux.org/title/Power_management). Also [this Framework thread](https://community.frame.work/t/tracking-linux-battery-life-tuning/6665) is useful, especially for GPU rendering config.
-
-### Thinkpad
-
-[Arch Wiki - X1C 9th gen](https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_9))
-    
-    # TODO: still WIP userspace battery charge threshold
-    paru -S threshy
-    systemctl enable --now threshy
-
-## printing
-
-    paru -S cups
-    sudo gpasswd -a $(whoami) cups
-
-## 🎧
-
-    paru -S pipewire pipewire-pulse easyeffects easyeffects-presets spotify \
-            pavucontrol lsp-plugins plexamp-appimage
-    systemctl --user enable --now pipewire
-
-    # configure easyeffects
-
-    # bluetooth
-    paru -S bluez bluez-utils bluetuith
-    sudo systemctl enable --now bluetooth.service
-
-### `mpd` 
-
-    paru -S mpc ncmpcpp mpd mpdevil
-
-### `beets`
-
-    paru -S python imagemagick
-    python -m venv ~/.beets-venv
-    source ~/.beets-venv/bin/activate
-    pip install beets pylast pyxdg httpx flask requests beets-xtractor beets-copyartifacts3
-
-Now, configure and mount your music dir. Drop the following into `~/.local/beets/config.yaml`:
-
-    directory: /media/chocobo/music
-    library: /home/sarumont/.local/beets/library.blb
-    import:
-      log: /home/sarumont/.local/beets/import.log
-
-And begin the import!
-
-## Dev
-
-Development tools. Season these to taste based on your needs.
-
-### Arch
-
-    paru -S kcat-cli jwt-cli httpie aws-cli-v2-bin docker vault
-
-### DB
-
-    paru -S rubygems
-    gem install schema-evolution-manager
-
-### Golang
-
-#### Arch
-
-    paru -S go delve
-
-#### macOS
-
-    sudo port install go delve
-
-### AI agents (Claude Code, Codex, pi)
+## AI agents (Claude Code, Codex, pi)
 
 - `~/AGENTS.md` is shared; `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`
   import it. `CLAUDE.md` is templated so tool installs say `brew` on macOS and
   `yay` on Arch.
 - pi: `~/.pi/agent/settings.json` is merged, not replaced
-  (`modify_settings.json.tmpl` uses `jq`), so pi's own keys and Omarchy's
-  `theme` survive. Skills from the work repo are ifrit-only. pi itself comes
-  from mise; on ifrit `~/.local/bin/pi` wraps it with `$PI_DEFAULT_MODEL`.
-- `pi-herdr-subagents` model assignments are per host (templated
-  `config.json` inside its `node_modules`; `chezmoi apply` restores it if a
-  reinstall removes it).
+  (`modify_settings.json.tmpl`), so pi's own keys and Omarchy's `theme`
+  survive. Skills from the work repo are ifrit-only. pi itself comes from mise;
+  on ifrit `~/.local/bin/pi` wraps it with `$PI_DEFAULT_MODEL`.
+- `pi-herdr-subagents` model assignments are per host (templated `config.json`
+  inside its `node_modules`; `chezmoi apply` restores it if a reinstall removes
+  it).
 - `codemod` isn't packaged for Arch: `~/.local/bin/codemod` runs `uvx codemod`.
+  `gibr` always runs through `uvx` too.
 
-### Zoekt
+## Zoekt
 
 [Zoekt](https://github.com/sourcegraph/zoekt) gives fast cross-repo code
 search. `run_onchange_after_zoekt.sh` installs `zoekt`, `zoekt-git-index` and
 `zoekt-local-sync` into `$PI_BIN_DIR` (`~/.pi/agent/bin`, on PATH via
 `.zshenv`); `pi-maintenance` updates them and refreshes the index. Universal
-Ctags adds symbol-aware ranking and `sym:` queries (optional, manual):
-
-    yay -S ctags                     # Arch (universal-ctags)
-    brew install universal-ctags     # macOS
-
-Index everything under `~/github.com`, then search:
+Ctags (installed from `packages.yaml`) adds symbol-aware ranking and `sym:`
+queries.
 
     zoekt-local-sync -index ~/.zoekt -f ~/github.com
     zoekt -index_dir ~/.zoekt -r -l 'WalletService GetDefault'
@@ -417,52 +319,21 @@ found under them are dropped from the index. The pi skill
 (`~/.pi/agent/skills/zoekt/SKILL.md`) tells agents to use Zoekt for discovery
 and verify with `rg`/file reads.
 
-## Kubernetes
+## Symlink gallery
 
-    paru -S kubectl terragrunt helm telepresence2
-
-### Local cluster
-
-    paru -S rancher-k3d-bin
-
-# Thinkpad X1C 9th Gen
-
-Most of this is from the [Arch Wiki](https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_9))
-
-    paru -S sof-firmware intel-media-driver fprintd gnome-polkit
-
-## Trackpoint Sensitivity
-
-Edit `/sys/devices/platform/i8042/serio1/sensitivity` as necessary. I like `110` as the value (default is `128`)
-
-# Misc configuration
-
- - Enable color output in `pacman/yay/paru` - uncomment `Color` in `/etc/pacman.conf`
- - add `vers=3.0` to `cifs` mount options in `/etc/udevil/udevil.conf` (both allowed and default)
- - enable/start `devmon`: `systemctl --user enable --now devmon`
- - edit `/etc/makepkg.conf` and set `MAKEFLAGS="-j$(nproc)"` to parallelize compilation
- - enable/start `avahi`: `sudo systemctl enable --now avahi-daemon.service`
-
-# Symlink gallery
-
-I ripped this idea from [Waylon Walker](https://waylonwalker.com/symlink-gallery/). Basically, this creates a directory that is a "gallery" of projects, tying into tmux keybindings (see `C-w`). You can add multiple galleries (work, oss, etc.) and corresponding keybindings in your `tmux.conf`.
-
-I keep this as a `zsh` function inside of `~/.local/sh/functions.zsh` and run it periodically to keep the galleries up to date:
+From [Waylon Walker](https://waylonwalker.com/symlink-gallery/): directories
+of symlinks to projects (`$WORK_GALLERY_DIR`, `$REPO_GALLERY_DIR`) that the
+tmux pickers (`C-a C-g`, `C-a C-w`) and `ta` browse. Keep a function like this
+in `~/.local/sh/<host>.functions.zsh` (ifrit has the real one) and run it when
+repos change:
 
     update_link_galleries() {
-      rm -rf ~/work
-      mkdir ~/work
-      ln -sf ~/github.com/myorganization/* ~/work
+      rm -rf "$WORK_GALLERY_DIR" && mkdir "$WORK_GALLERY_DIR"
+      ln -sf "$REPO_ROOT"/myorganization/* "$WORK_GALLERY_DIR"
 
-      rm -rf ~/work
-      mkdir ~/work
-      ln -sf ~/work/* ~/git
+      rm -rf "$REPO_GALLERY_DIR" && mkdir "$REPO_GALLERY_DIR"
+      ln -sf "$WORK_GALLERY_DIR"/* "$REPO_GALLERY_DIR"
     }
-
-# TODO
-- [ ] Tailscale statusbar
-- [ ] clipman / parcellite / clipboard manager via Wofi
-- [ ] screen auto locking (w/ fprint?) https://github.com/swaywm/swaylock/issues/61#issuecomment-1409369151
 
 ----
 

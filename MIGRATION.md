@@ -493,38 +493,24 @@ Then: archive the privfiles repo on GitHub.
 
 ---
 
-## Phase 3 — README → chezmoi hooks
+## Phase 3 — README → chezmoi hooks — DONE (packages not yet run on shiva)
 
-| README step | New home | Notes |
-|---|---|---|
-| Arch install article, create user, sudoers | README (manual) | Pre-chezmoi |
-| Install paru | Install **yay** instead: `run_once_before_` (Linux only, skip if `yay` exists) | Omarchy ships yay; generic Arch builds it from the AUR (`git clone https://aur.archlinux.org/yay-bin.git && makepkg -si`) |
-| Every `paru -S …` line | `yay -S --needed …` | Applies to README text and scripts |
-| MacPorts / Homebrew | README one-liners for both | Pre-chezmoi. ifrit uses both; Homebrew-only is deferred |
-| ssh-keygen + add to GitHub | README (manual) | Or init over HTTPS, switch remote later |
-| Clone + `make` | `sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply sarumont` | Plus `sourceDir` if not default |
-| User groups (`disk storage users input audio video`) | `run_once_` with sudo, linux | Decide which groups are still needed |
-| Git name/email/signing/allowed_signers | M2 template | No manual step left |
-| Package lists (basic, GUI, fonts, dev, kube, audio) | `.chezmoidata/packages.yaml` + `run_onchange_before_install-packages.sh.tmpl` (`yay -S --needed` / `sudo port install` + `brew bundle`) | Split by `common`, `arch`, `omarchy`, `darwin.port`, `darwin.brew`, `personal`; drop what Omarchy already installs |
-| oh-my-zsh, zsh-syntax-highlighting, tpm | `.chezmoiexternal.toml` | |
-| `chsh` | `run_once_` | |
-| tpm plugin install | `run_onchange_after_` | If M3 keeps tmux |
-| herdr plugins + reload | `run_onchange_after_` | M4 |
-| `Lazy! sync` | `run_onchange_after_` on `lazy-lock.json` hash | M5 |
-| `systemctl --user enable` (playerctld, devmon, darkman, syncthing, pipewire) | `run_onchange_after_` | Prune per M9/M12 |
-| Tailscale install/enable | packages + `run_once_` for `systemctl enable` | `tailscale login/up` stays manual |
-| `/etc/pacman.conf` Color, `/etc/makepkg.conf` MAKEFLAGS, udevil cifs, avahi | `run_once_` with sudo, or keep in README | chezmoi only manages `$HOME`; decide |
-| Zoekt install | `run_onchange_` | M15 |
-| beets venv | README or `run_once_` gated `personal` | M12 |
-| Laptop / ThinkPad X1C / printing / trackpoint | DISCARD or README appendix | Omarchy handles most |
-| Symlink gallery function | Keep as a zsh function in M1 | README copy has a bug: clears `~/work` twice, never `~/git` |
-| `nix-env` / SteamOS lines | DISCARD | Out of scope |
-| TODO list (sway-era) | DISCARD | |
-
-- [ ] Decision: system-level `/etc` tweaks — `run_once_` with sudo / README only
-- [ ] Decision: README sections to drop vs keep as reference: ___
-
----
+- `home/.chezmoidata/packages.yaml` + `run_onchange_before_10-install-packages`
+  (yay / brew / port). Lists: `linux`, `arch_only` (Omarchy already ships these,
+  some under other names), `linux_personal`, `darwin_brew`, `darwin_cask`,
+  `darwin_personal_cask`, `darwin_port` (verify against ifrit at cutover).
+  Added on request: direnv, httpie, hexyl, kubectl, terragrunt, helm (all);
+  syncthing, tailscale (personal). Also: silicon (nvim-silicon), ctags.
+- `run_once_after_20-services` (personal Linux: syncthing user service,
+  tailscaled), `run_once_after_30-omarchy-defaults` (Ghostty default terminal,
+  Monaspace font; no-ops on shiva).
+- `~/.config/pacman/makepkg.conf`: `MAKEFLAGS="-j$(nproc)"` (user-level, no
+  `/etc` edit).
+- README rewritten around chezmoi: new-machine bootstrap (Omarchy / plain Arch
+  with yay, Color, avahi / macOS), secrets, packages, scripts table, machine
+  changes, per-tool reference. Dropped stow/make/privfiles, old package lists,
+  sway/GUI/laptop/ThinkPad/printing/audio/beets, user groups, TODO list.
+- **To run on shiva:** `chezmoi apply` in a terminal (sudo for yay, tailscaled).
 
 ## Phase 4 — Cutover
 
@@ -539,12 +525,28 @@ Then: archive the privfiles repo on GitHub.
 5. Confirm `archive/master` and `archive/stow` exist on the remote, then delete
    the `stow` and `master` branches (and the demo branches, per Phase 0).
 
+## Pinned (after relogin)
+
+- Docker (privfiles `docker-config.json`), option a — no secrets in files:
+  `sudo usermod -aG docker $USER` (not done yet), log out/in,
+  `yay -S docker-credential-secretservice-git`, manage only
+  `"credsStore": "secretservice"` in `~/.docker/config.json` (modify_ + jq),
+  then `docker login ghcr.io` / Docker Hub once per machine (credentials land
+  in GNOME Keyring). ifrit: Docker Desktop's keychain store, same pattern.
+  Note: Omarchy's default keyring is passwordless by design (plaintext on
+  disk, protected by LUKS).
+
 ## Deferred (after cutover)
 
 - Rewrite history to drop large blobs (Phase 0.3).
 - Move ifrit from MacPorts + Homebrew to Homebrew only.
-- Work out a regular Omarchy maintenance routine (e.g. `mup` for mise tools,
-  system/AUR updates, Omarchy updates) and document it in the README.
+- Work out a regular maintenance routine for both OSes (Omarchy/system/AUR
+  updates, `mup` for mise, herdr, pi, Mason/Lazy, Zoekt, `chezmoi update`) —
+  likely by generalizing `pi-maintenance` — and document it in the README.
+- Drift protocol: what to do when an Omarchy update (or an app) changes a
+  chezmoi-managed file (`chezmoi status` → `re-add` / `merge` / revert), and
+  how to fold that into the maintenance routine.
+- Document keyd (`/etc/keyd/default.conf`) in README "Machine changes".
 - Other machines with keys on GitHub (left in place on purpose):
   - `dadfi` — still in use; its dotfiles are out of date. Bring it onto
     chezmoi (it isn't one of the two managed hosts yet: decide its gating).
