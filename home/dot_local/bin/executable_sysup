@@ -55,7 +55,17 @@ fi
 #    (first status column = changed since chezmoi last wrote it).
 step "Checking dotfiles drift"
 restore_pi_subagents_cfg
-drift=$(chezmoi status --exclude=scripts | awk 'substr($0, 1, 1) != " "' || true)
+# Files merged by a modify_ script (e.g. pi's settings.json) are written by
+# their app as well, so changes there are expected, not drift.
+drift=""
+while IFS= read -r line; do
+  [ -n "$line" ] || continue
+  case "$(basename "$(chezmoi source-path "$HOME/${line:3}" 2>/dev/null)")" in
+    modify_*) continue ;;
+  esac
+  drift+="$line"$'\n'
+done < <(chezmoi status --exclude=scripts | awk 'substr($0, 1, 1) != " "' || true)
+drift=${drift%$'\n'}
 if [ -n "$drift" ]; then
   warn "These managed files changed outside chezmoi (Omarchy migration, app, or hand edit):"
   printf '%s\n' "$drift" >&2

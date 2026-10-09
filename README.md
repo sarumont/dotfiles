@@ -185,6 +185,9 @@ shows as ` M` and is just pending `apply`.
 Detection: `sysup` refuses to continue while there is drift, and on Omarchy a
 `post-update` hook (`~/.config/omarchy/hooks/post-update.d/chezmoi-drift.hook`)
 reports it right after `omarchy update`'s migrations, with a notification.
+`sysup` ignores files whose source is a `modify_` script (pi's
+`settings.json`): those merge our keys into a file the app also writes, so
+their changes are expected.
 
 Resolve each file:
 
