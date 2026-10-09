@@ -28,6 +28,7 @@ packages:
     - otf-monaspace-nerd
     - silicon          # nvim-silicon (<leader>sc) screenshots
     - keyd             # Caps Lock remap, config in system/etc/keyd
+    - gammastep        # night light by sun position (instead of hyprsunset)
   # plain Arch only: Omarchy already ships these (some under other names,
   # e.g. mise-bin, so installing them on Omarchy would conflict)
   arch_only:

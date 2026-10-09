@@ -1,0 +1,10 @@
+{{- if and (eq .chezmoi.os "linux") .desktop -}}
+#!/bin/sh
+# Start gammastep (night light) with the graphical session via its systemd
+# user unit. Config: ~/.config/gammastep/config.ini. hash: {{ include "dot_config/gammastep/config.ini" | sha256sum }}
+set -eu
+command -v gammastep >/dev/null 2>&1 || { echo "gammastep not installed; skipping" >&2; exit 0; }
+systemctl --user cat gammastep.service >/dev/null 2>&1 || { echo "gammastep.service not found; skipping" >&2; exit 0; }
+systemctl --user enable gammastep.service
+systemctl --user restart gammastep.service
+{{ end -}}

@@ -49,6 +49,12 @@ o.bind("SUPER + CTRL + SHIFT + E", "Compose keys", "compose-keys")
 hl.unbind("SUPER + CTRL + SPACE")
 o.bind("SUPER + CTRL + SPACE", "Switch to window", "window-switcher")
 
+-- Night light is gammastep (sun position, ~/.config/gammastep/config.ini), not
+-- hyprsunset: SUPER+CTRL+N pauses/resumes it (SIGUSR1) instead of Omarchy's
+-- hyprsunset toggle, so the two never fight over the gamma.
+hl.unbind("SUPER + CTRL + N")
+o.bind("SUPER + CTRL + N", "Toggle nightlight", "pkill -USR1 -x gammastep")
+
 -- Vim-style navigation. H/L (the scrolling axis): focus like SUPER+LEFT/RIGHT;
 -- SHIFT moves the whole column (swapcol wraps at the ends). J/K (within a
 -- stacked column): focus and swap like SUPER(+SHIFT)+DOWN/UP.

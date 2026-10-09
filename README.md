@@ -357,6 +357,13 @@ Only customized files are managed (Omarchy only): `~/.config/hypr/`
 `hyprctl reload && hyprctl configerrors`; `hyprsunset.conf` needs
 `omarchy restart hyprsunset`.
 
+Night light: gammastep, not hyprsunset (which only knows fixed clock times).
+`~/.config/gammastep/config.ini` follows the sun for a fixed location
+(Grand Junction, CO, rounded to city level; no geoclue): 5700K day, 3500K
+night, with fades. It runs as the `gammastep.service` user unit, enabled by
+`run_onchange_after_45-gammastep.sh`; `SUPER+CTRL+N` pauses/resumes it
+(replacing Omarchy's hyprsunset toggle, so they never fight).
+
 Layout: Hyprland's scrolling layout on every workspace (niri/OmniWM-style),
 set in `looknfeel.lua`. Omarchy's `SUPER+L` dwindle/scrolling toggle is
 unbound; it saves per-workspace overrides in
