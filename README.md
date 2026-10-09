@@ -351,8 +351,9 @@ Only customized files are managed (Omarchy only): `~/.config/hypr/`
 
 Workspaces (sway-style, in `bindings.lua`): `SUPER+1-4` general purpose
 (5-10 unbound), plus named workspaces on their first letter: `SUPER+D` dev,
-`W` www, `I` comms (`C` stays Omarchy's universal copy), `M` music, `N` notes.
-Close window moved to `SUPER+Q`. Window rules open Firefox on www, Obsidian on
+`W` www, `I` comms (`C` stays Omarchy's universal copy), `M` music, `N` notes;
+`SUPER+ALT+<key>` moves the focused window there (`SUPER+SHIFT+<key>` is
+Omarchy's app launchers). Close window moved to `SUPER+Q`. Window rules open Firefox on www, Obsidian on
 notes, Discord/Signal on comms. Omarchy's bar widget only knows numbered
 workspaces, so the bar uses a clone, `~/.config/omarchy/plugins/sarumont.workspaces`
 (fixed slots `1 2 3 4 D W I M N`; selected via `~/.config/omarchy/shell.json`).

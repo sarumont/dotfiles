@@ -23,9 +23,6 @@ history: `git log --all -- MIGRATION.md`.
 
 Named workspaces live in `home/dot_config/hypr/bindings.lua`.
 
-- [ ] **Move-to-named-workspace keys.** `SUPER+SHIFT+<letter>` (sway-style)
-      is taken by Omarchy launchers (D Docker, W Omawrite, C Calendar,
-      M Music, N Editor); `SUPER+ALT+D/W/I/M/N` are all free.
 - [ ] **Music:** pick an app, rebind `SUPER+SHIFT+M` (currently Omarchy's
       Spotify launcher; Spotify isn't installed) and add a `name:music`
       window rule.

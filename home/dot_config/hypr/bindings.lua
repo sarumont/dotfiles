@@ -46,6 +46,8 @@ end
 local named_workspaces = { D = "dev", W = "www", I = "comms", M = "music", N = "notes" }
 for key, name in pairs(named_workspaces) do
   o.bind("SUPER + " .. key, "Switch to workspace " .. name, hl.dsp.focus({ workspace = "name:" .. name }))
+  -- SUPER+SHIFT+<key> is taken by Omarchy launchers; SUPER+ALT+<key> is free
+  o.bind("SUPER + ALT + " .. key, "Move window to workspace " .. name, hl.dsp.window.move({ workspace = "name:" .. name }))
 end
 
 -- Apps that open on their workspace (Firefox's screen-sharing indicator keeps
