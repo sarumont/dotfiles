@@ -68,7 +68,9 @@ history.
   `/usr/share/omarchy/` (reading is fine).
 - **Packages**: Linux uses `yay` (never `paru`). Things Omarchy already ships go
   in `arch_only`, not `linux`. Language runtimes and agent CLIs come from mise
-  (`~/.config/mise/config.toml`), not curl installers that edit shell rc files.
+  (`~/.config/mise/config.toml`, templated: workstation tools are
+  desktop-only), not curl installers that edit shell rc files; add tools in
+  the template, never with `mise use -g`.
   Python CLIs run via `uvx` (e.g. `gibr`, `codemod`).
 - **Changes outside `$HOME`** (systemd, `/etc`, groups) must be recorded in the
   README table "Machine changes outside `$HOME`", automated in a script where

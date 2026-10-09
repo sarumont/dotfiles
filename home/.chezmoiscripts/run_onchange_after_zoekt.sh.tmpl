@@ -1,5 +1,7 @@
+{{- if .desktop -}}
 #!/bin/sh
 # Install Zoekt into pi's bin dir (on PATH via .zshenv). Updates: sysup.
+# Desktops only: servers don't index code.
 set -eu
 . "$HOME/.local/sh/dirs.env"
 export PATH="$HOME/.local/share/mise/shims:$PATH"
@@ -8,3 +10,4 @@ GOBIN="$PI_BIN_DIR" go install \
   github.com/sourcegraph/zoekt/cmd/zoekt@latest \
   github.com/sourcegraph/zoekt/cmd/zoekt-git-index@latest \
   github.com/sourcegraph/zoekt/cmd/zoekt-local-sync@latest
+{{ end -}}

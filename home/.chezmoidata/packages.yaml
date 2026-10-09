@@ -14,15 +14,16 @@ packages:
     - sd
     - go-yq
     - yamllint
-    - ctags            # universal-ctags, for zoekt symbol ranking
     - direnv
     - httpie
     - hexyl
+  # Linux desktops only (.desktop): GUI apps, fonts, input remapping, and
+  # workstation tooling a server doesn't need
+  linux_desktop:
+    - ctags            # universal-ctags, for zoekt symbol ranking
     - kubectl
     - terragrunt
     - helm
-  # Linux desktops only (.desktop): GUI apps, fonts, input remapping
-  linux_desktop:
     - ghostty
     - otf-monaspace-nerd
     - silicon          # nvim-silicon (<leader>sc) screenshots

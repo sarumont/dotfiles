@@ -1,0 +1,15 @@
+[tools]
+gh = "latest"
+node = "26.8.2" # also servers: Mason installs some LSPs (e.g. YAML) via npm
+{{- if .desktop }}
+# workstation tooling: agents, Go/Rust toolchains, uv (gibr, codemod)
+claude = "latest"
+codex = "latest"
+go = "latest"
+pi = "latest"
+rust = "latest"
+uv = "latest"
+{{- end }}
+
+[settings.upgrade]
+auto_prune = false

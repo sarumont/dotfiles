@@ -212,7 +212,15 @@ changes. On plain Arch it runs `yay -Syu --needed`, so a stale machine is fully
 upgraded rather than partially (which fails with file conflicts when packages
 are split); on Omarchy it runs `yay -S --needed` and leaves full upgrades to
 `omarchy update`. Language runtimes and agent CLIs come from mise
-(`~/.config/mise/config.toml`: claude, codex, gh, go, node, pi, rust, uv).
+(`~/.config/mise/config.toml`, a template: `gh` and `node` everywhere; claude,
+codex, go, pi, rust and uv on desktops only). Add tools by editing
+`home/dot_config/mise/config.toml.tmpl`, not with `mise use -g` (that edits the
+live file and shows up as drift).
+
+Servers (`.desktop` false, e.g. dadfi) get the CLI set only: no GUI apps, no
+k8s tooling (kubectl/helm/terragrunt), no ctags or Zoekt, no herdr-fingers
+(it needs Rust), and the slim mise list. On a server that previously had the
+full set, `mise prune` drops the removed tools.
 
 ## What runs automatically
 
