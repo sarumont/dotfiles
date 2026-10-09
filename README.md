@@ -368,8 +368,9 @@ night, with fades. It runs as the `gammastep.service` user unit, enabled by
 `SUPER+CTRL+N` and the Omarchy menu's Toggle → Nightlight entry (overridden in
 `~/.config/omarchy/extensions/omarchy-menu.jsonc`) call it instead of
 Omarchy's hyprsunset toggle, so the two never fight over the gamma. The bar's
-night light indicator still tracks hyprsunset, so it stays hidden; if
-hyprsunset ever gets started anyway, `pkill -x hyprsunset`.
+night light indicator (it tracks hyprsunset) is left out of `items` in
+`~/.config/omarchy/shell.json`; if hyprsunset ever gets started anyway,
+`pkill -x hyprsunset`.
 
 Layout: Hyprland's scrolling layout on every workspace (niri/OmniWM-style),
 set in `looknfeel.lua`. Omarchy's `SUPER+L` dwindle/scrolling toggle is
