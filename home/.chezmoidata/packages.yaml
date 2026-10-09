@@ -48,9 +48,9 @@ packages:
   # personal Linux desktops (.personal and .desktop): personal GUI apps
   linux_personal_desktop:
     - signal-desktop   # comms workspace; Omarchy launches it on SUPER+SHIFT+G
+    - proton-pass-cli-bin  # secrets backend; servers use secrets = none
   # personal Linux machines, desktop or server (.personal)
   linux_personal:
-    - proton-pass-cli-bin
     - syncthing
     - tailscale
   # macOS: verify against ifrit at cutover
