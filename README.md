@@ -243,7 +243,7 @@ Changes beyond the files chezmoi writes. Automated ones run from
 | Mask gpg-agent sockets (`gpg-agent`, `-ssh`, `-extra`, `-browser`). GPG and smartcard SSH keys are no longer used; Arch's `gnupg` enables these sockets globally. | Linux | Automated: `run_once_after_mask-gpg-agent.sh` | `systemctl --user unmask gpg-agent.socket gpg-agent-ssh.socket gpg-agent-extra.socket gpg-agent-browser.socket` |
 | Enable `tailscaled` | personal Linux | Automated: `run_once_after_20-services.sh` | `sudo systemctl disable --now tailscaled` |
 | `pacman.conf` `Color`, avahi | plain Arch | Manual (step 1) | revert the line / disable the service |
-| keyd: Caps Lock = Ctrl when held, Esc when tapped, all keyboards. Overrides Omarchy's Caps-as-Compose, so there is no Compose key. | Linux desktops | Automated: config in `system/etc/keyd/default.conf`, installed by `run_onchange_after_40-keyd.sh` | `sudo systemctl disable --now keyd` (and `yay -R keyd`) |
+| keyd: Caps Lock = Ctrl when held, Esc when tapped, all keyboards. Right Alt = Compose: keyd emits a raw Caps Lock, which Omarchy's `compose:caps` xkb option turns into Compose (breaks if Omarchy drops that option). | Linux desktops | Automated: config in `system/etc/keyd/default.conf`, installed by `run_onchange_after_40-keyd.sh` | `sudo systemctl disable --now keyd` (and `yay -R keyd`) |
 
 # Reference
 
