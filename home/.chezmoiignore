@@ -4,6 +4,9 @@
 .local/sh/dirs-shiva.env
 .config/tmux/tmux.shiva.conf
 {{ end }}
+{{ if eq .chezmoi.hostname "ifrit" }}
+.ssh/authorized_keys
+{{ end }}
 {{ if ne .chezmoi.hostname "ifrit" }}
 .local/bin/pi
 .local/sh/ifrit.*
