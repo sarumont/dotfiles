@@ -41,6 +41,8 @@ hl.unbind("SUPER + K")
 hl.unbind("SUPER + ALT + K")
 o.bind("SUPER + B", "Keybindings", "omarchy-menu-keybindings")
 o.bind("SUPER + ALT + B", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
+-- Compose cheat sheet (picking an entry types it), next to the emoji picker
+o.bind("SUPER + CTRL + SHIFT + E", "Compose keys", "compose-keys")
 
 -- Vim-style navigation. H/L (the scrolling axis): focus like SUPER+LEFT/RIGHT;
 -- SHIFT moves the whole column (swapcol wraps at the ends). J/K (within a

@@ -1,0 +1,28 @@
+# Run omarchy-restart-xcompose to apply changes
+# (Compose = Right Alt via keyd; `compose-keys` / SUPER+CTRL+SHIFT+E lists these)
+
+{{ if .omarchy -}}
+# Include fast emoji access (Omarchy's list; it includes the locale defaults)
+include "/usr/share/omarchy/default/xcompose"
+{{- else -}}
+# Locale defaults (accents, symbols)
+include "%L"
+{{- end }}
+
+# Identification
+<Multi_key> <space> <n> : "Richard Kolkovich"
+<Multi_key> <space> <e> : "{{ .email }}"
+{{- if .omarchy }}
+
+# Medium-light skin tone (U+1F3FC) for Omarchy's hand emoji; later definitions win
+<Multi_key> <m> <v> : "✌🏼" # victory
+<Multi_key> <m> <y> : "👍🏼" # yes
+<Multi_key> <m> <n> : "👎🏼" # no
+<Multi_key> <m> <f> : "🖕🏼" # fuck
+<Multi_key> <m> <w> : "🤞🏼" # wish
+<Multi_key> <m> <r> : "🤘🏼" # rock
+<Multi_key> <m> <p> : "🙏🏼" # pray
+<Multi_key> <m> <o> : "👌🏼" # OK
+<Multi_key> <m> <g> : "👋🏼" # greeting
+<Multi_key> <m> <a> : "💪🏼" # arm
+{{- end }}

@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# compose-keys: show the Compose sequences from ~/.XCompose (and the files it
+# includes, minus the locale's thousands of defaults) in Omarchy's menu, like
+# its keybindings cheat sheet. Picking one types its result into the focused
+# window. Compose is Right Alt (keyd). Bound to SUPER+CTRL+SHIFT+E.
+#
+#   compose-keys            menu
+#   compose-keys --print    print the list
+set -euo pipefail
+
+declare -A out desc
+order=()
+
+parse() {
+  local file=$1 line keys text comment path
+  [[ -r $file ]] || return 0
+  while IFS= read -r line; do
+    if [[ $line =~ ^include\ \"([^\"]+)\" ]]; then
+      path=${BASH_REMATCH[1]}
+      [[ $path == "%L" ]] && continue # locale defaults: too many to list
+      parse "${path//%H/$HOME}"
+    elif [[ $line =~ ^\<Multi_key\>(.*):\ *\"([^\"]*)\"(.*)$ ]]; then
+      keys=$(grep -o '<[^>]*>' <<<"${BASH_REMATCH[1]}" | tr -d '<>' | sed 's/^space$/Space/' | paste -sd' ')
+      text=${BASH_REMATCH[2]}
+      comment=${BASH_REMATCH[3]#*#}
+      comment=${comment# }
+      [[ -v out[$keys] ]] || order+=("$keys")
+      out[$keys]=$text # later definitions win, as in XCompose
+      desc[$keys]=$comment
+    fi
+  done <"$file"
+}
+
+parse "$HOME/.XCompose"
+
+records=""
+for keys in "${order[@]}"; do
+  records+=$(printf 'Compose %-12s %s  %s' "$keys" "${out[$keys]}" "${desc[$keys]}")$'\t'"${out[$keys]}"$'\n'
+done
+
+if [[ ${1:-} == "--print" || ${1:-} == "-p" ]]; then
+  cut -f1 <<<"$records"
+  exit 0
+fi
+
+selection=$(cut -f1 <<<"$records" | omarchy-menu-select 'Compose keys' -- --width 800 --height 500) || exit 0
+[[ -n $selection ]] || exit 0
+text=$(awk -F '\t' -v s="$selection" '$1 == s { print $2; exit }' <<<"$records")
+sleep 0.15 # let focus return to the previous window
+wtype -- "$text"

@@ -26,6 +26,7 @@
 .config/hypr
 .config/omarchy
 .local/bin/visor
+.local/bin/compose-keys
 {{ end }}
 {{ if ne .chezmoi.hostname "shiva" }}
 .config/hypr/monitors.lua
@@ -42,12 +43,14 @@
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
 .config/pipewire
+.XCompose
 {{ end }}
 
 # GUI-only config on servers (no desktop session)
 {{ if not .desktop }}
 .config/ghostty
 .config/pipewire
+.XCompose
 {{ end }}
 
 # Secret-backed files: skip (leave the existing file untouched) when the

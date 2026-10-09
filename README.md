@@ -369,6 +369,13 @@ special workspace `visor` over the current one, starting a Ghostty (class
 `dev.sarumont.visor`, tmux session `visor`) on first use. A window rule floats
 it full width, 80% tall, just below the bar.
 
+Compose (Right Alt, via keyd): sequences live in `~/.XCompose` (template,
+Linux desktops): Omarchy's emoji list (`Compose m <letter>`), its hand emoji
+re-toned medium-light (🏼), and `Compose Space n/e` for name/email (email from
+chezmoi data). `SUPER+CTRL+SHIFT+E` (`compose-keys`) lists them in Omarchy's
+menu, and picking one types it; `compose-keys --print` prints them. After
+editing, `omarchy-restart-xcompose`.
+
 On macOS, OmniWM (`~/.config/omniwm/settings.toml`) mirrors this with Option as
 the mod: same letters (both machines type Dvorak; OmniWM's file labels keys by
 their QWERTY position, so Dvorak `i` is `G`, `r` is `O`, `w` is `Comma`),
