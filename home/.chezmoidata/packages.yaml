@@ -45,7 +45,10 @@ packages:
     - mise
     # herdr: official installer (run_once_before_15-herdr) for handoff
     - tree-sitter-cli  # nvim-treesitter (main branch) compiles parsers with it
-  # personal Linux machines (.personal)
+  # personal Linux desktops (.personal and .desktop): personal GUI apps
+  linux_personal_desktop:
+    - signal-desktop   # comms workspace; Omarchy launches it on SUPER+SHIFT+G
+  # personal Linux machines, desktop or server (.personal)
   linux_personal:
     - proton-pass-cli-bin
     - syncthing

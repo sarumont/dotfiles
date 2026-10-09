@@ -205,7 +205,8 @@ Omarchy versions, so keeping or merging is the common answer.
 
 `home/.chezmoidata/packages.yaml` lists packages per OS (`linux` for CLI on
 every Linux box, `linux_desktop` for GUI, `arch_only` for things Omarchy
-already ships, `linux_personal`, `darwin_*`).
+already ships, `linux_personal` for personal machines (desktop or server),
+`linux_personal_desktop` for personal GUI apps, `darwin_*`).
 `run_onchange_before_10-install-packages.sh` installs them whenever the file
 changes. On plain Arch it runs `yay -Syu --needed`, so a stale machine is fully
 upgraded rather than partially (which fails with file conflicts when packages
