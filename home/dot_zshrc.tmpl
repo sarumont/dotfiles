@@ -125,9 +125,15 @@ if command -v direnv &> /dev/null; then
 fi
 
 # fzf
+{{ if eq .chezmoi.os "darwin" -}}
+if [[ ! -r "$FZF_BASE/key-bindings.zsh" && -d "$HOMEBREW_PREFIX/opt/fzf/shell" ]]; then
+  export FZF_BASE="$HOMEBREW_PREFIX/opt/fzf/shell"
+fi
+{{- else }}
 if [[ -z "$FZF_BASE" && -d "/usr/share/fzf" ]]; then
   export FZF_BASE="/usr/share/fzf"
 fi
+{{- end }}
 if [[ -n "$FZF_BASE" ]]; then
   source "$FZF_BASE/completion.zsh" 2> /dev/null
   source "$FZF_BASE/key-bindings.zsh" 2> /dev/null
