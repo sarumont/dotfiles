@@ -23,14 +23,9 @@ history: `git log --all -- MIGRATION.md`.
 
 Named workspaces live in `home/dot_config/hypr/bindings.lua`.
 
-- [ ] **Signal:** install `signal-desktop` (extra; Omarchy launches it on
-      `SUPER+SHIFT+G`). Its comms rule is already in place. If it should be
-      in `packages.yaml`, that needs a desktop+personal list (`linux_personal`
-      also reaches the dadfi server).
-- [ ] **Verify window classes** the first time each app opens (`hyprctl
-      clients`): Obsidian (`obsidian` / `md.obsidian.Obsidian`), Discord web
-      app (`chrome-discord.com__…`), Signal (`signal` / `Signal` /
-      `signal-desktop`). Rules match those; fix the regex if one differs.
+- [ ] **Signal in `packages.yaml`:** installed by hand on shiva, so a fresh
+      machine won't get it. Needs a desktop+personal package list first
+      (`linux_personal` also reaches the dadfi server).
 
 ## Decisions parked
 

@@ -28,6 +28,11 @@
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 
+-- Layout: scrolling everywhere (niri/OmniWM-style), set in looknfeel.lua.
+-- Drop Omarchy's per-workspace dwindle/scrolling toggle.
+hl.unbind("SUPER + L")
+o.bind("SUPER + R", "Cycle column width", hl.dsp.layout("colresize +conf"))
+
 -- Close window moves to SUPER+Q (was SUPER+W, now the www workspace).
 hl.unbind("SUPER + W")
 o.bind("SUPER + Q", "Close window", hl.dsp.window.close())

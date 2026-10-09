@@ -349,6 +349,13 @@ Only customized files are managed (Omarchy only): `~/.config/hypr/`
 `hyprctl reload && hyprctl configerrors`; `hyprsunset.conf` needs
 `omarchy restart hyprsunset`.
 
+Layout: Hyprland's scrolling layout on every workspace (niri/OmniWM-style),
+set in `looknfeel.lua`. Omarchy's `SUPER+L` dwindle/scrolling toggle is
+unbound; it saves per-workspace overrides in
+`~/.local/state/omarchy/workspace-layouts/`, which should stay empty.
+`SUPER+R` cycles the focused column's width through 0.333 / 0.5 / 0.667 / 1.0
+(`explicit_column_widths`).
+
 Workspaces (sway-style, in `bindings.lua`): `SUPER+1-4` general purpose
 (5-10 unbound), plus named workspaces on their first letter: `SUPER+D` dev,
 `W` www, `I` comms (`C` stays Omarchy's universal copy), `M` music, `N` notes.
