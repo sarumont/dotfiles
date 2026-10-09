@@ -354,7 +354,10 @@ set in `looknfeel.lua`. Omarchy's `SUPER+L` dwindle/scrolling toggle is
 unbound; it saves per-workspace overrides in
 `~/.local/state/omarchy/workspace-layouts/`, which should stay empty.
 `SUPER+R` cycles the focused column's width through 0.333 / 0.5 / 0.667 / 1.0
-(`explicit_column_widths`).
+(`explicit_column_widths`). `SUPER+H/L` focus left/right (same as the
+arrows); `SUPER+SHIFT+H/L` move the whole column (`swapcol`, wraps at the
+ends). `SUPER+K` stays Omarchy's keybindings cheat sheet; vertical moves within
+a column stay on the arrow keys.
 
 Workspaces (sway-style, in `bindings.lua`): `SUPER+1-4` general purpose
 (5-10 unbound), plus named workspaces on their first letter: `SUPER+D` dev,

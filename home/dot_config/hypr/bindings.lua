@@ -33,6 +33,13 @@
 hl.unbind("SUPER + L")
 o.bind("SUPER + R", "Cycle column width", hl.dsp.layout("colresize +conf"))
 
+-- Vim-style horizontal navigation (the scrolling axis): H/L focus like
+-- SUPER+LEFT/RIGHT; SHIFT moves the whole column (swapcol wraps at the ends).
+o.bind("SUPER + H", "Focus on left window", hl.dsp.focus({ direction = "l" }))
+o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
+o.bind("SUPER + SHIFT + H", "Move column left", hl.dsp.layout("swapcol l"))
+o.bind("SUPER + SHIFT + L", "Move column right", hl.dsp.layout("swapcol r"))
+
 -- Close window moves to SUPER+Q (was SUPER+W, now the www workspace).
 hl.unbind("SUPER + W")
 o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
