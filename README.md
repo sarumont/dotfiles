@@ -376,6 +376,12 @@ chezmoi data). `SUPER+CTRL+SHIFT+E` (`compose-keys`) lists them in Omarchy's
 menu, and picking one types it; `compose-keys --print` prints them. After
 editing, `omarchy-restart-xcompose`.
 
+Window switcher: `SUPER+CTRL+SPACE` (OmniWM's palette chord; replaces
+Omarchy's background switcher, still in the Omarchy menu) runs
+`window-switcher`: open windows, most recent first and minus the focused one,
+in Omarchy's searchable menu as `workspace  app  title`; picking one focuses
+it, switching workspace if needed.
+
 On macOS, OmniWM (`~/.config/omniwm/settings.toml`) mirrors this with Option as
 the mod: same letters (both machines type Dvorak; OmniWM's file labels keys by
 their QWERTY position, so Dvorak `i` is `G`, `r` is `O`, `w` is `Comma`),

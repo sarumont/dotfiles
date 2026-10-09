@@ -44,6 +44,11 @@ o.bind("SUPER + ALT + B", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
 -- Compose cheat sheet (picking an entry types it), next to the emoji picker
 o.bind("SUPER + CTRL + SHIFT + E", "Compose keys", "compose-keys")
 
+-- Type-to-search window switcher, on OmniWM's palette chord (Control+Option+
+-- Space). Replaces Omarchy's background switcher (still in the Omarchy menu).
+hl.unbind("SUPER + CTRL + SPACE")
+o.bind("SUPER + CTRL + SPACE", "Switch to window", "window-switcher")
+
 -- Vim-style navigation. H/L (the scrolling axis): focus like SUPER+LEFT/RIGHT;
 -- SHIFT moves the whole column (swapcol wraps at the ends). J/K (within a
 -- stacked column): focus and swap like SUPER(+SHIFT)+DOWN/UP.

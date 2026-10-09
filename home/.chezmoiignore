@@ -27,6 +27,7 @@
 .config/omarchy
 .local/bin/visor
 .local/bin/compose-keys
+.local/bin/window-switcher
 {{ end }}
 {{ if ne .chezmoi.hostname "shiva" }}
 .config/hypr/monitors.lua

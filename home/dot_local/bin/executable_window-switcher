@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# window-switcher: type-to-search the open windows in Omarchy's menu and focus
+# the one you pick, switching workspace if needed (like OmniWM's command
+# palette in windows mode). Most recently used first, skipping the focused one.
+#
+#   window-switcher            menu
+#   window-switcher --print    print the list
+set -euo pipefail
+
+records=$(hyprctl clients -j | jq -r '
+  map(select(.mapped and .focusHistoryID > 0))
+  | sort_by(.focusHistoryID)
+  | .[]
+  | (if (.class | startswith("chrome-")) then "webapp" else (.class | split(".") | last) end) as $app
+  | "\(.workspace.name | sub("^special:"; "*") | .[0:8] | . + (" " * (8 - length)))  \($app | .[0:12] | . + (" " * (12 - length)))  \(.title)\t\(.address)"')
+
+if [[ ${1:-} == "--print" || ${1:-} == "-p" ]]; then
+  cut -f1 <<<"$records"
+  exit 0
+fi
+
+[[ -n $records ]] || exit 0
+selection=$(cut -f1 <<<"$records" | omarchy-menu-select 'Windows' -- --width 900 --height 500) || exit 0
+[[ -n $selection ]] || exit 0
+address=$(awk -F '\t' -v s="$selection" '$1 == s { print $2; exit }' <<<"$records")
+[[ -n $address ]] || exit 0
+
+hyprctl dispatch "hl.dsp.focus({ window = \"address:$address\" })" >/dev/null 2>&1 ||
+  hyprctl dispatch focuswindow "address:$address" >/dev/null
