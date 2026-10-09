@@ -62,9 +62,11 @@ for workspace = 1, 4 do
   o.bind("SUPER + ALT + " .. key, "Move window to workspace " .. workspace, hl.dsp.window.move({ workspace = tostring(workspace) }))
 end
 
--- SUPER+SHIFT+ALT+M was Omarchy's Music TUI (cliamp): move it to SUPER+CTRL+ALT+M.
+-- Music: the cliamp TUI takes over SUPER+SHIFT+M (was Spotify), freeing
+-- SUPER+SHIFT+ALT+M (its old key) for the silent move below.
 hl.unbind("SUPER + SHIFT + ALT + M")
-o.bind("SUPER + CTRL + ALT + M", "Music TUI", { tui = "cliamp", focus = true })
+hl.unbind("SUPER + SHIFT + M")
+o.bind("SUPER + SHIFT + M", "Music", { tui = "cliamp", focus = true })
 
 local named_workspaces = { D = "dev", W = "www", I = "comms", M = "music", N = "notes" }
 for key, name in pairs(named_workspaces) do
@@ -81,6 +83,7 @@ o.window("^(obsidian|md\\.obsidian\\.Obsidian)$", { workspace = "name:notes" })
 -- Discord is an Omarchy web app (Chromium --app: class chrome-<host>__<path>-Default);
 -- Signal is the native signal-desktop.
 o.window("^(chrome-discord\\.com__.*|[Ss]ignal|signal-desktop)$", { workspace = "name:comms" })
+o.window("^org\\.omarchy\\.cliamp$", { workspace = "name:music" })
 
 -- Calendar: Google Calendar instead of HEY.
 hl.unbind("SUPER + SHIFT + C")

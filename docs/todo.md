@@ -23,9 +23,6 @@ history: `git log --all -- MIGRATION.md`.
 
 Named workspaces live in `home/dot_config/hypr/bindings.lua`.
 
-- [ ] **Music:** pick an app, rebind `SUPER+SHIFT+M` (currently Omarchy's
-      Spotify launcher; Spotify isn't installed) and add a `name:music`
-      window rule.
 - [ ] **Signal:** install `signal-desktop` (extra; Omarchy launches it on
       `SUPER+SHIFT+G`). Its comms rule is already in place. If it should be
       in `packages.yaml`, that needs a desktop+personal list (`linux_personal`
