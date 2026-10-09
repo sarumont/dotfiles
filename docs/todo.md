@@ -9,15 +9,11 @@ history: `git log --all -- MIGRATION.md`.
 - [x] **ifrit: Homebrew only.** Migrated retained MacPorts tools to Homebrew
       or existing mise/uvx-managed tools, removed MacPorts, and switched
       dotfiles package install/update to Homebrew only.
-- [ ] **ifrit: environment secrets → 1Password** (migrate on ifrit). Pattern:
-      - one template, e.g. `home/dot_local/sh/private_ifrit.secrets.zshenv.tmpl`
-        (`private_` → 0600; the `*.zshenv` loader picks it up, and the
-        existing `.local/sh/ifrit.*` ignore rule keeps it off other hosts);
-      - each line `export FOO='{{ template "secret" (list .secrets "" "op://VAULT/ITEM/FIELD") }}'`,
-        or iterate one item's fields (`onepassword "item"` → `.fields`);
-      - add the target to the secrets block in `home/.chezmoiignore` so it's
-        skipped, not failed, when `op` isn't signed in.
-      - `secretRefs.sshConfig` is unused there (no private SSH hosts).
+- [x] **ifrit: environment secrets → 1Password.** Added the private
+      `~/.local/sh/ifrit.secrets.zshenv` with references into the `dotfiles`
+      vault; non-private Moov environment settings live in `ifrit.zshenv`.
+      Chezmoi skips the secret-backed target when the 1Password CLI is
+      unavailable.
 
 ## Decisions parked
 
