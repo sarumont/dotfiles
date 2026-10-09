@@ -59,7 +59,9 @@
 {{   if ne (includeTemplate "secrets-ready" .secrets) "true" }}
 {{     warnf "%s is not logged in: skipping secret-backed files (log in, then chezmoi apply)" .secrets }}
 .ssh/config.d/private
+.local/sh/ifrit.secrets.zshenv
 {{   end }}
 {{ else }}
 .ssh/config.d/private
+.local/sh/ifrit.secrets.zshenv
 {{ end }}
