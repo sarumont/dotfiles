@@ -29,16 +29,35 @@
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 
 -- Layout: scrolling everywhere (niri/OmniWM-style), set in looknfeel.lua.
--- Drop Omarchy's per-workspace dwindle/scrolling toggle.
+-- Drop Omarchy's per-workspace dwindle/scrolling toggle and the dwindle-only
+-- split toggle (SUPER+J).
 hl.unbind("SUPER + L")
+hl.unbind("SUPER + J")
 o.bind("SUPER + R", "Cycle column width", hl.dsp.layout("colresize +conf"))
 
--- Vim-style horizontal navigation (the scrolling axis): H/L focus like
--- SUPER+LEFT/RIGHT; SHIFT moves the whole column (swapcol wraps at the ends).
+-- Keybinding cheat sheets move off K to B ("bindings") to free HJKL. Herdr's
+-- stays on SUPER+CTRL+K: SUPER+CTRL+B is Bluetooth.
+hl.unbind("SUPER + K")
+hl.unbind("SUPER + ALT + K")
+o.bind("SUPER + B", "Keybindings", "omarchy-menu-keybindings")
+o.bind("SUPER + ALT + B", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
+
+-- Vim-style navigation. H/L (the scrolling axis): focus like SUPER+LEFT/RIGHT;
+-- SHIFT moves the whole column (swapcol wraps at the ends). J/K (within a
+-- stacked column): focus and swap like SUPER(+SHIFT)+DOWN/UP.
 o.bind("SUPER + H", "Focus on left window", hl.dsp.focus({ direction = "l" }))
 o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
+o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
+o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("SUPER + SHIFT + H", "Move column left", hl.dsp.layout("swapcol l"))
 o.bind("SUPER + SHIFT + L", "Move column right", hl.dsp.layout("swapcol r"))
+o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+
+-- Stacking (niri-style): join the neighbouring column, or leave the current
+-- one if the window is stacked.
+o.bind("SUPER + BRACKETLEFT", "Stack into/out of column (left)", hl.dsp.layout("consume_or_expel prev"))
+o.bind("SUPER + BRACKETRIGHT", "Stack into/out of column (right)", hl.dsp.layout("consume_or_expel next"))
 
 -- Close window moves to SUPER+Q (was SUPER+W, now the www workspace).
 hl.unbind("SUPER + W")
