@@ -28,9 +28,8 @@ docs: [`docs/nvim-keymaps.md`](docs/nvim-keymaps.md),
       sudo pacman -S --needed avahi nss-mdns
       sudo systemctl enable --now avahi-daemon.service
 
-- **macOS**: install [Homebrew](https://brew.sh/) and
-  [MacPorts](https://www.macports.org/) (`sudo port selfupdate` to refresh).
-  Moving fully to Homebrew is a pending cleanup.
+- **macOS**: install [Homebrew](https://brew.sh/). Dotfiles use Homebrew for
+  all macOS package management.
 
 ## 2. SSH key and GitHub
 
@@ -71,7 +70,7 @@ It asks three things once (answers live in `~/.config/chezmoi/chezmoi.toml`):
 | Git email | commit identity for this machine |
 | Secrets backend | `protonpass` (`pass-cli`), `1password` (`op`) or `none` |
 
-`apply` installs packages (`yay`/`brew`/`port`, needs sudo), switches the login
+`apply` installs packages (`yay` on Arch, `brew` on macOS), switches the login
 shell to zsh, installs plugins (tmux, herdr, Neovim), Zoekt, and on Omarchy makes
 Ghostty the default terminal with the Monaspace font. Scripts live in
 `home/.chezmoiscripts/`; see [What runs automatically](#what-runs-automatically).
@@ -165,7 +164,7 @@ SSH: `~/.ssh/config` (public) includes `~/.ssh/config.d/*` first and ends with
 
 1. **System**: `omarchy update` on Omarchy (snapshot, system packages, Omarchy
    migrations, AUR, `mise up`, orphans); `yay -Syu` + `mise up` on plain Arch;
-   `brew update/upgrade`, `port selfupdate/upgrade outdated`, `mise up` on macOS.
+   `brew update/upgrade`, `mise up` on macOS.
 2. **Drift gate**: stops if any managed file changed outside chezmoi (see
    [Drift](#drift)). Re-run with `sysup --tools` once resolved.
 3. **Dotfiles**: `chezmoi update` (pull + apply).
@@ -438,8 +437,8 @@ defaults to `~/notes`.
 - `pi-herdr-subagents` model assignments are per host (templated `config.json`
   inside its `node_modules`; `chezmoi apply` restores it if a reinstall removes
   it).
-- `codemod` isn't packaged for Arch: `~/.local/bin/codemod` runs `uvx codemod`.
-  `gibr` always runs through `uvx` too.
+- `codemod` runs through `uvx` on all hosts via `~/.local/bin/codemod`;
+  `gibr` also runs through `uvx`.
 
 ## Docker
 

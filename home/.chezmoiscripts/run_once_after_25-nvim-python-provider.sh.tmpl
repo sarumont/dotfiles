@@ -1,0 +1,12 @@
+#!/bin/sh
+# Keep Neovim's Python provider available after moving off MacPorts' py311-neovim.
+set -eu
+{{ if eq .chezmoi.os "darwin" -}}
+python="$HOME/.local/share/nvim-python/bin/python"
+if [ ! -x "$python" ] || ! "$python" -c 'import pynvim' >/dev/null 2>&1; then
+  uv venv --python "$(brew --prefix python@3.11)/bin/python3.11" "$HOME/.local/share/nvim-python"
+  uv pip install --python "$python" pynvim
+fi
+{{- else -}}
+exit 0
+{{- end }}

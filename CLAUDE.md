@@ -12,8 +12,8 @@ chezmoi **copies** files into `$HOME` (no symlinks), so a source edit does
 nothing until `chezmoi apply`, and a live-file edit must be brought back with
 `chezmoi re-add` (plain files) or `chezmoi merge` (templates).
 
-Targets: **shiva** (Omarchy, Linux), **ifrit** (work MacBook, Homebrew +
-MacPorts), and plain Arch. Per-machine data comes from `home/.chezmoi.toml.tmpl`
+Targets: **shiva** (Omarchy, Linux), **ifrit** (work MacBook, Homebrew for
+managed packages), and plain Arch. Per-machine data comes from `home/.chezmoi.toml.tmpl`
 (answers cached in `~/.config/chezmoi/chezmoi.toml`): `.omarchy` (auto-detected),
 `.desktop` (GUI machine; always true on Omarchy/macOS, false on servers like
 dadfi — gate GUI apps/config on it), `.personal`, `.email`, `.secrets` (`protonpass` | `1password` | `none`), plus

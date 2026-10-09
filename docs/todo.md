@@ -6,9 +6,9 @@ history: `git log --all -- MIGRATION.md`.
 
 ## Machines
 
-- [ ] **ifrit: Homebrew only.** It uses both MacPorts and Homebrew; move the
-      `darwin_port` list in `home/.chezmoidata/packages.yaml` to Homebrew and
-      drop MacPorts (also the MacPorts paths in `.zshenv` and `sysup`).
+- [x] **ifrit: Homebrew only.** Migrated retained MacPorts tools to Homebrew
+      or existing mise/uvx-managed tools, removed MacPorts, and switched
+      dotfiles package install/update to Homebrew only.
 - [ ] **ifrit: environment secrets → 1Password** (migrate on ifrit). Pattern:
       - one template, e.g. `home/dot_local/sh/private_ifrit.secrets.zshenv.tmpl`
         (`private_` → 0600; the `*.zshenv` loader picks it up, and the

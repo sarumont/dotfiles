@@ -157,8 +157,7 @@ fi
 # zsh-syntax-highlighting must be sourced last
 for f in \
 {{- if eq .chezmoi.os "darwin" }}
-  /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
-  /opt/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- else }}
   /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- end }}

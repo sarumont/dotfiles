@@ -1,6 +1,6 @@
 # Installed by .chezmoiscripts/run_onchange_before_10-install-packages.sh.tmpl,
 # which re-runs whenever this file changes. Linux uses `yay -S --needed`;
-# macOS uses Homebrew and MacPorts (Homebrew-only is a deferred cleanup).
+# macOS uses Homebrew only.
 packages:
   # every Linux machine, desktop or server (CLI only)
   linux:
@@ -54,14 +54,24 @@ packages:
   linux_personal:
     - syncthing
     - tailscale
-  # macOS: verify against ifrit at cutover
+  # macOS Homebrew formulae; runtimes and CLI tools from mise stay there
   darwin_brew:
-    - mise
+    - aichat
+    - bat
+    - btop
+    - cmake
+    - coreutils
     - chezmoi
     - difftastic
+    - delve
     - sd
-    - yamllint
-    - jq
+    - eza
+    - fd
+    - ffmpeg
+    - fzf
+    - gnupg
+    - gotop
+    - hexyl
     - universal-ctags
     - zsh-syntax-highlighting
     - tree-sitter-cli
@@ -71,23 +81,32 @@ packages:
     - kubernetes-cli
     - terragrunt
     - helm
+    - jq
+    - jwt-cli
+    - k9s
+    - keychain
+    - mise
+    - lazydocker
+    - luarocks
+    - neovim
+    - pam-reattach
+    - pandoc
+    - pwgen
+    - ripgrep
+    - silicon
+    - starship
+    - stylua
+    - tmux
+    - watch
+    - wget
+    - yq
+    - zoxide
+    - python@3.11  # Python host for Neovim's pynvim provider
   darwin_cask:
+    - android-platform-tools
     - ghostty
     - font-monaspace-nerd-font
     - 1password-cli
   darwin_personal_cask:
     - syncthing
     - tailscale
-  darwin_port:
-    - starship
-    - neovim
-    - tmux
-    - tmux-pasteboard
-    - eza
-    - bat
-    - hexyl
-    - ripgrep
-    - fd
-    - btop
-    - yq
-    - zoxide

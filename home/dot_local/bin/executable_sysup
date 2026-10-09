@@ -46,11 +46,6 @@ if ! $skip_system; then
     step "Homebrew"
     brew update
     brew upgrade
-    if have port; then
-      step "MacPorts"
-      sudo port selfupdate
-      sudo port upgrade outdated || true # non-zero when nothing is outdated
-    fi
     step "mise tools"
     mise up
   fi

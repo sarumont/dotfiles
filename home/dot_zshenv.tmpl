@@ -1,4 +1,7 @@
 typeset -U path
+# Do not inherit MacPorts paths from a parent shell.
+path=(${path:#/opt/local/bin})
+path=(${path:#/opt/local/sbin})
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -18,10 +21,6 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # path prepend
 path[1,0]=(
     $HOME/.local/bin
-{{- if eq .chezmoi.os "darwin" }}
-    /opt/local/bin
-    /opt/local/sbin
-{{- end }}
 )
 
 # source shared directory definitions

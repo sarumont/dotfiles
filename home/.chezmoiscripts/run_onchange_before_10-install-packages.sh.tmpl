@@ -15,7 +15,4 @@ yay {{ if .omarchy }}-S{{ else }}-Syu{{ end }} --needed --noconfirm
 {{- else if eq .chezmoi.os "darwin" -}}
 brew install {{ range .packages.darwin_brew }} {{ . }}{{ end }}
 brew install --cask {{ range .packages.darwin_cask }} {{ . }}{{ end }}{{ if .personal }}{{ range .packages.darwin_personal_cask }} {{ . }}{{ end }}{{ end }}
-if command -v port >/dev/null 2>&1; then
-  sudo port install {{ range .packages.darwin_port }} {{ . }}{{ end }}
-fi
 {{- end }}
