@@ -364,8 +364,12 @@ Night light: gammastep, not hyprsunset (which only knows fixed clock times).
 `~/.config/gammastep/config.ini` follows the sun for a fixed location
 (Grand Junction, CO, rounded to city level; no geoclue): 5700K day, 3500K
 night, with fades. It runs as the `gammastep.service` user unit, enabled by
-`run_onchange_after_45-gammastep.sh`; `SUPER+CTRL+N` pauses/resumes it
-(replacing Omarchy's hyprsunset toggle, so they never fight).
+`run_onchange_after_45-gammastep.sh`. `nightlight` pauses/resumes it; both
+`SUPER+CTRL+N` and the Omarchy menu's Toggle → Nightlight entry (overridden in
+`~/.config/omarchy/extensions/omarchy-menu.jsonc`) call it instead of
+Omarchy's hyprsunset toggle, so the two never fight over the gamma. The bar's
+night light indicator still tracks hyprsunset, so it stays hidden; if
+hyprsunset ever gets started anyway, `pkill -x hyprsunset`.
 
 Layout: Hyprland's scrolling layout on every workspace (niri/OmniWM-style),
 set in `looknfeel.lua`. Omarchy's `SUPER+L` dwindle/scrolling toggle is

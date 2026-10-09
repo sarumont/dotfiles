@@ -1,0 +1,38 @@
+#!/bin/sh
+# nightlight: pause/resume gammastep (the night light) for SUPER+CTRL+N and the
+# Omarchy menu's Nightlight entry, which would otherwise start hyprsunset.
+#
+#   nightlight toggle   pause or resume gammastep (SIGUSR1), with a notification
+#   nightlight status   exit 0 if gammastep is running and not paused
+#
+# gammastep can't report its pause state, so it's tracked in a runtime file
+# holding gammastep's PID: a restarted gammastep (active again) makes it stale.
+set -eu
+state="${XDG_RUNTIME_DIR:-/tmp}/nightlight-paused"
+pid=$(pgrep -x gammastep | head -n1 || true)
+
+paused() { [ -n "$pid" ] && [ -f "$state" ] && [ "$(cat "$state")" = "$pid" ]; }
+
+case "${1:-toggle}" in
+  status)
+    [ -n "$pid" ] && ! paused
+    ;;
+  toggle)
+    if [ -z "$pid" ]; then
+      omarchy-notification-send "Nightlight" "gammastep isn't running (systemctl --user start gammastep)" 2>/dev/null || true
+      exit 1
+    fi
+    kill -USR1 "$pid"
+    if paused; then
+      rm -f "$state"
+      omarchy-notification-send -g 󰔎 "Nightlight on" 2>/dev/null || true
+    else
+      printf '%s\n' "$pid" >"$state"
+      omarchy-notification-send -g 󰔎 "Nightlight off" 2>/dev/null || true
+    fi
+    ;;
+  *)
+    echo "usage: nightlight [toggle|status]" >&2
+    exit 2
+    ;;
+esac
