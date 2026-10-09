@@ -363,6 +363,14 @@ HJKL: `SUPER+B` (Omarchy), `SUPER+ALT+B` (tmux); herdr's stays on
 `SUPER+CTRL+K` (`SUPER+CTRL+B` is Bluetooth). Omarchy's dwindle split toggle
 (`SUPER+J`) is gone.
 
+On macOS, OmniWM (`~/.config/omniwm/settings.toml`) mirrors this with Option as
+the mod: same letters (both machines type Dvorak; OmniWM's file labels keys by
+their QWERTY position, so Dvorak `i` is `G`, `r` is `O`, `w` is `Comma`),
+`Option+Command+key` to move a window (the same two physical keys as
+`SUPER+ALT` on a PC keyboard), `Option+r` to cycle width. OmniWM has no silent
+move. Those chords shadow macOS's `Cmd+Opt+D` (Dock auto-hide),
+`Cmd+Opt+W/M` (close/minimize all) and `Cmd+Opt+I` (devtools; use F12).
+
 Workspaces (sway-style, in `bindings.lua`): `SUPER+1-4` general purpose
 (5-10 unbound), plus named workspaces on their first letter: `SUPER+D` dev,
 `W` www, `I` comms (`C` stays Omarchy's universal copy), `M` music, `N` notes.

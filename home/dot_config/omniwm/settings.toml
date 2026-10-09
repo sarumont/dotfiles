@@ -375,7 +375,7 @@ binding = "Option+H"
 id = "switchWorkspace.0"
 
 [[hotkeys]]
-binding = "Option+Shift+H"
+binding = "Option+Command+H"
 id = "moveToWorkspace.0"
 
 [[hotkeys]]
@@ -383,7 +383,7 @@ binding = "Option+Comma"
 id = "switchWorkspace.1"
 
 [[hotkeys]]
-binding = "Option+Shift+Comma"
+binding = "Option+Command+Comma"
 id = "moveToWorkspace.1"
 
 [[hotkeys]]
@@ -391,15 +391,15 @@ binding = "Option+L"
 id = "switchWorkspace.2"
 
 [[hotkeys]]
-binding = "Option+Shift+L"
+binding = "Option+Command+L"
 id = "moveToWorkspace.2"
 
 [[hotkeys]]
-binding = "Option+I"
+binding = "Option+G"
 id = "switchWorkspace.3"
 
 [[hotkeys]]
-binding = "Option+Shift+I"
+binding = "Option+Command+G"
 id = "moveToWorkspace.3"
 
 [[hotkeys]]
@@ -407,7 +407,7 @@ binding = "Option+M"
 id = "switchWorkspace.4"
 
 [[hotkeys]]
-binding = "Option+Shift+M"
+binding = "Option+Command+M"
 id = "moveToWorkspace.4"
 
 [[hotkeys]]
@@ -875,7 +875,7 @@ binding = "Unassigned"
 id = "moveColumnToIndex.9"
 
 [[hotkeys]]
-binding = "Option+Period"
+binding = "Option+O"
 id = "cycleSizeForward"
 
 [[hotkeys]]

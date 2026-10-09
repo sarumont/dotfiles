@@ -26,6 +26,11 @@ Named workspaces live in `home/dot_config/hypr/bindings.lua`.
 - [ ] **Signal in `packages.yaml`:** installed by hand on shiva, so a fresh
       machine won't get it. Needs a desktop+personal package list first
       (`linux_personal` also reaches the dadfi server).
+- [ ] **Overview (like OmniWM's):** try the `hyprexpo` plugin (official
+      hyprland-plugins; workspace grid, not niri's zoomed-out tape) or
+      Hyprspace. Plugins go through `hyprpm` (sudo, compiled against the
+      running Hyprland) and need `hyprpm update` after every Hyprland bump in
+      `omarchy update`; check Lua-config (0.55+) support first.
 
 ## Decisions parked
 
