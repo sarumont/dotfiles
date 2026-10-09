@@ -1,0 +1,13 @@
+#!/bin/sh
+# Quake-style visor (Hyprland): toggle a drop-down Ghostty on the special
+# workspace "visor", starting it (tmux session "visor") on first use.
+# Bound to CTRL+SHIFT+RETURN in ~/.config/hypr/bindings.lua; placement is a
+# window rule there, keyed on the class below (Ghostty requires a
+# reverse-DNS class and its own instance for --class to apply).
+class=dev.sarumont.visor
+if hyprctl clients -j | jq -e --arg c "$class" 'any(.[]; .class == $c)' >/dev/null; then
+  hyprctl dispatch 'hl.dsp.workspace.toggle_special("visor")' >/dev/null
+else
+  setsid -f uwsm-app -- ghostty --gtk-single-instance=false --class="$class" \
+    -e tmux new-session -A -s visor >/dev/null 2>&1
+fi

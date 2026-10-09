@@ -116,6 +116,17 @@ o.window("^(obsidian|md\\.obsidian\\.Obsidian)$", { workspace = "name:notes" })
 o.window("^(chrome-discord\\.com__.*|[Ss]ignal|signal-desktop)$", { workspace = "name:comms" })
 o.window("^org\\.omarchy\\.cliamp$", { workspace = "name:music" })
 
+-- Visor (Quake-style drop-down terminal, as in sway/OmniWM): ~/.local/bin/visor
+-- toggles the special workspace "visor", launching the terminal on first use.
+-- It floats full width, 80% tall, just below the bar (26px reserved at top).
+o.bind("CTRL + SHIFT + RETURN", "Visor terminal", "visor")
+o.window("^dev\\.sarumont\\.visor$", {
+  workspace = "special:visor",
+  float = true,
+  size = { "(monitor_w)", "(monitor_h*0.8)" },
+  move = { 0, 26 },
+})
+
 -- Calendar: Google Calendar instead of HEY.
 hl.unbind("SUPER + SHIFT + C")
 o.bind("SUPER + SHIFT + C", "Calendar", { webapp = "https://calendar.google.com" })

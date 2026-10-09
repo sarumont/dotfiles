@@ -363,6 +363,12 @@ HJKL: `SUPER+B` (Omarchy), `SUPER+ALT+B` (tmux); herdr's stays on
 `SUPER+CTRL+K` (`SUPER+CTRL+B` is Bluetooth). Omarchy's dwindle split toggle
 (`SUPER+J`) is gone.
 
+Visor (Quake-style drop-down terminal, as in sway and OmniWM's quake
+terminal): `CTRL+SHIFT+RETURN` runs `~/.local/bin/visor`, which toggles the
+special workspace `visor` over the current one, starting a Ghostty (class
+`dev.sarumont.visor`, tmux session `visor`) on first use. A window rule floats
+it full width, 80% tall, just below the bar.
+
 On macOS, OmniWM (`~/.config/omniwm/settings.toml`) mirrors this with Option as
 the mod: same letters (both machines type Dvorak; OmniWM's file labels keys by
 their QWERTY position, so Dvorak `i` is `G`, `r` is `O`, `w` is `Comma`),
