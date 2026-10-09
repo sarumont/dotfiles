@@ -125,6 +125,8 @@ o.window("^dev\\.sarumont\\.visor$", {
   float = true,
   size = { "(monitor_w)", "(monitor_h*0.8)" },
   move = { 0, 26 },
+  -- full width puts the side borders off-screen; drop the border entirely
+  border_size = 0,
 })
 
 -- Calendar: Google Calendar instead of HEY.
