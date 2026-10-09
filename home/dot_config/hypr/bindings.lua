@@ -32,10 +32,14 @@
 hl.unbind("SUPER + W")
 o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
 
--- Workspaces: 1-4 general purpose (Omarchy's bindings), 5-10 removed, plus
--- named workspaces on their first letter. comms is on I: SUPER+C is
--- Omarchy's universal copy. Omarchy binds workspace keys by keycode
--- (code:10 = 1 ... code:19 = 10).
+-- Workspaces: 1-4 general purpose, 5-10 removed, plus named workspaces on
+-- their first letter (comms is on I: SUPER+C is Omarchy's universal copy).
+-- One scheme for all of them:
+--   SUPER + <key>              go to workspace
+--   SUPER + ALT + <key>        move window there (and follow)
+--   SUPER + SHIFT + ALT + <key> move window there silently
+-- (SUPER+SHIFT+<letter> is Omarchy's app launchers, hence ALT for moves.)
+-- Omarchy binds number keys by keycode (code:10 = 1 ... code:19 = 10).
 for workspace = 5, 10 do
   local key = "code:" .. tostring(workspace + 9)
   hl.unbind("SUPER + " .. key)
@@ -43,11 +47,31 @@ for workspace = 5, 10 do
   hl.unbind("SUPER + SHIFT + ALT + " .. key)
 end
 
+-- SUPER+ALT+1-5 was "switch to group window N": move it to SUPER+CTRL+ALT.
+for index = 1, 5 do
+  local key = "code:" .. tostring(index + 9)
+  hl.unbind("SUPER + ALT + " .. key)
+  o.bind("SUPER + CTRL + ALT + " .. key, "Switch to group window " .. index, hl.dsp.group.active({ index = index }))
+end
+
+-- Numbered 1-4: move on SUPER+ALT instead of Omarchy's SUPER+SHIFT
+-- (silent move stays on Omarchy's SUPER+SHIFT+ALT).
+for workspace = 1, 4 do
+  local key = "code:" .. tostring(workspace + 9)
+  hl.unbind("SUPER + SHIFT + " .. key)
+  o.bind("SUPER + ALT + " .. key, "Move window to workspace " .. workspace, hl.dsp.window.move({ workspace = tostring(workspace) }))
+end
+
+-- SUPER+SHIFT+ALT+M was Omarchy's Music TUI (cliamp): move it to SUPER+CTRL+ALT+M.
+hl.unbind("SUPER + SHIFT + ALT + M")
+o.bind("SUPER + CTRL + ALT + M", "Music TUI", { tui = "cliamp", focus = true })
+
 local named_workspaces = { D = "dev", W = "www", I = "comms", M = "music", N = "notes" }
 for key, name in pairs(named_workspaces) do
-  o.bind("SUPER + " .. key, "Switch to workspace " .. name, hl.dsp.focus({ workspace = "name:" .. name }))
-  -- SUPER+SHIFT+<key> is taken by Omarchy launchers; SUPER+ALT+<key> is free
-  o.bind("SUPER + ALT + " .. key, "Move window to workspace " .. name, hl.dsp.window.move({ workspace = "name:" .. name }))
+  local workspace = "name:" .. name
+  o.bind("SUPER + " .. key, "Switch to workspace " .. name, hl.dsp.focus({ workspace = workspace }))
+  o.bind("SUPER + ALT + " .. key, "Move window to workspace " .. name, hl.dsp.window.move({ workspace = workspace }))
+  o.bind("SUPER + SHIFT + ALT + " .. key, "Move window silently to workspace " .. name, hl.dsp.window.move({ workspace = workspace, follow = false }))
 end
 
 -- Apps that open on their workspace (Firefox's screen-sharing indicator keeps
