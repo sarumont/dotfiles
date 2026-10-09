@@ -111,4 +111,4 @@ Validation after changes:
   machines' keys; custom commands `git-attic`, `git-clean-merged`, `git-neck`,
   `git-trail`.
 - **Agents**: `~/AGENTS.md` shared; `CLAUDE.md`/`AGENTS.md` for Claude Code and
-  Codex; pi settings merged via `jq`; Zoekt installed into `$PI_BIN_DIR`.
+  Codex; pi and Claude Code settings merged via `jq` (`modify_`); Zoekt installed into `$PI_BIN_DIR`.

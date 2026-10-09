@@ -1,0 +1,9 @@
+#!/bin/sh
+# Merge the keys these dotfiles own into Claude Code's settings.json, leaving
+# everything Claude Code writes itself (permissions, plugins, ...) alone.
+# tui=default: classic renderer, so output lands in the terminal's (herdr's)
+# scrollback instead of Claude Code's full-screen view.
+set -eu
+current=$(cat)
+[ -n "$current" ] || current='{}'
+printf '%s' "$current" | jq --indent 2 '. * {"tui": "default"}'
