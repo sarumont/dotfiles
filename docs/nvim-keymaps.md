@@ -37,7 +37,7 @@ LazyVim's defaults apply unless listed here
 
 | Key | Action |
 |---|---|
-| `<leader>ff` / `<leader><space>` | files |
+| `<leader>ff` / `<leader><space>` | files, including hidden; Git ignores still apply |
 | `<leader>fa` | all files (hidden + ignored) |
 | `<leader>fw` | grep |
 | `<leader>fb` / `,,` | buffers |

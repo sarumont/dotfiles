@@ -22,7 +22,10 @@ return {
   -- treesitter highlighting off above 500KB (was a custom autocmd under NvChad)
   {
     "folke/snacks.nvim",
-    opts = { bigfile = { size = 500 * 1024 } },
+    opts = {
+      bigfile = { size = 500 * 1024 },
+      picker = { sources = { files = { hidden = true } } },
+    },
   },
 
   { "tpope/vim-surround", keys = { "cs", "ds", "ys", { "S", mode = "x" } } },
