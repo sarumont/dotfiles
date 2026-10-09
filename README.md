@@ -398,7 +398,7 @@ the window there, `SUPER+SHIFT+ALT+<key>` move it silently (`SUPER+SHIFT+<letter
 is Omarchy's app launchers). Relocated Omarchy defaults: group window 1-5 →
 `SUPER+CTRL+ALT+1-5`; `SUPER+SHIFT+M` opens the `cliamp` music TUI instead
 of Spotify. Close window moved to `SUPER+Q`. Window rules open Firefox on www,
-Obsidian on notes, Discord/Signal on comms, cliamp on music. Omarchy's bar widget only knows numbered
+Obsidian on notes, Discord/Signal/Google Messages on comms, cliamp on music. Omarchy's bar widget only knows numbered
 workspaces, so the bar uses a clone, `~/.config/omarchy/plugins/sarumont.workspaces`
 (fixed slots `1 2 3 4 D W I M N`; selected via `~/.config/omarchy/shell.json`).
 Keep its slot list in sync with `bindings.lua`.
