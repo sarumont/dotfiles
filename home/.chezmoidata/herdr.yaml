@@ -4,4 +4,4 @@ herdr:
   plugins:
     - repo: bojackduy/nvim-herdr-navigation/herdr-vim-navigator
     - repo: nathan-poncet/herdr-fingers  # builds with cargo (rust via mise)
-      desktop: true  # rust is desktop-only, so skip on servers
+      dev: true  # rust is dev-only (mise), so skip elsewhere

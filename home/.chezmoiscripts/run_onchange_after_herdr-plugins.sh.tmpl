@@ -5,7 +5,7 @@ command -v herdr >/dev/null 2>&1 || { echo "herdr not installed; skipping plugin
 # cargo comes from mise; make sure its shims are on PATH for non-interactive runs
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 {{ range .herdr.plugins -}}
-{{ if or (not (hasKey . "desktop")) $.desktop -}}
+{{ if or (not (hasKey . "dev")) $.desktop $.dev -}}
 herdr plugin install {{ .repo | quote }} --yes{{ with get . "ref" }} --ref {{ . | quote }}{{ end }}
 {{ end -}}
 {{ end -}}

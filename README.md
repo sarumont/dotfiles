@@ -65,9 +65,10 @@ It asks three things once (answers live in `~/.config/chezmoi/chezmoi.toml`):
 
 | Prompt | Meaning |
 |---|---|
-| Desktop machine (GUI) | plain Arch only (Omarchy and macOS are always desktops): GUI apps, fonts, keyd, Ghostty/PipeWire config |
+| Desktop machine (GUI) | plain Arch only (Omarchy and macOS are always desktops): GUI apps, fonts, keyd, Ghostty/PipeWire config, k8s tools |
+| Dev machine (agents, toolchains) | servers only (desktops always are): agents, Go/Rust/uv via mise, Zoekt + ctags, herdr-fingers |
 | Personal machine | personal-only packages and config (Proton Pass, syncthing, tailscale) |
-| Git email | commit identity for this machine |
+| Git name / Git email | commit identity for this machine (name defaults to mine; a bot machine uses the bot's) |
 | Secrets backend | `protonpass` (`pass-cli`), `1password` (`op`) or `none` |
 
 `apply` installs packages (`yay` on Arch, `brew` on macOS), switches the login
@@ -85,6 +86,19 @@ Ghostty the default terminal with the Monaspace font. Scripts live in
 - Linux audio: `systemctl --user restart pipewire pipewire-pulse wireplumber`
   to pick up the sample-rate drop-in.
 - Zoekt index: `zoekt-local-sync -index ~/.zoekt -f ~/github.com`.
+
+Machine types: **shiva**/**ifrit** are desktops; **dadfi** is a server
+(desktop no, dev no, secrets none); **jarvis** is an isolated dev VM for agents
+(desktop no, dev yes, personal no, secrets none). jarvis runs as a separate
+GitHub **bot** account: in step 2 log `gh` in as the bot and add its key to the
+bot account (auth + signing), answer the bot's name/email at `chezmoi init`, and
+don't add its key to this repo. It only reads dotfiles (public); its work goes
+through PRs from the bot. Then `claude` → `/login` with the subscription.
+
+Machines initialized before a prompt existed keep working (fallbacks in
+`.chezmoidata/defaults.yaml`); to record the new answers and silence chezmoi's
+"config file template has changed" warning, run `chezmoi init` (e.g.
+`chezmoi init --promptString "Git name=Richard Kolkovich" --promptBool "Dev machine (agents, toolchains)=false"` on dadfi).
 
 # Day-to-day with chezmoi
 

@@ -9,6 +9,7 @@ command -v yay >/dev/null 2>&1 || { echo "yay not found; install it first (see R
 yay {{ if .omarchy }}-S{{ else }}-Syu{{ end }} --needed --noconfirm
 {{- range .packages.linux }} {{ . }}{{ end }}
 {{- if .desktop }}{{ range .packages.linux_desktop }} {{ . }}{{ end }}{{ end }}
+{{- if or .desktop .dev }}{{ range .packages.linux_dev }} {{ . }}{{ end }}{{ end }}
 {{- if not .omarchy }}{{ range .packages.arch_only }} {{ . }}{{ end }}{{ end }}
 {{- if .personal }}{{ range .packages.linux_personal }} {{ . }}{{ end }}{{ end }}
 {{- if and .personal .desktop }}{{ range .packages.linux_personal_desktop }} {{ . }}{{ end }}{{ end }}

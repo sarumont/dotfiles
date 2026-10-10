@@ -1,0 +1,5 @@
+# Fallbacks for machine data added after a machine's last `chezmoi init`;
+# values in ~/.config/chezmoi/chezmoi.toml win. Templates gate dev tooling on
+# `or .desktop .dev`, so desktops keep it without re-running init.
+dev: false
+name: Richard Kolkovich

@@ -16,7 +16,8 @@ Targets: **shiva** (Omarchy, Linux), **ifrit** (work MacBook, Homebrew for
 managed packages), and plain Arch. Per-machine data comes from `home/.chezmoi.toml.tmpl`
 (answers cached in `~/.config/chezmoi/chezmoi.toml`): `.omarchy` (auto-detected),
 `.desktop` (GUI machine; always true on Omarchy/macOS, false on servers like
-dadfi — gate GUI apps/config on it), `.personal`, `.email`, `.secrets` (`protonpass` | `1password` | `none`), plus
+dadfi — gate GUI apps/config on it), `.dev` (agents/toolchains; gate them on
+`or .desktop .dev` — true on the jarvis dev VM), `.personal`, `.name`, `.email`, `.secrets` (`protonpass` | `1password` | `none`), plus
 `.chezmoi.os` and `.chezmoi.hostname`.
 
 `README.md` is the user-facing setup guide and reference; `docs/todo.md` holds

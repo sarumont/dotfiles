@@ -8,7 +8,13 @@
 {{- if not (or $omarchy (eq .chezmoi.os "darwin")) -}}
 {{-   $desktop = promptBoolOnce . "desktop" "Desktop machine (GUI)" -}}
 {{- end -}}
+{{- /* dev = agents and toolchains (mise, Zoekt); desktops always, servers when asked (e.g. jarvis) */ -}}
+{{- $dev := true -}}
+{{- if not $desktop -}}
+{{-   $dev = promptBoolOnce . "dev" "Dev machine (agents, toolchains)" -}}
+{{- end -}}
 {{- $personal := promptBoolOnce . "personal" "Personal machine" -}}
+{{- $name := promptStringOnce . "name" "Git name" "Richard Kolkovich" -}}
 {{- $email := promptStringOnce . "email" "Git email" -}}
 {{- $secrets := promptChoiceOnce . "secrets" "Secrets backend" (list "protonpass" "1password" "none") -}}
 sourceDir = {{ .chezmoi.workingTree | quote }}
@@ -16,7 +22,9 @@ sourceDir = {{ .chezmoi.workingTree | quote }}
 [data]
   omarchy  = {{ $omarchy }}
   desktop  = {{ $desktop }}
+  dev      = {{ $dev }}
   personal = {{ $personal }}
+  name     = {{ $name | quote }}
   email    = {{ $email | quote }}
   # protonpass (pass-cli) | 1password (op) | none; picks the lookup in secret templates
   secrets  = {{ $secrets | quote }}

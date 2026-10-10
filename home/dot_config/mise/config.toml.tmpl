@@ -1,8 +1,8 @@
 [tools]
 gh = "latest"
 node = "26.11.1" # also servers: Mason installs some LSPs (e.g. YAML) via npm
-{{- if .desktop }}
-# workstation tooling: agents, Go/Rust toolchains, uv (gibr, codemod)
+{{- if or .desktop .dev }}
+# dev machines (desktops, or servers with .dev): agents, Go/Rust toolchains, uv (gibr, codemod)
 claude = "latest"
 codex = "latest"
 go = "latest"

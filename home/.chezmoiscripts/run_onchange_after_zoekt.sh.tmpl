@@ -1,7 +1,7 @@
-{{- if .desktop -}}
+{{- if or .desktop .dev -}}
 #!/bin/sh
 # Install Zoekt into pi's bin dir (on PATH via .zshenv). Updates: sysup.
-# Desktops only: servers don't index code.
+# Dev machines only (desktops, or servers with .dev): others don't index code.
 set -eu
 . "$HOME/.local/sh/dirs.env"
 export PATH="$HOME/.local/share/mise/shims:$PATH"
