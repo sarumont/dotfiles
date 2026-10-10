@@ -13,6 +13,9 @@
 .local/sh/dirs-ifrit.env
 .config/tmux/tmux.ifrit.conf
 {{ end }}
+{{ if ne .chezmoi.hostname "jarvis" }}
+.local/sh/dirs-jarvis.env
+{{ end }}
 
 # Neovim: Omarchy's theme integration only on Omarchy; there, theme.lua is a
 # symlink owned by omarchy-theme-set, so chezmoi must leave it alone.

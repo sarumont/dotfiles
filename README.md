@@ -94,6 +94,7 @@ GitHub **bot** account: in step 2 log `gh` in as the bot and add its key to the
 bot account (auth + signing), answer the bot's name/email at `chezmoi init`, and
 don't add its key to this repo. It only reads dotfiles (public); its work goes
 through PRs from the bot. Then `claude` → `/login` with the subscription.
+`dirs-jarvis.env` makes `claude` the herdr workspace agent (pi needs API keys).
 
 Machines initialized before a prompt existed keep working (fallbacks in
 `.chezmoidata/defaults.yaml`); to record the new answers and silence chezmoi's
