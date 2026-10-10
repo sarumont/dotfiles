@@ -113,8 +113,10 @@ fi
 
 if have pi; then
   step "pi models and extensions"
-  pi update --models
-  pi update --extensions
+  # A stale provider login (e.g. an expired OAuth refresh token) shouldn't
+  # stop the rest of the run; re-login inside pi (/login) to fix it.
+  pi update --models || warn "pi model refresh failed (provider login?); continuing"
+  pi update --extensions || warn "pi extension update failed; continuing"
   restore_pi_subagents_cfg
 fi
 
