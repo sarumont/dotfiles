@@ -387,6 +387,14 @@ night light indicator (it tracks hyprsunset) is left out of `items` in
 `~/.config/omarchy/shell.json`; if hyprsunset ever gets started anyway,
 `pkill -x hyprsunset`.
 
+Light/dark mode follows the same schedule: the gammastep hook
+`~/.config/gammastep/hooks/color-scheme` sets GNOME's `color-scheme` to light
+in full daylight and dark from dusk until dawn finishes. Browsers follow it
+(Chromium via Omarchy's `BrowserColorScheme: device` policy; Firefox with
+Website appearance on Automatic), as do GTK apps. The Omarchy theme itself
+doesn't change, and `omarchy theme set` resets the scheme until the next
+day/night change.
+
 Layout: Hyprland's scrolling layout on every workspace (niri/OmniWM-style),
 set in `looknfeel.lua`. Omarchy's `SUPER+L` dwindle/scrolling toggle is
 unbound; it saves per-workspace overrides in

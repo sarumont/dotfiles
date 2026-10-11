@@ -1,0 +1,15 @@
+#!/bin/sh
+# gammastep hook: follow the sun with the desktop color scheme, which browsers
+# (Firefox, Chromium with BrowserColorScheme=device) and GTK apps read via the
+# portal. Light in full daylight, dark from dusk until dawn has finished.
+# gammastep runs this as: color-scheme period-changed <old> <new>
+# (periods: none, daytime, transition, night), including once at startup.
+# The Omarchy theme itself is untouched; `omarchy theme set` resets the scheme
+# to the theme's until the next period change.
+[ "${1:-}" = period-changed ] || exit 0
+case "${3:-}" in
+  daytime) scheme=prefer-light ;;
+  transition | night) scheme=prefer-dark ;;
+  *) exit 0 ;;
+esac
+gsettings set org.gnome.desktop.interface color-scheme "$scheme"
