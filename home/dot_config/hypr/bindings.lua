@@ -128,6 +128,9 @@ o.window("^(obsidian|md\\.obsidian\\.Obsidian)$", { workspace = "name:notes" })
 -- chrome-<host>__<path>-Default); Signal is the native signal-desktop.
 o.window("^(chrome-(discord\\.com|messages\\.google\\.com)__.*|[Ss]ignal|signal-desktop)$", { workspace = "name:comms" })
 o.window("^org\\.omarchy\\.cliamp$", { workspace = "name:music" })
+-- Roon runs under Bottles (Proton runner), so its class is the generic
+-- steam_proton; match the title too.
+o.window({ class = "^steam_proton$", title = "^Roon$" }, { workspace = "name:music" })
 
 -- Visor (Quake-style drop-down terminal, as in sway/OmniWM): ~/.local/bin/visor
 -- toggles the special workspace "visor", launching the terminal on first use.
