@@ -39,6 +39,10 @@ so clones (including chezmoi externals) fail until the key is on GitHub.
     # One key per machine, no passphrase (disk encryption protects it at rest).
     # git signs commits with this same key.
     ssh-keygen -t ed25519
+    # macOS may use a passphrase (ifrit does): ~/.ssh/config stores it in the
+    # Keychain (UseKeychain) and .zshrc loads the key into the system agent.
+    # Store it once after chezmoi apply:
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 
     yay -S github-cli chezmoi          # Arch / Omarchy
     brew install gh chezmoi            # macOS

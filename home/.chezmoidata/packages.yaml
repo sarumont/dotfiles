@@ -87,7 +87,6 @@ packages:
     - jq
     - jwt-cli
     - k9s
-    - keychain
     - mise
     - lazydocker
     - luarocks

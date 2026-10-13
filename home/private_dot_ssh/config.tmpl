@@ -10,3 +10,9 @@ Host *
   ServerAliveCountMax 3
   # trust new hosts automatically, still refuse changed host keys
   StrictHostKeyChecking accept-new
+{{- if eq .chezmoi.os "darwin" }}
+  # passphrase-protected key: store the passphrase in the macOS Keychain and
+  # add the key to the system agent on first use
+  UseKeychain yes
+  AddKeysToAgent yes
+{{- end }}

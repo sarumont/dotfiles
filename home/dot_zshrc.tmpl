@@ -147,6 +147,12 @@ docker() {
 }
 
 eval "$(mise activate zsh)"
+{{- if eq .chezmoi.os "darwin" }}
+
+# SSH: load keys whose passphrase is in the macOS Keychain into the system
+# agent, so git signing works before the first ssh (see ~/.ssh/config)
+ssh-add -l &>/dev/null || ssh-add --apple-load-keychain -q 2>/dev/null
+{{- end }}
 
 zprof_on_prompt() {
   zprof
