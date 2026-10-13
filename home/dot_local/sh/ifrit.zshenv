@@ -12,4 +12,7 @@ export OBSIDIAN_VAULT_DIR="$HOME/My Drive/notes/moov-second-brain"
 export BUMPER_PD_PATH="$HOME/github.com/moovfinancial/platform-dev"
 export BUMPER_INFRA_PATH="$HOME/github.com/moovfinancial/infra"
 export GCLOUD_HOME="/opt/google-cloud-sdk/"
+if [[ -n "${GCLOUD_HOME:-}" ]]; then
+  path+=("${GCLOUD_HOME%/}/bin")
+fi
 export GOOGLE_CLOUD_PROJECT="moov-gemini"
