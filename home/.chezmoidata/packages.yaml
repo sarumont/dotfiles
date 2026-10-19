@@ -108,6 +108,7 @@ packages:
     - android-platform-tools
     - ghostty
     - font-monaspace-nerd-font
+    - antigravity-cli
     - 1password-cli
   darwin_personal_cask:
     - syncthing
