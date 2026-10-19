@@ -82,7 +82,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Never merge pull requests. Agents may create and update PRs, but merging always remains a human action.
 - Active PR: `gh pr view --json number,title,url --jq '"PR #\\(.number): \\(.title)\\n\\(.url)"'`.
 - PR comments: `gh pr view …` + `gh api …/comments --paginate`.
-- Replies: cite fix + file/line. Only auto-resolve threads from @sarumont or bots after the fix lands; do not auto-resolve threads opened by other humans.
+- Replies: cite fix + file/line. Only auto-resolve threads from @sarumont or bots after the fix lands or after replying with a decline reason; do not auto-resolve threads opened by other humans.
 - When you've addressed an issue from another human's review, comment `fixed` and leave the thread open for them to resolve — never resolve another human's thread yourself.
 - Slack review requests: post only the links, nothing else — no preamble, summary, or commentary.
 - Post to Slack with `slackpost <channel-id-or-#name> <message>` (`~/.local/bin/slackpost`; posts as you via session tokens, suppresses link previews).
