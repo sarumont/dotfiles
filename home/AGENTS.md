@@ -124,6 +124,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 - use `linear` for interacting with Linear tickets. These will be of the format
   FOO-123
+- When printing ticket numbers in conversation, make them links: `[FOO-123](https://linear.app/moov/issue/FOO-123)`. Same for PRs/issues (GitHub URLs) where possible.
 - When starting a ticket, always set its status to `In Progress` and assign it to Richard (@sarumont).
 
 ### gh
