@@ -20,7 +20,13 @@
       "center": [
         {
           "id": "omarchy.indicators",
-          "items": ["Dictation", "ScreenRecording", "Reminder", "Dnd", "StayAwake"]
+          "items": [
+            "Dictation",
+            "ScreenRecording",
+            "Reminder",
+            "Dnd",
+            "StayAwake"
+          ]
         },
         {
           "id": "omarchy.clock",
@@ -58,7 +64,8 @@
           "id": "omarchy.monitor"
         },
         {
-          "id": "omarchy.power"
+          "id": "omarchy.power",
+          "showPercentage": true
         }
       ]
     }

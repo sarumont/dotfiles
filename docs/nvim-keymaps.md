@@ -94,6 +94,7 @@ LazyVim's defaults apply unless listed here
 | `<leader>ca` / `cr` / `cl` | code action / rename / LSP info |
 | `<leader>ul` / `uL` | toggle line numbers / relative numbers |
 | `<leader>uz` / `uZ` | zen / zoom |
+| `<leader>uk` / `uK` | toggle completion: buffer / all buffers (session only) |
 | `<leader>uC` | colorschemes (Omarchy sets the theme itself) |
 
 ## Other plugins

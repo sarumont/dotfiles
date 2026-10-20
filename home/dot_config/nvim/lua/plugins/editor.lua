@@ -13,7 +13,12 @@ return {
   },
   {
     "saghen/blink.cmp",
-    opts = { keymap = { ["<C-k>"] = false } },
+    opts = {
+      keymap = { ["<C-k>"] = false },
+      -- vim.g.completion = false turns completion off everywhere (<leader>uK);
+      -- blink itself honors vim.b.completion per buffer (<leader>uk)
+      enabled = function() return vim.g.completion ~= false end,
+    },
   },
   {
     "nvim-neo-tree/neo-tree.nvim",

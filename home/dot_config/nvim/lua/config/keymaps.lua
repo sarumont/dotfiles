@@ -42,6 +42,18 @@ map("n", "<leader>fz", function() Snacks.picker.lines() end, { desc = "Search bu
 map("n", "<leader>fh", function() Snacks.picker.help() end, { desc = "Help pages" })
 map({ "n", "x" }, "<leader>fm", function() LazyVim.format({ force = true }) end, { desc = "Format" })
 
+-- completion (blink.cmp) on/off: buffer / every buffer, for this session
+Snacks.toggle({
+  name = "Completion (buffer)",
+  get = function() return vim.b.completion ~= false end,
+  set = function(state) vim.b.completion = state end,
+}):map("<leader>uk")
+Snacks.toggle({
+  name = "Completion (global)",
+  get = function() return vim.g.completion ~= false end,
+  set = function(state) vim.g.completion = state end,
+}):map("<leader>uK")
+
 -- file tree
 map("n", "<C-n>", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
 
