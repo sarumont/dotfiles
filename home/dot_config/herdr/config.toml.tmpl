@@ -47,27 +47,27 @@ split_horizontal = 'prefix+"'
 [[keys.command]]
 key = "prefix+ctrl+o"
 type = "popup"
-command = "herdr-workspace-switch"
+command = "/bin/zsh -lc 'exec herdr-workspace-switch'"
 
 [[keys.command]]
 key = "prefix+shift+n"
 type = "popup"
-command = "herdr-workspace-task"
+command = "/bin/zsh -lc 'exec herdr-workspace-task'"
 
 [[keys.command]]
 key = "prefix+shift+c"
 type = "popup"
-command = "herdr-workspace-tab-repo"
+command = "/bin/zsh -lc 'exec herdr-workspace-tab-repo'"
 
 [[keys.command]]
 key = "prefix+ctrl+w"
 type = "popup"
-command = "herdr-workspace-pick"
+command = "/bin/zsh -lc 'exec herdr-workspace-pick'"
 
 [[keys.command]]
 key = "prefix+shift+o"
 type = "popup"
-command = "herdr-agent-waiting"
+command = "/bin/zsh -lc 'exec herdr-agent-waiting'"
 
 # Everything else (focus_pane_h/j/k/l, zoom=z, reload_config=shift+r)
 # already matches the tmux config's intent under herdr's defaults — left unset.
