@@ -58,7 +58,7 @@ ticket)
 	if ! issue_json=$(linear issue view "$ticket" --json --no-comments 2>&1); then
 		fail_ticket "Could not load $ticket from Linear:\n$issue_json"
 	fi
-	if ! labels=$(printf '%s\n' "$issue_json" | jq -er '.labels.nodes[]?.name' 2>&1); then
+	if ! labels=$(printf '%s\n' "$issue_json" | jq -r '.labels[]?.name' 2>&1); then
 		fail_ticket "Could not parse the Linear response for $ticket:\n$labels"
 	fi
 	repos=$(list_repos)
@@ -77,12 +77,13 @@ ticket)
 $labels
 EOF
 	)
-	[ -n "$selected" ] || {
-		printf 'No repository labels matched ticket %s\n' "$ticket" >&2
-		exit 1
-	}
-
-	exec herdr-workspace-new "$ticket" "$selected"
+	if [ -z "$selected" ]; then
+		printf 'No repository labels matched ticket %s; opening without repository tabs.\n' "$ticket" >&2
+	fi
+	if ! herdr-workspace-new "$ticket" "$selected"; then
+		fail_ticket "Workspace creation failed for $ticket."
+	fi
+	exit 0
 	;;
 generic)
 	printf 'Workspace name: ' >&2
