@@ -1,0 +1,3 @@
+# Runtime power management for every PCI device (was TLP's RUNTIME_PM_ON_BAT):
+# idle devices may suspend, so the CPU package reaches deeper C-states.
+ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"

@@ -1,0 +1,24 @@
+{{- if and (eq .chezmoi.os "linux") .desktop -}}
+{{- $rule := joinPath .chezmoi.workingTree "system/etc/udev/rules.d/90-pci-runtime-pm.rules" -}}
+{{- $sysctl := joinPath .chezmoi.workingTree "system/etc/sysctl.d/90-nmi-watchdog.conf" -}}
+#!/bin/sh
+# Install the power-saving drop-ins from system/etc/ (PCI runtime PM, NMI
+# watchdog off) and apply them now. Re-runs when either changes.
+# hash: {{ include $rule | sha256sum }} {{ include $sysctl | sha256sum }}
+set -eu
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+cat > "$tmp/rule" <<'RULE'
+{{ include $rule -}}
+RULE
+cat > "$tmp/sysctl" <<'SYSCTL'
+{{ include $sysctl -}}
+SYSCTL
+rule=/etc/udev/rules.d/90-pci-runtime-pm.rules
+sysctl=/etc/sysctl.d/90-nmi-watchdog.conf
+cmp -s "$tmp/rule" "$rule" || sudo install -D -m 644 "$tmp/rule" "$rule"
+cmp -s "$tmp/sysctl" "$sysctl" || sudo install -D -m 644 "$tmp/sysctl" "$sysctl"
+sudo udevadm control --reload
+sudo udevadm trigger --action=add --subsystem-match=pci
+sudo sysctl -q -p "$sysctl"
+{{ end -}}
