@@ -1,0 +1,20 @@
+{{- if and (eq .chezmoi.os "linux") .desktop -}}
+{{- $rule := joinPath .chezmoi.workingTree "system/etc/udev/rules.d/90-battery-charge-thresholds.rules" -}}
+#!/bin/sh
+# Install the battery charge-threshold udev rule from system/etc/udev/ on
+# laptops whose battery supports thresholds, and apply it now.
+# Re-runs when the rule changes. hash: {{ include $rule | sha256sum }}
+set -eu
+[ -e /sys/class/power_supply/BAT0/charge_control_end_threshold ] || exit 0
+dest=/etc/udev/rules.d/90-battery-charge-thresholds.rules
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+cat > "$tmp" <<'RULE'
+{{ include $rule -}}
+RULE
+if ! cmp -s "$tmp" "$dest"; then
+  sudo install -D -m 644 "$tmp" "$dest"
+  sudo udevadm control --reload
+fi
+sudo udevadm trigger --action=add --subsystem-match=power_supply --sysname-match=BAT0
+{{ end -}}

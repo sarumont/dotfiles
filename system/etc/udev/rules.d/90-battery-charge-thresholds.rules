@@ -1,0 +1,5 @@
+# Battery care: charge only below 75%, stop at 80% (was TLP's
+# START/STOP_CHARGE_THRESH_BAT0). ThinkPads keep these in the EC, but a
+# firmware update or reset can drop them; this reapplies them at boot.
+# End first: the kernel rejects a start threshold at or above the current end.
+ACTION=="add", SUBSYSTEM=="power_supply", KERNEL=="BAT0", ATTR{charge_control_end_threshold}="80", ATTR{charge_control_start_threshold}="75"

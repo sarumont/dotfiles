@@ -274,6 +274,7 @@ Changes beyond the files chezmoi writes. Automated ones run from
 | Enable `tailscaled` | personal Linux | Automated: `run_once_after_20-services.sh` | `sudo systemctl disable --now tailscaled` |
 | `pacman.conf` `Color`, avahi | plain Arch | Manual (step 1) | revert the line / disable the service |
 | keyd: Caps Lock = Ctrl when held, Esc when tapped, all keyboards. Right Alt = Compose: keyd emits a raw Caps Lock, which Omarchy's `compose:caps` xkb option turns into Compose (breaks if Omarchy drops that option). | Linux desktops | Automated: config in `system/etc/keyd/default.conf`, installed by `run_onchange_after_40-keyd.sh` | `sudo systemctl disable --now keyd` (and `yay -R keyd`) |
+| Battery charge thresholds: charge below 75%, stop at 80% (replaces TLP's `START/STOP_CHARGE_THRESH_BAT0`). Skipped when `BAT0` has no threshold support. | Linux desktops (laptops) | Automated: udev rule in `system/etc/udev/rules.d/90-battery-charge-thresholds.rules`, installed by `run_onchange_after_42-battery-thresholds.sh` | `sudo rm /etc/udev/rules.d/90-battery-charge-thresholds.rules`; the EC keeps the last values, so also `echo 100 \| sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold` |
 
 # Reference
 
