@@ -15,4 +15,5 @@ printf '%s' "$current" | jq --indent 2 --argjson want '{{ dict
     "openai/gpt-6-luna" "openai/gpt-6-sol" "openai/gpt-6.1-sol" "openai/gpt-6-astra")
   "packages" (list "https://github.com/umputun/revdiff" "npm:pi-herdr-subagents" "npm:pi-mcp-adapter")
   "extensions" (list "-builtin:mcp")
+  "tuiMode" "regular"
   | toJson }}' '. * $want{{ if eq .chezmoi.hostname "ifrit" }} | .skills = ["~/github.com/moovfinancial/agent-skills"]{{ end }}{{ if not .omarchy }} | .theme = "dark"{{ end }}'

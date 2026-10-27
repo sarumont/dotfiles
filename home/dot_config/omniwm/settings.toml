@@ -59,6 +59,7 @@ right = 8.0
 top = 8.0
 
 [general]
+animationSpeed = 1.0
 animationsEnabled = true
 defaultLayoutType = "niri"
 hotkeysEnabled = true
@@ -105,6 +106,7 @@ containerPrimarySpanPresets = [0.3333333333333333, 0.5, 0.66]
 defaultContainerPrimarySpan = 0.5
 edgeGaps = true
 infiniteLoop = false
+resizeStepPercent = 5
 singleWindowFit = "4x3"
 visibleContainerCount = 2
 
@@ -168,10 +170,14 @@ hiddenBarIsCollapsed = true
 
 [statusBar]
 showAppNames = false
+showIcon = true
 showWorkspaceName = false
 useWorkspaceId = false
 
 [workspaceBar]
+autoHide = false
+autoHideHideDelayMilliseconds = 0.0
+autoHideRevealDelayMilliseconds = 0.0
 backgroundOpacity = 0.1
 deduplicateAppIcons = false
 enabled = true
@@ -183,6 +189,8 @@ hoverPreviewsEnabled = true
 labelFontSize = 12.0
 notchActiveZoneWidth = 180.0
 notchMode = "rightOfNotch"
+notificationBadgeRefreshIntervalSeconds = 5.0
+notificationBadges = "off"
 position = "overlappingMenuBar"
 reserveLayoutSpace = false
 revealHoldMilliseconds = 200.0
@@ -1001,6 +1009,10 @@ id = "openCommandPalette"
 [[hotkeys]]
 binding = "Option+Shift+R"
 id = "raiseAllFloatingWindows"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleFloatingFocus"
 
 [[hotkeys]]
 binding = "Unassigned"

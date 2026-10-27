@@ -104,6 +104,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     - Push and create/update stacked PRs with `gh stack push` and `gh stack submit`.
     - Sync and rebase with `gh stack sync` and `gh stack rebase`.
 - Create PRs as drafts unless explicitly instructed to publish them.
+- Always run a local review (e.g. `moov-review` or `reviewer` agent) of every diff before pushing or opening a PR, drafts included. Fix blocking findings first.
 - If not using `gh stack`:
     - Create branches using `gibr`, if available; if unavailable, use `uvx gibr`. Prompt for ticket number from user.
     - If user types a command (“pull and push”), that’s consent for that command.
