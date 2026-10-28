@@ -123,6 +123,9 @@ end
 -- Apps that open on their workspace (Firefox's screen-sharing indicator keeps
 -- Omarchy's rule, which hides it).
 o.window({ class = "^firefox$", title = "negative:.*is sharing.*" }, { workspace = "name:www" })
+-- Firefox doesn't inhibit idle for every video player (e.g. FOX One streams),
+-- so keep the screensaver away while it's fullscreen, as Omarchy does for Steam.
+o.window("^firefox$", { idle_inhibit = "fullscreen" })
 o.window("^(obsidian|md\\.obsidian\\.Obsidian)$", { workspace = "name:notes" })
 -- Discord and Google Messages are Omarchy web apps (Chromium --app: class
 -- chrome-<host>__<path>-Default); Signal is the native signal-desktop.
