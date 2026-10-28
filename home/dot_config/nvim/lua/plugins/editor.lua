@@ -48,6 +48,22 @@ return {
     "biozz/whop.nvim",
     cmd = "Whop",
     keys = { { "<leader>cw", "<cmd>Whop<cr>", desc = "Whop (transform buffer)" } },
-    opts = {},
+    opts = { builtin_commands = true },
+    config = function(_, opts)
+      local whop = require("whop")
+      whop.setup(opts)
+      -- The plugin command requires a misspelled Telescope module path.
+      vim.api.nvim_create_user_command("Whop", function(arg)
+        if arg.args ~= "" then
+          whop.find_and_run_cmd(arg.args)
+        else
+          whop.select()
+        end
+      end, {
+        nargs = "?",
+        complete = function() return whop._command_names end,
+        force = true,
+      })
+    end,
   },
 }
