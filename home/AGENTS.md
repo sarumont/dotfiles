@@ -128,6 +128,13 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - When printing ticket numbers in conversation, make them links: `[FOO-123](https://linear.app/moov/issue/FOO-123)`. Same for PRs/issues (GitHub URLs) where possible.
 - When starting a ticket, always set its status to `In Progress` and assign it to Richard (@sarumont).
 
+### incident.io
+
+- Use the `incident-io` MCP server for incidents (format `INC-1234`).
+- Read freely: incident details, roles, timeline, updates.
+- Never post updates, edit fields, change status/severity, assign roles, or resolve/close an incident without explicit approval. Draft the exact text or change first and wait for a yes.
+- Link related Linear tickets and PRs in drafts; state verified facts vs. suspicions explicitly.
+
 ### gh
 - GitHub CLI for PRs/CI/releases. Given issue/PR URL (or `/pull/5`): use `gh`, not web search.
 - Examples: `gh issue view <url> --comments -R owner/repo`, `gh pr view <url> --comments --files -R owner/repo`.
@@ -136,7 +143,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 - Draft tickets in the working doc (Obsidian/Notion) first. Do NOT create in Linear until explicitly asked; use `linear` to file.
 - Use the `writing-linear-tickets` skill for content: one clear outcome, scope, done condition, explicit non-scope; spike/decision tickets when the work is a decision, not code.
-- Titles: append points after an em-dash, invariant unit `pt` (e.g. `— 2 pt`).
+- Titles in drafts (chat, Obsidian, Notion, etc.): append points after an em-dash, invariant unit `pt` (e.g. `— 2 pt`).
+- When filing in the system of record (e.g. Linear): drop the points suffix from the title and set the estimate field instead.
 
 **Pointing calibration (transfers/ledger/bff domain — adjust per team):**
 - First question: "is there an existing flow/template this mirrors?" If yes, breadth of touchpoints ≠ complexity — cap low.
