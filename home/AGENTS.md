@@ -85,7 +85,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Replies: cite fix + file/line. Only auto-resolve threads from @sarumont or bots after the fix lands or after replying with a decline reason; do not auto-resolve threads opened by other humans.
 - When you've addressed an issue from another human's review, comment `fixed` and leave the thread open for them to resolve — never resolve another human's thread yourself.
 - Slack review requests: post only the links, nothing else — no preamble, summary, or commentary.
-- Post to Slack with `slackpost <channel-id-or-#name> <message>` (`~/.local/bin/slackpost`; posts as you via session tokens, suppresses link previews).
+- Post to Slack with the Slack MCP server (`slack_send_message`; posts as you, link previews off by default). `slackpost` is deprecated.
 - When merging a PR: thank the contributor in `CHANGELOG.md`.
 
 ### Git
