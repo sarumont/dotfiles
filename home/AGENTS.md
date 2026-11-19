@@ -97,6 +97,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Avoid manual `git stash`; if Git auto-stashes during pull/rebase, that’s fine (hint, not hard guardrail).
 - commits:
     - format commit messages as per Conventional Commits
+- Manual release tags: pick the semver bump from the Conventional Commits since the last tag (`feat` → minor, `fix`/other → patch, `!`/`BREAKING CHANGE` → major; pre-1.0, breaking → minor). Don't copy the previous tag's bump.
     - prefer small, atomic commits
 - Prefer GitHub's stacked PR workflow via `gh stack` for dependent changes:
     - Initialize with `gh stack init`; add dependent branches with `gh stack add`.
