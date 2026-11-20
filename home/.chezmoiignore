@@ -24,7 +24,6 @@
 {{ else }}
 .config/nvim/lua/plugins/all-themes.lua
 .config/nvim/lua/plugins/omarchy-theme-hotreload.lua
-.config/nvim/plugin/after/transparency.lua
 {{ end }}
 
 # Hyprland/Omarchy user config only on Omarchy; display scaling is per machine.

@@ -234,7 +234,9 @@ upgraded rather than partially (which fails with file conflicts when packages
 are split); on Omarchy it runs `yay -S --needed` and leaves full upgrades to
 `omarchy update`. Language runtimes and agent CLIs come from mise
 (`~/.config/mise/config.toml`, a template: `gh` and `node` everywhere; claude,
-codex, go, pi, rust and uv on desktops only). Add tools by editing
+codex, go, pi, rust and uv on dev machines only). On Omarchy, gh, claude,
+codex, pi and `upgrade.auto_prune` come from Omarchy's `/etc/mise/conf.d/`
+instead (auto-updating), so the template leaves them out there. Add tools by editing
 `home/dot_config/mise/config.toml.tmpl`, not with `mise use -g` (that edits the
 live file and shows up as drift).
 

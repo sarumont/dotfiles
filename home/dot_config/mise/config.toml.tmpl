@@ -1,15 +1,24 @@
 [tools]
+{{- if not .omarchy }}
+# Omarchy ships gh, the agent CLIs and auto_prune in /etc/mise/conf.d/
 gh = "latest"
+{{- end }}
 node = "26.11.1" # also servers: Mason installs some LSPs (e.g. YAML) via npm
 {{- if or .desktop .dev }}
 # dev machines (desktops, or servers with .dev): agents, Go/Rust toolchains, uv (gibr, codemod)
+{{- if not .omarchy }}
 claude = "latest"
 codex = "latest"
+{{- end }}
 go = "latest"
+{{- if not .omarchy }}
 pi = "latest"
+{{- end }}
 rust = "latest"
 uv = "latest"
 {{- end }}
+{{- if not .omarchy }}
 
 [settings.upgrade]
 auto_prune = false
+{{- end }}
