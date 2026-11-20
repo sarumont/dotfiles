@@ -1,4 +1,4 @@
-local vault = vim.fn.expand(os.getenv("OBSIDIAN_VAULT_DIR") or "~/notes")
+local vault = vim.fn.expand(os.getenv "OBSIDIAN_VAULT_DIR" or "~/notes")
 
 return {
   "obsidian-nvim/obsidian.nvim",
@@ -15,7 +15,7 @@ return {
     workspaces = { { name = "vault", path = vault } },
     legacy_commands = false,
     completion = { blink = true, nvim_cmp = false },
-    picker = { name = "snacks.pick" },
+    picker = { name = "snacks.picker" },
     note_id_func = function(title)
       if title ~= nil then
         return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
